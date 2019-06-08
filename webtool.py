@@ -181,7 +181,6 @@ def todo():
         todos = [i.replace('\n', '') for i in todos]
         todos = [i.replace('COMMA', ',') for i in todos]
         todos.reverse()
-        print(todos)
         return render_template('todo2.html', result=todos)
 
     # Submission route for new todos.
@@ -266,7 +265,6 @@ def quickdrawGame():
         file = open('text/locked.txt')
         result = file.readlines()
         file.close()
-        print(result)
         if result[0] != "True\n":
             file = open('text/locked.txt', 'w')
             file.writelines('True\n'+user)
