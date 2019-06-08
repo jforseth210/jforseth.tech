@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Messages</title>
+    <link rel='stylesheet' href='http://jforseth.tech/static/index.css' type='text/css' />
+    <meta name='viewport' content='width=device-width initial-scale=1.0' />
+    <style>
+        body{
+            background:#9dbad6;
+            font-family:'Muli',sans-serif;
+            }
+            .send {
+            border: 1px black;
+            border-style: solid;
+            border-radius: 15px;
+            padding: 1px 10px;
+            width:210px;
+            height: 23px;
+            background: transparent;
+            }
+            .message{
+            border-radius: 15px;
+            padding: 8px;
+            padding-left: 8px;
+            margin: 3px 0px;
+            width: 75px;
+            background: #236DEB;
+            color: white;
+            }
+            ul{
+            list-style: none;
+            padding:0;
+            margin:0;
+            }
+            .no-pad{
+            padding:0;
+            margin:0;
+            }
+            #submit{
+            border-radius:10px;
+            color:#39547a;
+            font-weight: bold;	
+            border: none;
+            outline: none;
+            background: transparent;
+            }
+            #clear{
+            font-weight: bold; 
+border-radius:10px;
+border:1px solid #ddd;
+background:#39547a;
+color:#ddd
+            }
+            #text{
+            border: none;
+            outline: none;
+            }
+            iframe{
+            border: none;
+            outline: none;
+            height:225px;
+            width:100%;
+            }
+            input{
+            background:transparent;}
+        </style>
+</head>
+
+<body onload="form1.reset();">
+
+    <h1 class='no-pad'>Messages</h1>
+    <input type='button' value='Reload' onclick='window.location.reload()' id='clear' />
+    <form action="http://jforseth.tech/messenger/clear" method="POST">
+        <p><input id='clear' type="submit" value="Clear" /></p>
+    </form>
+    <iframe src='/messenger/frame' scrolling='yes'></iframe>
+    <form class='send' id='form1' action="http://jforseth.tech/messenger/result" method="POST">
+        <p class='no-pad'><input id='text' autocomplete='off' type="text" name="Data" /><input class='no=pad' id='submit'
+                type="submit" value="Send" /></p>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        input{
+            color: white;
+            background-color: blue;
+            width: 100%;
+            height: 300px;
+            font-size: 100pt;
+        }    
+    </style>
+</head>
+
+<body>
+    <form action='/quickdraw/shot'>
+        <input name = "user" value='{{ get_username() }}' hidden required/>
+        <input type="submit" value="SHOOT!"/>
+    </form>
+</body>
+
+</html>

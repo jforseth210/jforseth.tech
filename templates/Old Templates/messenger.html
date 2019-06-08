@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name='viewport' content='width=device-width initial-scale=1.0'/>
+        <title>Messages</title>
+        <style>
+            .send {
+            border: 1px black;
+            border-style: solid;
+            border-radius: 15px;
+            padding: 1px 10px;
+            width:210px;
+            height: 23px;
+            }
+            .message{
+            border-radius: 15px;
+            padding: 5px;
+            padding-left: 5px;
+            margin: 3px 0px;
+            width: 75px;
+            background: #236DEB;
+            color: white;
+            }
+            .content {
+            margin:auto;
+            font-family: sans-serif;
+            }
+            ul{
+            list-style: none;
+            padding:0;
+            margin:0;
+            }
+            .no-pad{
+            padding:0;
+            margin:0;
+            }
+            #submit{
+            color: #236DEB;
+            font-weight: bold;	
+            border: none;
+            outline: none;
+            background: white;
+            }
+            #clear{
+            color: #236DEB;
+            font-weight: bold;
+            border: solid 1px #236DEB;
+            border-radius: 5px;
+            outline: none;
+            background: white;
+            }
+            #text{
+            border: none;
+            outline: none;
+            }
+        </style>
+    </head>
+    <body  onload="form1.reset();">
+        <div class="content">
+            <h1 class='no-pad'>Messages</h1>
+            <p><em>Note: This page will not automatically update when another user sends a message. To view others messages you must manually refresh or wait for the page to do it automatically every 60 secs.</em></p>
+            <form action = "http://jforseth.tech/clear" method = "POST">
+                <p><input id='clear'type = "submit" value = "Clear" /></p>
+            </form>
+            <ul>
+                {% for value in result %}
+                <li class='message'> {{ value }} </li>
+                {% endfor %}
+            </ul>
+            <form class='send' id='form1' action = "http://jforseth.tech/result" 	method = "POST">
+                <p class='no-pad'><input id='text' autocomplete='off' type = "text" name = "Data" />
+                    <input class='no=pad'id='submit' type = "submit" value = "Send" />
+                </p>
+            </form>
+        </div>
+    </body>
+</html>

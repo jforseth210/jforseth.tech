@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <meta name='viewport' content='width=device-width initial-scale=1.0' />
+    <link rel='stylesheet' href='http://jforseth.tech/static/index.css' type='text/css' />
+    <link rel='stylesheet' href='index.css' type='text/css' />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <meta name='viewport' content='width=device-width initial-scale=1.0' />
+    <base href='http://jforseth.tech/' />
+    <!--<base href='http://127.0.0.1:5000/'/>-->
+    <title>How are you doing?</title>
+</head>
+
+<body>
+    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Cross_in_sunset.jpg/320px-Cross_in_sunset.jpg'
+        id='cross' />
+    <div class="heading">
+        <h1>How are you doing?</h1>
+    </div>
+    <nav>
+        <ul id="list-nav">
+            <li><a href="http://jforseth.tech/FlaskApp">Home</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="prayer">Prayer Requests</a></li>
+            <li><a href="/videos">Videos</a></li>
+            <li><a href="messenger">Chat</a></li>
+            <li><a href="mailto:406prayerrequests@gmail.com">Contact</a></li>
+        </ul>
+    </nav>
+    <div id='answered'>
+        <h3></h3>
+        <form id='form1' action="answer/submitted" method="POST">
+            <input type='name' name='name' id='name' placeholder='Nickname' required />
+            <select onclick='alert("Your response will be visible to everyone below, regardless of group.")' class='dropdown'
+                id='parish' form='form1' name='parish' width='75%' required>
+                <!--Remember to change both forms and the dict-->
+                <option disabled selected>Select</option>
+                <option>Public</option>
+                <option>Saint John RE</option>
+                <option>Saint John Parish</option>
+                <option>Testing</option>
+            </select>
+            <input form='form1' name='prequest' id='prequest' placeholder='How was your prayer request answered?'
+                required />
+            <input class='no=pad' id='submit' type="submit" value="Submit" />
+        </form>
+    </div>
+    <div>
+        <ul class='answers' id='answers'>
+            {% for value in result %}
+            <li>
+                <ul>
+                    <li>
+                        <h3>{{ value[2] }}</h3>
+                    </li>
+                    <li><em>{{ value[0] }}</em> from <em>{{ value[1]}}</em></li>
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <footer>
+        <small>Icon Credit: <a href='https://www.iconfinder.com'>www.iconfinder.com</a></small>
+        <br />
+        <small>Image Credit: <a href="https://commons.wikimedia.org/wiki/File:Cross_in_sunset.jpg">commons.wikimedia.org</a></small>
+    </footer>
+</body>
+
+</html>

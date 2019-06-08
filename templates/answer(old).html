@@ -1,0 +1,187 @@
+<html>
+
+<head>
+    <meta name='viewport' content='width=device-width initial-scale=1.0' />
+    <link rel='stylesheet' href='index.css' type='text/css' />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <meta name='viewport' content='width=device-width initial-scale=1.0' />
+    <style>
+        body{
+            background: #6587B7;
+            font-family: 'Muli', sans-serif;
+            }
+            textarea{
+            width: 300px;
+            height: 100px;
+            border:none;
+            background:transparent;
+            border-bottom: 1px #145DC3 solid;
+            }
+            .thumbnail{
+            width: 20%;
+            border: 2px solid black;
+            }
+            a{
+            color: black;
+            }
+            #name{
+            width: 100px;
+            border:none;
+            background:transparent;
+            border-bottom: 1px #145DC3 solid;
+            }
+            #number{
+            width: 30px;
+            border:none;
+            background:transparent;
+            border-bottom: 1px #145DC3 solid;
+            height:40px;
+            }
+            #unit{
+            border: none;
+            border-bottom: 1px solid #145DC3;
+            background: transparent;
+            height:40px;
+            }
+            .heading{
+            padding-bottom: 20px;
+            padding-top: 20px;
+            border-bottom: 1px solid black;
+            }
+            h1{
+            margin:0px;
+            }
+            #cross{
+            height:105px;
+            float:left;
+            padding:10px;
+            }
+            textarea{
+            font-family: 'Muli', sans-serif;
+            }
+            .forms{
+            padding-left: 5px;
+            float: left;
+            width: 30%;
+            }
+            #quote{
+            float:right;
+            width:62%;
+            height:445px;
+            text-align: center;
+            border-top: none;
+            }
+            footer{
+            width: 100%;
+            float: left;
+            }
+            #refresh{
+            float:right;
+            padding-right: 10px;}
+            #submit{
+            border-radius: 10px;
+            border: 1px solid black;
+            background: #7A9FD3;
+            }
+            #email{
+            border:none;
+            background:transparent;
+            border-bottom: 1px #145DC3 solid;  
+            } 
+            .dropdown{
+            height: 25px;
+            width:75px;
+            border:none;
+            background:transparent;
+            border-bottom: 1px #145DC3 solid;  
+            }
+            nav{
+            width:100%;
+            background:#204A87;
+            }
+            #list-nav {
+            margin:-8px;
+            padding:0px;
+            list-style:none;
+            width:100vw;
+            }
+            #list-nav li {
+            display:inline;
+            }
+            #list-nav li a {
+            text-decoration:none;
+            padding: 25px 0 0 0;
+            width:16.6%;
+            background:#204A87;
+            color:#eeeeee;
+            float:left;
+            text-align: center;
+            height: 75px;
+            }
+            #list-nav li a:hover {
+            background:#729FCF;
+            color:#000
+            }
+        </style>
+    <base href='http://jforseth.tech/'>
+    <title>Prayer Requests</title>
+</head>
+
+<body>
+    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Cross_in_sunset.jpg/320px-Cross_in_sunset.jpg'
+        id='cross' />
+    <div class="heading">
+        <h1>Answered Prayers</h1>
+    </div>
+    <nav>
+        <ul id="list-nav">
+            <li><a href="http://jforseth.tech/">Home</a></li>
+            <li><a href="http://jforseth.tech/">Home</a></li>
+            <li><a href="prayer">Prayer Requests</a></li>
+            <li><a href="prayer">Answered Prayers</a></li>
+            <li><a href="messenger">Chat</a></li>
+            <li><a href="mailto:406prayerrequests@gmail.com">Contact</a></li>
+        </ul>
+    </nav>
+    <div id="quote"></div>
+    <div class='forms'>
+        <h2>Request Prayer:</h2>
+        <form id='form1' action="prayer/prayerrequest" method="POST">
+            <input type='name' name='name' id='name' placeholder='Nickname' required />
+            <select class='dropdown' id='parish' form='form1' name='parish' required>
+                <option disabled selected>Select</option>
+                <option>Public</option>
+                <option>Saint John RE</option>
+                <option>Saint John Parish</option>
+                <option>Testing</option>
+            </select>
+            <br />
+            <textarea form='form1' name='prequest' placeholder="Type your prayer request here" required></textarea>
+            <br />
+            <br />
+            <input class='no=pad' id='submit' type="submit" value="Submit" />
+        </form>
+        <br /><br />
+        <h2>Or be notified when someone requests prayer:</h2>
+        <form class='send' id='form2' action="prayer/newemail" method="POST">
+            <p class='no-pad'>
+                <input id='email' autocomplete='off' type="email" name="email" placeholder='someone@example.com'
+                    required />
+                <input class='dropdown' name='parish' placeholder='PARISH' required></input>
+                <input class='no=pad' id='submit' type="submit" value="Submit" />
+            </p>
+        </form>
+    </div>
+    <footer>
+        <p><i id="refresh" class="w3-xlarge fa fa-refresh" onclick="getQuote()"></i></p>
+        <small>Icon Credit: <a href='https://www.iconfinder.com'>www.iconfinder.com</a></small>
+        <br />
+        <small>Image Credit: <a href="https://commons.wikimedia.org/wiki/File:Cross_in_sunset.jpg">commons.wikimedia.org</a></small>
+    </footer>
+</body>
+
+</html>

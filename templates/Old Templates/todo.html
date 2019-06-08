@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name='viewport' content='width=device-width initial-scale=1.0' />
+    <title>Todo</title>
+</head>
+
+<body>
+    <div>
+        <h1>TODO</h1>
+        <ul>
+            {% for value in result %}
+            <li> {{ value }} </li>
+            {% endfor %}
+        </ul>
+        <form action="http://jforseth.tech/todo/create" method="POST">
+            <p>Task Name:<input autocomplete='off' type="text" name="name" /></p>
+            <input type='submit' value='Send' />
+        </form>
+    </div>
+</body>
+
+</html>

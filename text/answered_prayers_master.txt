@@ -1,0 +1,14 @@
+[
+                {
+                  text: "A while ago I sent a prayer request for my friend who seemed to be struggling with something. Never found out what was wrong, could've been nothing at all, but they seem better now. Thanks for your prayers everyone!",
+                  verse:  "Someone"
+                },
+				{
+				text:'Test',
+				verse:'Someone else'
+				},
+				{
+				text:'This is a reeeeeeeeeeeeeeeeeaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalllllllllllllllllllllllllllllllllllllllllllllllllllllyyyyyyyyyyyyyyyyyyyyyyyyyyyyy loooooooooooooooooooooooooonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnggggggggggggggggggggggggggggggggggggggggg eeeeeeeeeeeeeeeeeeeeeelllllllllllllllllllllllllllllleeeeeeeeeeeeeeeeeeeeeeemmmmmmmmmmmmmmmmmmmmmeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeennnnnnnnnnnnnnnnnnnnnnnnnnnnttttttttttttttttttttttttttttttttttttttttt.',
+				verse:'Another person...'				
+				}
+              ]

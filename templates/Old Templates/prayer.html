@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Prayer Requests</title>
+    <!--Thanks to the creator of https://html-online.com/demo/popup-box/-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script src="http://jforseth.tech/static/modal_files/jquery.min.js"></script>
+    <script language="JavaScript" src="http://jforseth.tech/static/modal_files/script.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="http://jforseth.tech/static/modal_files/style.css">
+    <script type="text/javascript" src="http://jforseth.tech/static/modal_files/jsapi"></script>
+    <!--End https://html-online.com/demo/popup-box/-->
+    <!--Clicky Web Analytics-->
+    <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101163615);</script>
+    <script async src="//static.getclicky.com/js"></script>
+    <!--End Clicky Web Analytics-->
+    <meta name='viewport' content='width=device-width initial-scale=1.0' />
+    <link rel='stylesheet' href='http://jforseth.tech/static/index.css' type='text/css' />
+    <link rel='stylesheet' href='index.css' type='text/css' />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <base href='http://jforseth.tech/'>
+</head>
+
+<body onload="loaded()">
+    <img src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Cross_in_sunset.jpg/320px-Cross_in_sunset.jpg'
+        id='cross' />
+    <div class="heading">
+        <h1>Prayer Requests<sup><small>[BETA]</small></sup></h1>
+    </div>
+    <nav>
+        <ul id="list-nav" class='color'>
+            <li><a href="http://jforseth.tech/">Home</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="prayer">Prayer Requests</a></li>
+            <li><a href="/videos">Videos</a></li>
+            <li><a class="trigger_popup_fricc">Chat</a></li>
+            <li><a href="mailto:406prayerrequests@gmail.com">Contact</a></li>
+        </ul>
+    </nav>
+    <div id="quote"></div>
+    <div class='forms'>
+        <h2>Request Prayer:</h2>
+        <form id='form1' action="http://jforseth.tech/prayer/prayerrequest" method="POST">
+            <input class='inputs' type='name' name='name' id='name' placeholder='Nickname' required />
+            <select class='inputs dropdown' form='form1' name='parish' required>
+                <option disabled selected>Select</option>
+                <!--REMEMBER TO UPDATE BOTH FORMS AND THE DICT!-->
+                <option>Public</option>
+                <option>Saint John RE</option>
+                <option>Saint John Parish</option>
+		<option>Saint Joseph RE</option>
+		<option>Saint Joseph Parish</option>
+                <option>Testing</option>
+            </select>
+            <br />
+            <textarea id='prequest' class='inputs' form='form1' name='prequest' placeholder="Type your prayer request here"
+                required></textarea>
+            <br />
+            <br />
+            <input class='no=pad' id='submit' type="submit" value="Submit" />
+        </form>
+        <br /><br />
+        <h2>Or be notified when someone requests prayer:</h2>
+        <form class='send' id='form2' action="prayer/newemail" method="POST">
+            <p class='no-pad'>
+                <input class='inputs' id='email' autocomplete='off' type="email" name="email" placeholder='someone@example.com'
+                    required />
+                <input class='inputs dropdown' name='parish' placeholder='PARISH'>
+                <input class='no=pad' id='submit' type="submit" value="Submit" />
+            </p>
+        </form>
+    </div>
+    <footer>
+        <p><i id="refresh" class="w3-xlarge fa fa-refresh" onclick="getQuote()"></i></p>
+        <small>Icon Credit: <a href='https://www.iconfinder.com'>www.iconfinder.com</a></small>
+        <br />
+        <small>Image Credit: <a href="https://commons.wikimedia.org/wiki/File:Cross_in_sunset.jpg">commons.wikimedia.org</a></small>
+    </footer>
+    <script>
+        function loaded() {
+            var today = new Date().getHours();
+            if (today <= 6 || today >= 22) {
+                alert('It is after 10 p.m. Unless your prayer request is urgent, please be courteous and wait until morning. Thanks!');
+            }
+            getQuote();
+        }
+        function getQuote() {
+            var quotes = [
+                {
+                    text: "Ask and you will receive; seek and you will find; knock and the door will be opened to you.",
+                    verse: "Luke 11:9"
+                },
+                {
+                    text: "Rejoice always, pray continually, give thanks in all circumstances; for this is God’s will for you in Christ Jesus.",
+                    verse: '1 Thessalonians 5:16-18',
+                },
+                {
+                    text: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.",
+                    verse: "Philippians 4:6-7",
+                },
+                {
+                    text: 'This is the confidence we have in approaching God: that if we ask anything according to his will, he hears us.',
+                    verse: '1 John 5:14'
+                }, {
+                    text: 'Devote yourselves to prayer, being watchful and thankful.', verse: 'Collosians 4:2'
+                },
+                {
+                    text: 'Then you will call on me and come and pray to me, and I will listen to you.',
+                    verse: 'Jeremiah 29:12'
+                },
+                {
+                    text: 'To be a Christian without prayer is no more possible than to be alive without breathing',
+                    verse:'Martin Luther'
+                },
+                {
+                    text: 'Our prayers may be awkward. Our attempts may be feeble. But since the power of prayer is in the one who hears it and not the one who says it, our prayers do make a difference.',
+                    verse: 'Max Lucado'
+                
+                },
+                {
+                    text: 'Any concern too small to be turned to in prayer is too small to be made into a burden',
+                    verse: 'Corrie Ten Boom'
+                }
+            ];
+            var quote = quotes[Math.floor(Math.random() * quotes.length)];
+            if (screen.width > 650) {
+                document.getElementById("quote").innerHTML =
+                    '<h2>"' + quote.text + '"</h2>' +
+                    '<cite>' + quote.verse + '</cite>'
+                    ;
+            }
+        }
+
+    </script>
+    <!--Thanks to the creator of https://html-online.com/demo/popup-box/-->
+    <div class="hover_bkgr_fricc" style="display: none;">
+        <span class="helper"></span>
+        <div>
+            <div class="popupCloseButton">X</div>
+            <iframe frameborder='no' src='http://jforseth.tech/messenger' scrolling='no' height='100%' width='100%' />
+        </div>
+    </div>
+    <!--End https://html-online.com/demo/popup-box/-->
+</body>
+
+</html>

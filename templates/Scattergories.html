@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Scattergories{% endblock %}
+{% block heading %}
+Scattergories: {{ currentletter }}
+{% endblock %}
+{% block content %}
+    {% for i in list %}
+        <p>{{ i }}</p><input type=text/>
+    {% endfor %}
+{% endblock %}

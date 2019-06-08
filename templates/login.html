@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+{% block heading %}
+Login
+{% endblock %}
+{% block content %}
+   {{super()}}
+   {%if form.errors %}
+     <ul class="alert alert-danger">
+       {% for field, errors in form.errors.items() %}
+         <li>{{field}} {% for error in errors %}{{ error }}{% endfor %}</li>
+       {% endfor %}
+     </ul>
+   {% endif %}
+   <h3>Welcome to jforseth.tech</h3>
+   <p>Please sign in:</p>
+          <form action="{{ url_for('simplelogin.login') }}" method="post">
+            <div class="form-group">
+            {{ form.csrf_token }}
+            {{form.username.label}}<div class="form-control">{{ form.username }}</div><br>
+            {{form.password.label}}<div class="form-control"> {{ form.password }}</div><br>
+            {% if next %}<input type="hidden" name="next" value="{{next}}">{% endif %}
+            </form>
+           <input type="submit" value="Send">
+       </form>
+       <p>This login is not secure. I have no idea what I'm doing and this site not secure in any way, shape, or form. Your password is being sent over the internet in cleartext, and is only being encrypted in my database. In other words, your credentials are basically being shouted across the internet for everyone to hear. Whatever you do, don't use a username or password you use for other websites. You've been warned.</p>
+{% endblock %}
+
