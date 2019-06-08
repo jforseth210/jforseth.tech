@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Welcome{% endblock %}
+{% block heading %}
+jforseth.tech
+{% endblock %}
+{% block content %}
+<h2>Welcome to jforseth.tech</h2>
+<p>This is a website I've created for testing, and experimenting and trying new things.</p>
+<h3>My projects so far:</h3>
+
+<a href='/prayer'>
+    <img class='thumbnail' src='http://jforseth.tech/static/PrayerRequests.png' />
+    <br />
+    <b>Prayer Requests:</b></a>
+<br />
+<p>Chances are, this is what you're here for. This is the digital prayer chain project, and for now, it's the main
+    purpose of this site. For more info, click the "about" tab.</p>
+
+<a href='/messenger'>
+    <img class='thumbnail' src='http://jforseth.tech/static/Messenger.png'>
+    <br />
+    <b><u>Messenger:</u></b></a>
+<br />
+<p>This is an experimental messenger using SQLite. I'm still working on it, but it works okay...</p>
+
+<a href='/static/Todo.png'>
+    <img class='thumbnail' src='http://jforseth.tech/static/Todo.PNG'>
+    <br />
+    <b><u>Todo list:</u></b></a>
+<br />
+<p>A simple todo list I created for personal use.</p>
+
+<a href='/pickem'>
+    <img class='thumbnail' src='http://jforseth.tech/static/Pickem.PNG'>
+    <!--Stupid case sensative file system.-->
+    <br />
+    <b><u>Pickem:</u></b></a>
+<br />
+<p>A very experimental tool for guessing the results of an NFL week and then scoring it at the end. At the moment, it's
+    just a frontend form, but eventually it'll autograde and keep scores for everyone. Maybe I'll even find an API I can
+    use to get the weeks games automatically.</p>
+<p><b><u>Videos:</u></b>
+    <br />I also do some video editing. If your interested, <a href='/videos'>click here</a> to watch. (Be patient, it
+    takes a sec to load!)</p>
+<footer>
+    <small>More experiments and tools coming soon!</small>
+</footer>
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% block head %}<style>
+    .player-parent{
+        width: 64%;
+        height: 48%;
+    }
+    .youtube-player {
+        position: relative;
+        padding-bottom: 56.23%;
+        /* Use 75% for 4:3 videos */
+        height: 0;
+        overflow: hidden;
+        max-width: 100%;
+        background: #000;
+        margin: 5px;
+    }
+    
+    .youtube-player iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        background: transparent;
+    }
+    
+    .youtube-player img {
+        bottom: 0;
+        display: block;
+        left: 0;
+        margin: auto;
+        max-width: 100%;
+        width: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        border: none;
+        height: auto;
+        cursor: pointer;
+        -webkit-transition: .4s all;
+        -moz-transition: .4s all;
+        transition: .4s all;
+    }
+    
+    .youtube-player img:hover {
+        -webkit-filter: brightness(75%);
+    }
+    
+    .youtube-player .play {
+        height: 72px;
+        width: 72px;
+        left: 50%;
+        top: 50%;
+        margin-left: -36px;
+        margin-top: -36px;
+        position: absolute;
+        background: url("//i.imgur.com/TxzC70f.png") no-repeat;
+        cursor: pointer;
+    }
+</style>{% endblock %}
+{% block title %}Videos{% endblock %}
+{% block heading %}
+Videos
+{% endblock %}
+{% block content %}
+    <h5>These are all of my video editing projects. They're on this page because youtube videos take a while to load, and they're on YouTube because the computer running this site can barely play video without it being sent over the internet. Enjoy!</h5>
+    <h5>The compilation video of 2018 (with some other years in there too) and some of my best work. Watch this first.</h5>
+    <div class="player-parent"><div class="youtube-player" data-id="yXQ_RSpeQXQ"></div></div>
+    <!--<iframe width="640" height="480" src="https://www.youtube.com/embed/yXQ_RSpeQXQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    --><h5>Got a new drone for Christmas. Some of the first footage I shot with it.</h5> 
+     <div class="player-parent"><div class="youtube-player" data-id="Jr0qgW1cUIc"></div></div>
+     <h5>A video of my church's trip to the Montana Catholic Youth Coalition Convention in Helena.</h5>
+    <div class="player-parent"><div class="youtube-player" data-id="3wuaW4No4YQ"></div></div>
+    <!--<iframe width="640" height="480" src="https://www.youtube.com/embed/Jr0qgW1cUIc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    --><h5>Catholic Youth Coalition Convention 2018</h5>
+    <div class="player-parent"><div class="youtube-player" data-id="hMy_P4S9qro"></div></div>
+    <!--<iframe width="640" height="480" src="https://www.youtube.com/embed/hMy_P4S9qro" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    --><h5>My FFA chapter's trip to the 91st National FFA Convention and Expo in Indianapolis.</h5>
+    <div class="player-parent"><div class="youtube-player" data-id="sY5oVFlZVsM"></div></div>
+    <!--<iframe width="640" height="480" src="https://www.youtube.com/embed/sY5oVFlZVsM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    --><h5>My family's trip to Glacier National Park where we went whitewater rafting, ziplining, and more.</h5>
+    <div class="player-parent"><div class="youtube-player" data-id="tnPCpRnpH2M"></div></div>
+    <!--<iframe width="640" height="480" src="https://www.youtube.com/embed/tnPCpRnpH2M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    --><h5>A video of our 2018 wheat and barely harvest.</h5>
+    <div class="player-parent"><div class="youtube-player" data-id="UR_BH9qBh4o"></div></div>
+    <!--<iframe width="640" height="480" src="https://www.youtube.com/embed/UR_BH9qBh4o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    --><h5>Feeding round bales to cattle using a balebed pickup.</h5>
+    <div class="player-parent"><div class="youtube-player" data-id="fyfQr_Z43LE"></div></div>
+    <!--<iframe width="640" height="480" src="https://www.youtube.com/embed/fyfQr_Z43LE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    --><h5>A video of haying season 2018.</h5>
+    <div class="player-parent"><div class="youtube-player" data-id="vB6HxYbv0yQ"></div></div>
+    <!--<iframe width="640" height="480" src="https://www.youtube.com/embed/vB6HxYbv0yQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    --><h5>Working in the corrals with a skid steer. (Long and kinda boring, not my best work.)</h5>
+    <div class="player-parent"><div class="youtube-player" data-id="RqEOtgik7yM"></div></div>
+    <!--<iframe width="640" height="480" src="https://www.youtube.com/embed/RqEOtgik7yM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    --><h5>Quite possibly the first video I ever made, back when I was using Windows Movie Maker. :) It was to help raise funds for a remodel at my church.</h5>
+    <div class="player-parent"><div class="youtube-player" data-id="3786NdYe4AI"></div></div>
+    <!--<iframe width="640" height="480" src="https://www.youtube.com/embed/3786NdYe4AI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    --><h5>The much more entertaining bloopers for the above video.</h5>  
+    <div class="player-parent"><div class="youtube-player" data-id="Q5VdUxLcfPs"></div></div>
+    <!--<iframe width="640" height="480" src="https://www.youtube.com/embed/Q5VdUxLcfPs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>    
+    --><h5>My dad's project of swapping cabs on two pickups, edited by my mom.</h5>  
+    <div class="player-parent"><div class="youtube-player" data-id="qOiRH6jBi30"></div></div>
+    <!--<iframe width="640" height="480" src="https://www.youtube.com/embed/Q5VdUxLcfPs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>    
+    --><footer>
+        <br /><small>Oh, and, in case it wasn't glaringly obvious, none of the music in these videos is my original work.<small>
+        <!--<br /><small>You are free to change or modify any of this work, with credit, for noncommercial use. If you do so, don't forget to also credit the music creator accordingly. 
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a></small>
+    --></footer>
+    <script>
+
+        /* Light YouTube Embeds by @labnol */
+        /* Web: http://labnol.org/?p=27941 */
+    
+        document.addEventListener("DOMContentLoaded",
+            function() {
+                var div, n,
+                    v = document.getElementsByClassName("youtube-player");
+                for (n = 0; n < v.length; n++) {
+                    div = document.createElement("div");
+                    div.setAttribute("data-id", v[n].dataset.id);
+                    div.innerHTML = labnolThumb(v[n].dataset.id);
+                    div.onclick = labnolIframe;
+                    v[n].appendChild(div);
+                }
+            });
+    
+        function labnolThumb(id) {
+            var thumb = '<img src="https://i.ytimg.com/vi/ID/hqdefault.jpg">',
+                play = '<div class="play"></div>';
+            return thumb.replace("ID", id) + play;
+        }
+    
+        function labnolIframe() {
+            var iframe = document.createElement("iframe");
+            var embed = "https://www.youtube.com/embed/ID?autoplay=1";
+            iframe.setAttribute("src", embed.replace("ID", this.dataset.id));
+            iframe.setAttribute("frameborder", "0");
+            iframe.setAttribute("allowfullscreen", "1");
+            this.parentNode.replaceChild(iframe, this);
+        }
+    
+    </script>
+{% endblock %}

@@ -1,0 +1,115 @@
+/*THIS IS THE WRONG INDEX.CSS. GO TO STATIC, NOT TEMPLATES*/
+
+
+/*The entire page*/
+body {
+background:#6587B7;
+font-family:'Muli',sans-serif
+}
+/*Set all links to white*/
+a {
+color:#000;
+}
+
+/*The heading: Prayer Requests, Welcome, etc.*/
+.heading {
+padding-bottom:20px;
+padding-top:20px;
+}
+/*The cross image on the prayer requests page*/
+#cross {
+height:105px;
+float:left;
+padding:10px
+}
+/*The thumbnails on the welcome page.*/
+.thumbnail {
+width:20%;
+height:20%;
+border:2px solid #000
+}
+/*All form inputs. Mostly*/
+.inputs{
+border:none;
+background:transparent;
+border-bottom:1px red solid;
+}
+/*Forms on the prayer requests page*/
+.forms {
+padding-left:5px;
+float:left;
+width:30%
+}
+/*The main prayer requests input.*/
+textarea {
+width:300px;
+height:100px;
+border:inherit;
+background:inherit;
+border-bottom:1px #145DC3 solid;
+}
+/*The nickname field on the prayer requests page.*/
+#name {
+width:100px;
+}
+/*Parish dropdown menu
+.dropdown {
+height:25px;
+width:75px;
+}*/
+/*The quote on the right side of the prayer page*/
+#quote {
+float:right;
+width:62%;
+height:445px;
+text-align:center;
+border-top:none
+}
+/*The footer*/
+footer {
+width:100%;
+float:left
+}
+/*The refresh button for the quotes*/
+#refresh {
+float:right;
+padding-right:10px
+}
+/*The submit buttons*/
+#submit {
+border-radius:10px;
+border:1px solid #000;
+background:#7A9FD3
+}
+
+nav {
+width:100%;
+background:#204A87
+}
+
+#list-nav {
+margin:-8px;
+padding:0;
+list-style:none;
+width:100vw
+}
+
+#list-nav li {
+display:inline
+}
+
+#list-nav li a {
+text-decoration:none;
+padding:25px 0 0;
+width:20%;
+background:#204A87;
+color:#eee;
+float:left;
+text-align:center;
+height:75px
+}
+
+#list-nav li a:hover {
+background:#729FCF;
+color:#000
+}
