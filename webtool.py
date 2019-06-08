@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from simple_mail import send_email
 from account_management import check_my_users, have_access_to_todo, have_access_to_pickem, have_access_to_admin
 import db_tools
@@ -8,8 +7,10 @@ import string
 from flask import Flask, redirect, render_template, request
 from flask_simplelogin import SimpleLogin, get_username, login_required
 
+from SensitiveData import *
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = b'\x98\x90\x0e%GX\x84\x82[\xdd\x8c\x0e+0\xc0\x1a\x03\x94;}\x1c\x9dZ\xe2'
+app.config['SECRET_KEY'] = secretkey
 
 SimpleLogin(app, login_checker=check_my_users)
 
@@ -119,7 +120,7 @@ def prayer():
 
             # Sends the adapted message
             send_email(
-                email, "Thank you for joining JMJprayerrequests", message, '406prayerrequests@gmail.com', 'umitiniVit')
+                email, "Thank you for joining JMJprayerrequests", message, projectemail, projectpassword)
             # Displays a page with further instruction
             return render_template('email_adding.html')
 
@@ -159,11 +160,11 @@ def prayer():
             name, prequest, parish)
 
         # For testing purposes only, manually overrides email list and sends to my personal account instead:
-        # emails=['bookboy210@gmail.com']
+        # emails=[personalemail]
 
         for email in emails:
             send_email(email, subject_template, message_template,
-                       '406prayerrequests@gmail.com', 'umitiniVit')
+                       projectemail, projectpassword)
         return render_template('sent.html')
 
 ######
@@ -191,7 +192,7 @@ def todo():
         name = name.replace(',', 'COMMA')
         db_tools.add_todo(name)
         send_email('todo+19z1n4ovd3rf@mail.ticktick.com', name, 'Submitted from jforseth.tech',
-                   'bookboy210@gmail.com', 'mypErsOnAlAccOUnt210')
+                   personalemail, personalpassword)
 
         return redirect('/todo')
 
