@@ -1,6 +1,6 @@
 /*The entire page*/
 html, body, h1, h2, h3, h4, h5{
-background: #9dbad6;
+background: #133c55;
 margin: 0px;
 padding: 0px;
 font-family: 'Frank Ruhl Libre', serif !important;
@@ -39,7 +39,7 @@ width:30%
 .inputs{
 border:none;
 background:transparent;
-border-bottom:1px #182434 solid;
+border-bottom:1px #386fa4 solid;
 }
 /*The main prayer requests input.*/
 textarea {
@@ -81,7 +81,7 @@ padding-right:10px
 font-weight: bold; 
 border-radius:10px;
 border:1px solid #ddd;
-background:#39547a;
+background:#386fa4;
 color:#ddd
 }
 
@@ -106,7 +106,7 @@ display:inline
 text-decoration:none;
 padding:25px 0 0;
 width:calc(100% / 6.0000001);
-background:#39547a;
+background:#386fa4;
 color:#eee;
 float:left;
 text-align:center;
@@ -123,7 +123,7 @@ ul.topnav {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #39547a;
+  background-color: #386fa4;
 }
 
 ul.topnav li {float: left;}
@@ -151,7 +151,7 @@ ul.topnav li.right {float: right;}
     text-decoration:none;
     padding:0;
     width: 100%;
-    background:#39547a;
+    background:#386fa4;
     color:#eee;
     float:left;
     text-align:center;
@@ -177,14 +177,14 @@ ul.topnav li.right {float: right;}
     display: none;
     position: absolute ;
     color:white;
-    background-color: #39547a;
+    background-color: #386fa4;
     min-width: 160px;
     width: 100%;
     z-index: 1;
     text-align: center;
   }
   .dropdown-content a{
-    background-color: #39547a;
+    background-color: #386fa4;
     color:white;
     z-index: 1;
     text-align: center;
@@ -192,7 +192,7 @@ ul.topnav li.right {float: right;}
   }
   /* Links inside the dropdown */
   .dropdown-content :hover{
-    background-color:  #39547a;}
+    background-color:  #386fa4;}
 
   
   /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
