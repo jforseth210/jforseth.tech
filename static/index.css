@@ -312,13 +312,13 @@ ul {
   font-family: var(--main-font);
 }
 
-#submit {
+#message-submit {
 	border-radius: 10px;
 	color: var(--main-txt-color);
 	font-weight: bold;
 	border: none;
 	outline: none;
-  background: var(--main-element-color);
+  background: var(--main-bg-color);
 }
 
 #clear {
