@@ -286,10 +286,6 @@ ul {
 	margin: 0;
 }
 
-.no-pad {
-	padding: 0;
-	margin: 0;
-}
 
 #text {
 	border: none;
@@ -322,7 +318,7 @@ ul {
 	font-weight: bold;
 	border: none;
 	outline: none;
-	background: var(--main-element-color);
+  background: var(--main-element-color);
 }
 
 #clear {
@@ -339,11 +335,4 @@ ul {
   background: transparent;
   color:var(--main-txt-color);
   font-family: var(--main-font);
-}
-
-iframe {
-	border: none;
-	outline: none;
-	height: 225px;
-	width: 100%;
 }
