@@ -16,7 +16,7 @@
     vertical-align:middle;
 }
 .hover_bkgr_fricc > div {
-    background:#9dbad6;
+    background:var(--main-bg-color);
     font-family:'Muli',sans-serif;
     box-shadow: 10px 10px 60px #555;
     display: inline-block;

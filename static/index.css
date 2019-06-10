@@ -1,91 +1,135 @@
+
+
 /*The entire page*/
-html, body, h1, h2, h3, h4, h5{
-background: #133c55;
-margin: 0px;
-padding: 0px;
-font-family: 'Frank Ruhl Libre', serif !important;
-}
-/*Set all links to white*/
-a {
-color:#000;
-}
-a:visited{
-color:#000;
-}
-/*The heading: Prayer Requests, Welcome, etc.*/
-.heading {
-padding-bottom:20px;
-padding-top:20px;
-}
-/*The cross image on the prayer requests page*/
-#cross {
-height:100px;
-float:left;
-padding:10px
-}
-/*The thumbnails on the welcome page.*/
-.thumbnail {
-width:20%;
-height:20%;
-border:2px solid #000
-}
-/*Forms on the prayer requests page*/
-.forms {
-padding-left:5px;
-float:left;
-width:30%
-}
-/*All form inputs. Mostly*/
-.inputs{
-border:none;
-background:transparent;
-border-bottom:1px #386fa4 solid;
-}
-/*The main prayer requests input.*/
-textarea {
-width:300px;
-height:100px;}
-/*The nickname field on the prayer requests page.*/
-#name {
-width:100px;
-}
-/*Parish dropdown menu*/
-.dropdown {
-height:25px;
-width:75px;
-}
-#dropdown {
-height:25px;
-width:75px;
-}
-/*The quote on the right side of the prayer page*/
-#quote {
-float:right;
-width:62%;
-height:445px;
-text-align:center;
-border-top:none
-}
-/*The footer*/
-footer {
-width:100%;
-float:left
-}
-/*The refresh button for the quotes*/
-#refresh {
-float:right;
-padding-right:10px
-}
-/*The submit buttons*/
-#submit {
-font-weight: bold; 
-border-radius:10px;
-border:1px solid #ddd;
-background:#386fa4;
-color:#ddd
+
+:root {
+	--main-bg-color: #07073b;
+	--main-txt-color: #FEF1d0;
+	--main-element-color: #1a1a59;
+	--hover-color: #8080B3
 }
 
+html {
+	background: var(--main-bg-color);
+	color: var(--main-txt-color);
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+/*Set all links to black*/
+a{
+  color: var(--main-txt-color);
+}
+
+/*The heading: Prayer Requests, Welcome, etc.*/
+
+.heading {
+	padding: 20px;
+}
+
+
+/*The cross image on the prayer requests page*/
+
+#cross {
+	height: 90px;
+	float: left;
+}
+
+
+/*The thumbnails on the welcome page.*/
+
+.thumbnail {
+	width: 20%;
+	height: 20%;
+	border: 2px solid var(--main-txt-color)
+}
+
+
+/*Forms on the prayer requests page*/
+
+.forms {
+	padding-left: 5px;
+	float: left;
+	width: 40%;
+}
+
+
+/*All form inputs. Mostly*/
+
+.inputs {
+	border: none;
+	background: transparent;
+	color: var(--main-txt-color);
+	border-bottom: 2px var(--main-txt-color) solid;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font: 12pt;
+}
+
+
+/*The main prayer requests input.*/
+
+textarea {
+	width: 300px;
+	height: 100px;
+}
+
+
+/*The nickname field on the prayer requests page.*/
+
+#name {
+  width: 100px;
+  height: 25px;
+}
+
+
+/*Parish dropdown menu*/
+
+.dropdown {
+	height: 25px !important;
+  width: 75px;
+  background-color: var(--main-bg-color);
+  padding: 0px;
+  margin: 0px;
+}
+
+
+/*The quote on the right side of the prayer page*/
+
+#quote {
+	float: right;
+	width: 50%;
+	text-align: center;
+}
+
+
+/*The footer*/
+
+footer {
+	width: 100%;
+	float: left;
+}
+
+
+/*The refresh button for the quotes*/
+
+#refresh {
+	float: right;
+	padding-right: 10px
+}
+
+
+/*The submit buttons*/
+
+#submit {
+	border-radius: 20px;
+	border: 1px solid var(--main-txt-color);
+	background: var(--main-element-color);
+	color: var(--main-txt-color);
+}
+
+
 /*The menu bar*/
+
+
 /* I'm not fighting this any more. Using some copy pasted code from W3SCHOOlS instead.
 nav{
 width:100%  
@@ -116,84 +160,221 @@ height:75px
 #list-nav li a:hover {
 background:#496c9c;
 }*/
-body {margin: 0;}
+
+body {
+	margin: 0;
+}
 
 ul.topnav {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #386fa4;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: var(--main-element-color);
 }
 
-ul.topnav li {float: left;}
+ul.topnav li {
+	float: left;
+}
 
 ul.topnav li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 30px 32px;
-  text-decoration: none;
+	display: block;
+	color: var(--main-txt-color);
+	text-align: center;
+	padding: 30px 32px;
+	text-decoration: none;
 }
 
-ul.topnav li a:hover:not(.active) {background-color: #496c9c;}
+ul.topnav li a:hover:not(.active) {
+	background-color: var(--hover-color);
+}
 
-ul.topnav li a.active {background-color: #496c9c;}
+ul.topnav li a.active {
+	background-color: var(--main-element-color);
+}
 
-ul.topnav li.right {float: right;}
+ul.topnav li.right {
+	float: right;
+}
 
 @media screen and (max-width: 710px) {
-  ul.topnav li.right, 
-  ul.topnav li {float: none;}
+	ul.topnav li.right,
+	ul.topnav li {
+		float: none;
+	}
 }
- /* Dropdown Button */
- .dropbtn {
-    text-decoration:none;
-    padding:0;
-    width: 100%;
-    background:#386fa4;
-    color:#eee;
-    float:left;
-    text-align:center;
-    height:75px;
-    border: none;
-  }
-  
-  /* Dropdown button on hover & focus */
-  .dropbtn:hover, .dropbtn:focus {
-    background:#496c9c;
-  }
-  
-  /* The container <div> - needed to position the dropdown content */
-  .dropdown {
-    position: relative;
-    display: inline-block;
-    width:calc(100% / 6);
-    white-space: nowrap;
-  }
-  
-  /* Dropdown Content (Hidden by Default) */
-  .dropdown-content {
-    display: none;
-    position: absolute ;
-    color:white;
-    background-color: #386fa4;
-    min-width: 160px;
-    width: 100%;
-    z-index: 1;
-    text-align: center;
-  }
-  .dropdown-content a{
-    background-color: #386fa4;
-    color:white;
-    z-index: 1;
-    text-align: center;
-    margin: 3px;
-  }
-  /* Links inside the dropdown */
-  .dropdown-content :hover{
-    background-color:  #386fa4;}
 
-  
-  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-  .show {display:block;} 
+
+/* Dropdown Button: Currently unused*/
+
+.dropbtn {
+	text-decoration: none;
+	padding: 0;
+	width: 100%;
+	background: var(--main-element-color);
+	color: #eee;
+	float: left;
+	text-align: center;
+	height: 75px;
+	border: none;
+}
+
+
+/* Dropdown button on hover & focus */
+
+.dropbtn:hover,
+.dropbtn:focus {
+	background: var(--hover-color);
+}
+
+
+/* The container <div> - needed to position the dropdown content */
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+	width: calc(100% / 6);
+	white-space: nowrap;
+}
+
+
+/* Dropdown Content (Hidden by Default) */
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	color: white;
+	background-color: var(--main-element-color);
+	min-width: 160px;
+	width: 100%;
+	z-index: 1;
+	text-align: center;
+}
+
+.dropdown-content a {
+	background-color: var(--main-element-color);
+	color: white;
+	z-index: 1;
+	text-align: center;
+	margin: 3px;
+}
+
+
+/* Links inside the dropdown */
+
+.dropdown-content :hover {
+	background-color: var(--hover-color);
+}
+
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+
+.show {
+	display: block;
+}
+
+
+/*Bunch of junk from messages that I have to make work*/
+.send {
+  border: 1px black;
+  border-style: solid;
+  border-radius: 15px;
+  padding: 1px 10px;
+  width:210px;
+  height: 23px;
+  }
+  .message{
+  display: inline-block;
+  border-radius: 15px;
+  padding: 7px;
+  margin: 3px 0px;
+  width: auto;
+  background: #39547a;
+  color: white;
+  }
+  body {
+  margin:auto;
+  font-family: sans-serif;
+  }
+  ul{
+  list-style: none;
+  padding:0;
+  margin:0;
+  }
+  .no-pad{
+  padding:0;
+  margin:0;
+  }
+  #submit{
+  color: #236DEB;
+  font-weight: bold;	
+  border: none;
+  outline: none;
+  background: white;
+  }
+  #clear{
+  color: #236DEB;
+  font-weight: bold;
+  border: solid 1px #236DEB;
+  border-radius: 5px;
+  outline: none;
+  background: white;
+  }
+  #text{
+  border: none;
+  outline: none;
+  }
+  .send {
+    border: 1px black;
+    border-style: solid;
+    border-radius: 15px;
+    padding: 1px 10px;
+    width:210px;
+    height: 23px;
+    background: transparent;
+    }
+    .message{
+    border-radius: 15px;
+    padding: 8px;
+    padding-left: 8px;
+    margin: 3px 0px;
+    width: 75px;
+    background: #236DEB;
+    color: white;
+    }
+    ul{
+    list-style: none;
+    padding:0;
+    margin:0;
+    }
+    .no-pad{
+    padding:0;
+    margin:0;
+    }
+    #submit{
+    border-radius:10px;
+    color:#39547a;
+    font-weight: bold;	
+    border: none;
+    outline: none;
+    background: transparent;
+    }
+    #clear{
+    font-weight: bold; 
+border-radius:10px;
+border:1px solid #ddd;
+background:#39547a;
+color:#ddd
+    }
+    #text{
+    border: none;
+    outline: none;
+    }
+    iframe{
+    border: none;
+    outline: none;
+    height:225px;
+    width:100%;
+    }
+    input{
+    background:transparent;}
