@@ -54,14 +54,17 @@ def messenger():
     # Main page
     @app.route('/messenger')
     def messenger_main():
-        return render_template("messenger_main.html")
-
-    # iframe with messages
-    @app.route('/messenger/frame')
-    def messenger_frame():
         messages = db_tools.read_messages()
         messages = [''.join(i) for i in messages]
-        return render_template("messenger_frame.html", result=messages)
+        return render_template("messenger_main.html",result=messages)
+    
+    #Shouldn't be necessary any more...
+    # iframe with messages
+    #@app.route('/messenger/frame')
+    #def messenger_frame():
+    #    messages = db_tools.read_messages()
+    #    messages = [''.join(i) for i in messages]
+    #    return render_template("messenger_frame.html", result=messages)
 
     # New messages
     @app.route('/messenger/result', methods=['POST', 'GET'])
