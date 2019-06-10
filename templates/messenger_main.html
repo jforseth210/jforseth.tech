@@ -15,10 +15,14 @@
     <form action="/messenger/clear" method="POST">
         <p><input id='clear' type="submit" value="Clear" /></p>
     </form>
-    <iframe src='/messenger/frame' scrolling='yes'></iframe>
+    <ul>
+            {% for value in result %}
+            <li class='message'> {{ value }} </li><br/>
+            {% endfor %}
+    </ul>
     <form class='send' id='form1' action="/messenger/result" method="POST">
-        <p class='no-pad'><input id='text' autocomplete='off' type="text" name="Data" /><input class='no=pad' id='submit'
-                type="submit" value="Send" /></p>
+<input id='text' autocomplete='off' type="text" name="Data" /><input class='no=pad' id='submit'
+                type="submit" value="Send" />
     </form>
 </body>
 
