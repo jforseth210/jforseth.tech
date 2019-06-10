@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+#This is a test
 from simple_mail import send_email
 from account_management import check_my_users, have_access_to_todo, have_access_to_pickem, have_access_to_admin
 import db_tools
