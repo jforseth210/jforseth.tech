@@ -1,2 +1,2 @@
 # jforseth.tech
-My personal website
+This is the github repo for my personal website, which I use to experiment with python, html, css, and javascript.

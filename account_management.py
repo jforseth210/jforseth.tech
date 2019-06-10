@@ -4,8 +4,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 def check_my_users(user):
     my_users=get_accounts()
     user_data = my_users.get(user['username'])
-    print(user_data)
-    print(user['password'])
     if not user_data:
         return False  # <--- invalid credentials
     #Checking if the hash of my password matches the string entered by the user. 
