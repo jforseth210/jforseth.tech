@@ -292,7 +292,7 @@ ul {
 	outline: none;
 }
 
-.send {
+#form1.send {
 	border: 1px solid var(--main-txt-color);
 	border-radius: 15px;
 	padding: 1px 10px;
