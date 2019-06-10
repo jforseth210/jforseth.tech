@@ -3,7 +3,8 @@
 
 <head>
     <title>Messages</title>
-    <link rel='stylesheet' href='../static/index.css' type='text/css' />
+    <base href="../"/>
+    <link rel='stylesheet' href='/static/index.css' type='text/css' />
     <meta name='viewport' content='width=device-width initial-scale=1.0' />
 </head>
 
@@ -11,11 +12,11 @@
 
     <h1 class='no-pad'>Messages</h1>
     <input type='button' value='Reload' onclick='window.location.reload()' id='clear' />
-    <form action="http://jforseth.tech/messenger/clear" method="POST">
+    <form action="/messenger/clear" method="POST">
         <p><input id='clear' type="submit" value="Clear" /></p>
     </form>
     <iframe src='/messenger/frame' scrolling='yes'></iframe>
-    <form class='send' id='form1' action="http://jforseth.tech/messenger/result" method="POST">
+    <form class='send' id='form1' action="/messenger/result" method="POST">
         <p class='no-pad'><input id='text' autocomplete='off' type="text" name="Data" /><input class='no=pad' id='submit'
                 type="submit" value="Send" /></p>
     </form>

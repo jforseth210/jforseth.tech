@@ -6,19 +6,23 @@
 	--main-bg-color: #07073b;
 	--main-txt-color: #FEF1d0;
 	--main-element-color: #1a1a59;
-	--hover-color: #8080B3
+  --hover-color: #8080B3;
+  --main-font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 html {
 	background: var(--main-bg-color);
 	color: var(--main-txt-color);
-	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	font-family: var(--main-font);
 }
 
+
 /*Set all links to black*/
-a{
-  color: var(--main-txt-color);
+
+a {
+	color: var(--main-txt-color);
 }
+
 
 /*The heading: Prayer Requests, Welcome, etc.*/
 
@@ -60,8 +64,8 @@ a{
 	background: transparent;
 	color: var(--main-txt-color);
 	border-bottom: 2px var(--main-txt-color) solid;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  font: 12pt;
+	font-family: var(--main-font);
+	font: 12pt;
 }
 
 
@@ -76,8 +80,8 @@ textarea {
 /*The nickname field on the prayer requests page.*/
 
 #name {
-  width: 100px;
-  height: 25px;
+	width: 100px;
+	height: 25px;
 }
 
 
@@ -85,10 +89,10 @@ textarea {
 
 .dropdown {
 	height: 25px !important;
-  width: 75px;
-  background-color: var(--main-bg-color);
-  padding: 0px;
-  margin: 0px;
+	width: 75px;
+	background-color: var(--main-bg-color);
+	padding: 0px;
+	margin: 0px;
 }
 
 
@@ -275,106 +279,71 @@ ul.topnav li.right {
 
 
 /*Bunch of junk from messages that I have to make work*/
+
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.no-pad {
+	padding: 0;
+	margin: 0;
+}
+
+#text {
+	border: none;
+	outline: none;
+}
+
 .send {
-  border: 1px black;
-  border-style: solid;
-  border-radius: 15px;
-  padding: 1px 10px;
-  width:210px;
-  height: 23px;
-  }
-  .message{
-  display: inline-block;
-  border-radius: 15px;
-  padding: 7px;
-  margin: 3px 0px;
-  width: auto;
-  background: #39547a;
-  color: white;
-  }
-  body {
-  margin:auto;
-  font-family: sans-serif;
-  }
-  ul{
-  list-style: none;
-  padding:0;
-  margin:0;
-  }
-  .no-pad{
-  padding:0;
-  margin:0;
-  }
-  #submit{
-  color: #236DEB;
-  font-weight: bold;	
-  border: none;
-  outline: none;
-  background: white;
-  }
-  #clear{
-  color: #236DEB;
-  font-weight: bold;
-  border: solid 1px #236DEB;
-  border-radius: 5px;
-  outline: none;
-  background: white;
-  }
-  #text{
-  border: none;
-  outline: none;
-  }
-  .send {
-    border: 1px black;
-    border-style: solid;
-    border-radius: 15px;
-    padding: 1px 10px;
-    width:210px;
-    height: 23px;
-    background: transparent;
-    }
-    .message{
-    border-radius: 15px;
-    padding: 8px;
-    padding-left: 8px;
-    margin: 3px 0px;
-    width: 75px;
-    background: #236DEB;
-    color: white;
-    }
-    ul{
-    list-style: none;
-    padding:0;
-    margin:0;
-    }
-    .no-pad{
-    padding:0;
-    margin:0;
-    }
-    #submit{
-    border-radius:10px;
-    color:#39547a;
-    font-weight: bold;	
-    border: none;
-    outline: none;
-    background: transparent;
-    }
-    #clear{
-    font-weight: bold; 
-border-radius:10px;
-border:1px solid #ddd;
-background:#39547a;
-color:#ddd
-    }
-    #text{
-    border: none;
-    outline: none;
-    }
-    iframe{
-    border: none;
-    outline: none;
-    height:225px;
-    width:100%;
-    }
-    input{
-    background:transparent;}
+	border: 1px solid var(--main-txt-color);
+	border-radius: 15px;
+	padding: 1px 10px;
+	width: 210px;
+	height: 23px;
+	background:transparent;
+}
+
+.message {
+	display: inline-block;
+	border-radius: 15px;
+	padding: 7px;
+	margin: 3px 0px;
+	width: auto;
+	background: var(--main-element-color);
+  color: var(--main-txt-color);
+  font-family: var(--main-font);
+}
+
+#submit {
+	border-radius: 10px;
+	color: var(--main-txt-color);
+	font-weight: bold;
+	border: none;
+	outline: none;
+	background: var(--main-element-color);
+}
+
+#clear {
+	font-weight: bold;
+	border-radius: 10px;
+	border: 1px solid var(--main-txt-color);
+	background: var(--main-element-color);
+	color: var(--main-txt-color)
+}
+
+#text {
+	border: none;
+	outline: none;
+  background: transparent;
+  color:var(--main-txt-color);
+  font-family: var(--main-font);
+}
+
+iframe {
+	border: none;
+	outline: none;
+	height: 225px;
+	width: 100%;
+}
