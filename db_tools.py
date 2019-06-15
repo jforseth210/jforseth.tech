@@ -1,6 +1,11 @@
 import sqlite3
 import random
 
+#All of the data for this site is stored in a local SQLite database except:
+#Todos, which are stored in a CSV file.
+#Valid codes for verification emails, which are stored in a TXT. 
+#Email templates which are stored as HTML. 
+
 ###########
 #Acccounts#
 ############
@@ -65,6 +70,10 @@ def get_verification_code():
     code = validcodes[randomNum:randomNum+5]
     return code
 
+def check_verification_code(code):
+    file = open('text/validcodes.txt', 'r')
+    validcodes = file.readline()
+    return code in validcodes
 
 def get_verification_email_template():
     file = open('text/verification_email_template.html')
@@ -81,10 +90,6 @@ def add_to_mailing_list(address, parish):
                     {'email': address, 'parish': parish})
 
 
-def check_verification_code(code):
-    file = open('text/validcodes.txt', 'r')
-    validcodes = file.readline()
-    return code in validcodes
 
 
 def read_prayer_request_template(name, prequest, parish):
