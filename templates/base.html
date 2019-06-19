@@ -4,7 +4,12 @@
 <head>
     <base href='../'>
     <title>{% block title %}{% endblock %} </title>
-    <!--Thanks to the creator of https://html-online.com/demo/popup-box/-->
+    <!--
+        Thanks to the creator of https://html-online.com/demo/popup-box/
+        This is the modal for the chat box. IDK anything about jquery, and not 
+        nearly enough about JS to do it myself. Wish I could find the original 
+        creator and credit properly. . .
+    -->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <script src="/static/modal_files/jquery.min.js"></script>
@@ -13,16 +18,26 @@
     <link rel="stylesheet" type="text/css" href="/static/modal_files/style.css">
     <script type="text/javascript" src="/static/modal_files/jsapi"></script>
     <!--End https://html-online.com/demo/popup-box/-->
-    <!--Clicky Web Analytics-->
+
+    <!--
+        Clicky Web Analytics: This is a free service that tracks vistors on my site. 
+        Given that I'm usually the only person that visits the site, it's more of a novelty
+        than it is actually useful. 
+    -->
     <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101163615);</script>
     <script async src="//static.getclicky.com/js"></script>
     <!--End Clicky Web Analytics-->
+    
+    <!--
+        Google told me that I should put this in here. Something about accessibility of mobile users?
+        Makes it look better on my phone, so I kept it. 
+    -->
     <meta name='viewport' content='width=device-width initial-scale=1.0' />
+    <!--The main stylsheet for the page and my favicon.-->
     <link rel='stylesheet' href='/static/index.css' type='text/css' />
     <link rel="icon" href="static/cross_favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="static/cross_favicon.ico" type="image/x-icon" />
-
-    <!--<link href="https://fonts.googleapis.com/css?family=Frank+Ruhl+Libre" rel="stylesheet">-->
+    
     {% block head %}{% endblock %}
 </head>
 
