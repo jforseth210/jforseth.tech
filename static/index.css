@@ -280,7 +280,7 @@ ul.topnav li.right {
 
 /*Bunch of junk from messages that I have to make work*/
 
-ul {
+ul.messagelist {
 	list-style: none;
 	padding: 0;
 	margin: 0;

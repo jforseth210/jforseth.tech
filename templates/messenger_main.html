@@ -15,7 +15,7 @@
     <form action="/messenger/clear" method="POST">
         <p><input id='clear' type="submit" value="Clear" /></p>
     </form>
-    <ul>
+    <ul class="messagelist">
             {% for value in result %}
             <li class='message'> {{ value }} </li><br/>
             {% endfor %}

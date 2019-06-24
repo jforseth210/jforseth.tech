@@ -14,7 +14,7 @@ from account_management import (check_my_users, have_access_to_admin,
 from SensitiveData import *
 from simple_mail import send_email
 
-UPLOAD_FOLDER = "C:\\Users\\Forseth\\Documents\\Code\\jforseth.tech\\uploads"
+UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif']
 
 app = Flask(__name__)
@@ -369,13 +369,9 @@ def file_sharing():
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 return redirect(url_for('uploaded_file', filename=filename))
-        return """<!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>"""
+        else:    
+            filelist=os.listdir(app.config['UPLOAD_FOLDER'])
+            return render_template('file_sharing.html',files=filelist)
     @app.route('/filesharing/<filename>')
     def uploaded_file(filename):
         return send_from_directory(app.config['UPLOAD_FOLDER'],
