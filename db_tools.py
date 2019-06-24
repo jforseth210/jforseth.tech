@@ -63,22 +63,20 @@ def clear_messages():
 
 
 def get_verification_code():
-    file = open('text/validcodes.txt', 'r')
-    validcodes = file.readline()
-    file.close()
+    with open('text/validcodes.txt', 'r') as file:
+        validcodes = file.readline()
     randomNum = random.randint(0, len(validcodes)-5)
     code = validcodes[randomNum:randomNum+5]
     return code
 
 def check_verification_code(code):
-    file = open('text/validcodes.txt', 'r')
-    validcodes = file.readline()
+    with open('text/validcodes.txt', 'r') as file:
+            validcodes = file.readline()
     return code in validcodes
 
 def get_verification_email_template():
-    file = open('text/verification_email_template.html')
-    verification_email = file.read()
-    file.close()
+    with open('text/verification_email_template.html') as file:
+            verification_email = file.read()
     return verification_email
 
 
@@ -93,9 +91,8 @@ def add_to_mailing_list(address, parish):
 
 
 def read_prayer_request_template(name, prequest, parish):
-    file = open("text/prayer_request_email_template.html")
-    template = file.read()
-    file.close()
+    with open("text/prayer_request_email_template.html") as file:
+        template = file.read()
 
     subject = '{} has sent a prayer request to {}'
     subject = subject.format(name, parish)
@@ -120,44 +117,39 @@ def get_emails_from_parish(parish):
 
 
 def get_todos():
-    file = open('text/todo.csv', 'r')
-    todos = file.readlines()
-    file.close()
+    with open('text/todo.csv', 'r') as file:
+        todos = file.readlines()
     return todos
 
 
 def add_todo(name):
-    file = open('text/todo.csv', 'a')
-    file.write('{}\n'.format(name))
-    file.close()
+    with open('text/todo.csv', 'a') as file:
+        file.write('{}\n'.format(name))
 
 def delete_todo(taskid):
-    file = open("text/todo.csv", 'r')
-    items = file.readlines()
-    file.close()
+    with open("text/todo.csv", 'r') as file:
+        items = file.readlines()
    
     #This line is magic. No idea what's going on. 
     items.pop(len(items)-taskid)
 
-    file = open("text/todo.csv", 'w')
-    for i in items:
-        file.write(i)
-    file.close()
+    with open("text/todo.csv", 'w') as file:
+        for i in items:
+                file.write(i)
 
 def reorder_todo(item_to_reorder,position_to_move):
-        file = open("text/todo.csv", 'r')
+    with open("text/todo.csv", 'r') as file:
         items = file.readlines()
-        file.close()
-        
-        item_to_reorder = items[len(items)-item_to_reorder]
-        position_to_move = len(items)-position_to_move
-        items.remove(item_to_reorder)
-        items.insert(position_to_move, item_to_reorder)
-        file = open("text/todo.csv", 'w')
+            
+    item_to_reorder = items[len(items)-item_to_reorder]
+    position_to_move = len(items)-position_to_move
+    items.remove(item_to_reorder)
+    items.insert(position_to_move, item_to_reorder)
+    with open("text/todo.csv", 'w') as file:
         # Now that the item has been reordered, rewrite the file.
         for i in items:
             file.write(i)
-        file.close()
+        
 #######
 #Admin#
 #######

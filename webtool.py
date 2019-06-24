@@ -1,17 +1,25 @@
 # -*- coding: utf-8 -*-
-from simple_mail import send_email
-from account_management import check_my_users, have_access_to_todo, have_access_to_pickem, have_access_to_admin
-import db_tools
+import os
 import random
 import string
-from flask import Flask, redirect, render_template, request
-from flask_simplelogin import SimpleLogin, get_username, login_required
 
+from flask import (Flask, flash, redirect, render_template, request,
+                   send_from_directory, url_for)
+from flask_simplelogin import SimpleLogin, get_username, login_required
+from werkzeug.utils import secure_filename
+
+import db_tools
+from account_management import (check_my_users, have_access_to_admin,
+                                have_access_to_pickem, have_access_to_todo)
 from SensitiveData import *
+from simple_mail import send_email
+
+UPLOAD_FOLDER = "uploads"
+ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif']
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secretkey
-
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 SimpleLogin(app, login_checker=check_my_users)
 
 #########
@@ -56,12 +64,12 @@ def messenger():
     def messenger_main():
         messages = db_tools.read_messages()
         messages = [''.join(i) for i in messages]
-        return render_template("messenger_main.html",result=messages)
-    
-    #Shouldn't be necessary any more...
+        return render_template("messenger_main.html", result=messages)
+
+    # Shouldn't be necessary any more...
     # iframe with messages
-    #@app.route('/messenger/frame')
-    #def messenger_frame():
+    # @app.route('/messenger/frame')
+    # def messenger_frame():
     #    messages = db_tools.read_messages()
     #    messages = [''.join(i) for i in messages]
     #    return render_template("messenger_frame.html", result=messages)
@@ -336,6 +344,88 @@ def admin():
         users = db_tools.get_all_from_table("users")
         return "Messages: <br />{}<br />Accounts:<br />{}<br />Users:<br />{}<br />".format(messages, accounts, users)
 
+##############
+#File Sharing#
+##############
+
+
+def file_sharing():
+    # This is a magic function from the flask documentation. I have no idea what it does or how it works.
+    def allowed_file(filename):
+        return '.' in filename and \
+            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+    @app.route('/filesharing', methods=['GET', 'POST'])
+    def upload_file():
+        if request.method == "POST":
+            if 'file' not in request.files:
+                print('No file part')
+                return redirect(request.url)
+            file = request.files['file']
+            if file.filename == '':
+                print('No selected file')
+                return redirect(request.url)
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                return redirect(url_for('uploaded_file', filename=filename))
+        else:    
+            filelist=os.listdir(app.config['UPLOAD_FOLDER'])
+            return render_template('file_sharing.html',files=filelist)
+    @app.route('/filesharing/<filename>')
+    def uploaded_file(filename):
+        return send_from_directory(app.config['UPLOAD_FOLDER'],
+                                   filename)
+    @app.route('/filesharing/filelist')
+    def filelist():
+        files=os.listdir(app.config['UPLOAD_FOLDER'])
+        return ''.join(files)
+######
+#Misc#
+######
+@app.route('/barrelracing')
+def barrel_racing():
+    return render_template('AP Create Task/index.html')
+
+
+def scattergories():
+    @app.route('/scattergories')
+    def scattergories_page():
+        file = open(
+            r"text/currentcatergorylist.txt")
+        catlist = file.readlines()
+        file.close()
+        catlist = [i.replace('\n', '') for i in catlist]
+        file = open(r"text/scattergoriescurrentletter.txt")
+        currentletter = file.read()
+        file.close()
+        return render_template("Scattergories.html", list=catlist, currentletter=currentletter)
+
+    @app.route('/scattergories/newlist')
+    def scattergories_newlist():
+        file = open(
+            r"text/allcatergorylist.txt")
+        catlist = file.readlines()
+        file.close()
+        catlist = [i.replace('\n', '').title() for i in catlist]
+        newlist = []
+        for i in range(12):
+            newlist.append(random.choice(catlist))
+        file = open(
+            r"text/currentcatergorylist.txt", "w")
+        file.writelines(["%s\n" % item for item in newlist])
+        file.close()
+        return "Done"
+
+    @app.route('/scattergories/roll')
+    def scattergories_roll():
+        letters = string.ascii_uppercase
+        letter = random.choice(letters)
+        file = open(r"text/scattergoriescurrentletter.txt", "w")
+        file.write(letter)
+        file.close()
+        return "Done!"
+        # Running all of the above
 ################
 #Error Handlers#
 ################
@@ -353,53 +443,8 @@ def errorHandlers():
     @app.errorhandler(500)
     def server_error(e):
         return render_template('500.html'), 500
-######
-#Misc#
-######
-@app.route('/barrelracing')
-def barrel_racing():
-    return render_template('AP Create Task/index.html')
 
 
-@app.route('/scattergories')
-def scattergories():
-    file = open(
-        r"text/currentcatergorylist.txt")
-    catlist = file.readlines()
-    file.close()
-    catlist = [i.replace('\n', '') for i in catlist]
-    file=open(r"text/scattergoriescurrentletter.txt")
-    currentletter = file.read()
-    file.close()
-    return render_template("Scattergories.html", list=catlist, currentletter=currentletter)
-
-
-@app.route('/scattergories/newlist')
-def scattergories_newlist():
-    file = open(
-        r"text/allcatergorylist.txt")
-    catlist = file.readlines()
-    file.close()
-    catlist = [i.replace('\n', '').title() for i in catlist]
-    newlist = []
-    for i in range(12):
-        newlist.append(random.choice(catlist))
-    file = open(
-        r"text/currentcatergorylist.txt", "w")
-    file.writelines(["%s\n" % item for item in newlist])
-    file.close()
-    return "Done"
-
-
-@app.route('/scattergories/roll')
-def scattergories_roll():
-	letters = string.ascii_uppercase
-	letter=random.choice(letters)
-	file=open(r"text/scattergoriescurrentletter.txt","w")
-	file.write(letter)
-	file.close()
-	return "Done!"
-    # Running all of the above
 welcome()
 messenger()
 prayer()
@@ -408,6 +453,8 @@ farmYearVideo()
 admin()
 errorHandlers()
 bullJudging()
+file_sharing()
+scattergories()
 # quickdrawGame()
 
 # Runs the testing server.
