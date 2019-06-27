@@ -43,7 +43,18 @@ def welcome():
     # The videos page
     @app.route('/videos')
     def videos():
-        return render_template('videos.html')
+        #A function from chrisalbon.com to break the list apart
+        def breaklist(listtobreak, chunksize):
+            # For item i in a range that is a length of l,
+            for i in range(0, len(listtobreak), chunksize):
+                # Create an index range for l of n items:
+                yield listtobreak[i:i+chunksize]
+        with open("text/videos.txt", 'r') as file:
+            videos = file.readlines()
+        videos = [i.split('|') for i in videos]
+        #mylist=[("Hello", "I hope this works"),("Hi", "I hope this works",),("Hey there", "I hope this works"),("I really hope this works","Hi")]
+        videomasterlist=list(breaklist(videos,3))
+        return render_template('videos.html', videomasterlist=videomasterlist)
 
     # About
     @app.route('/about')
