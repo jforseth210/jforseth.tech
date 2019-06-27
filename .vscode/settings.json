@@ -5,5 +5,12 @@
     "python.testing.unittestEnabled": false,
     "python.testing.nosetestsEnabled": false,
     "python.testing.pyTestEnabled": false,
-    "python.testing.promptToConfigure": false
+    "python.testing.promptToConfigure": false,
+    "cSpell.ignoreWords": [
+        "imgur",
+        "otgik"
+    ],
+    "cSpell.words": [
+        "endblock"
+    ]
 }
