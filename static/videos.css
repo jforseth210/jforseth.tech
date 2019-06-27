@@ -57,3 +57,20 @@
     background: url("//i.imgur.com/TxzC70f.png") no-repeat;
     cursor: pointer;
 }
+/*This is from W3Schools. I'm trying (and failing) to understand how it works.*/
+.column {
+    float: left;
+    width: 33.33%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+@media screen and (max-width: 710px) {
+.column {
+    float: none;
+    width:100%;
+}
+}
