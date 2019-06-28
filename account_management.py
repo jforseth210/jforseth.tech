@@ -1,6 +1,5 @@
 from db_tools import get_accounts
 from werkzeug.security import generate_password_hash, check_password_hash
-#Geez
 def check_my_users(user):
     my_users=get_accounts()
     user_data = my_users.get(user['username'])

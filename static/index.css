@@ -27,7 +27,8 @@ a {
 /*The heading: Prayer Requests, Welcome, etc.*/
 
 .heading {
-	padding: 20px;
+	padding-top: 20px;
+	padding-bottom:20px;
 }
 
 
@@ -165,13 +166,9 @@ height:75px
 background:#496c9c;
 }*/
 
-body {
-	margin: 0;
-}
-
 ul.topnav {
 	list-style-type: none;
-	margin: 0;
+	margin: -10px;
 	padding: 0;
 	overflow: hidden;
 	background-color: var(--main-element-color);
@@ -210,7 +207,7 @@ ul.topnav li.right {
 
 
 /* Dropdown Button: Currently unused*/
-
+*/
 .dropbtn {
 	text-decoration: none;
 	padding: 0;

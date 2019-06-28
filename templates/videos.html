@@ -8,9 +8,9 @@ Videos
 {% endblock %}
 {% block content %}
     <p>These are all of my video editing projects. To watch, you can either click on the thumbnail for a preview, or the title to be redirected to YouTube. I would serve them myself, instead of using YouTube, but my computer and my internet connection just aren't up to that. Enjoy!</p>
-        {% for videochunk in videomasterlist %}
+        {% for row in videomasterlist %}
     <div class="row">
-        {% for video in videochunk %}
+        {% for video in row %}
         <div class="column">
             <a href="https://youtu.be/{{video[1]}}"><h3>{{ video[0]}}</h3></a>
             <div class="player-parent">

@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block title %}Instructions{% endblock %}
+{% block heading %}
+Instructions
+{% endblock %}
+{% block content %}
+<h2 id="introduction">Introduction:</h2>
+<p>This is the place to find more detailed instructions for all of the various pages on my site.</p>
+<h2 id="contents">Contents:</h2>
+<ol>
+    <li><a href="/instructions#prayerrequests">Prayer Requests</a></li>
+    <li><a href="/instructions#videos">Videos</a></li>
+    <li><a href="/instructions#chat">Chat</a></li>
+    <li><a href="/instructions#todo">Todo</a></li>
+    <li><a href="/instructions#filesharing">File Sharing</a></li>
+</ol>
+<h2 id="prayerrequests">Prayer Requests:</h2>
+<blockquote>
+    <h3>Recieve prayer requests:</h3>
+    <ol>
+        <li>Type in your email address where it says "Recieve Prayer Requests"</li>
+        <li>If you were given a code, type it in the box that says "PARISH". Otherwise leave this blank.</li>
+        <li>Click "Submit"</li>
+        <li>Check your email. There should be a message from 406prayerrequests@gmail.com.</li>
+        <li>Open the message. Click the verify button at the buttom. (If your email app shows input boxes containing
+            your email address, parish code, etc, please ignore these and press verify.)</li>
+        <li>You will now recieve prayer requests.</li>
+    </ol>
+    <h3>Submit a prayer request:</h3>
+    <ol>
+        <li>Where it says "nickname" type your name or a nickname if you perfer anonymity.</li>
+        <li>Choose the group you'd like to send the request to. Selecting Public will send it to all groups. Please do
+            not
+            send the prayer request to Testing.</li>
+        <li>Enter your prayer request in the text box.</li>
+        <li>Click submit.</li>
+        <li>Please wait for the page to load, your request is being sent.</li>
+    </ol>
+    <p>Type your name or a nickname if you perfer anonymity. Type out your prayer request. Select the group you'd like
+        the request to
+        be sent to. When you click submit, this request is sent as an email to the community.</p>
+</blockquote>
+<h2 id="videos">Videos:</h2>
+<blockquote>
+    <p>This page shows all of the video projects I've uploaded. To preview, click the thumbnail of the video, below the
+        title. To watch on YouTube, click the title of the video.</p>
+</blockquote>
+<h2 id="chat">Chat:</h2>
+<p>This is a very simple chat widget.</p>
+<blockquote>
+    <ol>
+        <li>Click "chat" on the menubar.</li>
+        <li>A box should appear with messages in it. (If it does not, your browser may not be supported. Visit <a
+                href="/messenger">jforseth.tech/messenger</a> instead.)</li>
+        <li>To send a message, type it into the oval at the bottom of the box and click "send".</li>
+        <li>To check for new messages, click "reload".</li>
+        <li>To clear the list of messages, click "clear". (Please be courteous and do not delete other user's messages
+            without their permission.)</li>
+    </ol>
+</blockquote>
+<h2 id="todo">Todo</h2>
+<blockquote>
+    <p>At time of writing this is a private project. Attempts to use it will require you to sign into my account. Unless
+        something has changed, and I have made this page public, please don't attempt to use it. </p>
+    <h3>Add a task:</h3>
+    <ol>
+        <li>Enter your task where where it says "Task"</li>
+        <li>Press enter</li>
+        <li>Your task will be added to this page. (It may also be added to whichever todo list app I am currently
+            using.)</li>
+    </ol>
+    <h3>Delete a task:</h3>
+    <ol>
+        <li>Enter the number (shown to the left of the task) of the task you want to delete.</li>
+        <li>Click "Delete".</li>
+    </ol>
+    <h3>Reorder a task:</h3>
+    <ol>
+        <li>Enter the task's current number in "Task to move"</li>
+        <li>Enter the position you want to move the task in "Position to move task"</li>
+        <li>Click "Move"</li>
+        <li>For example, to move task #8, to position #1, enter "8" in the first box, "1" in the second, and click move.
+        </li>
+    </ol>
+    <p>There may be an embedded todo list on this page also. This depends on the app I'm using at the time. I'm not
+        writing instructions on all of the functionality of a given third party app. Your best bet is to google
+        "&ltthing you want to do&gt in &ltapp you're using&gt."</p>
+</blockquote>
+<h2 id="filesharing">File Sharing</h2>
+<blockquote>
+    <h3>Upload a file:</h3>
+    <ol>
+        <li>Click "Browse..."</li>
+        <li>Select the file you want to upload.</li>
+        <li>Click "Upload"</li>
+        <li>The file will be saved to jforseth.tech and listed below.</li>
+        <li>File uploads are deleted every day at midnight Mountain Time.</li>
+    </ol>
+    <h3>Download a file:</h3>
+    <ol>
+        <li>Click on the file name (Below "Uploaded files (Available until midnight tonight):")</li>
+        <li>Depending on the file type, it may begin to download immediatly, or the file may open in your browser.</li>
+        <li>If the file opens in your browser, right click on it, and click "Save file as", or "Save image as", or
+            something similar.</li>
+    </ol>
+    <h3>Delete a file:</h3>
+    <p>Files are deleted at midnight. Please don't upload anything you don't want made public. If you urgently need to
+        delete a file, you can email <a href='mailto:406prayerrequests@gmail.com'>406prayerrequests@gmail.com</a> and
+        I'll delete it manually.</p>
+    <p>Note: At time of writing, only: 'txt', 'pdf', 'png', 'jpg', 'jpeg', and 'gif' are supported. If you would like me
+        to add support for a filetype, email <a
+            href='mailto:406prayerrequests@gmail.com'>406prayerrequests@gmail.com</a>.</p>
+</blockquote>
+{% endblock %}

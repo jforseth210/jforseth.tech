@@ -60,6 +60,10 @@ def welcome():
     @app.route('/about')
     def about():
         return render_template('about.html')
+    #Instructions
+    @app.route('/instructions')
+    def instructions():
+        return render_template('instructions.html')
     # Menu
     @app.route('/menu')
     def menu():
