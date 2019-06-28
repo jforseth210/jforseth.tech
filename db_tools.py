@@ -55,7 +55,7 @@ def clear_messages():
         cur.execute("DELETE FROM messages")
         #Code worked without this line before. Randomly decided to throw an error. ]
         #Googled it, and this line makes the code work again.
-        cur.execute("END TRANSACTION")
+        #cur.execute("END TRANSACTION")
         cur.execute("VACUUM")
 ########
 #Prayer#
