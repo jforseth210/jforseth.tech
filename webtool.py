@@ -133,7 +133,7 @@ def prayer():
                 'STJOHN': 'Saint John Parish',
                 'STJOSEPH': 'Saint Joseph Parish',
                 'STJOSEPHRE': 'Saint Joseph RE',
-                'FFTEACHERS': 'Fairfield Catholic Teachers'
+                'FFTEACHERS': 'Fairfield Catholic Teachers',
                 'JESUS': 'LL Small Group 3'
             }
 
