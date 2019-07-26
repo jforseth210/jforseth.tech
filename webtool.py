@@ -134,6 +134,7 @@ def prayer():
                 'STJOSEPH': 'Saint Joseph Parish',
                 'STJOSEPHRE': 'Saint Joseph RE',
                 'FFTEACHERS': 'Fairfield Catholic Teachers'
+                'JESUS': 'LL Small Group 3'
             }
 
             # Takes the parish code, looks it up in the dictionary.
