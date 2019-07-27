@@ -15,7 +15,7 @@ from SensitiveData import *
 from simple_mail import send_email
 
 UPLOAD_FOLDER = "uploads"
-ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif']
+ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','py']
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secretkey
