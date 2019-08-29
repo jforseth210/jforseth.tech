@@ -468,10 +468,10 @@ todo()
 farmYearVideo()
 admin()
 errorHandlers()
-bullJudging()
+#bullJudging()
 file_sharing()
-scattergories()
-# quickdrawGame()
+#scattergories()
+#quickdrawGame()
 
 # Runs the testing server.
 if __name__ == "__main__":
