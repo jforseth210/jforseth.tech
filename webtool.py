@@ -40,7 +40,23 @@ def welcome():
     def home():
         return redirect('/')
 
-    # The videos page
+    
+    # About
+    @app.route('/about')
+    def about():
+        return render_template('about.html')
+    #Instructions
+    @app.route('/instructions')
+    def instructions():
+        return render_template('instructions.html')
+    # Menu
+    @app.route('/menu')
+    def menu():
+        return render_template('menu.html')
+########
+#Videos#
+########
+# The videos page
     @app.route('/videos')
     def videos():
         #A function from chrisalbon.com to break the list apart
@@ -55,19 +71,19 @@ def welcome():
         #mylist=[("Hello", "I hope this works"),("Hi", "I hope this works",),("Hey there", "I hope this works"),("I really hope this works","Hi")]
         videomasterlist=list(breaklist(videos,3))
         return render_template('videos.html', videomasterlist=videomasterlist)
-
-    # About
-    @app.route('/about')
-    def about():
-        return render_template('about.html')
-    #Instructions
-    @app.route('/instructions')
-    def instructions():
-        return render_template('instructions.html')
-    # Menu
-    @app.route('/menu')
-    def menu():
-        return render_template('menu.html')
+    @app.route('/videos/upload')
+    @login_required(must=have_access_to_admin)
+    def vid_upload():
+        return render_template('vid_upload.html')
+    @app.route('/videos/newupload', methods=["POST"])
+    def newupload():
+        title=request.form.get('title')
+        ytlink=request.form.get('ytlink')
+        title=title.replace('|','')
+        if 'https://www.youtube.com/watch?v=' not in ytlink:
+            return "This doesn't look like a youtube link. Try again."
+        ytlink=ytlink.replace('https://www.youtube.com/watch?v=','')
+        return redirect('../videos')
 ###########
 #Messenger#
 ###########
