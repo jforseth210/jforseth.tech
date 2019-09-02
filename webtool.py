@@ -2,7 +2,8 @@
 import os
 import random
 import string
-
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
 from flask import (Flask, flash, redirect, render_template, request,
                    send_from_directory, url_for)
 from flask_simplelogin import SimpleLogin, get_username, login_required
@@ -76,6 +77,7 @@ def welcome():
     def vid_upload():
         return render_template('vid_upload.html')
     @app.route('/videos/newupload', methods=["POST"])
+    @login_required(must=have_access_to_admin)
     def newupload():
         title=request.form.get('title')
         ytlink=request.form.get('ytlink')
@@ -83,6 +85,25 @@ def welcome():
         if 'https://www.youtube.com/watch?v=' not in ytlink:
             return "This doesn't look like a youtube link. Try again."
         ytlink=ytlink.replace('https://www.youtube.com/watch?v=','')
+        with open('text/videos.txt','r') as file:
+            vidlist=file.readlines()
+        newvideo=title+'|'+ytlink+'\n'
+        vidlist.insert(0,newvideo)
+        with open('text/videos.txt','w') as file:
+            file.writelines(vidlist)
+        return redirect('../videos')
+    @app.route('/videos/deletion', methods=["POST"])
+    @login_required(must=have_access_to_admin)
+    def deletion():
+        ytlink=request.form.get('ytlink')
+        print(ytlink)
+        with open('text/videos.txt','r') as file:
+            vidlist=file.readlines()
+        pp.pprint(vidlist)
+        #This magical line removes videos that have the link requested for deletion.
+        vidlist = [v for v in vidlist if ytlink not in v]
+        with open('text/videos.txt','w') as file:
+            file.writelines(vidlist)
         return redirect('../videos')
 ###########
 #Messenger#

@@ -15,7 +15,13 @@ Videos
     <div class="row">
         {% for video in row %}
         <div class="column">
-            <a href="https://youtu.be/{{video[1]}}"><h3>{{ video[0]}}</h3></a>
+            <a href="https://youtu.be/{{video[1]}}"><h3>{{ video[0]}}</h3></a>    
+            {% if is_logged_in('bookboy210') %}
+                <form method=post action="videos/deletion" method="POST">
+                    <input hidden value={{ video[1]}} name=ytlink />
+                    <input type=submit value="Delete" />
+                </form>
+            {% endif %}
             <div class="player-parent">
                 <div class="youtube-player" data-id="{{video[1]}}"></div>
             </div>
