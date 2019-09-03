@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
+from simple_mail import send_email
+from SensitiveData import *
+from account_management import (check_my_users, have_access_to_admin,
+                                have_access_to_pickem, have_access_to_todo)
+import db_tools
+from werkzeug.utils import secure_filename
+from flask_simplelogin import SimpleLogin, get_username, login_required
+from flask import (Flask, flash, redirect, render_template, request,
+                   send_from_directory, url_for)
 import os
 import random
 import string
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
-from flask import (Flask, flash, redirect, render_template, request,
-                   send_from_directory, url_for)
-from flask_simplelogin import SimpleLogin, get_username, login_required
-from werkzeug.utils import secure_filename
 
-import db_tools
-from account_management import (check_my_users, have_access_to_admin,
-                                have_access_to_pickem, have_access_to_todo)
-from SensitiveData import *
-from simple_mail import send_email
 
 UPLOAD_FOLDER = "uploads"
-ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif','py']
+ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'py']
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = secretkey
@@ -41,12 +41,11 @@ def welcome():
     def home():
         return redirect('/')
 
-    
     # About
     @app.route('/about')
     def about():
         return render_template('about.html')
-    #Instructions
+    # Instructions
     @app.route('/instructions')
     def instructions():
         return render_template('instructions.html')
@@ -57,108 +56,231 @@ def welcome():
 ########
 #Videos#
 ########
-# The videos page
+    # This route is for loading the video page.
+    # If the user is signed in as admin, the admin tools will show,
+    # if not, only the default video page will be sent. See videos.html
+    # for more info.
     @app.route('/videos')
     def videos():
-        #A function from chrisalbon.com to break the list apart
+
+        # A function from chrisalbon.com to break the list apart
+        # This function is used to break the video list into rows.
         def breaklist(listtobreak, chunksize):
             # For item i in a range that is a length of l,
             for i in range(0, len(listtobreak), chunksize):
                 # Create an index range for l of n items:
                 yield listtobreak[i:i+chunksize]
+
+        # videos.txt is the list of videos
+        # It's formatted like this:
+        #   The video's title|YoutubeID
+        #   Another video|YoutubeID
+        # Note that the youtube id is not the same as the link to the video.
         with open("text/videos.txt", 'r') as file:
             videos = file.readlines()
-        videos = [i.replace(' \n','') for i in videos]
+        # As always, newlines make a mess.
+        # In this case, it breaks some of the admin tools further down break.
+        videos = [i.replace(' \n', '') for i in videos]
+
+        # Split videos into a list of sublists, each with two items, the title and the id.
+        # So:
+        # [['title','youtubeid'],['title','youtubeid']]
         videos = [i.split('|') for i in videos]
-        #mylist=[("Hello", "I hope this works"),("Hi", "I hope this works",),("Hey there", "I hope this works"),("I really hope this works","Hi")]
-        videomasterlist=list(breaklist(videos,3))
+
+        # This list is then broken into chunks of three to form rows:
+        # [
+        #   [
+        #       [video0,video0id],
+        #       [video1,video1id],
+        #       [video2,video2id]
+        #   ],
+        #   [
+        #       [video3,video3id],
+        #       [video4,video4id],
+        #       [video5,video5id]
+        #   ]
+        # ]
+        # Note, if you want to change the number of videos per row, update the '3' below
+        # Just make sure you modify the corresponding css.
+        # In hindsight this all probably could've been done using some clever css.
+        # Oh well, I'm not clever in css. I'm clever in python.
+        videomasterlist = list(breaklist(videos, 3))
         return render_template('videos.html', videomasterlist=videomasterlist)
-    @app.route('/videos/upload')
-    @login_required(must=have_access_to_admin)
-    def vid_upload():
-        return render_template('vid_upload.html')
+
+    # The upload form sends its data here.
     @app.route('/videos/newupload', methods=["POST"])
     @login_required(must=have_access_to_admin)
     def newupload():
-        title=request.form.get('title')
-        ytlink=request.form.get('ytlink')
-        title=title.replace('|','')
-        if 'https://www.youtube.com/watch?v=' not in ytlink and 'https://youtu.be/' not in ytlink:
-            return "This doesn't look like a youtube link. Try again."
-        ytlink=ytlink.replace('https://www.youtube.com/watch?v=','')
-        ytlink=ytlink.replace('https://youtu.be/','')
-        with open('text/videos.txt','r') as file:
-            vidlist=file.readlines()
-        newvideo=title+'|'+ytlink+'\n'
-        vidlist.insert(0,newvideo)
-        with open('text/videos.txt','w') as file:
+        # Title is the title to be shown on jforseth.tech, not the title on youtube.
+        title = request.form.get('title')
+        # This is the link to the video, not the id.
+        # Playlists and youtu.be links are hit or miss.
+        youtubeid = request.form.get('youtubeid')
+
+        # If there are any seperators, delete them, they'll break things later.
+        title = title.replace('|', '')
+
+        # If the link the user uploaded isn't a youtube link, let them know.
+        if 'https://www.youtube.com/watch?v=' not in youtubeid and 'https://youtu.be/' not in youtubeid:
+            return "This doesn't look like a YouTube link. Try again."
+
+        # Remove the url part, all we care about is the video id.
+        youtubeid = youtubeid.replace('https://www.youtube.com/watch?v=', '')
+        youtubeid = youtubeid.replace('https://youtu.be/', '')
+
+        # Get the existing video list.
+        with open('text/videos.txt', 'r') as file:
+            vidlist = file.readlines()
+
+        # Take the title and id of the new video and format it for the list.
+        newvideo = title+'|'+youtubeid+'\n'
+
+        # Insert it at the top of the list
+        vidlist.insert(0, newvideo)
+
+        # Write the updated list to the file.
+        with open('text/videos.txt', 'w') as file:
             file.writelines(vidlist)
+
+        # Return to the video page.
         return redirect('../videos')
+
+    # The delete button sends the video id it wants deleted here.
     @app.route('/videos/deletion', methods=["POST"])
     @login_required(must=have_access_to_admin)
     def deletion():
-        ytlink=request.form.get('ytlink')
-        with open('text/videos.txt','r') as file:
-            vidlist=file.readlines()
-        #This magical line removes videos that have the link requested for deletion.
-        vidlist = [v for v in vidlist if ytlink not in v]
-        with open('text/videos.txt','w') as file:
+
+        # This is the id of the youtube video to delete.
+        # It is not a URL!
+        youtubeid = request.form.get('youtubeid')
+
+        # Read the list of videos.
+        with open('text/videos.txt', 'r') as file:
+            vidlist = file.readlines()
+
+        # This magical line removes videos that have the link requested for deletion.
+        # It iterates through the list of videos, discarding any that element with the id that is to be deleted.
+        # Note: A malicious request containing only one character may delete multiple videos.
+        # MAKE SURE ALL ADMINS ARE TRUSTED.
+        vidlist = [v for v in vidlist if youtubeid not in v]
+
+        # Finally, it overwrites the old list.
+        with open('text/videos.txt', 'w') as file:
             file.writelines(vidlist)
         return redirect('../videos')
+
+    # The video rename form sends its data here.
     @app.route('/videos/rename', methods=["POST"])
     @login_required(must=have_access_to_admin)
     def rename():
-        title=request.form.get('title')
-        ytlink=request.form.get('ytlink')
-        with open('text/videos.txt','r') as file:
-            vidlist=file.readlines()
-        vidlist2=[]
+
+        # New title of renamed video
+        title = request.form.get('title')
+
+        # This is the id of the youtube video to delete.
+        # It is not a URL!
+        youtubeid = request.form.get('youtubeid')
+
+        # Again, reads the list of videos.
+        with open('text/videos.txt', 'r') as file:
+            vidlist = file.readlines()
+
+        # List comprehensions didn't seem like a good option.
+        vidlist2 = []
         for i in vidlist:
-            if ytlink in i:
-                _, iytlink = i.split('|')
-                vidlist2.append(title+'|'+iytlink)
+
+            # Search for the video to be renamed by id.
+            if youtubeid in i:
+                # Keep the id, throw the old name away.
+                _, iyoutubeid = i.split('|')
+
+                # Put new title, old id together, in the proper format.
+                vidlist2.append(title+'|'+iyoutubeid)
             else:
+
+                # If its not the video we're looking for, don't do anything.
                 vidlist2.append(i)
-        vidlist=vidlist2
-        with open('text/videos.txt','w') as file:
+
+        # Basically a list comprehension. Replace the old list with the new one.
+        vidlist = vidlist2
+
+        # Overwrite the old list.
+        with open('text/videos.txt', 'w') as file:
             file.writelines(vidlist)
+
+        # Redirect to video page, should just look like reload.
         return redirect('../videos')
+
     @app.route('/videos/updateid', methods=["POST"])
     @login_required(must=have_access_to_admin)
     def updateid():
-        oldytlink=request.form.get('oldytlink')
-        newytlink=request.form.get('newytlink')
-        with open('text/videos.txt','r') as file:
-            vidlist=file.readlines()
-        vidlist2=[]
+
+        # Original id of the video.
+        oldyoutubeid = request.form.get('oldyoutubeid')
+        # New id of the video.
+        newyoutubeid = request.form.get('newyoutubeid')
+
+        # If the user sends a link and not an id, quietly delete the parts that don't matter.
+        newyoutubeid = newyoutubeid.replace(
+            'https://www.youtube.com/watch?v=', '')
+        newyoutubeid = newyoutubeid.replace('https://youtu.be/', '')
+
+        # Read the video list.
+        with open('text/videos.txt', 'r') as file:
+            vidlist = file.readlines()
+
+        # TODO: Make this into a list comprehension.
+        # Basically, search for the id you want to replace, replace it, write your changes to a new list.
+        vidlist2 = []
         for i in vidlist:
-            if oldytlink in i:
-                i=i.replace('https://www.youtube.com/watch?v=','')
-                i=i.replace('https://youtu.be/','')
-                i=i.replace(oldytlink,newytlink)
+            if oldyoutubeid in i:
+                i = i.replace(oldyoutubeid, newyoutubeid)
             vidlist2.append(i)
-        vidlist=vidlist2
-        pp.pprint(vidlist)
-        with open('text/videos.txt','w') as file:
+
+        # Point the old list to your new one.
+        vidlist = vidlist2
+
+        # Overwrite and reload. You know the drill.
+        with open('text/videos.txt', 'w') as file:
             file.writelines(vidlist)
         return redirect('../videos')
+
+    # The move up and move down buttons send data here.
     @app.route('/videos/move', methods=["POST"])
     @login_required(must=have_access_to_admin)
     def move():
-        element=request.form.get('element')+'\n'
-        direction=request.form.get('direction')
-        with open('text/videos.txt','r') as file:
-            vidlist=file.readlines()
-        videoindex=vidlist.index(element)
+        # This is the EXACT element in the video list. If its not, it'll cause a ValueError.
+        element = request.form.get('element')+'\n'
+
+        # The direction to move the video, 'up' or 'down'
+        direction = request.form.get('direction')
+
+        # Again, just reading the video list.
+        with open('text/videos.txt', 'r') as file:
+            vidlist = file.readlines()
+
+        # Find the index for the desired element.
+        videoindex = vidlist.index(element)
+
+        # Remove the element at that position. Without this line,
+        # the video will appear twice, both in the old position, and the new one.
         vidlist.pop(videoindex)
+
+        # Now, shift the index by one. 
         if direction == 'up':
-            videoindex-=1
+            # I know subtracting seems counter-intuitive, but remember, index 0 is the top of the list. 
+            videoindex -= 1
         else:
-            videoindex+=1
+            # The bigger index, the lower on the list. 
+            videoindex += 1
+
+        #Insert the element, exactly as it was, in its new position, exactly one higher or one lower. 
         vidlist.insert(videoindex, element)
-        with open('text/videos.txt','w') as file:
+
+        #Overwrite and refresh. 
+        with open('text/videos.txt', 'w') as file:
             file.writelines(vidlist)
-        return redirect('../videos')    
+        return redirect('../videos')
 ###########
 #Messenger#
 ###########
@@ -476,16 +598,18 @@ def file_sharing():
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                 return redirect(url_for('uploaded_file', filename=filename))
-        else:    
-            filelist=os.listdir(app.config['UPLOAD_FOLDER'])
-            return render_template('file_sharing.html',files=filelist)
+        else:
+            filelist = os.listdir(app.config['UPLOAD_FOLDER'])
+            return render_template('file_sharing.html', files=filelist)
+
     @app.route('/filesharing/<filename>')
     def uploaded_file(filename):
         return send_from_directory(app.config['UPLOAD_FOLDER'],
                                    filename)
+
     @app.route('/filesharing/filelist')
     def filelist():
-        files=os.listdir(app.config['UPLOAD_FOLDER'])
+        files = os.listdir(app.config['UPLOAD_FOLDER'])
         return ''.join(files)
 ######
 #Misc#
@@ -559,10 +683,10 @@ todo()
 farmYearVideo()
 admin()
 errorHandlers()
-#bullJudging()
+# bullJudging()
 file_sharing()
-#scattergories()
-#quickdrawGame()
+# scattergories()
+# quickdrawGame()
 
 # Runs the testing server.
 if __name__ == "__main__":
