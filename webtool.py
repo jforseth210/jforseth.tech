@@ -68,6 +68,7 @@ def welcome():
                 yield listtobreak[i:i+chunksize]
         with open("text/videos.txt", 'r') as file:
             videos = file.readlines()
+        videos = [i.replace(' \n','') for i in videos]
         videos = [i.split('|') for i in videos]
         #mylist=[("Hello", "I hope this works"),("Hi", "I hope this works",),("Hey there", "I hope this works"),("I really hope this works","Hi")]
         videomasterlist=list(breaklist(videos,3))
@@ -82,9 +83,10 @@ def welcome():
         title=request.form.get('title')
         ytlink=request.form.get('ytlink')
         title=title.replace('|','')
-        if 'https://www.youtube.com/watch?v=' not in ytlink:
+        if 'https://www.youtube.com/watch?v=' not in ytlink and 'https://youtu.be/' not in ytlink:
             return "This doesn't look like a youtube link. Try again."
         ytlink=ytlink.replace('https://www.youtube.com/watch?v=','')
+        ytlink=ytlink.replace('https://youtu.be/','')
         with open('text/videos.txt','r') as file:
             vidlist=file.readlines()
         newvideo=title+'|'+ytlink+'\n'
@@ -96,15 +98,67 @@ def welcome():
     @login_required(must=have_access_to_admin)
     def deletion():
         ytlink=request.form.get('ytlink')
-        print(ytlink)
         with open('text/videos.txt','r') as file:
             vidlist=file.readlines()
-        pp.pprint(vidlist)
         #This magical line removes videos that have the link requested for deletion.
         vidlist = [v for v in vidlist if ytlink not in v]
         with open('text/videos.txt','w') as file:
             file.writelines(vidlist)
         return redirect('../videos')
+    @app.route('/videos/rename', methods=["POST"])
+    @login_required(must=have_access_to_admin)
+    def rename():
+        title=request.form.get('title')
+        ytlink=request.form.get('ytlink')
+        with open('text/videos.txt','r') as file:
+            vidlist=file.readlines()
+        vidlist2=[]
+        for i in vidlist:
+            if ytlink in i:
+                _, iytlink = i.split('|')
+                vidlist2.append(title+'|'+iytlink)
+            else:
+                vidlist2.append(i)
+        vidlist=vidlist2
+        with open('text/videos.txt','w') as file:
+            file.writelines(vidlist)
+        return redirect('../videos')
+    @app.route('/videos/updateid', methods=["POST"])
+    @login_required(must=have_access_to_admin)
+    def updateid():
+        oldytlink=request.form.get('oldytlink')
+        newytlink=request.form.get('newytlink')
+        with open('text/videos.txt','r') as file:
+            vidlist=file.readlines()
+        vidlist2=[]
+        for i in vidlist:
+            if oldytlink in i:
+                i=i.replace('https://www.youtube.com/watch?v=','')
+                i=i.replace('https://youtu.be/','')
+                i=i.replace(oldytlink,newytlink)
+            vidlist2.append(i)
+        vidlist=vidlist2
+        pp.pprint(vidlist)
+        with open('text/videos.txt','w') as file:
+            file.writelines(vidlist)
+        return redirect('../videos')
+    @app.route('/videos/move', methods=["POST"])
+    @login_required(must=have_access_to_admin)
+    def move():
+        element=request.form.get('element')+'\n'
+        direction=request.form.get('direction')
+        with open('text/videos.txt','r') as file:
+            vidlist=file.readlines()
+        videoindex=vidlist.index(element)
+        vidlist.pop(videoindex)
+        if direction == 'up':
+            videoindex-=1
+        else:
+            videoindex+=1
+        vidlist.insert(videoindex, element)
+        with open('text/videos.txt','w') as file:
+            file.writelines(vidlist)
+        return redirect('../videos')    
 ###########
 #Messenger#
 ###########
