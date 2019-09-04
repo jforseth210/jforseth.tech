@@ -24,7 +24,7 @@ Videos
     </ul>
     <form method=post action="videos/newupload" method="POST">
         <input type=text name=title placeholder='Title' />
-        <input type=text name=youtubeid placeholder="YouTube Link" />
+        <input type=text name=youtube_id placeholder="YouTube Link" />
         <input type=submit name=submit id='submit' value="Upload">
     </form>
     <br/><br/>
@@ -33,19 +33,19 @@ Videos
         title to be redirected to YouTube. I would serve them myself, instead of using YouTube, but my computer and my
         internet connection just aren't up to that. Enjoy!</p>
 {% endif %}
-{% for row in videomasterlist %}
+{% for row in video_master_list %}
     <div class="row">
         {% for video in row %}
         <div class="column">
             {% if is_logged_in('bookboy210') %}
             <form method=post action="videos/rename" method="POST">
                 <input type=text value="{{ video[0]}}" name=title />
-                <input hidden value="{{ video[1]}}" name=youtubeid />
+                <input hidden value="{{ video[1]}}" name=youtube_id />
                 <input type=submit id=submit value="Rename" />
             </form>
             <form method=post action="videos/updateid" method="POST">
-                <input type=text value="{{ video[1]}}" name=newyoutubeid />
-                <input hidden value="{{ video[1]}}" name=oldyoutubeid />
+                <input type=text value="{{ video[1]}}" name=new_youtube_id />
+                <input hidden value="{{ video[1]}}" name=old_youtube_id />
                 <input type=submit id=submit value="Update ID" />
             </form>
             {% else %}
@@ -60,7 +60,7 @@ Videos
                 <input type=submit id=submit value="Move Up" />
             </form>
             <form method=post action="videos/deletion" method="POST">
-                <input hidden value="{{ video[1]}}" name=youtubeid />
+                <input hidden value="{{ video[1]}}" name=youtube_id />
                 <input type=submit id=submit value="Delete" />
             </form>
             
