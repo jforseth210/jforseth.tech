@@ -3,10 +3,10 @@
 /*The entire page*/
 
 :root {
-	--main-bg-color: #000050;
+	--main-bg-color: #0f2f4f;
 	--main-txt-color: #AAAAAA;
-	--main-element-color: #030380;
-  --hover-color: #2323A0;
+	--main-element-color: #0a1f3f;
+  --hover-color: #1f3f5f;
   --main-font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
