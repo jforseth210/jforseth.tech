@@ -3,10 +3,10 @@
 /*The entire page*/
 
 :root {
-	--main-bg-color: #000050;
+	--main-bg-color: #0f2f4f;
 	--main-txt-color: #AAAAAA;
-	--main-element-color: #030380;
-  --hover-color: #2323A0;
+	--main-element-color: #0a1f3f;
+  --hover-color: #1f3f5f;
   --main-font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
@@ -196,6 +196,32 @@ ul.topnav li a.active {
 
 ul.topnav li.right {
 	float: right;
+}
+/*The menu bar on mobile*/
+
+#mobile-list-nav {
+	padding: 0px;
+	padding-bottom: 0px;
+	width: 100%;
+}
+
+#mobile-list-nav li {
+	list-style: none;
+}
+
+#mobile-list-nav li a {
+	text-decoration: none;
+	padding: 25px 0 0;
+	width: 100% !important;
+	background: --main-element-color;
+	color: var(--main-txt-color);
+	float: left;
+	text-align: center;
+	height: 75px
+}
+
+#mobile-list-nav li a:hover {
+	background: --hover-color;
 }
 
 @media screen and (max-width: 710px) {

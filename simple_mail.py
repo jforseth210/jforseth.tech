@@ -6,11 +6,13 @@ def send_email(email_recipient, email_subject, email_message, sender, password):
     s = smtplib.SMTP(host='smtp.gmail.com', port='587')
     s.starttls()
     s.login(sender, password)
+    
     # Create the message
     msg = MIMEMultipart()
     msg['From'] = sender
     msg['To'] = email_recipient
     msg['Subject'] = email_subject
+   
     # The template for the messenger.
     # The form elements are invisible, the user just has to click submit.
     msg.attach(MIMEText(email_message, 'html'))
