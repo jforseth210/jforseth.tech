@@ -65,6 +65,7 @@ def welcome():
     # Home
     @app.route('/')
     def welcome_page():
+        
         return render_template('welcome.html')
     # In case an old link is used.
     @app.route('/FlaskApp')
@@ -393,7 +394,9 @@ def prayer():
         try:
             verification_result = db_tools.check_verification_code(code)
         except TypeError:
-            "Verification Failed. Your email client may not be supported. Try a different client, e.g. Outlook, your email provider's website, the mail app on your phone, etc."
+            return """<html><p>Verification Failed. Your email client may not be supported. Try a different client, e.g. Outlook, your email provider's website, the mail app on your phone, etc.</p>
+                      <br/><img src='https://imgs.xkcd.com/comics/unreachable_state.png'/></html>"""
+     
         if verification_result:  # If verification succeeds:
             # Adds email to applicable groups
             db_tools.add_to_mailing_list(address, parish)
@@ -406,7 +409,8 @@ def prayer():
             return render_template('email_added.html')
         else:
             # Returns failure message.
-            return 'Verification Failed. Please try again.'
+            return """<html><p>Verification Failed. Please try again.</p>
+                      <br/><img src='https://imgs.xkcd.com/comics/unreachable_state.png'/></html>"""
 
     # Prayer request submissions
     @app.route('/prayer/prayerrequest', methods=['POST', 'GET'])
