@@ -97,8 +97,25 @@ def get_verification_code():
 
 def check_verification_code(code):
     with open('text/validcodes.txt', 'r') as file:
-            VALID_CODES = file.readline()
-    return code in VALID_CODES
+            valid_codes = file.readline()
+
+    print("Code:"+code)
+    print("Valid Code:"+valid_codes)
+
+    if code in valid_codes:
+        code_validity= True
+    else:
+        code_validity= False
+    print("Code Validity:"+str(code_validity))
+
+
+    new_code = str(random.randint(10000,99999))
+    print("New Code:"+new_code)
+    valid_codes=valid_codes.replace(code,new_code)
+    print("New Valid Code List:"+valid_codes)
+    with open('text/validcodes.txt','w') as file:
+	    file.write(valid_codes)
+    return code_validity
 
 def get_verification_email_template():
     with open('text/verification_email_template.html') as file:
