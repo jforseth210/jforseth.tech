@@ -182,7 +182,8 @@ def videos():
 
         # Read the list of videos.
         video_list=db_tools.get_videos()
-
+        if len(youtube_id) < 12:
+		return "This doesn't look like a valid youtube link."
         # This magical line removes videos that have the link requested for deletion.
         # It iterates through the list of videos, discarding any that element with the id that is to be deleted.
         # Note: A malicious request containing only one character may delete multiple videos.
