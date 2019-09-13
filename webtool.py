@@ -6,49 +6,48 @@ from simple_mail import send_email
 # Data I don't want on github
 from SensitiveData import *
 
-# For integrating flask_simplelogin with my database. 
+# For integrating flask_simplelogin with my database.
 from account_management import (check_my_users, have_access_to_admin,
                                 have_access_to_pickem, have_access_to_todo)
 
-# Tools I created for reading/writing data. 
+# Tools I created for reading/writing data.
 # Mostly abstracts open() function and some
-# sqlite stuff.   
+# sqlite stuff.
 import db_tools
 
-#For filesharing
+# For filesharing
 from werkzeug.utils import secure_filename
 
-#For accounts, mostly just admin account. 
+# For accounts, mostly just admin account.
 from flask_simplelogin import SimpleLogin, get_username, login_required
 
-#The framework that runs all of it. 
+# The framework that runs all of it.
 from flask import (Flask, flash, redirect, render_template, request,
                    send_from_directory, url_for)
 
-#Lists the files in the upload directory.
+# Lists the files in the upload directory.
 import os
 
-#Randomness is always useful
+# Randomness is always useful
 import random
 
-#Random letter generator
+# Random letter generator
 import string
 
-#Useful for debug. 
+# Useful for debug.
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
-#From flask docs
+# From flask docs
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'py']
 
 
-#Create the website. Setup secret_key, upload location, logins. 
+# Create the website. Setup secret_key, upload location, logins.
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 SimpleLogin(app, login_checker=check_my_users)
-
 
 
 #########
@@ -56,7 +55,7 @@ SimpleLogin(app, login_checker=check_my_users)
 #########
 # Welcome
 # About
-# Instructions 
+# Instructions
 # Mobile Menubar
 
 def welcome():
@@ -65,25 +64,22 @@ def welcome():
     # Home
     @app.route('/')
     def welcome_page():
-        
+
         return render_template('welcome.html')
     # In case an old link is used.
     @app.route('/FlaskApp')
     def home():
         return redirect('/')
 
-
     # About
     @app.route('/about')
     def about():
         return render_template('about.html')
 
-
     # Instructions
     @app.route('/instructions')
     def instructions():
         return render_template('instructions.html')
-
 
     # Mobile Menu
     @app.route('/menu')
@@ -96,27 +92,25 @@ def welcome():
 
 def videos():
     # This route is for loading the video page.
-    
+
     # If the user is signed in as admin, the admin tools will show,
     # if not, only the default video page will be sent. See videos.html
     # for more info.
     @app.route('/videos')
     def video_page():
-        #Get the list of videos
-        videos=db_tools.get_videos()
+        # Get the list of videos
+        videos = db_tools.get_videos()
 
         # Remove newlines
         videos = [i.replace(' \n', '') for i in videos]
         # Split videos into a list of sublists, each with two items, the title and the id.
         videos = [i.split('|') for i in videos]
-        
-        # A function from chrisalbon.com to break the list into rows 
+
+        # A function from chrisalbon.com to break the list into rows
         def break_list(list_to_break, chunk_size):
             for i in range(0, len(list_to_break), chunk_size):
 
                 yield list_to_break[i:i+chunk_size]
-
-
 
         video_master_list = list(break_list(videos, 3))
         # This list is then broken into chunks of three to form rows:
@@ -133,9 +127,7 @@ def videos():
         #   ]
         # ]
 
-
         return render_template('videos.html', video_master_list=video_master_list)
-
 
     # The upload form sends its data here.
     @app.route('/videos/newupload', methods=["POST"])
@@ -159,7 +151,7 @@ def videos():
         youtube_id = youtube_id.replace('https://youtu.be/', '')
 
         # Get the existing video list.
-        video_list=db_tools.get_videos()
+        video_list = db_tools.get_videos()
 
         # Take the title and id of the new video and format it for the list.
         newvideo = title+'|'+youtube_id+'\n'
@@ -182,9 +174,9 @@ def videos():
         youtube_id = request.form.get('youtube_id')
 
         # Read the list of videos.
-        video_list=db_tools.get_videos()
+        video_list = db_tools.get_videos()
         if len(youtube_id) < 12:
-		return "This doesn't look like a valid youtube link."
+            return "This doesn't look like a valid youtube link."
         # This magical line removes videos that have the link requested for deletion.
         # It iterates through the list of videos, discarding any that element with the id that is to be deleted.
         # Note: A malicious request containing only one character may delete multiple videos.
@@ -208,7 +200,7 @@ def videos():
         youtube_id = request.form.get('youtube_id')
 
         # Again, reads the list of videos.
-        video_list=db_tools.get_videos()
+        video_list = db_tools.get_videos()
         # List comprehensions didn't seem like a good option.
         video_list2 = []
         for i in video_list:
@@ -248,7 +240,7 @@ def videos():
         new_youtube_id = new_youtube_id.replace('https://youtu.be/', '')
 
         # Read the video list.
-        video_list=db_tools.get_videos()
+        video_list = db_tools.get_videos()
 
         # TODO: Make this into a list comprehension.
         # Basically, search for the id you want to replace, replace it, write your changes to a new list.
@@ -276,7 +268,7 @@ def videos():
         direction = request.form.get('direction')
 
         # Again, just reading the video list.
-        video_list=db_tools.get_videos()
+        video_list = db_tools.get_videos()
 
         # Find the index for the desired element.
         videoindex = video_list.index(video_list_element)
@@ -391,26 +383,34 @@ def prayer():
         code = request.args.get('code')
         address = request.args.get('email')
         parish = request.args.get('parish')
+        if len(code)==0:
+            return("""No verification code was recieved. Please try again. 
+            Theres two reasons why this could've happened: <ol>
+            <li>I messed up something with the code.</li>
+            <li>You messed with something you weren't supposed to.</li></ol>
+            </li>If you happen to be me, it's probably both. If you aren't me, feel free to email me if you think it's broken, or to try again if you think you broke it.
+            If problem persists, send me an email describing the problem. <br / > 
+            <br/><img src='https://imgs.xkcd.com/comics/unreachable_state.png'/>""")
         try:
             verification_result = db_tools.check_verification_code(code)
         except TypeError:
             return """<html><p>Verification Failed. Your email client may not be supported. Try a different client, e.g. Outlook, your email provider's website, the mail app on your phone, etc.</p>
                       <br/><img src='https://imgs.xkcd.com/comics/unreachable_state.png'/></html>"""
-     
+
         if verification_result:  # If verification succeeds:
             # Adds email to applicable groups
             db_tools.add_to_mailing_list(address, parish)
             db_tools.add_to_mailing_list(address, "Public")
             if "RE" in parish:
                 new_parish = parish.replace('RE', 'Parish')
-                db_tools.add_to_mailing_list(address, new_parish)
+                db_tools.add_to_exiymailing_list(address, new_parish)
 
             # Returns success page.
             return render_template('email_added.html')
         else:
             # Returns failure message.
-            return """<html><p>Verification Failed. Please try again.</p>
-                      <br/><img src='https://imgs.xkcd.com/comics/unreachable_state.png'/></html>"""
+            return """Email verification failed. Verification code is invalid or expired. Please try signing up again. 
+            If the problem persists, click "Contact" and send me an email describing your issue. Sorry!"""
 
     # Prayer request submissions
     @app.route('/prayer/prayerrequest', methods=['POST', 'GET'])
@@ -672,7 +672,7 @@ def scattergories():
             new_list.append(random.choice(CATERGORY_LIST))
         with open(
                 r"text/currentcatergorylist.txt", "w") as file:
-    
+
             file.writelines(["%s\n" % item for item in new_list])
         return "Done"
 

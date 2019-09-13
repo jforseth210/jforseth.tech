@@ -107,7 +107,7 @@ def check_verification_code(code):
     else:
         code_validity= False
     print("Code Validity:"+str(code_validity))
-
+ 
 
     new_code = str(random.randint(10000,99999))
     print("New Code:"+new_code)
