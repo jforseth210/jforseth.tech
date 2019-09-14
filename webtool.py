@@ -58,8 +58,11 @@ def experiment():
         page="Enter your desired page"
     else:
         page=requests.get(requested_url).content
-    print(page)
-    return b"<form><input name='url' /><input type='submit'></form>"+page
+        if requested_url not in page:
+            page=page.replace(b'src=',b'src=https://5000-f245567d-97ce-40b0-8fd1-35be3c1d83d6.ws-us1.gitpod.io/experiment?url='+bytes(requested_url, 'utf-8'))
+            page=page.replace(b'href=',b'href=https://5000-f245567d-97ce-40b0-8fd1-35be3c1d83d6.ws-us1.gitpod.io/experiment?url='+bytes(requested_url, 'utf-8'))
+            page=page.replace(b'content=',b'content=https://5000-f245567d-97ce-40b0-8fd1-35be3c1d83d6.ws-us1.gitpod.io/experiment?url='+bytes(requested_url, 'utf-8'))
+    return "<form><input name='url' /><input type='submit'></form>"+str(page)
 #########
 #Welcome#
 #########
