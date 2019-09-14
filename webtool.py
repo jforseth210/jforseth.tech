@@ -58,12 +58,13 @@ def experiment():
         page="Enter your desired page"
     else:
         page=requests.get(requested_url).content
-    return "<form><input name='url' /><input type='submit'></form>"+str(page) 
+    print(page)
+    return b"<form><input name='url' /><input type='submit'></form>"+page
 #########
 #Welcome#
 #########
 # Welcome
-# 
+#
 # Instructions
 # Mobile Menubar
 
@@ -393,12 +394,12 @@ def prayer():
         address = request.args.get('email')
         parish = request.args.get('parish')
         if len(code)==0:
-            return("""No verification code was recieved. Please try again. 
+            return("""No verification code was recieved. Please try again.
             Theres two reasons why this could've happened: <ol>
             <li>I messed up something with the code.</li>
             <li>You messed with something you weren't supposed to.</li></ol>
             </li>If you happen to be me, it's probably both. If you aren't me, feel free to email me if you think it's broken, or to try again if you think you broke it.
-            If problem persists, send me an email describing the problem. <br / > 
+            If problem persists, send me an email describing the problem. <br / >
             <br/><img src='https://imgs.xkcd.com/comics/unreachable_state.png'/>""")
         try:
             verification_result = db_tools.check_verification_code(code)
@@ -418,7 +419,7 @@ def prayer():
             return render_template('email_added.html')
         else:
             # Returns failure message.
-            return """Email verification failed. Verification code is invalid or expired. Please try signing up again. 
+            return """Email verification failed. Verification code is invalid or expired. Please try signing up again.
             If the problem persists, click "Contact" and send me an email describing your issue. Sorry!"""
 
     # Prayer request submissions
