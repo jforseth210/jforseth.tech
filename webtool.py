@@ -38,6 +38,9 @@ import string
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
+import requests
+
+
 # From flask docs
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'py']
@@ -48,13 +51,19 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 SimpleLogin(app, login_checker=check_my_users)
-
-
+@app.route("/experiment")
+def experiment():
+    requested_url=request.args.get('url')
+    if requested_url == None:
+        page="Enter your desired page"
+    else:
+        page=requests.get(requested_url).content
+    return "<form><input name='url' /><input type='submit'></form>"+str(page) 
 #########
 #Welcome#
 #########
 # Welcome
-# About
+# 
 # Instructions
 # Mobile Menubar
 
