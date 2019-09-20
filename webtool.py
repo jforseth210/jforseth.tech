@@ -652,7 +652,7 @@ def barrel_racing():
         return render_template('AP Create Task/index.html')
     @app.route('/barrelracing/counter')
     def barrel_racing_counter():
-        with open("barrel_racing_current_number.txt",'r') as file:
+        with open("text/barrel_racing_current_number.txt",'r') as file:
             current_number=file.readline()
         try:
             current_number=int(current_number)
@@ -662,7 +662,7 @@ def barrel_racing():
     @app.route('/barrelracing/current_number_update',methods=['POST'])
     def barrel_racing_current_number_update():
         current_number=request.form.get("current_number")
-        with open("barrel_racing_current_number.txt",'w') as file:
+        with open("text/barrel_racing_current_number.txt",'w') as file:
             file.write(current_number)
         return redirect("/barrelracing/counter")
     @app.route('/barrelracing/stream')
@@ -670,7 +670,7 @@ def barrel_racing():
         def eventStream():
             while True:
                 time.sleep(1)
-                with open("barrel_racing_current_number.txt",'r') as file:
+                with open("text/barrel_racing_current_number.txt",'r') as file:
                     current_number=file.readline()
                 yield "data: {}\n\n".format(current_number)
         return Response(eventStream(), mimetype="text/event-stream")
