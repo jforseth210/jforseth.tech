@@ -647,9 +647,9 @@ def file_sharing():
 #Misc#
 ######
 def barrel_racing():
-    @app.route('/barrelracing')
-    def barrel_racing():
-        return redirect("https://sites.google.com/view/mtbrda/home")
+    #@app.route('/barrelracing')
+    #def barrel_racing():
+    #    return redirect("https://sites.google.com/view/mtbrda/home")
     @app.route('/barrelracing/app_lab')
     def barrel_racing_app_lab():
         return render_template('AP Create Task/index.html')
@@ -667,7 +667,7 @@ def barrel_racing():
         current_number=request.form.get("current_number")
         with open("text/barrel_racing_current_number.txt",'w') as file:
             file.write(current_number)
-        return redirect("/barrelracing")
+        return redirect("/barrelracing/counter")
     @app.route('/barrelracing/stream')
     def stream():
         def eventStream():
