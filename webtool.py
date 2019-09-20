@@ -57,17 +57,28 @@ def experiment():
     if requested_url == None:
         page="Enter your desired page"
     else:
-        page=requests.get(requested_url).content
-        if requested_url.encode('utf-8') not in page:
-            page=page.replace(b"src='/",b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-            page=page.replace(b"href='/",b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-            page=page.replace(b"content='/",b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-            page=page.replace(b'src=\"/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-            page=page.replace(b'href=\"/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-            page=page.replace(b'content=\"/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-            page=page.replace(b'src=/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-            page=page.replace(b'href=/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-            page=page.replace(b'content=/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        from requests_html import HTMLSession
+        import requests
+        session=HTMLSession()
+        page=session.get(requested_url)
+        absolute_links=page.html.absolute_links
+        links=page.html.links
+        page=page.html.raw_html
+        pp.pprint(absolute_links)
+        for i in links:
+            if i in absolute_links:
+                page=page.replace(bytes(i,'utf-8'),b"http://jforseth.tech/experiment?url="+bytes(i,'utf-8'))
+            else:
+                page=page.replace(bytes(i,'utf-8'),b"http://jforseth.tech/experiment?url="+bytes(requested_url,'utf-8')+bytes(i,'utf-8'))
+        # page=page.replace(b"src='/",b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b"href='/",b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b"content='/",b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b'src=\"/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b'href=\"/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b'content=\"/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b'src=/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b'href=/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b'content=/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
     return "<form><input name='url' /><input type='submit'></form>"+str(page)
 #########
 #Welcome#
