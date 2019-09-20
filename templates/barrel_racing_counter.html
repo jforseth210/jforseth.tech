@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Counter</title>
+    <style>
+        #current_number {
+            border: 0px;
+            font-size: 100px;
+            color: black;
+        }
+
+        #formparent {
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .button {
+            border: 1px sold black;
+            font-size: 60px;
+            background: none;
+            font-weight: bold;
+            border-radius: 3px;
+            width: 75px;
+        }
+
+        #minus {
+            color: red;
+        }
+
+        #plus {
+            color: green;
+        }
+
+        #invisible {
+            visibility: hidden;
+            display: none;
+        }
+
+        h1 {
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <p>{{error}}</p>
+    <h1>Horse #</h1>
+    <form id=currentnumberform action="/barrelracing/current_number_update" method="POST">
+        <input name=current_number id=current_number value={{current_number}} />
+        <input type=submit id="invisible" />
+    </form>
+    <h1>is currently running</h1>
+    <div id=formparent>
+        <form id=plusform action="/barrelracing/current_number_update" method="POST">
+            <input type=number name=current_number id=invisible value={{current_number_plus}} />
+            <input type=submit id=plus class=button value=+>
+        </form>
+        <form id=minusform action="/barrelracing/current_number_update" method="POST">
+            <input type=number name=current_number id=invisible value={{current_number_minus}} />
+            <input type=submit id=minus class=button value=->
+        </form>
+    </div>
+    <script>
+        //I stole, ahem, borrowed this from https://stackoverflow.com/questions/12232304/how-to-implement-server-push-in-flask-framework
+        var current_number = document.getElementById("current_number");
+        var eventSource = new EventSource("/barrelracing/stream")
+        eventSource.onmessage = function (e) {
+            if (current_number != document.activeElement) {
+                current_number.value = e.data;
+            }
+        };
+    </script>
+</body>
+
+</html>
