@@ -325,7 +325,7 @@ def messenger():
         def eventStream():
             previous_messages=db_tools.read_messages()
             while True:
-                time.sleep(1)
+                time.sleep(5)
                 messages = db_tools.read_messages()
                 if previous_messages != messages:
                     formatted_messages = [''.join(i) for i in messages]
