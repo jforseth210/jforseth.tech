@@ -78,7 +78,7 @@ def clear_messages():
         #I don't know if I need it or not but for the moment it works.
         
         #If something message-related breaks, try toggling this:
-        cur.execute("END TRANSACTION")
+        #cur.execute("END TRANSACTION")
         cur.execute("VACUUM")
 
 
