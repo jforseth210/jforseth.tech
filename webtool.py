@@ -320,7 +320,19 @@ def messenger():
             message = request.form.get('Data')
             db_tools.add_message(message)
         return redirect('/messenger')
-
+    @app.route('/message/stream')
+    def message_stream():
+        def eventStream():
+            previous_messages=db_tools.read_messages()
+            while True:
+                time.sleep(1)
+                messages = db_tools.read_messages()
+                if previous_messages != messages:
+                    formatted_messages = [''.join(i) for i in messages]
+                    previous_messages=messages
+                    pp.pprint(formatted_messages)
+                    yield "data: {}\n\n".format(formatted_messages[-1])
+        return Response(eventStream(), mimetype="text/event-stream")
     # Clear messages
     @app.route('/messenger/clear', methods=['POST', 'GET'])
     def clear_all_messages():
@@ -669,7 +681,7 @@ def barrel_racing():
             file.write(current_number)
         return redirect("/barrelracing/counter")
     @app.route('/barrelracing/stream')
-    def stream():
+    def barrelracing_stream():
         def eventStream():
             while True:
                 time.sleep(1)
