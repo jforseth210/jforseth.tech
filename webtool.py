@@ -674,6 +674,11 @@ def barrel_racing():
         except ValueError:
             return "Please enter a number"
         return render_template("barrel_racing_counter.html",current_number=current_number,current_number_plus=current_number+1,current_number_minus=current_number-1)
+    @app.route('/barrelracing/counter/currentnumber')
+    def barrel_racing_counter_current_number():
+        with open("text/barrel_racing_current_number.txt",'r') as file:
+            current_number=file.readline()
+        return current_number
     @app.route('/barrelracing/current_number_update',methods=['POST'])
     def barrel_racing_current_number_update():
         current_number=request.form.get("current_number")
