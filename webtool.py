@@ -689,7 +689,7 @@ def barrel_racing():
     def barrelracing_stream():
         def eventStream():
             while True:
-                time.sleep(1)
+                time.sleep(5)
                 with open("text/barrel_racing_current_number.txt",'r') as file:
                     current_number=file.readline()
                 yield "data: {}\n\n".format(current_number)
