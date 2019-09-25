@@ -325,7 +325,7 @@ def messenger():
         def eventStream():
             previous_messages=db_tools.read_messages()
             while True:
-                time.sleep(5)
+                time.sleep(15)
                 messages = db_tools.read_messages()
                 if previous_messages != messages:
                     formatted_messages = [''.join(i) for i in messages]
@@ -689,7 +689,7 @@ def barrel_racing():
     def barrelracing_stream():
         def eventStream():
             while True:
-                time.sleep(5)
+                time.sleep(15)
                 with open("text/barrel_racing_current_number.txt",'r') as file:
                     current_number=file.readline()
                 yield "data: {}\n\n".format(current_number)
