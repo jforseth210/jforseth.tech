@@ -328,8 +328,8 @@ def messenger():
                 time.sleep(5)
                 messages = db_tools.read_messages()
                 if previous_messages != messages:
-                    formatted_messages = [''.join(i) for i in messages]
                     previous_messages=messages
+                    formatted_messages = [''.join(i) for i in messages]
                     pp.pprint(formatted_messages)
                     yield "data: {}\n\n".format(formatted_messages[-1])
         return Response(eventStream(), mimetype="text/event-stream")
@@ -688,11 +688,16 @@ def barrel_racing():
     @app.route('/barrelracing/stream')
     def barrelracing_stream():
         def eventStream():
+            old_current_number=''
+            with open("text/barrel_racing_current_number.txt",'r') as file:
+                    old_current_number=file.readline()
             while True:
                 time.sleep(5)
                 with open("text/barrel_racing_current_number.txt",'r') as file:
                     current_number=file.readline()
-                yield "data: {}\n\n".format(current_number)
+                if old_current_number != current_number:
+                    old_current_number=current_number
+                    yield "data: {}\n\n".format(current_number)
         return Response(eventStream(), mimetype="text/event-stream")
 def scattergories():
     @app.route('/scattergories')
