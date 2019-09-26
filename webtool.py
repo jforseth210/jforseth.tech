@@ -325,7 +325,7 @@ def messenger():
         def eventStream():
             previous_messages=db_tools.read_messages()
             while True:
-                time.sleep(5)
+                time.sleep(15)
                 messages = db_tools.read_messages()
                 if previous_messages != messages:
                     previous_messages=messages
@@ -692,7 +692,7 @@ def barrel_racing():
             with open("text/barrel_racing_current_number.txt",'r') as file:
                     old_current_number=file.readline()
             while True:
-                time.sleep(5)
+                time.sleep(15)
                 with open("text/barrel_racing_current_number.txt",'r') as file:
                     current_number=file.readline()
                 if old_current_number != current_number:
