@@ -27,9 +27,10 @@
                 type="submit" value="Send" />
     </form>
     <script>
-               window.onbeforeunload=function(){
-                        eventSource.close();
-               }
+               window.addEventListener('beforeunload', function (e) {
+                       delete e['returnValue'];
+                       eventSource.close();
+               });
                //I stole, ahem, borrowed this from https://stackoverflow.com/questions/12232304/how-to-implement-server-push-in-flask-framework
                var eventSource = new EventSource("/message/stream")
                eventSource.onmessage = function (e) {
