@@ -61,10 +61,10 @@ def experiment():
     else:
         #session=HTMLSession()
         #page=session.get(requested_url)
-        absolute_links=page.html.absolute_links
-        links=page.html.links
-        page=page.html.raw_html
-        pp.pprint(absolute_links)
+        #absolute_links=page.html.absolute_links
+        #links=page.html.links
+        #page=page.html.raw_html
+        #pp.pprint(absolute_links)
         #for i in links:
         #    if i in absolute_links:
         #        page=page.replace(bytes(i,'utf-8'),b"http://jforseth.tech/experiment?url="+bytes(i,'utf-8'))
