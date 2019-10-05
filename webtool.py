@@ -59,7 +59,7 @@ def experiment():
     if requested_url == None:
         page="Enter your desired page"
     else:
-        session=HTMLSession()
+        #session=HTMLSession()
         page=session.get(requested_url)
         absolute_links=page.html.absolute_links
         links=page.html.links
