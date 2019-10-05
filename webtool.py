@@ -1,80 +1,66 @@
 # -*- coding: utf-8 -*-
 
-# Custom module for sending emails.
-from simple_mail import send_email
-
-# Data I don't want on github
-from SensitiveData import *
-
-# For integrating flask_simplelogin with my database.
-from account_management import (check_my_users, have_access_to_admin,
-                                have_access_to_pickem, have_access_to_todo)
-
-# Tools I created for reading/writing data.
-# Mostly abstracts open() function and some
-# sqlite stuff.
-import db_tools
-
-# For filesharing
-from werkzeug.utils import secure_filename
+# The framework that runs all of it.
+from flask import *
 
 # For accounts, mostly just admin account.
 from flask_simplelogin import SimpleLogin, get_username, login_required
 
-# The framework that runs all of it.
-from flask import (Flask, flash, redirect, render_template, request,
-                   send_from_directory, url_for, Response)
+# Custom modules
+from simple_mail import send_email
+from SensitiveData import *
+from account_management import *
+import db_tools
 
 # Lists the files in the upload directory.
-import os
 
-# Randomness is always useful
-import random
-import time
-# Random letter generator
-import string
+# For filesharing
+from werkzeug.utils import secure_filename
 
-# Useful for debug.
-import pprint
+# Generally useful libs. 
+import random 
+import time 
+import os #Lists files in upload directory. 
+import string #Has list of all lowercase letters.
+import pprint #Useful for debug.
 pp = pprint.PrettyPrinter(indent=4)
-
-
-import requests
-#from requests_html import HTMLSession
+import requests # The proxy experiment. 
 
 
 # From flask docs
-UPLOAD_FOLDER = "uploads"
+UPLOAD_PATH = "uploads"
 ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'py']
 
 
 # Create the website. Setup secret_key, upload location, logins.
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = UPLOAD_PATH
 SimpleLogin(app, login_checker=check_my_users)
-@app.route("/experiment")
+
+@app.route("/httpforwarding")
 def experiment():
+    ATTRIBUTES=['src','href','content','action','data-unscoped-search-url']
+    
     requested_url=request.args.get('url')
+    
+    #Did the user request an image?
+    ispng = requested_url[:-4]==".png"
+    isjpg = requested_url[:-4]==".jpg"
+    isjpeg = requested_url[:-5]!=".jpeg"
+    
+    isimage = ispng or isjpg or isjpeg
+
+    #If the user hasn't entered a url yet, return this message. 
     if requested_url == None:
         page="Enter your desired page"
-    else:
-        #session=HTMLSession()
-        #page=session.get(requested_url)
-        #absolute_links=page.html.absolute_links
-        #links=page.html.links
-        #page=page.html.raw_html
-        #pp.pprint(absolute_links)
-        #for i in links:
-        #    if i in absolute_links:
-        #        page=page.replace(bytes(i,'utf-8'),b"http://jforseth.tech/experiment?url="+bytes(i,'utf-8'))
-        #    else:
-        #        page=page.replace(bytes(i,'utf-8'),b"http://jforseth.tech/experiment?url="+bytes(requested_url,'utf-8')+bytes(i,'utf-8'))
-    	if requested_url[:-4]!=".png" and requested_url[:-4]!=".jpg" and requested_url[:-5]!=".jpeg":
-        	page=requests.get(requested_url).content
-        else:
+    elif isimage:
+        # If the user has requested an image, send it raw, not as text.
+        
+        if ispng or isjpeg or isjpg:
             return requests.get(requested_url).response_raw	
-        ATTRIBUTES=['src','href','content','action','data-unscoped-search-url']
+        else:
+        	page=requests.get(requested_url).content
         requested_url_utf=requested_url.encode('utf-8')
         for attribute in ATTRIBUTES:
             #page=page.replace(attribute.encode('utf-8')+b"=",attribute.encode('utf-8')+b"=http://jforseth.tech/experiment?url="+requested_url_utf)
