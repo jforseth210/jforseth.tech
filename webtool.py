@@ -70,21 +70,26 @@ def experiment():
         #        page=page.replace(bytes(i,'utf-8'),b"http://jforseth.tech/experiment?url="+bytes(i,'utf-8'))
         #    else:
         #        page=page.replace(bytes(i,'utf-8'),b"http://jforseth.tech/experiment?url="+bytes(requested_url,'utf-8')+bytes(i,'utf-8'))
-        ATTRIBUTES=['src','href','content','action']
+    	if requested_url[:-4]!=".png" and requested_url[:-4]!=".jpg" and requested_url[:-5]!=".jpeg":
+        	page=requests.get(requested_url).content
+        else:
+            return requests.get(requested_url).response_raw	
+        ATTRIBUTES=['src','href','content','action','data-unscoped-search-url']
         requested_url_utf=requested_url.encode('utf-8')
-        for i in ATTRIBUTES:
-            page=page.replace(b"{}='/",b'src=http://jforseth.tech/experiment?url='+requested_url_utf+b'/').format(i)
-            page=page.replace(b'{}=\"/',b'src=http://jforseth.tech/experiment?url='+requested_url_utf+b'/').format(i)
-            page=page.replace(b'{}=/',b'src=http://jforseth.tech/experiment?url='+requested_url_utf+b'/').format(i)
-        # page=page.replace(b"src='/",b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        # page=page.replace(b"href='/",b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        # page=page.replace(b"content='/",b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        # page=page.replace(b'src=\"/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        # page=page.replace(b'href=\"/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        # page=page.replace(b'content=\"/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        # page=page.replace(b'src=/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        # page=page.replace(b'href=/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        # page=page.replace(b'content=/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        for attribute in ATTRIBUTES:
+            #page=page.replace(attribute.encode('utf-8')+b"=",attribute.encode('utf-8')+b"=http://jforseth.tech/experiment?url="+requested_url_utf)
+            page=page.replace(attribute.encode('utf-8')+b"='/",attribute.encode('utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
+            page=page.replace(attribute.encode('utf-8')+b'=\"/',attribute.encode('utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
+            page=page.replace(attribute.encode('utf-8')+b'=/',attribute.encode('utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
+        #page=page.replace(b"src='/",b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b"href='/",b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b"content='/",b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b'src=\"/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b'href=\"/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b'content=\"/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b'src=/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b'href=/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b'content=/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
     return "<form><input name='url' /><input type='submit'></form>"+str(page)
 #########
 #Welcome#
