@@ -40,7 +40,7 @@ pp = pprint.PrettyPrinter(indent=4)
 
 
 import requests
-from requests_html import HTMLSession
+#from requests_html import HTMLSession
 
 
 # From flask docs
