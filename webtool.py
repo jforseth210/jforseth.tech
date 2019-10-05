@@ -23,20 +23,21 @@ from flask_simplelogin import SimpleLogin, get_username, login_required
 
 # The framework that runs all of it.
 from flask import (Flask, flash, redirect, render_template, request,
-                   send_from_directory, url_for)
+                   send_from_directory, url_for, Response)
 
 # Lists the files in the upload directory.
 import os
 
 # Randomness is always useful
 import random
-
+import time
 # Random letter generator
 import string
 
 # Useful for debug.
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
+
 
 import requests
 from requests_html import HTMLSession
@@ -354,7 +355,19 @@ def messenger():
             message = request.form.get('Data')
             db_tools.add_message(message)
         return redirect('/messenger')
-
+    @app.route('/message/stream')
+    def message_stream():
+        def eventStream():
+            previous_messages=db_tools.read_messages()
+            while True:
+                time.sleep(15)
+                messages = db_tools.read_messages()
+                if previous_messages != messages:
+                    previous_messages=messages
+                    formatted_messages = [''.join(i) for i in messages]
+                    pp.pprint(formatted_messages)
+                    yield "data: {}\n\n".format(formatted_messages[-1])
+        return Response(eventStream(), mimetype="text/event-stream")
     # Clear messages
     @app.route('/messenger/clear', methods=['POST', 'GET'])
     def clear_all_messages():
@@ -680,11 +693,47 @@ def file_sharing():
 ######
 #Misc#
 ######
-@app.route('/barrelracing')
 def barrel_racing():
-    return render_template('AP Create Task/index.html')
-
-
+    #@app.route('/barrelracing')
+    #def barrel_racing():
+    #    return redirect("https://sites.google.com/view/mtbrda/home")
+    @app.route('/barrelracing/app_lab')
+    def barrel_racing_app_lab():
+        return render_template('AP Create Task/index.html')
+    @app.route('/barrelracing/counter')
+    def barrel_racing_counter():
+        with open("text/barrel_racing_current_number.txt",'r') as file:
+            current_number=file.readline()
+        try:
+            current_number=int(current_number)
+        except ValueError:
+            return "Please enter a number"
+        return render_template("barrel_racing_counter.html",current_number=current_number,current_number_plus=current_number+1,current_number_minus=current_number-1)
+    @app.route('/barrelracing/counter/currentnumber')
+    def barrel_racing_counter_current_number():
+        with open("text/barrel_racing_current_number.txt",'r') as file:
+            current_number=file.readline()
+        return current_number
+    @app.route('/barrelracing/current_number_update',methods=['POST'])
+    def barrel_racing_current_number_update():
+        current_number=request.form.get("current_number")
+        with open("text/barrel_racing_current_number.txt",'w') as file:
+            file.write(current_number)
+        return redirect("/barrelracing/counter")
+    @app.route('/barrelracing/stream')
+    def barrelracing_stream():
+        def eventStream():
+            old_current_number=''
+            with open("text/barrel_racing_current_number.txt",'r') as file:
+                    old_current_number=file.readline()
+            while True:
+                time.sleep(15)
+                with open("text/barrel_racing_current_number.txt",'r') as file:
+                    current_number=file.readline()
+                if old_current_number != current_number:
+                    old_current_number=current_number
+                    yield "data: {}\n\n".format(current_number)
+        return Response(eventStream(), mimetype="text/event-stream")
 def scattergories():
     @app.route('/scattergories')
     def scattergories_page():
@@ -754,6 +803,7 @@ error_handlers()
 file_sharing()
 # scattergories()
 # quickdraw_game()
+barrel_racing()
 
 # Runs the testing server.
 if __name__ == "__main__":
