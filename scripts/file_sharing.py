@@ -28,7 +28,7 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_PATH, filename))
-            return redirect(url_for('uploaded_file', filename=filename))
+            return redirect(url_for('file_sharing.uploaded_file', filename=filename))
 
     else:
         file_list = os.listdir(UPLOAD_PATH)
