@@ -33,22 +33,28 @@ Videos
 <div class="row">
     {% for video in row %}
     <div class="column">
-        {% if is_admin %}
-        <form method=post action="videos/rename" method="POST">
-            <input type=text value="{{ video[0]}}" name=title />
-            <input hidden value="{{ video[1]}}" name=youtube_id />
-            <input type=submit id=submit value="Rename" />
-        </form>
-        <form method=post action="videos/updateid" method="POST">
-            <input type=text value="{{ video[1]}}" name=new_youtube_id />
-            <input hidden value="{{ video[1]}}" name=old_youtube_id />
-            <input type=submit id=submit value="Update ID" />
-        </form>
+
+
+        {% if not is_admin %}
+            <a href="https://youtu.be/{{video[1]}}">
+                <h3>{{ video[0]}}</h3>
+            </a>
+
+
         {% else %}
-        <a href="https://youtu.be/{{video[1]}}">
-            <h3>{{ video[0]}}</h3>
-        </a>
+            <form method=post action="videos/rename" method="POST">
+                <input type=text value="{{ video[0]}}" name=title />
+                <input hidden value="{{ video[1]}}" name=youtube_id />
+                <input type=submit id=submit value="Rename" />
+            </form>
+            <form method=post action="videos/updateid" method="POST">
+                <input type=text value="{{ video[1]}}" name=new_youtube_id />
+                <input hidden value="{{ video[1]}}" name=old_youtube_id />
+                <input type=submit id=submit value="Update ID" />
+            </form>
         {% endif %}
+
+
         {% if is_admin %}
         <form method=post action="videos/move" method="POST">
             <input hidden value='{{ video[0] }}|{{ video[1]}}' name='element' />
@@ -66,6 +72,8 @@ Videos
             <input type=submit id=submit value="Move Down" />
         </form>
         {% endif %}
+
+        
         <div class="player-parent">
             <div class="youtube-player" data-id="{{video[1]}}"></div>
         </div>
