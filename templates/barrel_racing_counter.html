@@ -32,7 +32,7 @@
             color: green;
         }
 
-        #invisible {
+        .invisible {
             visibility: hidden;
             display: none;
         }
@@ -48,26 +48,30 @@
     <h1>Horse #</h1>
     <form id=currentnumberform action="/barrelracing/current_number_update" method="POST">
         <input name=current_number id=current_number value={{current_number}} />
-        <input type=submit id="invisible" />
+        <input type=submit class="invisible" />
     </form>
     <h1>is currently running</h1>
     <div id=formparent>
         <form id=plusform action="/barrelracing/current_number_update" method="POST">
-            <input type=number name=current_number id=invisible value={{current_number_plus}} />
+            <input type=number name=current_number id=plushidden class=invisible value={{ current_number + 1 }} />
             <input type=submit id=plus class=button value=+>
         </form>
         <form id=minusform action="/barrelracing/current_number_update" method="POST">
-            <input type=number name=current_number id=invisible value={{current_number_minus}} />
+            <input type=number name=current_number id=minushidden class=invisible value={{ current_number - 1 }} />
             <input type=submit id=minus class=button value=->
         </form>
     </div>
     <script>
         //I stole, ahem, borrowed this from https://stackoverflow.com/questions/12232304/how-to-implement-server-push-in-flask-framework
         var current_number = document.getElementById("current_number");
+        var plushidden = document.getElementById("plushidden");
+        var minushidden = document.getElementById("minushidden");
         var eventSource = new EventSource("/barrelracing/stream")
         eventSource.onmessage = function (e) {
             if (current_number != document.activeElement) {
                 current_number.value = e.data;
+                plushidden.value=Number(e.data)+1;
+                minushidden.value=Number(e.data)-1;
             }
         };
     </script>

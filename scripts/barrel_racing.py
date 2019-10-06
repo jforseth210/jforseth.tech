@@ -16,7 +16,7 @@ def barrel_racing_counter():
         current_number = int(current_number)
     except ValueError:
         return "Please enter a number"
-    return render_template("barrel_racing_counter.html", current_number=current_number, current_number_plus=current_number+1, current_number_minus=current_number-1)
+    return render_template("barrel_racing_counter.html", current_number=current_number)
 
 
 @barrel_racing.route('/barrelracing/counter/currentnumber')
@@ -37,7 +37,6 @@ def barrel_racing_current_number_update():
 @barrel_racing.route('/barrelracing/stream')
 def barrelracing_stream():
     def eventStream():
-        old_current_number = ''
         with open("text/barrel_racing_current_number.txt", 'r') as file:
             old_current_number = file.readline()
         while True:
