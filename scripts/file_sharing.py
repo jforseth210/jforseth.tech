@@ -2,10 +2,12 @@ from flask import *
 import os
 from werkzeug.utils import secure_filename
 
-file_sharing=Blueprint("file_sharing", __name__)
+file_sharing = Blueprint("file_sharing", __name__)
 ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'py']
 UPLOAD_PATH = "uploads"
 # This is a magic function from the flask documentation. I have no idea what it does or how it works.
+
+
 def allowed_file(file_name):
     return '.' in file_name and \
         file_name.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -34,10 +36,12 @@ def upload_file():
         file_list = os.listdir(UPLOAD_PATH)
         return render_template('file_sharing.html', files=file_list)
 
+
 @file_sharing.route('/filesharing/<filename>')
 def uploaded_file(filename):
     return send_from_directory(UPLOAD_PATH,
-                                filename)
+                               filename)
+
 
 @file_sharing.route('/filesharing/filelist')
 def file_list():

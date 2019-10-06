@@ -1,12 +1,13 @@
 from flask import *
 import random
 from flask_simplelogin import login_required
-quickdraw_game=Blueprint('quickdraw_game',__name__)# Main page
+quickdraw_game = Blueprint('quickdraw_game', __name__)  # Main page
 
 @quickdraw_game.route('/quickdraw')
 @login_required()
 def quickdraw():
     return render_template('quickdraw_client.html')
+
 
 @quickdraw_game.route('/quickdraw/shot')
 def quickdraw_shot():
@@ -22,9 +23,11 @@ def quickdraw_shot():
     else:
         return "You were shot by: {}".format(result[1])
 
+
 @quickdraw_game.route('/quickdraw/bigscreen')
 def big_screen():
     return render_template('bigscreen.html')
+
 
 @quickdraw_game.route('/quickdraw/bigscreen/begin')
 def big_screen_begin():

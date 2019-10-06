@@ -3,10 +3,11 @@ import sqlite3
 import random
 from simple_mail import send_email
 from SensitiveData import *
-import pprint #Useful for debug.
+import pprint  # Useful for debug.
 pp = pprint.PrettyPrinter(indent=4)
 
-prayer=Blueprint('prayer',__name__)# Main page
+prayer = Blueprint('prayer', __name__)  # Main page
+
 
 def get_verification_code():
     with open('text/validcodes.txt', 'r') as file:
@@ -15,31 +16,32 @@ def get_verification_code():
     code = VALID_CODES[random_number:random_number+5]
     return code
 
+
 def check_verification_code(code):
     with open('text/validcodes.txt', 'r') as file:
-            valid_codes = file.readline()
+        valid_codes = file.readline()
 
     print("Code:"+code)
     print("Valid Code:"+valid_codes)
 
     if code in valid_codes:
-        code_validity= True
+        code_validity = True
     else:
-        code_validity= False
+        code_validity = False
     print("Code Validity:"+str(code_validity))
- 
 
-    new_code = str(random.randint(10000,99999))
+    new_code = str(random.randint(10000, 99999))
     print("New Code:"+new_code)
-    valid_codes=valid_codes.replace(code,new_code)
+    valid_codes = valid_codes.replace(code, new_code)
     print("New Valid Code List:"+valid_codes)
-    with open('text/validcodes.txt','w') as file:
-	    file.write(valid_codes)
+    with open('text/validcodes.txt', 'w') as file:
+        file.write(valid_codes)
     return code_validity
+
 
 def get_verification_email_template():
     with open('text/verification_email_template.html') as file:
-            VERIFICATION_EMAIL_TEMPLATE = file.read()
+        VERIFICATION_EMAIL_TEMPLATE = file.read()
     return VERIFICATION_EMAIL_TEMPLATE
 
 
@@ -50,8 +52,6 @@ def add_to_mailing_list(address, parish):
     with conn:
         cur.execute("""INSERT INTO users VALUES(:email,:parish)""",
                     {'email': address, 'parish': parish})
-
-
 
 
 def read_prayer_request_template(name, prayer_request, parish):
@@ -69,14 +69,14 @@ def read_prayer_request_template(name, prayer_request, parish):
 def get_emails_from_parish(parish):
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
-    
+
     with conn:
         cur.execute("""SELECT * FROM users WHERE parish=:parish""",
                     {'parish': parish})
-    
+
     emails = cur.fetchall()
     emails = [i[0] for i in emails]
-    
+
     return emails
 
 
@@ -84,6 +84,7 @@ def get_emails_from_parish(parish):
 @prayer.route('/prayer')
 def prayer_page():
     return render_template('prayer.html')
+
 
 @prayer.route('/FlaskApp/prayer')
 def old_prayer_page():
@@ -131,7 +132,7 @@ def new_email_confirmed():
     code = request.args.get('code')
     address = request.args.get('email')
     parish = request.args.get('parish')
-    if len(code)==0:
+    if len(code) == 0:
         return("""No verification code was recieved. Please try again.
         Theres two reasons why this could've hprayerened: <ol>
         <li>I messed up something with the code.</li>
@@ -177,5 +178,5 @@ def prayer_request():
 
     for email in emails:
         send_email(email, subject_template, message_template,
-                    PROJECT_EMAIL, PROJECT_PASSWORD)
+                   PROJECT_EMAIL, PROJECT_PASSWORD)
     return render_template('sent.html')

@@ -23,20 +23,18 @@ app.config['SECRET_KEY'] = SECRET_KEY
 SimpleLogin(app, login_checker=check_login)
 
 
-
 # __        __   _
 # \ \      / /__| | ___ ___  _ __ ___   ___
 #  \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \
 #   \ V  V /  __/ | (_| (_) | | | | | |  __/
 #    \_/\_/ \___|_|\___\___/|_| |_| |_|\___|
-#Contains:
-#/
-#/FlaskApp
-#/about
-#/instructions
-#/menu
+# Contains:
+# /
+# /FlaskApp
+# /about
+# /instructions
+# /menu
 app.register_blueprint(welcome)
-
 
 
 # __     ___     _
@@ -44,15 +42,15 @@ app.register_blueprint(welcome)
 #  \ \ / /| |/ _` |/ _ \/ _ \/ __|
 #   \ V / | | (_| |  __/ (_) \__ \
 #    \_/  |_|\__,_|\___|\___/|___/
-#Contains:
-#/videos
-#/videos/newupload
-#/videos/deletion
-#/videos/rename
-#/videos/updateid
-#/videos/move
+# Contains:
+# /videos
+# /videos/newupload
+# /videos/deletion
+# /videos/rename
+# /videos/updateid
+# /videos/move
 app.register_blueprint(videos)
-    
+
 
 #  __  __
 # |  \/  | ___  ___ ___  ___ _ __   __ _  ___ _ __
@@ -60,12 +58,11 @@ app.register_blueprint(videos)
 # | |  | |  __/\__ \__ \  __/ | | | (_| |  __/ |
 # |_|  |_|\___||___/___/\___|_| |_|\__, |\___|_|
 # Contains:                        |___/
-#/messenger
-#/messenger/result
-#/message/stream
-#/messenger/clear
+# /messenger
+# /messenger/result
+# /message/stream
+# /messenger/clear
 app.register_blueprint(messenger)
-
 
 
 #  ____
@@ -74,13 +71,12 @@ app.register_blueprint(messenger)
 # |  __/| | | (_| | |_| |  __/ |
 # |_|   |_|  \__,_|\__, |\___|_|
 # Contains         |___/
-#/prayer
-#/FlaskApp/prayer
-#/prayer/newemail
-#/prayer/newemailconfirmed
-#/prayer/prayerrequest
+# /prayer
+# /FlaskApp/prayer
+# /prayer/newemail
+# /prayer/newemailconfirmed
+# /prayer/prayerrequest
 app.register_blueprint(prayer)
-
 
 
 #  _____         _
@@ -88,13 +84,12 @@ app.register_blueprint(prayer)
 #   | |/ _ \ / _` |/ _ \
 #   | | (_) | (_| | (_) |
 #   |_|\___/ \__,_|\___/
-#Contains:
-#/todolocal
-#/todo/submitted
-#/todo/delete
-#/todo/reorder
+# Contains:
+# /todolocal
+# /todo/submitted
+# /todo/delete
+# /todo/reorder
 app.register_blueprint(todo)
-
 
 
 #   ___        _      _       _
@@ -102,13 +97,12 @@ app.register_blueprint(todo)
 # | | | | | | | |/ __| |/ / _` | '__/ _` \ \ /\ / /
 # | |_| | |_| | | (__|   < (_| | | | (_| |\ V  V /
 #  \__\_\\__,_|_|\___|_|\_\__,_|_|  \__,_| \_/\_/
-#Contains:
-#/quickdraw
-#/quickdraw/shot
-#/quickdraw/bigscreen
-#/quickdraw/bigscreen/begin
-app.register_blueprint(quickdraw_game)    
-
+# Contains:
+# /quickdraw
+# /quickdraw/shot
+# /quickdraw/bigscreen
+# /quickdraw/bigscreen/begin
+app.register_blueprint(quickdraw_game)
 
 
 #  ____        _ _       _           _       _
@@ -117,12 +111,12 @@ app.register_blueprint(quickdraw_game)
 # | |_) | |_| | | | | |_| | |_| | (_| | (_| | | | | | (_| |
 # |____/ \__,_|_|_|  \___/ \__,_|\__,_|\__, |_|_| |_|\__, |
 # Contains:                             |___/         |___/
-#/bulljudging
-#/bulljudging1
-#/bulljudging2
-#/bulljudging3
-#/bulljudging4
-#/bulljudgingdone
+# /bulljudging
+# /bulljudging1
+# /bulljudging2
+# /bulljudging3
+# /bulljudging4
+# /bulljudgingdone
 app.register_blueprint(bull_judging)
 
 
@@ -132,9 +126,8 @@ app.register_blueprint(bull_judging)
 #  / ___ \ (_| | | | | | | | | | |
 # /_/   \_\__,_|_| |_| |_|_|_| |_|
 # #Contains:
-#/DBbrowser
-#app.register_blueprint(admin)
-
+# /DBbrowser
+# app.register_blueprint(admin)
 
 
 #  ____                      _   ____            _
@@ -143,11 +136,11 @@ app.register_blueprint(bull_judging)
 # | |_) | (_| | |  | | |  __/ | |  _ < (_| | (__| | | | | (_| |
 # |____/ \__,_|_|  |_|  \___|_| |_| \_\__,_|\___|_|_| |_|\__, |
 # Contains:                                               |___/
-#/barrelracing/app_lab
-#/barrelracing/counter
-#/barrelracing/counter/currentnumber
-#/barrelracing/current_number_update
-#/barrelracing/stream
+# /barrelracing/app_lab
+# /barrelracing/counter
+# /barrelracing/counter/currentnumber
+# /barrelracing/current_number_update
+# /barrelracing/stream
 app.register_blueprint(barrel_racing)
 
 
@@ -157,9 +150,9 @@ app.register_blueprint(barrel_racing)
 # |  _| | | |  __/  ___) | | | | (_| | |  | | | | | (_| |
 # |_|   |_|_|\___| |____/|_| |_|\__,_|_|  |_|_| |_|\__, |
 # Contains:                                         |___/
-#/filesharing
-#/filesharing/<filename>
-#/filesharing/filelist
+# /filesharing
+# /filesharing/<filename>
+# /filesharing/filelist
 app.register_blueprint(file_sharing)
 
 
@@ -172,9 +165,11 @@ app.register_blueprint(file_sharing)
 def page_not_found(e):
     return render_template('404.html')
 
+
 @app.errorhandler(403)
 def forbidden(e):
     return render_template('403.html')
+
 
 @app.errorhandler(500)
 def server_error(e):

@@ -1,10 +1,10 @@
 from flask import *
 import sqlite3
 import time
-import pprint #Useful for debug.
+import pprint  # Useful for debug.
 pp = pprint.PrettyPrinter(indent=4)
 
-messenger=Blueprint('messenger',__name__)# Main page
+messenger = Blueprint('messenger', __name__)  # Main page
 
 
 def add_message(result):
@@ -26,14 +26,14 @@ def clear_messages():
     cur = conn.cursor()
     with conn:
         cur.execute("DELETE FROM messages")
-        
-        #Code worked without this line before. Randomly decided to throw an error. ]
-        #Googled it, and this line makes the code work again.
-        
-        #Broke again, commenting this line out fixed it.
-        #I don't know if I need it or not but for the moment it works.
-        
-        #If something message-related breaks, try toggling this:
+
+        # Code worked without this line before. Randomly decided to throw an error. ]
+        # Googled it, and this line makes the code work again.
+
+        # Broke again, commenting this line out fixed it.
+        # I don't know if I need it or not but for the moment it works.
+
+        # If something message-related breaks, try toggling this:
         #cur.execute("END TRANSACTION")
         cur.execute("VACUUM")
 
@@ -59,15 +59,17 @@ def new_message():
         message = request.form.get('Data')
         add_message(message)
     return redirect('/messenger')
+
+
 @messenger.route('/message/stream')
 def message_stream():
     def eventStream():
-        previous_messages=read_messages()
+        previous_messages = read_messages()
         while True:
             time.sleep(15)
             messages = read_messages()
             if previous_messages != messages:
-                previous_messages=messages
+                previous_messages = messages
                 formatted_messages = [''.join(i) for i in messages]
                 pp.pprint(formatted_messages)
                 yield "data: {}\n\n".format(formatted_messages[-1])

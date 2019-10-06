@@ -3,7 +3,8 @@ from SensitiveData import *
 from simple_mail import send_email
 from account_management import have_access_to_todo
 from flask_simplelogin import login_required
-todo=Blueprint('todo',__name__)# Main page
+todo = Blueprint('todo', __name__)  # Main page
+
 
 def get_todos():
     with open('text/todo.csv', 'r') as file:
@@ -15,23 +16,25 @@ def add_todo(name):
     with open('text/todo.csv', 'a') as file:
         file.write('{}\n'.format(name))
 
+
 def delete_todo(taskid):
     with open("text/todo.csv", 'r') as file:
         todos = file.readlines()
-   
-    #This line is magic. No idea what's going on. 
+
+    # This line is magic. No idea what's going on.
     try:
         todos.pop(len(todos)-taskid)
     except IndexError:
         return "That isn't a valid task."
     with open("text/todo.csv", 'w') as file:
         for i in todos:
-                file.write(i)
+            file.write(i)
 
-def reorder_todo(item_to_reorder,position_to_move):
+
+def reorder_todo(item_to_reorder, position_to_move):
     with open("text/todo.csv", 'r') as file:
         todos = file.readlines()
-            
+
     item_to_reorder = todos[len(todos)-item_to_reorder]
 
     position_to_move = len(todos)-position_to_move
