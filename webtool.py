@@ -95,7 +95,7 @@ app.register_blueprint(barrel_racing)
 
 #Contains:
 #/filesharing
-#/filesharing/filename
+#/filesharing/<filename>
 #/filesharing/filelist
 app.register_blueprint(file_sharing)
 #Error handlers

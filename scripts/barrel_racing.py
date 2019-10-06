@@ -34,7 +34,7 @@ def barrelracing_stream():
         with open("text/barrel_racing_current_number.txt",'r') as file:
                 old_current_number=file.readline()
         while True:
-            time.sleep(15)
+            time.sleep(10)
             with open("text/barrel_racing_current_number.txt",'r') as file:
                 current_number=file.readline()
             if old_current_number != current_number:
