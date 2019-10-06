@@ -13,7 +13,7 @@ from scripts.bull_judging import *
 from scripts.http_forwarding import *
 from scripts.admin import *
 from scripts.barrel_racing import *
-
+from file_sharing import *
 # Create the website
 app = Flask(__name__)
 
