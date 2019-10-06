@@ -179,8 +179,10 @@ def delete_todo(taskid):
         todos = file.readlines()
    
     #This line is magic. No idea what's going on. 
-    todos.pop(len(todos)-taskid)
-
+    try:
+        todos.pop(len(todos)-taskid)
+    except IndexError:
+        return "That isn't a valid task."
     with open("text/todo.csv", 'w') as file:
         for i in todos:
                 file.write(i)
