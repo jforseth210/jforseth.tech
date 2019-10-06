@@ -8,6 +8,7 @@ from scripts.videos import *
 from scripts.messenger import *
 from scripts.prayer import *
 from scripts.todo import *
+from scripts.scattergories import *
 from scripts.quickdraw_game import *
 from scripts.bull_judging import *
 from scripts.http_forwarding import *
@@ -90,6 +91,17 @@ app.register_blueprint(prayer)
 # /todo/delete
 # /todo/reorder
 app.register_blueprint(todo)
+
+# ____            _   _                            _
+# / ___|  ___ __ _| |_| |_ ___ _ __ __ _  ___  _ __(_) ___  ___
+# \___ \ / __/ _` | __| __/ _ \ '__/ _` |/ _ \| '__| |/ _ \/ __|
+# ___) | (_| (_| | |_| ||  __/ | | (_| | (_) | |  | |  __/\__ \
+# |____/ \___\__,_|\__|\__\___|_|  \__, |\___/|_|  |_|\___||___/
+# Contains:
+# /scattergories
+# /scattergories/newlist
+# /scattergories/roll
+app.register_blueprint(scattergories)
 
 
 #   ___        _      _       _

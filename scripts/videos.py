@@ -66,7 +66,7 @@ def deletion():
     if len(youtube_id) < 12:
         return "This doesn't look like a valid youtube link."
 
-    video_list = [videp for video in video_list if youtube_id not in video]
+    video_list = [video for video in video_list if youtube_id not in video]
 
     overwrite_videos(video_list)
     return redirect('../videos')
