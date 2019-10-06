@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask import *
 from flask_simplelogin import SimpleLogin
-from scripts.account_management import check_my_users
+from account_management import check_login
 
 from scripts.welcome import *
 from scripts.videos import *
@@ -20,7 +20,7 @@ app.config['SECRET_KEY'] = SECRET_KEY
 
 
 # Account management
-SimpleLogin(app, login_checker=check_my_users)
+SimpleLogin(app, login_checker=check_login)
 
 #Contains:
 #/httpforwarding
@@ -59,7 +59,7 @@ app.register_blueprint(messenger)
 app.register_blueprint(prayer)
 
 #Contains:
-#/todo
+#/todolocal
 #/todo/submitted
 #/todo/delete
 #/todo/reorder
