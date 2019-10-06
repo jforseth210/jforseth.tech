@@ -3,8 +3,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template
 
 # Retrieve all date ona given user. Returns a dict with columns as keys.
-
-
 def get_account(username):
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
@@ -17,8 +15,6 @@ def get_account(username):
     return dict(zip(account_data.keys(), account_data))
 
 # Check if a given username and password is valid.
-
-
 def check_login(user):
     user_data = get_account(user['username'])
 
@@ -30,16 +26,12 @@ def check_login(user):
         return False  # <--- invalid credentials
 
 # Get the areas of the site the user currently has access to.
-
-
 def get_current_access(username):
     user_data = get_account(username)
     return user_data["have_access_to"].split(',')
 
 # Checks if user has access to a specific area.
 # Used by @login_required decorator.
-
-
 def have_access_to_todo(username):
     user_data = get_account(username)
     if 'todo' not in user_data.get('have_access_to'):
