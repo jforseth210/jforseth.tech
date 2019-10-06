@@ -288,8 +288,8 @@ def videos():
         video_list2 = []
         for video in video_list:
             if old_youtube_id in video:
-                i = i.replace(old_youtube_id, new_youtube_id)
-            video_list2.append(i)
+                video = video.replace(old_youtube_id, new_youtube_id)
+            video_list2.append(video)
 
         # Point the old list to your new one.
         video_list = video_list2
