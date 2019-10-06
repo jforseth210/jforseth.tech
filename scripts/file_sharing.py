@@ -28,19 +28,19 @@ def upload_file():
         # TODO: Figure out how on earth url_for works
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(file_sharing.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join(UPLOAD_FOLDER, filename))
             return redirect(url_for('uploaded_file', filename=filename))
 
     else:
-        file_list = os.listdir(file_sharing.config['UPLOAD_FOLDER'])
+        file_list = os.listdir(UPLOAD_FOLDER)
         return render_template('file_sharing.html', files=file_list)
 
 @file_sharing.route('/filesharing/<filename>')
 def uploaded_file(filename):
-    return send_from_directory(file_sharing.config['UPLOAD_FOLDER'],
+    return send_from_directory(UPLOAD_FOLDER,
                                 filename)
 
 @file_sharing.route('/filesharing/filelist')
 def file_list():
-    files = os.listdir(file_sharing.config['UPLOAD_FOLDER'])
+    files = os.listdir(UPLOAD_FOLDER)
     return ''.join(files)
