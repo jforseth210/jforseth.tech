@@ -4,6 +4,8 @@ from werkzeug.utils import secure_filename
 
 file_sharing=Blueprint("file_sharing", __name__)
 ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'py']
+UPLOAD_PATH = "uploads"
+file_sharing.config['UPLOAD_FOLDER'] = UPLOAD_PATH
 # This is a magic function from the flask documentation. I have no idea what it does or how it works.
 def allowed_file(file_name):
     return '.' in file_name and \

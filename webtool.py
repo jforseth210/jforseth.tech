@@ -16,11 +16,8 @@ from scripts.barrel_racing import *
 from scripts.file_sharing import *
 # Create the website
 app = Flask(__name__)
-
-# Set up file sharing
-UPLOAD_PATH = "uploads"
 app.config['SECRET_KEY'] = SECRET_KEY
-app.config['UPLOAD_FOLDER'] = UPLOAD_PATH
+
 
 # Account management
 SimpleLogin(app, login_checker=check_my_users)
@@ -100,6 +97,7 @@ app.register_blueprint(barrel_racing)
 #/filesharing
 #/filesharing/filename
 #/filesharing/filelist
+app.register_blueprint(file_sharing)
 #Error handlers
 @app.errorhandler(404)
 def page_not_found(e):
