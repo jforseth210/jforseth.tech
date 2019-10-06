@@ -96,6 +96,10 @@ app.register_blueprint(admin)
 #/barrelracing/stream
 app.register_blueprint(barrel_racing)
 
+#Contains:
+#/filesharing
+#/filesharing/filename
+#/filesharing/filelist
 #Error handlers
 @app.errorhandler(404)
 def page_not_found(e):
