@@ -23,8 +23,7 @@ def new_todo():
     name = request.form.get('taskname')
     name = name.replace(',', 'COMMA')
     db_tools.add_todo(name)
-    send_email('todo+19z1n4ovd3rf@mail.ticktick.com', name, 'Submitted from jforseth.tech',
-                PERSONAL_EMAIL, PERSONAL_PASSWORD)
+    #send_email('todo+19z1n4ovd3rf@mail.ticktick.com', name, 'Submitted from jforseth.tech',PERSONAL_EMAIL, PERSONAL_PASSWORD)
 
     return redirect('/todo')
 
