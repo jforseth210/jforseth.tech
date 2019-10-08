@@ -16,14 +16,17 @@ Prayer Requests<sup><small>[BETA]</small></sup>
         <input class='inputs' type='name' name='name' id='name' placeholder='Nickname' required />
         <select class='inputs dropdown' form='form1' name='parish' required>
             <option disabled selected>Select</option>
-            <!--REMEMBER TO UPDATE BOTH FORMS AND THE DICT!-->
+            {% for option in options %}
+                <option>{{ option }}</option>
+            {% endfor %}
+            <!--REMEMBER TO UPDATE BOTH FORMS AND THE DICT!
             <option>Public</option>
             <option>Saint John RE</option>
             <option>Saint John Parish</option>
             <option>Saint Joseph RE</option>
             <option>Saint Joseph Parish</option>
-            <!--<option>Testing</option>-->
-            <option>LL Small Group 3</option>
+            <option>Testing</option>
+            <option>LL Small Group 3</option>-->
         </select>
         <br />
         <textarea id='prequest' class='inputs' form='form1' name='prequest' placeholder="Type your prayer request here"

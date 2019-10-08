@@ -6,9 +6,30 @@ from SensitiveData import *
 import pprint  # Useful for debug.
 pp = pprint.PrettyPrinter(indent=4)
 
-prayer = Blueprint('prayer', __name__)  # Main page
+prayer = Blueprint('prayer', __name__)
+# This is a dictionary that converts the code the user typed in into a parish.
+# If adding a new group:
+# REMEMBER TO UPDATE THE HTML
+PARISH_DICTIONARY = {
+    'Public':'Public',
+    'STJOHNRE': 'Saint John RE',
+    'STJOHN': 'Saint John Parish',
+    'STJOSEPH': 'Saint Joseph Parish',
+    'STJOSEPHRE': 'Saint Joseph RE',
+    #'FFTEACHERS': 'Fairfield Catholic Teachers',
+    'JESUS': 'LL Small Group 3'
+}
+# The main page
+@prayer.route('/prayer')
+def prayer_page():
+    return render_template('prayer.html', options=PARISH_DICTIONARY.values())
 
 
+@prayer.route('/FlaskApp/prayer')
+def old_prayer_page():
+    return redirect('/prayer')
+
+# Email submissions
 def get_verification_code():
     with open('text/validcodes.txt', 'r') as file:
         VALID_CODES = file.readline()
@@ -16,6 +37,31 @@ def get_verification_code():
     code = VALID_CODES[random_number:random_number+5]
     return code
 
+def get_verification_email_template():
+    with open('text/verification_email_template.html') as file:
+        VERIFICATION_EMAIL_TEMPLATE = file.read()
+    return VERIFICATION_EMAIL_TEMPLATE
+
+@prayer.route('/prayer/newemail', methods=['POST', 'GET'])
+def new_email():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        parish = request.form.get('parish')
+        parish = parish.upper()
+
+        # Takes the parish code, looks it up in the dictionary.
+        # If it's blank or incorrect, replace with "Public"
+        email_parish = PARISH_DICTIONARY.get(parish, "Public")
+        valid_code = get_verification_code()
+        message = get_verification_email_template()
+        message = message.format(
+            email_parish, valid_code, email, email_parish)
+
+        # Sends the adapted message
+        send_email(
+            email, "Thank you for joining JMJprayerrequests", message, PROJECT_EMAIL, PROJECT_PASSWORD)
+        # Displays a page with further instruction
+        return render_template('email_adding.html')
 
 def check_verification_code(code):
     with open('text/validcodes.txt', 'r') as file:
@@ -38,13 +84,6 @@ def check_verification_code(code):
         file.write(valid_codes)
     return code_validity
 
-
-def get_verification_email_template():
-    with open('text/verification_email_template.html') as file:
-        VERIFICATION_EMAIL_TEMPLATE = file.read()
-    return VERIFICATION_EMAIL_TEMPLATE
-
-
 def add_to_mailing_list(address, parish):
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
@@ -52,78 +91,6 @@ def add_to_mailing_list(address, parish):
     with conn:
         cur.execute("""INSERT INTO users VALUES(:email,:parish)""",
                     {'email': address, 'parish': parish})
-
-
-def read_prayer_request_template(name, prayer_request, parish):
-    with open("text/prayer_request_email_template.html") as file:
-        PRAYER_REQUEST_TEMPLATE = file.read()
-
-    subject = '{} has sent a prayer request to {}'
-    subject = subject.format(name, parish)
-
-    message = PRAYER_REQUEST_TEMPLATE.format(name, parish, prayer_request)
-
-    return(message, subject)
-
-
-def get_emails_from_parish(parish):
-    conn = sqlite3.connect("database.db")
-    cur = conn.cursor()
-
-    with conn:
-        cur.execute("""SELECT * FROM users WHERE parish=:parish""",
-                    {'parish': parish})
-
-    emails = cur.fetchall()
-    emails = [i[0] for i in emails]
-
-    return emails
-
-
-# The main page
-@prayer.route('/prayer')
-def prayer_page():
-    return render_template('prayer.html')
-
-
-@prayer.route('/FlaskApp/prayer')
-def old_prayer_page():
-    return redirect('/prayer')
-
-# Email submissions
-@prayer.route('/prayer/newemail', methods=['POST', 'GET'])
-def new_email():
-    if request.method == 'POST':
-        email = request.form.get('email')
-        parish = request.form.get('parish')
-        parish = parish.upper()
-
-        # This is a dictionary that converts the code the user typed in into a parish.
-        # If adding a new group:
-        # REMEMBER TO UPDATE THE HTML
-        parish_dictionary = {
-            'STJOHNRE': 'Saint John RE',
-            'STJOHN': 'Saint John Parish',
-            'STJOSEPH': 'Saint Joseph Parish',
-            'STJOSEPHRE': 'Saint Joseph RE',
-            'FFTEACHERS': 'Fairfield Catholic Teachers',
-            'JESUS': 'LL Small Group 3'
-        }
-
-        # Takes the parish code, looks it up in the dictionary.
-        # If it's blank or incorrect, replace with "Public"
-        email_parish = parish_dictionary.get(parish, "Public")
-        valid_code = get_verification_code()
-        message = get_verification_email_template()
-        message = message.format(
-            email_parish, valid_code, email, email_parish)
-
-        # Sends the adapted message
-        send_email(
-            email, "Thank you for joining JMJprayerrequests", message, PROJECT_EMAIL, PROJECT_PASSWORD)
-        # Displays a page with further instruction
-        return render_template('email_adding.html')
-
 # The second step of verification
 # This uses get instead of post in hopes of greater
 # compatibility with email clients.
@@ -137,7 +104,7 @@ def new_email_confirmed():
         Theres two reasons why this could've hprayerened: <ol>
         <li>I messed up something with the code.</li>
         <li>You messed with something you weren't supposed to.</li></ol>
-        </li>If you hprayeren to be me, it's probably both. If you aren't me, feel free to email me if you think it's broken, or to try again if you think you broke it.
+        </li>If you happen to be me, it's probably both. If you aren't me, feel free to email me if you think it's broken, or to try again if you think you broke it.
         If problem persists, send me an email describing the problem. <br / >
         <br/><img src='https://imgs.xkcd.com/comics/unreachable_state.png'/>""")
     try:
@@ -147,12 +114,19 @@ def new_email_confirmed():
                     <br/><img src='https://imgs.xkcd.com/comics/unreachable_state.png'/></html>"""
 
     if verification_result:  # If verification succeeds:
+        print(parish)
+        print("Public")
+        print(parish=="Public")
+        print("RE to Parish:"+parish.replace('RE','Parish'))
         # Adds email to prayerlicable groups
-        add_to_mailing_list(address, parish)
-        add_to_mailing_list(address, "Public")
-        if "RE" in parish:
-            new_parish = parish.replace('RE', 'Parish')
-            add_to_mailing_list(address, new_parish)
+        #parish=("Public\n"+parish)
+        #add_to_mailing_list(address, parish)
+        #print(parish)
+        #if parish != "Public":
+        #    add_to_mailing_list(address, "Public")
+        #if "RE" in parish:
+        #    new_parish = parish.replace('RE', 'Parish')
+        #    add_to_mailing_list(address, new_parish)
 
         # Returns success page.
         return render_template('email_added.html')
@@ -162,6 +136,29 @@ def new_email_confirmed():
         If the problem persists, click "Contact" and send me an email describing your issue. Sorry!"""
 
 # Prayer request submissions
+def read_prayer_request_template(name, prayer_request, parish):
+    with open("text/prayer_request_email_template.html") as file:
+        PRAYER_REQUEST_TEMPLATE = file.read()
+
+    subject = '{} has sent a prayer request to {}'
+    subject = subject.format(name, parish)
+
+    message = PRAYER_REQUEST_TEMPLATE.format(name, parish, prayer_request)
+
+    return(message, subject)
+
+def get_emails_from_parish(parish):
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+
+    with conn:
+        cur.execute("""SELECT * FROM users WHERE parish LIKE '%{}%'""".format(parish))
+
+    emails = cur.fetchall()
+    emails = [i[0] for i in emails]
+
+    return emails
+
 @prayer.route('/prayer/prayerrequest', methods=['POST', 'GET'])
 def prayer_request():
     name = request.form.get('name')
@@ -175,8 +172,8 @@ def prayer_request():
     # For testing purposes only, manually overrides email list and sends to my personal account instead:
     # Uncommenting this is a really, really bad idea.
     # emails=[personalemail]
-
-    for email in emails:
-        send_email(email, subject_template, message_template,
-                   PROJECT_EMAIL, PROJECT_PASSWORD)
+    pp.pprint(emails)
+    #for email in emails:
+        #send_email(email, subject_template, message_template,
+        #           PROJECT_EMAIL, PROJECT_PASSWORD)
     return render_template('sent.html')
