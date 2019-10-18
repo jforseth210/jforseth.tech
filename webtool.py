@@ -492,9 +492,10 @@ def prayer():
 
 def todo():
     # The main page
+    import json
     @app.route('/todo/api')
     def todo_api():
-        return str(db_tools.get_todos())
+        return json.dumps(db_tools.get_todos())
     @app.route('/todo')
     @login_required(must=have_access_to_todo)
     def todo_page():
