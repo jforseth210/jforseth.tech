@@ -31,7 +31,8 @@ import os
 
 # Randomness is always useful
 import random
-import time
+import time    
+import json
 # Random letter generator
 import string
 
@@ -498,7 +499,7 @@ def prayer():
 
 def todo():
     # The main page
-    import json
+
     @app.route('/todo/api')
     def todo_api():
         if request.args.get("device") in VALID_DEVICES:
@@ -507,7 +508,12 @@ def todo():
             return "Device not approved"
     @app.route('/todo/submitted/api')
     def new_todo_api():
-        todo=request.args.get("todo")
+        if request.args.get("device") in VALID_DEVICES:
+            taskname=request.args.get("taskname")
+            taskname = taskname.replace(',', 'COMMA')
+            db_tools.add_todo(taskname)
+        else:
+            return "Device not approved"
 
 
     @app.route('/todo')
