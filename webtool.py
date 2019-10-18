@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Custom module for sending emails.
+import requests
 from simple_mail import send_email
 
 # Data I don't want on github
@@ -39,7 +40,6 @@ import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
 
-import requests
 #from requests_html import HTMLSession
 
 
@@ -55,41 +55,45 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 SimpleLogin(app, login_checker=check_my_users)
 @app.route("/experiment")
 def experiment():
-    requested_url=request.args.get('url')
+    requested_url = request.args.get('url')
     if requested_url == None:
-        page="Enter your desired page"
+        page = "Enter your desired page"
     else:
-        #session=HTMLSession()
-        #page=session.get(requested_url)
-        #absolute_links=page.html.absolute_links
-        #links=page.html.links
-        #page=page.html.raw_html
-        #pp.pprint(absolute_links)
-        #for i in links:
+        # session=HTMLSession()
+        # page=session.get(requested_url)
+        # absolute_links=page.html.absolute_links
+        # links=page.html.links
+        # page=page.html.raw_html
+        # pp.pprint(absolute_links)
+        # for i in links:
         #    if i in absolute_links:
         #        page=page.replace(bytes(i,'utf-8'),b"http://jforseth.tech/experiment?url="+bytes(i,'utf-8'))
         #    else:
         #        page=page.replace(bytes(i,'utf-8'),b"http://jforseth.tech/experiment?url="+bytes(requested_url,'utf-8')+bytes(i,'utf-8'))
-    	if requested_url[:-4]!=".png" and requested_url[:-4]!=".jpg" and requested_url[:-5]!=".jpeg":
-        	page=requests.get(requested_url).content
+        if requested_url[:-4] != ".png" and requested_url[:-4] != ".jpg" and requested_url[:-5] != ".jpeg":
+            page = requests.get(requested_url).content
         else:
-            return requests.get(requested_url).response_raw	
-        ATTRIBUTES=['src','href','content','action','data-unscoped-search-url']
-        requested_url_utf=requested_url.encode('utf-8')
+            return requests.get(requested_url).response_raw
+        ATTRIBUTES = ['src', 'href', 'content',
+                      'action', 'data-unscoped-search-url']
+        requested_url_utf = requested_url.encode('utf-8')
         for attribute in ATTRIBUTES:
-            #page=page.replace(attribute.encode('utf-8')+b"=",attribute.encode('utf-8')+b"=http://jforseth.tech/experiment?url="+requested_url_utf)
-            page=page.replace(attribute.encode('utf-8')+b"='/",attribute.encode('utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
-            page=page.replace(attribute.encode('utf-8')+b'=\"/',attribute.encode('utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
-            page=page.replace(attribute.encode('utf-8')+b'=/',attribute.encode('utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
-        #page=page.replace(b"src='/",b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        #page=page.replace(b"href='/",b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        #page=page.replace(b"content='/",b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        #page=page.replace(b'src=\"/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        #page=page.replace(b'href=\"/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        #page=page.replace(b'content=\"/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        #page=page.replace(b'src=/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        #page=page.replace(b'href=/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
-        #page=page.replace(b'content=/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+            # page=page.replace(attribute.encode('utf-8')+b"=",attribute.encode('utf-8')+b"=http://jforseth.tech/experiment?url="+requested_url_utf)
+            page = page.replace(attribute.encode('utf-8')+b"='/", attribute.encode(
+                'utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
+            page = page.replace(attribute.encode('utf-8')+b'=\"/', attribute.encode(
+                'utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
+            page = page.replace(attribute.encode('utf-8')+b'=/', attribute.encode(
+                'utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
+        # page=page.replace(b"src='/",b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b"href='/",b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b"content='/",b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b'src=\"/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b'href=\"/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b'content=\"/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b'src=/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b'href=/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        # page=page.replace(b'content=/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
     return "<form><input name='url' /><input type='submit'></form>"+str(page)
 #########
 #Welcome#
@@ -98,6 +102,7 @@ def experiment():
 #
 # Instructions
 # Mobile Menubar
+
 
 def welcome():
     # Serves the basic pages for jforseth.tech. No heavy lifting serverside.
@@ -360,15 +365,16 @@ def messenger():
             message = request.form.get('Data')
             db_tools.add_message(message)
         return redirect('/messenger')
+
     @app.route('/message/stream')
     def message_stream():
         def eventStream():
-            previous_messages=db_tools.read_messages()
+            previous_messages = db_tools.read_messages()
             while True:
                 time.sleep(15)
                 messages = db_tools.read_messages()
                 if previous_messages != messages:
-                    previous_messages=messages
+                    previous_messages = messages
                     formatted_messages = [''.join(i) for i in messages]
                     pp.pprint(formatted_messages)
                     yield "data: {}\n\n".format(formatted_messages[-1])
@@ -436,7 +442,7 @@ def prayer():
         code = request.args.get('code')
         address = request.args.get('email')
         parish = request.args.get('parish')
-        if len(code)==0:
+        if len(code) == 0:
             return("""No verification code was recieved. Please try again.
             Theres two reasons why this could've happened: <ol>
             <li>I messed up something with the code.</li>
@@ -495,7 +501,13 @@ def todo():
     import json
     @app.route('/todo/api')
     def todo_api():
-        return json.dumps(db_tools.get_todos())
+        if request.args.get("device") in VALID_DEVICES:
+            return json.dumps(db_tools.get_todos())
+    @app.route('/todo/submitted/api')
+    def new_todo_api():
+        todo=request.args.get("todo")
+
+
     @app.route('/todo')
     @login_required(must=have_access_to_todo)
     def todo_page():
@@ -512,7 +524,7 @@ def todo():
         name = request.form.get('taskname')
         name = name.replace(',', 'COMMA')
         db_tools.add_todo(name)
-        #send_email('todo+19z1n4ovd3rf@mail.ticktick.com', name, 'Submitted from jforseth.tech',
+        # send_email('todo+19z1n4ovd3rf@mail.ticktick.com', name, 'Submitted from jforseth.tech',
         #           PERSONAL_EMAIL, PERSONAL_PASSWORD)
 
         return redirect('/todo')
@@ -702,47 +714,55 @@ def file_sharing():
 ######
 #Misc#
 ######
+
+
 def barrel_racing():
-    #@app.route('/barrelracing')
-    #def barrel_racing():
+    # @app.route('/barrelracing')
+    # def barrel_racing():
     #    return redirect("https://sites.google.com/view/mtbrda/home")
     @app.route('/barrelracing/app_lab')
     def barrel_racing_app_lab():
         return render_template('AP Create Task/index.html')
+
     @app.route('/barrelracing/counter')
     def barrel_racing_counter():
-        with open("text/barrel_racing_current_number.txt",'r') as file:
-            current_number=file.readline()
+        with open("text/barrel_racing_current_number.txt", 'r') as file:
+            current_number = file.readline()
         try:
-            current_number=int(current_number)
+            current_number = int(current_number)
         except ValueError:
             return "Please enter a number"
-        return render_template("barrel_racing_counter.html",current_number=current_number,current_number_plus=current_number+1,current_number_minus=current_number-1)
+        return render_template("barrel_racing_counter.html", current_number=current_number, current_number_plus=current_number+1, current_number_minus=current_number-1)
+
     @app.route('/barrelracing/counter/currentnumber')
     def barrel_racing_counter_current_number():
-        with open("text/barrel_racing_current_number.txt",'r') as file:
-            current_number=file.readline()
+        with open("text/barrel_racing_current_number.txt", 'r') as file:
+            current_number = file.readline()
         return current_number
-    @app.route('/barrelracing/current_number_update',methods=['POST'])
+
+    @app.route('/barrelracing/current_number_update', methods=['POST'])
     def barrel_racing_current_number_update():
-        current_number=request.form.get("current_number")
-        with open("text/barrel_racing_current_number.txt",'w') as file:
+        current_number = request.form.get("current_number")
+        with open("text/barrel_racing_current_number.txt", 'w') as file:
             file.write(current_number)
         return redirect("/barrelracing/counter")
+
     @app.route('/barrelracing/stream')
     def barrelracing_stream():
         def eventStream():
-            old_current_number=''
-            with open("text/barrel_racing_current_number.txt",'r') as file:
-                    old_current_number=file.readline()
+            old_current_number = ''
+            with open("text/barrel_racing_current_number.txt", 'r') as file:
+                old_current_number = file.readline()
             while True:
                 time.sleep(15)
-                with open("text/barrel_racing_current_number.txt",'r') as file:
-                    current_number=file.readline()
+                with open("text/barrel_racing_current_number.txt", 'r') as file:
+                    current_number = file.readline()
                 if old_current_number != current_number:
-                    old_current_number=current_number
+                    old_current_number = current_number
                     yield "data: {}\n\n".format(current_number)
         return Response(eventStream(), mimetype="text/event-stream")
+
+
 def scattergories():
     @app.route('/scattergories')
     def scattergories_page():
