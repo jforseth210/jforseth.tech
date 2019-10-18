@@ -494,7 +494,7 @@ def todo():
     # The main page
     @app.route('/todo/api')
     def todo_api():
-        return db_tools.get_todos()
+        return str(db_tools.get_todos())
     @app.route('/todo')
     @login_required(must=have_access_to_todo)
     def todo_page():
