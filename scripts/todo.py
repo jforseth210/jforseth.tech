@@ -56,7 +56,9 @@ def todo_page():
     todos = [i.replace('COMMA', ',') for i in todos]
     todos.reverse()
     return render_template('todo2.html', result=todos)
-
+@todo.route('/todo/api')
+def todo_api():
+    return str(get_todos())
 # Submission route for new todos.
 @todo.route('/todo/submitted', methods=['POST', 'GET'])
 @login_required(must=have_access_to_todo)
