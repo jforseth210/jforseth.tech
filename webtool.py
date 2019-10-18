@@ -39,6 +39,10 @@ import pprint
 pp = pprint.PrettyPrinter(indent=4)
 
 
+import requests
+#from requests_html import HTMLSession
+
+
 # From flask docs
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'py']
@@ -49,13 +53,49 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 SimpleLogin(app, login_checker=check_my_users)
-
-
+@app.route("/experiment")
+def experiment():
+    requested_url=request.args.get('url')
+    if requested_url == None:
+        page="Enter your desired page"
+    else:
+        #session=HTMLSession()
+        #page=session.get(requested_url)
+        #absolute_links=page.html.absolute_links
+        #links=page.html.links
+        #page=page.html.raw_html
+        #pp.pprint(absolute_links)
+        #for i in links:
+        #    if i in absolute_links:
+        #        page=page.replace(bytes(i,'utf-8'),b"http://jforseth.tech/experiment?url="+bytes(i,'utf-8'))
+        #    else:
+        #        page=page.replace(bytes(i,'utf-8'),b"http://jforseth.tech/experiment?url="+bytes(requested_url,'utf-8')+bytes(i,'utf-8'))
+    	if requested_url[:-4]!=".png" and requested_url[:-4]!=".jpg" and requested_url[:-5]!=".jpeg":
+        	page=requests.get(requested_url).content
+        else:
+            return requests.get(requested_url).response_raw	
+        ATTRIBUTES=['src','href','content','action','data-unscoped-search-url']
+        requested_url_utf=requested_url.encode('utf-8')
+        for attribute in ATTRIBUTES:
+            #page=page.replace(attribute.encode('utf-8')+b"=",attribute.encode('utf-8')+b"=http://jforseth.tech/experiment?url="+requested_url_utf)
+            page=page.replace(attribute.encode('utf-8')+b"='/",attribute.encode('utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
+            page=page.replace(attribute.encode('utf-8')+b'=\"/',attribute.encode('utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
+            page=page.replace(attribute.encode('utf-8')+b'=/',attribute.encode('utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
+        #page=page.replace(b"src='/",b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b"href='/",b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b"content='/",b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b'src=\"/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b'href=\"/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b'content=\"/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b'src=/',b'src=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b'href=/',b'href=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+        #page=page.replace(b'content=/',b'content=http://jforseth.tech/experiment?url='+requested_url.encode('utf-8')+b'/')
+    return "<form><input name='url' /><input type='submit'></form>"+str(page)
 #########
 #Welcome#
 #########
 # Welcome
-# About
+#
 # Instructions
 # Mobile Menubar
 
@@ -248,8 +288,8 @@ def videos():
         video_list2 = []
         for video in video_list:
             if old_youtube_id in video:
-                i = i.replace(old_youtube_id, new_youtube_id)
-            video_list2.append(i)
+                video = video.replace(old_youtube_id, new_youtube_id)
+            video_list2.append(video)
 
         # Point the old list to your new one.
         video_list = video_list2
@@ -397,12 +437,12 @@ def prayer():
         address = request.args.get('email')
         parish = request.args.get('parish')
         if len(code)==0:
-            return("""No verification code was recieved. Please try again. 
+            return("""No verification code was recieved. Please try again.
             Theres two reasons why this could've happened: <ol>
             <li>I messed up something with the code.</li>
             <li>You messed with something you weren't supposed to.</li></ol>
             </li>If you happen to be me, it's probably both. If you aren't me, feel free to email me if you think it's broken, or to try again if you think you broke it.
-            If problem persists, send me an email describing the problem. <br / > 
+            If problem persists, send me an email describing the problem. <br / >
             <br/><img src='https://imgs.xkcd.com/comics/unreachable_state.png'/>""")
         try:
             verification_result = db_tools.check_verification_code(code)
@@ -422,7 +462,7 @@ def prayer():
             return render_template('email_added.html')
         else:
             # Returns failure message.
-            return """Email verification failed. Verification code is invalid or expired. Please try signing up again. 
+            return """Email verification failed. Verification code is invalid or expired. Please try signing up again.
             If the problem persists, click "Contact" and send me an email describing your issue. Sorry!"""
 
     # Prayer request submissions
