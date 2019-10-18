@@ -58,6 +58,21 @@ def todo_page():
     return render_template('todo2.html', result=todos)
 @todo.route('/todo/api')
 def todo_api():
+    if request.args.get("device") in VALID_DEVICES:
+        return json.dumps(get_todos())
+    else:
+        return "Device not approved"
+@todo.route('/todo/submitted/api')
+def new_todo_api():
+    if request.args.get("device") in VALID_DEVICES:
+        taskname=request.args.get("taskname")
+        taskname = taskname.replace(',', 'COMMA')
+        add_todo(taskname)
+    else:
+        return "Device not approved"
+
+@todo.route('/todo/api')
+def todo_api():
     return str(get_todos())
 # Submission route for new todos.
 @todo.route('/todo/submitted', methods=['POST', 'GET'])
