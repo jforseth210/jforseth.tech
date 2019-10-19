@@ -8,12 +8,13 @@ def get_videos():
     # videotitle|videoid
     with open("text/videos.txt", 'r') as file:
         videos = file.readlines()
-    videos = [i.replace(' \n', '') for i in videos]
+    videos = [i.replace('\n', '') for i in videos]
     videos = [i.split('|') for i in videos]
     return videos
 
 
 def overwrite_videos(video_list):
+    video_list = ["|".join(i)+"\n" for i in video_list]
     with open('text/videos.txt', 'w') as file:
         file.writelines(video_list)
 
@@ -48,7 +49,7 @@ def new_video_upload():
     youtube_id = youtube_id.replace('https://www.youtube.com/watch?v=', '')
     youtube_id = youtube_id.replace('https://youtu.be/', '')
 
-    newvideo = title+'|'+youtube_id+'\n'
+    newvideo = [title, youtube_id]
 
     video_list = get_videos()
     video_list.insert(0, newvideo)
@@ -63,7 +64,7 @@ def deletion():
     youtube_id = request.form.get('youtube_id')
 
     video_list = get_videos()
-    if len(youtube_id) < 12:
+    if len(youtube_id) < 11:
         return "This doesn't look like a valid youtube link."
 
     video_list = [video for video in video_list if youtube_id not in video]
@@ -83,17 +84,14 @@ def rename():
     for video in video_list:
 
         if youtube_id in video:
-            # Keep the id, throw the old name away.
-            _, current_videos_id = video.split('|')
-
+            current_videos_id = video[1]
             # Put new title, old id together, in the proper format.
-            video_list2.append(new_title+'|'+current_videos_id)
+            video_list2.append([new_title, current_videos_id])
 
         else:
             # If its not the video we're looking for, don't do anything.
             video_list2.append(video)
     video_list = video_list2
-
     overwrite_videos(video_list)
     return redirect('../videos')
 
@@ -110,7 +108,8 @@ def update_video_id():
 
     video_list = get_videos()
 
-    video_list = [video for video in video_list if old_youtube_id in video]
+    video_list = [[video[0], video[1].replace(
+        old_youtube_id, new_youtube_id)] for video in video_list]
 
     overwrite_videos(video_list)
     return redirect('../videos')
@@ -119,7 +118,7 @@ def update_video_id():
 @videos.route('/videos/move', methods=["POST"])
 @login_required(must=have_access_to_admin)
 def move():
-    video_to_move = request.form.get('element')+'\n'
+    video_to_move = request.form.get('element').split('|')
     direction = request.form.get('direction')
 
     video_list = get_videos()
