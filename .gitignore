@@ -9,6 +9,7 @@ text/validcodes.txt
 text/barrel_racing_current_number.txt
 text/videos.txt
 static/barrelracingcounter.png
+text/todo.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
