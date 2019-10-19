@@ -514,7 +514,11 @@ def todo():
             db_tools.add_todo(taskname)
         else:
             return "Device not approved"
-
+    @todo.route('/todo/delete/api')
+    def delete_todo_api():
+        if request.arg.get("device") in VALID_DEVICES:
+            task_id = int(request.form.get('taskid'))
+            db_tools.delete_todo(task_id)
 
     @app.route('/todo')
     @login_required(must=have_access_to_todo)
