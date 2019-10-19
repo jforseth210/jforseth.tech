@@ -55,7 +55,7 @@ def todo_page():
     todos = [i.replace('\n', '') for i in todos]
     todos = [i.replace('COMMA', ',') for i in todos]
     todos.reverse()
-    return render_template('todo2.html', result=todos)
+    return render_template('todo/todo2.html', result=todos)
 @todo.route('/todo/api')
 def todo_api():
     if request.args.get("device") in VALID_DEVICES:

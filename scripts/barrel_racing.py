@@ -5,7 +5,7 @@ barrel_racing = Blueprint("barrel_racing", __name__)
 
 @barrel_racing.route('/barrelracing/app_lab')
 def barrel_racing_app_lab():
-    return render_template('AP Create Task/index.html')
+    return ('AP Create Task/index.html')
 
 
 @barrel_racing.route('/barrelracing/counter')
@@ -16,7 +16,7 @@ def barrel_racing_counter():
         current_number = int(current_number)
     except ValueError:
         return "Please enter a number"
-    return render_template("barrel_racing_counter.html", current_number=current_number)
+    return render_template("barrel_racing/barrel_racing_counter.html", current_number=current_number)
 
 
 @barrel_racing.route('/barrelracing/counter/currentnumber')

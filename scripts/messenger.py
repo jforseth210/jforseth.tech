@@ -35,7 +35,7 @@ def clear_messages():
 def messenger_main_page():
     messages = read_messages()
     messages = [''.join(i) for i in messages]
-    return render_template("messenger_main.html", result=messages)
+    return render_template("messenger/messenger_main.html", result=messages)
 
 # When the user sends a message, it goes here.
 @messenger.route('/messenger/result', methods=['POST', 'GET'])

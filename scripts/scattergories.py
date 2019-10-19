@@ -14,7 +14,7 @@ def scattergories_page():
 
     with open(r"text/scattergoriescurrentletter.txt") as file:
         current_letter = file.read()
-    return render_template("Scattergories.html", list=category_list, current_letter=current_letter)
+    return render_template("scattergories/scattergories.html", list=category_list, current_letter=current_letter)
 
 
 @scattergories.route('/scattergories/newlist')

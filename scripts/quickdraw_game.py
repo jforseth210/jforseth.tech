@@ -6,7 +6,7 @@ quickdraw_game = Blueprint('quickdraw_game', __name__)  # Main page
 @quickdraw_game.route('/quickdraw')
 @login_required()
 def quickdraw():
-    return render_template('quickdraw_client.html')
+    return render_template('quickdraw/quickdraw_client.html')
 
 
 @quickdraw_game.route('/quickdraw/shot')
@@ -26,7 +26,7 @@ def quickdraw_shot():
 
 @quickdraw_game.route('/quickdraw/bigscreen')
 def big_screen():
-    return render_template('bigscreen.html')
+    return render_template('quickdraw/bigscreen.html')
 
 
 @quickdraw_game.route('/quickdraw/bigscreen/begin')
@@ -35,9 +35,9 @@ def big_screen_begin():
         file = open('text/locked.txt', 'w')
         file.write('False')
         file.close()
-        return render_template('bigscreen_begin.html', time="1000", result='GO!')
+        return render_template('quickdraw/bigscreen_begin.html', time="1000", result='GO!')
     else:
         file = open('text/locked.txt', 'w')
         file.write('True\nShooting too soon')
         file.close()
-        return render_template('bigscreen_begin.html', time='1', result='Not yet')
+        return render_template('quickdraw/bigscreen_begin.html', time='1', result='Not yet')

@@ -87,7 +87,7 @@ def get_emails_from_parish(parish):
 # The main page
 @prayer.route('/prayer')
 def prayer_page():
-    return render_template('prayer.html', options=PARISH_DICTIONARY.values())
+    return render_template('prayer/prayer.html', options=PARISH_DICTIONARY.values())
 
 @prayer.route('/FlaskApp/prayer')
 def old_prayer_page():
@@ -112,7 +112,7 @@ def new_email():
         send_email(
             email, "Thank you for joining JMJprayerrequests", message, PROJECT_EMAIL, PROJECT_PASSWORD)
         # Displays a page with further instruction
-        return render_template('email_adding.html')
+        return render_template('prayer/email_adding.html')
 
 # The second step of verification
 # This uses get instead of post in hopes of greater
@@ -152,7 +152,7 @@ def new_email_confirmed():
         add_to_mailing_list(address, parishes)
       
         # Returns success page.
-        return render_template('email_added.html')
+        return render_template('prayer/email_added.html')
     else:
         # Returns failure message.
         return """Email verification failed. Verification code is invalid or expired. Please try signing up again.
@@ -175,4 +175,4 @@ def prayer_request():
     #for email in emails:
         #send_email(email, subject_template, message_template,
         #           PROJECT_EMAIL, PROJECT_PASSWORD)
-    return render_template('sent.html')
+    return render_template('prayer/sent.html')

@@ -33,7 +33,7 @@ def video_page():
         # If not logged in, not admin
         is_admin = False
 
-    return render_template('videos.html', video_master_list=video_master_list, is_admin=is_admin)
+    return render_template('videos/videos.html', video_master_list=video_master_list, is_admin=is_admin)
 
 
 @videos.route('/videos/newupload', methods=["POST"])
