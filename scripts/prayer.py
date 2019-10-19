@@ -172,7 +172,6 @@ def prayer_request():
     # For testing purposes only, manually overrides email list and sends to my personal account instead:
     # Uncommenting this is a really, really bad idea.
     # emails=[personalemail]
-    pp.pprint(emails)
     #for email in emails:
         #send_email(email, subject_template, message_template,
         #           PROJECT_EMAIL, PROJECT_PASSWORD)
