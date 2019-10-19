@@ -503,7 +503,8 @@ def todo():
     @app.route('/todo/api')
     def todo_api():
         if request.args.get("device") in VALID_DEVICES:
-            return json.dumps(db_tools.get_todos().reverse())
+            todos=db_tools.get_todos().reverse()
+            return json.dumps(todos)
         else:
             return "Device not approved"
     @app.route('/todo/submitted/api')
