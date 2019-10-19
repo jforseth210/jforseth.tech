@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel='stylesheet' href='/static/videos.css' type='text/css' />
+{% endblock %}
+{% block title %}Videos{% endblock %}
+{% block heading %}
+Videos
+{% endblock %}
+{% block content %}
+{% if is_admin %}
+<p>Welcome to the jforseth.tech video admin console. If you don't know how you got here, DO NOT TOUCH ANYTHING! <a
+        href="/logout">Click here</a> to reset.</p>
+<p>If you know how you got here:</p>
+<ul>
+    <li>To add a video, enter the title and YouTube link and click 'Upload'.</li>
+    <li>To rename a video, type the new title and click 'Rename'.</li>
+    <li>To replace the youtube video, just paste in the new url and click 'Update ID'</li>
+    <li>To delete the video, click 'Delete'</li>
+    <li>To move the video use the 'Move Up' and 'Move Down' buttons.</li>
+</ul>
+<form method=post action="videos/newupload" method="POST">
+    <input type=text name=title placeholder='Title' />
+    <input type=text name=youtube_id placeholder="YouTube Link" />
+    <input type=submit name=submit id='submit' value="Upload">
+</form>
+<br /><br />
+{% else %}
+<p>These are all of my video editing projects. To watch, you can either click on the thumbnail for a preview, or the
+    title to be redirected to YouTube. I would serve them myself, instead of using YouTube, but my computer and my
+    internet connection just aren't up to that. Enjoy!</p>
+{% endif %}
+{% for row in video_master_list %}
+<div class="row">
+    {% for video in row %}
+    <div class="column">
+
+
+        {% if not is_admin %}
+            <a href="https://youtu.be/{{video[1]}}">
+                <h3>{{ video[0]}}</h3>
+            </a>
+
+
+        {% else %}
+            <form method=post action="videos/rename" method="POST">
+                <input type=text value="{{ video[0]}}" name=title />
+                <input hidden value="{{ video[1]}}" name=youtube_id />
+                <input type=submit id=submit value="Rename" />
+            </form>
+            <form method=post action="videos/updateid" method="POST">
+                <input type=text value="{{ video[1]}}" name=new_youtube_id />
+                <input hidden value="{{ video[1]}}" name=old_youtube_id />
+                <input type=submit id=submit value="Update ID" />
+            </form>
+        {% endif %}
+
+
+        {% if is_admin %}
+        <form method=post action="videos/move" method="POST">
+            <input hidden value='{{ video[0] }}|{{ video[1]}}' name='element' />
+            <input hidden value='up' name=direction />
+            <input type=submit id=submit value="Move Up" />
+        </form>
+        <form method=post action="videos/deletion" method="POST">
+            <input hidden value="{{ video[1]}}" name=youtube_id />
+            <input type=submit id=submit value="Delete" />
+        </form>
+
+        <form method=post action="videos/move" method="POST">
+            <input hidden value='{{ video[0] }}|{{ video[1]}}' name='element' />
+            <input hidden value='down' name=direction />
+            <input type=submit id=submit value="Move Down" />
+        </form>
+        {% endif %}
+
+        
+        <div class="player-parent">
+            <div class="youtube-player" data-id="{{video[1]}}"></div>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+</div>
+{% endfor %}
+<footer>
+    <br /><small>Oh, and, in case it wasn't glaringly obvious, none of the music in these videos is my original
+        work. Most of them have credit in the description. If it doesn't email me and I'll try to track the song
+        down.</small>
+    <br /><small><a href='/login/?next=%2Fvideos'>Click here to enter admin mode</a></small>
+    <!--<br /><small>You are free to change or modify any of this work, with credit, for noncommercial use. If you do so, don't forget to also credit the music creator accordingly. 
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a></small>
+        -->
+</footer>
+
+<script>
+
+    /* Light YouTube Embeds by @labnol */
+    /* Web: http://labnol.org/?p=27941 */
+
+    document.addEventListener("DOMContentLoaded",
+        function () {
+            var div, n,
+                v = document.getElementsByClassName("youtube-player");
+            for (n = 0; n < v.length; n++) {
+                div = document.createElement("div");
+                div.setAttribute("data-id", v[n].dataset.id);
+                div.innerHTML = labnolThumb(v[n].dataset.id);
+                div.onclick = labnolIframe;
+                v[n].appendChild(div);
+            }
+        });
+
+    function labnolThumb(id) {
+        var thumb = '<img src="https://i.ytimg.com/vi/ID/hqdefault.jpg">',
+            play = '<div class="play"></div>';
+        return thumb.replace("ID", id) + play;
+    }
+
+    function labnolIframe() {
+        var iframe = document.createElement("iframe");
+        var embed = "https://www.youtube.com/embed/ID?autoplay=1";
+        iframe.setAttribute("src", embed.replace("ID", this.dataset.id));
+        iframe.setAttribute("frameborder", "0");
+        iframe.setAttribute("allowfullscreen", "1");
+        this.parentNode.replaceChild(iframe, this);
+    }
+
+</script>
+{% endblock %}

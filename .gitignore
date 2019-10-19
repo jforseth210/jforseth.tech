@@ -1,3 +1,16 @@
+AP\ Create\ Task/
+
+.goutputsream-*
+
+SensitiveData.py
+database.db
+uploads/
+text/validcodes.txt
+text/barrel_racing_current_number.txt
+text/videos.txt
+static/barrelracingcounter.png
+text/todo.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -672,15 +685,3 @@ MigrationBackup/
 
 # End of https://www.gitignore.io/api/git,flask,python,visualstudio
 
-AP\ Create\ Task/
-
-.goutputsream-*
-
-SensitiveData.py
-database.db
-uploads/
-text/validcodes.txt
-text/barrel_racing_current_number.txt
-text/videos.txt
-static/barrelracingcounter.png
-text/todo.csv
