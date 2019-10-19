@@ -59,7 +59,7 @@ def todo_page():
 @todo.route('/todo/api')
 def todo_api():
     if request.args.get("device") in VALID_DEVICES:
-        return json.dumps(get_todos())
+        return json.dumps(get_todos().reverse())
     else:
         return "Device not approved"
 @todo.route('/todo/submitted/api')
@@ -71,9 +71,11 @@ def new_todo_api():
     else:
         return "Device not approved"
 
-@todo.route('/todo/api')
-def todo_api():
-    return str(get_todos())
+@todo.route('/todo/delete/api')
+def delete_todo_api():
+    if request.arg.get("device") in VALID_DEVICES:
+        task_id = int(request.form.get('taskid'))
+        delete_todo(task_id)
 # Submission route for new todos.
 @todo.route('/todo/submitted', methods=['POST', 'GET'])
 @login_required(must=have_access_to_todo)
