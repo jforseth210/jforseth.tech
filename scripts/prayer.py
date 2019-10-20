@@ -17,7 +17,8 @@ PARISH_DICTIONARY = {
     'STJOSEPH': 'Saint Joseph Parish',
     'STJOSEPHRE': 'Saint Joseph RE',
     #'FFTEACHERS': 'Fairfield Catholic Teachers',
-    'JESUS': 'LL Small Group 3'
+    'JESUS': 'LL Small Group 3',
+    "sdkfjglhgjnfkbsdnfbjgksdngfkjngkfdsgjksdgjbak": "Testing" #There shouldn't be any way to sign up for testing group. 
 }
 
 # Email verification
@@ -79,7 +80,6 @@ def get_emails_from_parish(parish):
 
     with conn:
         cur.execute("""SELECT * FROM users WHERE parish LIKE '%{}%'""".format(parish))
-
     emails = cur.fetchall()
     emails = [i[0] for i in emails]
 
@@ -103,12 +103,15 @@ def new_email():
         # Takes the parish code, looks it up in the dictionary.
         # If it's blank or incorrect, replace with "Public"
         email_parish = PARISH_DICTIONARY.get(parish, "Public")
+        
         valid_code = get_verification_code()
+        
         message = get_verification_email_template()
         message = message.format(
             email_parish, valid_code, email, email_parish)
 
         # Sends the adapted message
+        print(email)
         send_email(
             email, "Thank you for joining JMJprayerrequests", message, PROJECT_EMAIL, PROJECT_PASSWORD)
         # Displays a page with further instruction
@@ -166,13 +169,14 @@ def prayer_request():
     parish = request.form.get('parish')
 
     emails = get_emails_from_parish(parish)
+
     message_template, subject_template = read_prayer_request_template(
         name, prequest, parish)
 
     # For testing purposes only, manually overrides email list and sends to my personal account instead:
     # Uncommenting this is a really, really bad idea.
     # emails=[personalemail]
-    #for email in emails:
-        #send_email(email, subject_template, message_template,
-        #           PROJECT_EMAIL, PROJECT_PASSWORD)
+    for email in emails:
+        send_email(email, subject_template, message_template,
+                   PROJECT_EMAIL, PROJECT_PASSWORD)
     return render_template('prayer/sent.html')

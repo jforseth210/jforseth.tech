@@ -34,7 +34,7 @@ def upload_file():
 
     else:
         file_list = os.listdir(UPLOAD_PATH)
-        return render_template('file_sharing.html', files=file_list)
+        return render_template('file_sharing/file_sharing.html', files=file_list)
 
 
 @file_sharing.route('/filesharing/<filename>')
