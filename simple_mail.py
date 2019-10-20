@@ -4,7 +4,7 @@ from email.mime.text import MIMEText
 
 def send_email(email_recipient, email_subject, email_message, sender, password):
    
-    s = smtplib.SMTP(host='smtp.gmail.com', port='587')
+    s = smtplib.SMTP(host='jforseth.tech', port='587')
     s.starttls()
     s.login(sender, password)
     
