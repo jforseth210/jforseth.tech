@@ -22,7 +22,12 @@ app.config['SECRET_KEY'] = SECRET_KEY
 
 # Account management
 SimpleLogin(app, login_checker=check_login)
-
+def check_if_admin():
+    if is_logged_in() and 'admin' in get_current_access(get_username()):
+        return True
+    else:
+        return False
+app.jinja_env.globals.update(check_if_admin=check_if_admin)
 
 # __        __   _
 # \ \      / /__| | ___ ___  _ __ ___   ___

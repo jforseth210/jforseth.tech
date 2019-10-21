@@ -51,8 +51,16 @@
             <li><a href="/prayer">Prayer Requests</a></li>
             <li><a href="/videos">Videos</a></li>
             <li><a class="trigger_popup_fricc">Chat</a></li>
+            {% if check_if_admin() %}
             <li><a href="/todo">Todo</a></li>
             <li><a href='/filesharing'>File Sharing</a></li>
+            <li><a href="/mail">Mail</a></li>            
+            {% endif %}
+            {% if is_logged_in()%}
+            <li><a href="/logout">Logout</a></li> 
+            {% else %}
+            <li><a href="/login">Login</a></li>  
+            {% endif %}
             <li class='right'><a href="mailto:support@jforseth.tech">Contact</a></li>
             <!--Don't add this yet. Hold onto it for later though.-->
             

@@ -27,14 +27,8 @@ def video_page():
     for i in range(0, len(videos), VIDEOS_PER_ROW):
         video_master_list.append(videos[i:i+VIDEOS_PER_ROW])
 
-    if is_logged_in():
-        # Checks if the user is admin
-        is_admin = 'admin' in get_current_access(get_username())
-    else:
-        # If not logged in, not admin
-        is_admin = False
 
-    return render_template('videos/videos.html', video_master_list=video_master_list, is_admin=is_admin)
+    return render_template('videos/videos.html', video_master_list=video_master_list)
 
 
 @videos.route('/videos/newupload', methods=["POST"])

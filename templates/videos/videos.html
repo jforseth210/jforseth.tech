@@ -7,7 +7,7 @@
 Videos
 {% endblock %}
 {% block content %}
-{% if is_admin %}
+{% if check_if_admin() %}
 <p>Welcome to the jforseth.tech video admin console. If you don't know how you got here, DO NOT TOUCH ANYTHING! <a
         href="/logout">Click here</a> to reset.</p>
 <p>If you know how you got here:</p>
@@ -35,7 +35,7 @@ Videos
     <div class="column">
 
 
-        {% if not is_admin %}
+        {% if not check_if_admin() %}
             <a href="https://youtu.be/{{video[1]}}">
                 <h3>{{ video[0]}}</h3>
             </a>
@@ -55,7 +55,7 @@ Videos
         {% endif %}
 
 
-        {% if is_admin %}
+        {% if check_if_admin() %}
         <form method=post action="videos/move" method="POST">
             <input hidden value='{{ video[0] }}|{{ video[1]}}' name='element' />
             <input hidden value='up' name=direction />
