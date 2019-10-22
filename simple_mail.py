@@ -3,7 +3,8 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 def send_email(email_recipient, email_subject, email_message, sender, password):
-    s = smtplib.SMTP(host='smtp.gmail.com', port='587')
+   
+    s = smtplib.SMTP(host='jforseth.tech', port='587')
     s.starttls()
     s.login(sender, password)
     
@@ -13,8 +14,6 @@ def send_email(email_recipient, email_subject, email_message, sender, password):
     msg['To'] = email_recipient
     msg['Subject'] = email_subject
    
-    # The template for the messenger.
-    # The form elements are invisible, the user just has to click submit.
     msg.attach(MIMEText(email_message, 'html'))
 
     s.sendmail(msg['From'], msg['To'], msg.as_string())
@@ -30,6 +29,7 @@ def simple_mail_help():
     print("Sender: The account to send from. CURRENTLY ONLY WORKS WITH GMAIL.")
     print("Password: The passwords of the account to send from.")
     print("If using a new account, make sure less secure access is turned ON.")
+
 if __name__ == "__main__":
     simple_mail_help()
     

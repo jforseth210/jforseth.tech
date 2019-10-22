@@ -1,0 +1,44 @@
+
+{% extends 'base.html' %}
+{% block title %}Justin's Todo List{% endblock %}
+{% block heading %}
+Justin's Todo List
+{% endblock %}
+{% block head %}
+<style>
+    #taskid {
+        width: 50px;
+        padding: 10px
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div style="float:left;">
+    <div id='answered'>
+        <form id='form1' action="todo/submitted" method="POST">
+            <input class='inputs' type='name' name='taskname' id='name' placeholder='Task' required autofocus />
+        </form>
+    </div>
+    <div>
+        <ol class='answers' id='answers'>
+            {% for value in result %}
+            <li>
+                {{ value }}
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+    <form action="todo/delete" method='POST'>
+        <p>Task to delete:</p>
+        <input type='number' id='taskid' name='taskid' />
+        <input type='submit' value='Delete' />
+    </form>
+    <br />
+    <form action="todo/reorder" method="POSt">
+        <p>Task to move:</p><input type='number' name='taskid' id='taskid' />
+        <br />
+        <p>Position to move task:</p><input type='number' name='taskloc' id='taskid' />
+        <br />
+        <input type='submit' value='Move' /></div>
+    <!--<iframe src="https://ticktick.com" style="border:0px #ffffff none; float:right;" name="ticktick" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="400px" width="600px" allowfullscreen></iframe>-->
+{% endblock %}

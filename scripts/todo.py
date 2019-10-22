@@ -25,6 +25,7 @@ def delete_todo(taskid):
         todos.pop(len(todos)-taskid)
     except IndexError:
         flash("That isn't a valid task.", category="warning")
+        return redirect('/todo')
     with open("text/todo.csv", 'w') as file:
         for i in todos:
             file.write(i)

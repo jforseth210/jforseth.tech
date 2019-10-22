@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block title %}Prayer Requests{% endblock %}
+{% block headingimage %}
+<img onload='loaded()'
+    src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Cross_in_sunset.jpg/320px-Cross_in_sunset.jpg'
+    id='cross' />
+{% endblock %}
+{% block heading %}
+Prayer Requests<sup><small>[BETA]</small></sup>
+{% endblock %}
+{% block content %}
+<div id="quote"></div>
+<div class='forms'>
+    <h2>Request Prayer:</h2>
+    <form id='form1' action="/prayer/prayerrequest" method="POST">
+        <input class='inputs' type='name' name='name' id='name' placeholder='Nickname' required />
+        <select class='inputs dropdown' form='form1' name='parish' required>
+            <option disabled selected>Select</option>
+            {% for option in options %}
+                <option>{{ option }}</option>
+            {% endfor %}
+            <!--REMEMBER TO UPDATE BOTH FORMS AND THE DICT!
+            <option>Public</option>
+            <option>Saint John RE</option>
+            <option>Saint John Parish</option>
+            <option>Saint Joseph RE</option>
+            <option>Saint Joseph Parish</option>
+            <option>Testing</option>
+            <option>LL Small Group 3</option>-->
+        </select>
+        <br />
+        <textarea id='prequest' class='inputs' form='form1' name='prequest' placeholder="Type your prayer request here"
+            required></textarea>
+        <br />
+        <br />
+        <input class='no=pad' id='submit' type="submit" value="Submit" />
+    </form>
+    <br /><br />
+    <h2>Recieve Prayer Requests</h2>
+    <form class='send' id='form2' action="prayer/newemail" method="POST">
+        <p class='no-pad'>
+            <input class='inputs' id='email' autocomplete='off' type="email" name="email"
+                placeholder='someone@example.com' required />
+            <input class='inputs dropdown' name='parish' placeholder='PARISH'>
+            <input class='no=pad' id='submit' type="submit" value="Submit" />
+        </p>
+    </form>
+</div>
+<footer>
+    <p><img id="refresh" onclick="getQuote()" src="https://img.icons8.com/windows/32/000000/restart.png"></p>
+    <small>Icon Credit: <a href='https://www.iconfinder.com'>www.iconfinder.com</a></small>
+    <br />
+    <small>Image Credit: <a
+            href="https://commons.wikimedia.org/wiki/File:Cross_in_sunset.jpg">commons.wikimedia.org</a></small>
+</footer>
+<script>
+    var today = new Date().getHours();
+    if (today <= 6 || today >= 22) {
+        alert('It is after 10 p.m. Unless your prayer request is urgent, please be courteous and wait until morning. Thanks!');
+    }
+    getQuote();
+    function getQuote() {
+        var quotes = [
+            {
+                text: "Ask and you will receive; seek and you will find; knock and the door will be opened to you.",
+                verse: "Luke 11:9"
+            },
+            {
+                text: "Rejoice always, pray continually, give thanks in all circumstances; for this is God’s will for you in Christ Jesus.",
+                verse: '1 Thessalonians 5:16-18',
+            },
+            {
+                text: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God. And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus.",
+                verse: "Philippians 4:6-7",
+            },
+            {
+                text: 'This is the confidence we have in approaching God: that if we ask anything according to his will, he hears us.',
+                verse: '1 John 5:14'
+            }, {
+                text: 'Devote yourselves to prayer, being watchful and thankful.', verse: 'Collosians 4:2'
+            },
+            {
+                text: 'Then you will call on me and come and pray to me, and I will listen to you.',
+                verse: 'Jeremiah 29:12'
+            },
+            {
+                text: 'To be a Christian without prayer is no more possible than to be alive without breathing',
+                verse: 'Martin Luther'
+            },
+            {
+                text: 'Our prayers may be awkward. Our attempts may be feeble. But since the power of prayer is in the one who hears it and not the one who says it, our prayers do make a difference.',
+                verse: 'Max Lucado'
+
+            },
+            {
+                text: 'Any concern too small to be turned to in prayer is too small to be made into a burden',
+                verse: 'Corrie Ten Boom'
+            }
+        ];
+        var quote = quotes[Math.floor(Math.random() * quotes.length)];
+        if (screen.width > 650) {
+            document.getElementById("quote").innerHTML =
+                '<h2>"' + quote.text + '"</h2>' +
+                '<cite>' + quote.verse + '</cite>'
+                ;
+        }
+    }
+
+</script>
+{% endblock %}
