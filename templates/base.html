@@ -65,9 +65,6 @@
             <li><a class="trigger_popup_fricc">Chat</a></li>
             <li><a href="/todo">Todo</a></li>
             <li><a href='/filesharing'>File Sharing</a></li>
-<<<<<<< Updated upstream
-            <li class='right'><a href="mailto:406prayerrequests@gmail.com">Contact</a></li>
-=======
             <li><a href="/mail">Mail</a></li>
             {% endif %}
             {% if is_logged_in()%}
@@ -76,12 +73,11 @@
             <li><a href="/login">Login</a></li>
             {% endif %}
             <li class='right'><a href="mailto:support@jforseth.tech">Contact</a></li>
->>>>>>> Stashed changes
             <!--Don't add this yet. Hold onto it for later though.-->
 
             <!--<div class="dropdown">
             <button onclick="myFunction()" class="dropbtn">Account</button>
-            <div id="myDropdown" class="dropdown-content">
+            <div id="myDropdown" class="dropdown-content">`
                 {% if is_logged_in() %}
                 <p>Hello, {{ get_username() }}</p>
                 <br /><br />
