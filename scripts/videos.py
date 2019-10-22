@@ -60,7 +60,8 @@ def deletion():
 
     video_list = get_videos()
     if len(youtube_id) < 11:
-        return "This doesn't look like a valid youtube link."
+        flash("This doesn't look like a YouTube link. Try again.",category="warning")
+        return redirect('/videos')
 
     video_list = [video for video in video_list if youtube_id not in video]
 

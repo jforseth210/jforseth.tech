@@ -155,12 +155,12 @@ def new_email_confirmed():
         add_to_mailing_list(address, parishes)
       
         # Returns success page.
-        return render_template('prayer/email_added.html')
+        flash("You've been added to the following groups: " + ", ".join(parishes),category="success")
+        return redirect('/prayer')
     else:
         # Returns failure message.
-        return """Email verification failed. Verification code is invalid or expired. Please try signing up again.
-        If the problem persists, click "Contact" and send me an email describing your issue. Sorry!"""
-
+        flash("Verification failed. Try again or report the problem.", category="alert")
+        return redirect("/prayer")
 
 @prayer.route('/prayer/prayerrequest', methods=['POST', 'GET'])
 def prayer_request():
@@ -179,4 +179,5 @@ def prayer_request():
     for email in emails:
         send_email(email, subject_template, message_template,
                    PROJECT_EMAIL, PROJECT_PASSWORD)
-    return render_template('prayer/sent.html')
+    flash("Prayer request sent!", category="success")
+    return redirect('/prayer')

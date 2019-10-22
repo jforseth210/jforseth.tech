@@ -109,6 +109,6 @@ def todo_reordered():
         item_to_reorder = int(request.form.get("taskid"))
         position_to_move = int(request.form.get("taskloc"))
     except ValueError:
-        return 'Please enter a number...'
+        flash("Please enter a number", category="warning")
     reorder_todo(item_to_reorder, position_to_move)
     return redirect('/todo')
