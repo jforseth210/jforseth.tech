@@ -19,9 +19,18 @@ from scripts.file_sharing import *
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
 
+messages={
+    'login_success': 'Login Successfull',
+    'login_failure': 'Invalid username or password',
+    'is_logged_in': 'You\'re already logged in!',
+    'logout': 'Logout Successful',
+    'login_required': 'You need to sign in to use this feature.',
+    'access_denied': 'Access Denied',
+    'auth_error': '{0}'
+}
 
 # Account management
-SimpleLogin(app, login_checker=check_login)
+SimpleLogin(app, login_checker=check_login, messages=messages)
 def check_if_admin():
     if is_logged_in() and 'admin' in get_current_access(get_username()):
         return True

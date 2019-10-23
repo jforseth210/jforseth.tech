@@ -31,7 +31,6 @@ def check_login(user):
         return True  # <--- user is logged in!
 
     else:
-        flash("Invalid username or password", category="warning")
         return False  # <--- invalid credentials
 
 
