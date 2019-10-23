@@ -1,6 +1,6 @@
 import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import render_template
+from flask import render_template, flash
 
 # Retrieve all date on a given user. Returns a dict with columns as keys.
 def get_account(username):
@@ -24,12 +24,14 @@ def check_login(user):
     user_data = get_account(user['username'])
 
     if not user_data:
+        flash("Account not found", category="warning")
         return False  # <--- invalid credentials, no data
 
     elif check_password_hash(user_data.get('hashed_password'), user['password']):
         return True  # <--- user is logged in!
 
     else:
+        flash("Invalid username or password", category="warning")
         return False  # <--- invalid credentials
 
 
