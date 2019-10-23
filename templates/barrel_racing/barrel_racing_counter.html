@@ -40,10 +40,54 @@
         h1 {
             font-family: sans-serif;
         }
+        /*Alerts from https://www.w3schools.com/howto/howto_js_alert.asp*/
+ /* The alert message box */
+ .alert {
+	padding: 20px;
+	background-color: #f44336; /* Red */
+	color: white;
+	margin-bottom: 15px;
+	margin-left: -30%;
+	width: 60%;
+	position: absolute;
+	margin-top: 20;
+	left: 50%;
+  }
+  
+  /* The close button */
+  .closebtn {
+	margin-left: 15px;
+	color: white;
+	font-weight: bold;
+	float: right;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+	transition: 0.3s;
+  }
+  
+  /* When moving the mouse over the close button */
+  .closebtn:hover {
+	color: black;
+  } 
+.alert.success {background-color: #4CAF50;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
     </style>
 </head>
 
 <body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <!--Alerts from https://www.w3schools.com/howto/howto_js_alert.asp-->
+                <div class="alert {{category}}">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <p>{{error}}</p>
     <h1>Horse #</h1>
     <form id=currentnumberform action="/barrelracing/current_number_update" method="POST">
@@ -52,12 +96,13 @@
     </form>
     <h1>is currently running</h1>
     <div id=formparent>
+        
         <form id=plusform action="/barrelracing/current_number_update" method="POST">
-            <input type=number name=current_number id=plushidden class=invisible value={{ current_number + 1 }} />
+            <input type=number name=current_number id=plushidden class=invisible value={%if current_number != "ERROR"%}{{ current_number + 1 }}{%endif%} />
             <input type=submit id=plus class=button value=+>
         </form>
         <form id=minusform action="/barrelracing/current_number_update" method="POST">
-            <input type=number name=current_number id=minushidden class=invisible value={{ current_number - 1 }} />
+            <input type=number name=current_number id=minushidden class=invisible value={%if current_number != "ERROR"%}{{ current_number - 1 }}{%endif%} />
             <input type=submit id=minus class=button value=->
         </form>
     </div>
@@ -75,6 +120,29 @@
             }
         };
     </script>
+    <!--W3Schools-->
+    <script>
+            // Get all elements with class="closebtn"
+            var close = document.getElementsByClassName("closebtn");
+            var i;
+    
+            // Loop through all close buttons
+            for (i = 0; i < close.length; i++) {
+                // When someone clicks on a close button
+                close[i].onclick = function () {
+    
+                    // Get the parent of <span class="closebtn"> (<div class="alert">)
+                    var div = this.parentElement;
+    
+                    // Set the opacity of div to 0 (transparent)
+                    div.style.opacity = "0";
+    
+                    // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+                    setTimeout(function () { div.style.display = "none"; }, 600);
+                }
+            }
+        </script>
+        <!--End W3schools-->
 </body>
 
 </html>
