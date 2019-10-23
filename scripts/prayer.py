@@ -108,14 +108,15 @@ def new_email():
         
         message = get_verification_email_template()
         message = message.format(
-            email_parish, valid_code, email, email_parish)
+            parish=email_parish, code=valid_code, email=email)
 
         # Sends the adapted message
         print(email)
         send_email(
             email, "Thank you for joining JMJprayerrequests", message, PROJECT_EMAIL, PROJECT_PASSWORD)
         # Displays a page with further instruction
-        return render_template('prayer/email_adding.html')
+        flash("We've sent a verification code to your email.",category="success")
+        return redirect('/prayer')
 
 # The second step of verification
 # This uses get instead of post in hopes of greater
