@@ -11,15 +11,17 @@ prayer = Blueprint('prayer', __name__)
 # If adding a new group:
 # REMEMBER TO UPDATE THE HTML
 PARISH_DICTIONARY = {
-    'Public':'Public',
+    'Public': 'Public',
     'STJOHNRE': 'Saint John RE',
     'STJOHN': 'Saint John Parish',
     'STJOSEPH': 'Saint Joseph Parish',
     'STJOSEPHRE': 'Saint Joseph RE',
     #'FFTEACHERS': 'Fairfield Catholic Teachers',
     'JESUS': 'LL Small Group 3',
-    "sdkfjglhgjnfkbsdnfbjgksdngfkjngkfdsgjksdgjbak": "Testing" #There shouldn't be any way to sign up for testing group. 
+    # There shouldn't be any way to sign up for testing group.
+    "sdkfjglhgjnfkbsdnfbjgksdngfkjngkfdsgjksdgjbak": "Testing"
 }
+enter_tests_into_db=False
 
 # Email verification
 def get_verification_code():
@@ -59,9 +61,12 @@ def add_to_mailing_list(address, parishes):
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     parishstring="\n".join(parishes)
-    with conn:
-        cur.execute("""INSERT INTO users VALUES(:email,:parish)""",
-                    {'email': address, 'parish': parishstring})
+    if address != "testing@jforseth.tech" and not enter_tests_into_db:
+        with conn:
+            cur.execute("""INSERT INTO users VALUES(:email,:parish)""",
+                        {'email': address, 'parish': parishstring})
+    else:
+        print("This is the testing email. If you used a normal email, these values would've been added: \nEmail="+address+"\nParishes="+parishes)
 # Prayer request submissions
 def read_prayer_request_template(name, prayer_request, parish):
     with open("text/prayer_request_email_template.html") as file:
