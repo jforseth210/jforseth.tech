@@ -395,3 +395,6 @@ ul.messagelist {
 .alert.success {background-color: #4CAF50;}
 .alert.info {background-color: #2196F3;}
 .alert.warning {background-color: #ff9800;}
+/*For simplelogin*/
+.alert.primary{background-color: #4CAF50;}
+.alert.danger{background-color: #ff9800;}
