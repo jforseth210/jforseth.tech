@@ -30,6 +30,7 @@ a {
 	padding-bottom:0px; 
 	position: relative;
 	display: block;
+	z-index:-1;
 }
 .account-content {
 	display: none;
@@ -245,7 +246,6 @@ ul.topnav li.right {
 
 
 /* Dropdown Button: Currently unused*/
-*/
 .dropbtn {
 	text-decoration: none;
 	padding: 0;
