@@ -51,6 +51,20 @@
         {% endif %}
     {% endwith %}
     {% block headingimage %}{% endblock %}
+    <div class="account">
+    {% if is_logged_in()%}
+    <p>Hello, {{ get_username() }}</p>
+    <ul class="account-content">
+        <a href="/logout">Log Out</a>
+    </ul>
+    {% else %}
+    <p>Account</p>
+    <ul class="account-content">
+        <li><a href="/login">Log In</a></li>
+        <li><a href="/signup">Create Account</a></li>
+    </ul>
+    {% endif %}
+    </div>
     <h1 class='heading'>{% block heading%}{% endblock %}</h1>
     <!--Don't forget to update menu.html!-->
     <nav>
