@@ -27,14 +27,7 @@
                 type="submit" value="Send" />
     </form>
     <script>
-window.addEventListener('beforeunload', (event) => {
-
-  // Cancel the event as stated by the standard.
-  event.preventDefault();
-  // Chrome requires returnValue to be set.
-  event.returnValue = '';
-console.log("THIS LINE RAN");
-});               //I stole, ahem, borrowed this from https://stackoverflow.com/questions/12232304/how-to-implement-server-push-in-flask-framework
+                 //I stole, ahem, borrowed this from https://stackoverflow.com/questions/12232304/how-to-implement-server-push-in-flask-framework
                var eventSource = new EventSource("/message/stream")
                eventSource.onmessage = function (e) {
                        //document.getElementById("messageListParent").appendChild(appendToList(e.data));
