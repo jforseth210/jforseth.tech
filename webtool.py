@@ -19,7 +19,7 @@ from scripts.file_sharing import *
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
 
-messages={
+messages = {
     'login_success': 'Login Successfull',
     'login_failure': 'Invalid username or password',
     'is_logged_in': 'You\'re already logged in!',
@@ -31,11 +31,15 @@ messages={
 
 # Account management
 SimpleLogin(app, login_checker=check_login, messages=messages)
+
+
 def check_if_admin():
     if is_logged_in() and 'admin' in get_current_access(get_username()):
         return True
     else:
         return False
+
+
 app.jinja_env.globals.update(check_if_admin=check_if_admin)
 
 # __        __   _
@@ -153,6 +157,7 @@ app.register_blueprint(bull_judging)
 # /_/   \_\__,_|_| |_| |_|_|_| |_|
 # #Contains:
 # /DBbrowser
+# /error
 # app.register_blueprint(admin)
 
 
@@ -199,6 +204,9 @@ def forbidden(e):
 
 @app.errorhandler(500)
 def server_error(e):
+    send_email('support@jforseth.tech', 'It\'s reprogramming time!',
+               "<a href=\"https://youtu.be/QDSEpjjavhY?t=182\">It's reprogramming time!</a><br/>An error was detected on your server: {}".format(e), 
+               PROJECT_EMAIL, PROJECT_PASSWORD)
     return render_template('errors/500.html')
 
 

@@ -21,3 +21,8 @@ def database_browser():
     accounts = get_all_from_table("accounts")
     users = get_all_from_table("users")
     return "Messages: <br />{}<br />Accounts:<br />{}<br />Users:<br />{}<br />".format(messages, accounts, users)
+
+@app.route('/error')
+@login_required(must=have_access_to_admin)
+def error_page():
+    raise Exception("This exception was deliberately caused. Why did you do that?")
