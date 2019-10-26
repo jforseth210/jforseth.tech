@@ -41,7 +41,7 @@ def messenger_main_page():
 @messenger.route('/messenger/result', methods=['POST', 'GET'])
 def new_message():
     if request.method == 'POST':
-        message = request.form.get('Data')
+        message = escape(request.form.get('Data'))
         add_message(message)
     
     return redirect('/messenger')

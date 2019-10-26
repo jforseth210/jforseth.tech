@@ -11,7 +11,7 @@ def quickdraw():
 
 @quickdraw_game.route('/quickdraw/shot')
 def quickdraw_shot():
-    user = request.args.get('user')
+    user = escape(request.args.get('user'))
     file = open('text/locked.txt')
     result = file.readlines()
     file.close()

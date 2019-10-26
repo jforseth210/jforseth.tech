@@ -101,8 +101,8 @@ def old_prayer_page():
 @prayer.route('/prayer/newemail', methods=['POST', 'GET'])
 def new_email():
     if request.method == 'POST':
-        email = request.form.get('email')
-        parish = request.form.get('parish')
+        email = escape(request.form.get('email'))
+        parish = escape(request.form.get('parish'))
         parish = parish.upper()
 
         # Takes the parish code, looks it up in the dictionary.
@@ -128,9 +128,9 @@ def new_email():
 # compatibility with email clients.
 @prayer.route('/prayer/newemailconfirmed')
 def new_email_confirmed():
-    code = request.args.get('code')
-    address = request.args.get('email')
-    parish = request.args.get('parish')
+    code = escape(request.args.get('code'))
+    address = escape(request.args.get('email'))
+    parish = escape(request.args.get('parish'))
     if len(code) == 0:
         return("""No verification code was recieved. Please try again.
         Theres two reasons why this could've happened: <ol>
@@ -170,9 +170,9 @@ def new_email_confirmed():
 
 @prayer.route('/prayer/prayerrequest', methods=['POST', 'GET'])
 def prayer_request():
-    name = request.form.get('name')
-    prequest = request.form.get('prequest')
-    parish = request.form.get('parish')
+    name = escape(request.form.get('name'))
+    prequest = escape(request.form.get('prequest'))
+    parish = escape(request.form.get('parish'))
 
     emails = get_emails_from_parish(parish)
 

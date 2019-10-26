@@ -29,7 +29,7 @@ def barrel_racing_counter_current_number():
 
 @barrel_racing.route('/barrelracing/current_number_update', methods=['POST'])
 def barrel_racing_current_number_update():
-    current_number = request.form.get("current_number")
+    current_number = escape(request.form.get("current_number"))
     try:
         int(current_number)
         with open("text/barrel_racing_current_number.txt", 'w') as file:

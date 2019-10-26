@@ -58,7 +58,7 @@ def todo_page():
     return render_template('todo/todo2.html', result=todos)
 @todo.route('/todo/api')
 def todo_api():
-    if request.args.get("device") in VALID_DEVICES:
+    if escape(request.args.get("device")) in VALID_DEVICES:
         todos=get_todos()
         todos.reverse()
         return json.dumps(todos)
@@ -66,8 +66,8 @@ def todo_api():
         return "Device not approved"
 @todo.route('/todo/submitted/api')
 def new_todo_api():
-    if request.args.get("device") in VALID_DEVICES:
-        taskname=request.args.get("taskname")
+    if escape(request.args.get("device")) in VALID_DEVICES:
+        taskname=escape(request.args.get("taskname"))
         taskname = taskname.replace(',', 'COMMA')
         add_todo(taskname)
     else:
@@ -76,13 +76,13 @@ def new_todo_api():
 @todo.route('/todo/delete/api')
 def delete_todo_api():
     if request.arg.get("device") in VALID_DEVICES:
-        task_id = int(request.form.get('taskid'))
+        task_id = int(escape(request.form.get('taskid'))) #Shouldn't be necessary, but just in case. 
         delete_todo(task_id)
 # Submission route for new todos.
 @todo.route('/todo/submitted', methods=['POST', 'GET'])
 @login_required(must=have_access_to_todo)
 def new_todo():
-    name = request.form.get('taskname')
+    name = escape(request.form.get('taskname'))
     name = name.replace(',', 'COMMA')
     add_todo(name)
     #send_email('todo+19z1n4ovd3rf@mail.ticktick.com', name, 'Submitted from jforseth.tech',PERSONAL_EMAIL, PERSONAL_PASSWORD)
@@ -94,7 +94,7 @@ def new_todo():
 @login_required(must=have_access_to_todo)
 def todo_deleted():
     try:
-        task_id = int(request.form.get('taskid'))
+        task_id = int(escape(request.form.get('taskid')))
     except ValueError:
         flash("Please enter a number", category='warning')
         return redirect('/todo')
@@ -106,8 +106,8 @@ def todo_deleted():
 @login_required(must=have_access_to_todo)
 def todo_reordered():
     try:
-        item_to_reorder = int(request.form.get("taskid"))
-        position_to_move = int(request.form.get("taskloc"))
+        item_to_reorder = int(escape(request.form.get("taskid")))
+        position_to_move = int(escape(request.form.get("taskloc")))
     except ValueError:
         flash("Please enter a number", category="warning")
     reorder_todo(item_to_reorder, position_to_move)

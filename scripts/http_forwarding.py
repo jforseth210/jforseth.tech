@@ -9,7 +9,7 @@ def experiment():
     ATTRIBUTES = ['src', 'href', 'content',
                   'action', 'data-unscoped-search-url']
 
-    requested_url = request.args.get('url')
+    requested_url = escape(request.args.get('url'))
 
     # If the user hasn't entered a url yet, return this message.
     if requested_url == None:

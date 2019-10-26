@@ -34,10 +34,10 @@ def video_page():
 @videos.route('/videos/newupload', methods=["POST"])
 @login_required(must=have_access_to_admin)
 def new_video_upload():
-    title = request.form.get('title')
+    title = escape(request.form.get('title'))
     title = title.replace('|', '')
 
-    youtube_id = request.form.get('youtube_id')
+    youtube_id = escape(request.form.get('youtube_id'))
     if 'https://www.youtube.com/watch?v=' not in youtube_id and 'https://youtu.be/' not in youtube_id:
         flash("This doesn't look like a YouTube link. Try again.",category="warning")
         return redirect('/videos')
@@ -56,7 +56,7 @@ def new_video_upload():
 @videos.route('/videos/deletion', methods=["POST"])
 @login_required(must=have_access_to_admin)
 def deletion():
-    youtube_id = request.form.get('youtube_id')
+    youtube_id = escape(request.form.get('youtube_id'))
 
     video_list = get_videos()
     if len(youtube_id) < 11:
@@ -72,8 +72,8 @@ def deletion():
 @videos.route('/videos/rename', methods=["POST"])
 @login_required(must=have_access_to_admin)
 def rename():
-    new_title = request.form.get('title')
-    youtube_id = request.form.get('youtube_id')
+    new_title = escape(request.form.get('title'))
+    youtube_id = escape(request.form.get('youtube_id'))
     video_list = get_videos()
 
     video_list2 = []
@@ -95,8 +95,8 @@ def rename():
 @videos.route('/videos/updateid', methods=["POST"])
 @login_required(must=have_access_to_admin)
 def update_video_id():
-    old_youtube_id = request.form.get('old_youtube_id')
-    new_youtube_id = request.form.get('new_youtube_id')
+    old_youtube_id = escape(request.form.get('old_youtube_id'))
+    new_youtube_id = escape(request.form.get('new_youtube_id'))
 
     new_youtube_id = new_youtube_id.replace(
         'https://www.youtube.com/watch?v=', '')
@@ -114,8 +114,8 @@ def update_video_id():
 @videos.route('/videos/move', methods=["POST"])
 @login_required(must=have_access_to_admin)
 def move():
-    video_to_move = request.form.get('element').split('|')
-    direction = request.form.get('direction')
+    video_to_move = escape(request.form.get('element').split('|'))
+    direction = escape(request.form.get('direction'))
 
     video_list = get_videos()
 
