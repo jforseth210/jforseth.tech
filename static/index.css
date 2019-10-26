@@ -37,6 +37,8 @@ a {
 #cross {
 	height: 80px;
 	float: left;
+	margin-bottom: -5px;
+	padding-bottom: -5px;
 }
 
 
@@ -90,7 +92,7 @@ textarea {
 
 .dropdown {
 	height: 25px !important;
-	width: 75px;
+	width: 75px !important;
 	background-color: var(--main-bg-color);
 	padding: 0px;
 	margin: 0px;
