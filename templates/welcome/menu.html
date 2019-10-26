@@ -55,6 +55,7 @@
 </head>
 
 <body>
+    <!--Don't forget to update base.html!-->
     <nav>
         <ul id='mobile-list-nav'>
             <li><a href="/">Home</a></li>
@@ -64,9 +65,9 @@
             <li><a class="trigger_popup_fricc">Chat</a></li>
             {% if check_if_admin() %}
             <li><a href="/todo">Todo</a></li>
-            <li><a href='/filesharing'>File Sharing</a></li>
             <li><a href="/mail">Mail</a></li>            
             {% endif %}
+            <li><a href='/filesharing'>File Sharing</a></li>
             {% if is_logged_in()%}
             <li><a href="/logout">Logout</a></li> 
             {% else %}
