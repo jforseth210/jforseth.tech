@@ -37,8 +37,11 @@ a {
 #cross {
 	height: 80px;
 	float: left;
-	margin-bottom: -5px;
-	padding-bottom: -5px;
+}
+@media screen and (max-width: 712px) {
+	#cross{
+		display: none;
+	}
 }
 
 
@@ -226,7 +229,7 @@ ul.topnav li.right {
 	background: --hover-color;
 }
 
-@media screen and (max-width: 710px) {
+@media screen and (max-width: 712px) {
 	ul.topnav li.right,
 	ul.topnav li {
 		float: none;
