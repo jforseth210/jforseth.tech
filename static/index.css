@@ -7,7 +7,7 @@
 	--main-txt-color: #AAAAAA;
 	--main-element-color: #0a1f3f;
   --hover-color: #1f3f5f;
-  --main-font: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  --main-font: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
 html {
