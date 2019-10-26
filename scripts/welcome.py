@@ -25,3 +25,7 @@ def instructions():
 @welcome.route('/menu')
 def menu():
     return render_template('welcome/menu.html')
+
+@welcome.route('/signup')
+def signup():
+    return render_template('welcome/signup.html')
