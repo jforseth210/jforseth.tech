@@ -1,4 +1,6 @@
 from flask import *
+from account_management import get_account
+from flask_simplelogin import get_username
 welcome = Blueprint('welcome', __name__)
 
 
@@ -29,3 +31,9 @@ def menu():
 @welcome.route('/signup')
 def signup():
     return render_template('welcome/signup.html')
+
+@welcome.route('/account')
+def account():
+    account=get_account(get_username())
+    account.pop("hashed_password")
+    return render_template('welcome/account.html',account=account)

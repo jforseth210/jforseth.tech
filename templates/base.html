@@ -55,7 +55,8 @@
     {% if is_logged_in()%}
     <p>Hello, {{ get_username() }}</p>
     <ul class="account-content">
-        <a href="/logout">Log Out</a>
+            <a href="/account">Account</a>
+            <a href="/logout">Log Out</a>
     </ul>
     {% else %}
     <p>Account</p>
