@@ -1,7 +1,7 @@
 AP\ Create\ Task/
 
 .goutputsream-*
-
+static/*.mp4
 SensitiveData.py
 database.db
 uploads/
@@ -10,7 +10,7 @@ text/barrel_racing_current_number.txt
 text/videos.txt
 static/barrelracingcounter.png
 text/todo.csv
-
+\#webtool.py\#
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
