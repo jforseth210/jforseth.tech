@@ -48,7 +48,7 @@ def deploy():
     subprocess.Popen('deploy',cwd="/var/www/html")
 app.route("/dummy")
 def dummy():
-    return "It updated, dufus!"
+    return "It updated, dummy!"
 # __        __   _
 # \ \      / /__| | ___ ___  _ __ ___   ___
 #  \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \
