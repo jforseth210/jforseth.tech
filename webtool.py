@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import subprocess
+
 from flask import *
 from flask_simplelogin import SimpleLogin
 from account_management import check_login
@@ -39,8 +41,11 @@ def check_if_admin():
     else:
         return False
 
-
 app.jinja_env.globals.update(check_if_admin=check_if_admin)
+
+app.route("/deploy")
+def deploy():
+    subprocess.Popen('deploy',cwd="/var/www/html")
 
 # __        __   _
 # \ \      / /__| | ___ ___  _ __ ___   ___
