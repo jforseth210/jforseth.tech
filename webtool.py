@@ -52,7 +52,7 @@ def deploy():
     return ""
 @app.route("/dummy")
 def dummy():
-    return "It updated, HOORAY"
+    return "It updated, HOORAY, no, really, hooray!"
 # __        __   _
 # \ \      / /__| | ___ ___  _ __ ___   ___
 #  \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \
