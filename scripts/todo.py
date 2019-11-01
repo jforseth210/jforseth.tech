@@ -60,6 +60,11 @@ def todo_page():
     todos = [i.replace('COMMA', ',') for i in todos]
     todos.reverse()
     return render_template('todo/todo2.html', result=todos)
+
+#Since I escape the device input, I have to escape the list it's 
+#being compared to.
+VALID_DEVICES=[escape(i) for i in VALID_DEVICES]
+
 @todo.route('/todo/api')
 def todo_api():
     if escape(request.args.get("device")) in VALID_DEVICES:
