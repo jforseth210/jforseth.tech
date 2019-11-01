@@ -6,8 +6,12 @@ from flask_simplelogin import login_required
 todo = Blueprint('todo', __name__)  # Main page
 
 def get_todos():
-    with open('text/todo.csv', 'r') as file:
-        todos = file.readlines()
+    try:
+        with open('text/todo.csv', 'r') as file:
+            todos = file.readlines()
+    except FileNotFoundError:
+        with open('text/todo.csv', 'w') as file:
+            file.write("")
     return todos
 
 
