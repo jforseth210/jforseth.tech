@@ -49,7 +49,7 @@ def deploy():
 
 @app.route("/dummy")
 def dummy():
-    return "It updated, ID10T!"
+    return "It updated, PEBKAC!"
 # __        __   _
 # \ \      / /__| | ___ ___  _ __ ___   ___
 #  \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \
