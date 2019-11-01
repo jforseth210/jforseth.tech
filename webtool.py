@@ -43,10 +43,6 @@ def check_if_admin():
 
 app.jinja_env.globals.update(check_if_admin=check_if_admin)
 
-app.route("/deploy")
-def deploy():
-    subprocess.Popen('deploy',cwd="/var/www/html")
-
 # __        __   _
 # \ \      / /__| | ___ ___  _ __ ___   ___
 #  \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \
