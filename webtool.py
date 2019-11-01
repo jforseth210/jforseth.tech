@@ -45,7 +45,8 @@ app.jinja_env.globals.update(check_if_admin=check_if_admin)
 
 @app.route("/deploy", methods=["POST"])
 def deploy():
-    subprocess.Popen('deploy',cwd="/var/www/html/",shell=True)
+    subprocess.Popen('git pull',cwd="/var/www/html/",shell=True)
+    subprocess.Popen('sudo service apache2 reload',cwd="/var/www/html/",shell=True)
     return ""
 @app.route("/dummy")
 def dummy():
