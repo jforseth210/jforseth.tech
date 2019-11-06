@@ -85,7 +85,7 @@ def todo_api():
 def new_todo_api():
     if escape(request.args.get("device")) in VALID_DEVICES:
         taskname=escape(request.args.get("taskname"))
-        taskname = taskname.replace(',', 'COMMA')
+        taskname = taskname.replace('COMMA',",")
         add_todo(taskname)
         return ""
     else:
@@ -94,7 +94,7 @@ def new_todo_api():
 @todo.route('/todo/delete/api')
 def delete_todo_api():
     if request.args.get("device") in VALID_DEVICES:
-        task_id = int(escape(request.form.get('taskid'))) #Shouldn't be necessary, but just in case. 
+        task_id = int(escape(request.args.get('taskid'))) #Shouldn't be necessary, but just in case. 
         delete_todo(task_id)
         return ""
     else:
