@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 {% block title %}Justin's Todo List{% endblock %}
 {% block heading %}
@@ -19,57 +18,102 @@ Justin's Todo List
     <style>
         #answered {
             text-align: center;
-            
+
         }
-        #tasks{
+
+        #tasks {
             text-align: center;
             font-size: 22px !important;
         }
-        .task :hover{
+
+        .task :hover {
             text-decoration: line-through !important;
         }
-        .todo_main_input{
+
+        .todo_main_input {
             width: 400px !important;
             font-size: 26px;
-        } 
-        .deleteform{
-            display:none;
+        }
+
+        .deleteform {
+            display: none;
         }
     </style>
     <div id='answered'>
+
+        <select onchange="chooselist()" id=listdropdown class="inputs dropdown">
+            <option selected>All</option>
+            {% for i in lists %}
+            <option>{{i}}</option>
+            {%endfor%}
+        </select>
         <form id='form1' action="todo/submitted" method="POST">
-            <input class='inputs todo_main_input' type='name' name='taskname' id='name' placeholder='Task' required autofocus />
-            <input type='submit' value='Add' id=submitbtn /></div>
-        </form>
+            <input class='inputs todo_main_input' type='name' name='taskname' id='name' placeholder='Task' required
+                autofocus />
+            <input type='submit' value='Add' id=submitbtn />
     </div>
-    <br />
-    <div id="tasks">
-        <ol class='answers' id='answers'>
-            {% for value in result %}
-            <div class=task>
-            <li onclick="deleteTask({{loop.index}});"> 
-                {{ value }}
-            </li></div>
-            {% endfor %}
-        </ol>
-    </div>
-    <form class=deleteform id=deleteform action="todo/delete" method='POST'>
-        <p>Task to delete:</p>
-        <input type='number' class=inputs id='deletetaskid' name='taskid' />
-        <input type='submit' id=submitbtn value='Delete' />
     </form>
+</div>
+<br />
+<div id="tasks">
+    <ol class='answers' id='answers' onload="populatetasks();">
+        <!--{% for value in result %}
+        <div class=task>
+            <li onclick="deleteTask({{loop.index}});">
+                {{ value }}
+            </li>
+        </div>
+        {% endfor %}-->
+    </ol>
+</div>
+<form class=deleteform id=deleteform action="todo/delete" method='POST'>
+    <p>Task to delete:</p>
+    <input type='number' class=inputs id='deletetaskid' name='taskid' />
+    <input type='submit' id=submitbtn value='Delete' />
+</form>
+<br />
+<form action="todo/reorder" method="POST">
+    <p>Task to move:</p><input class=inputs type='number' name='taskid' id='taskid' />
     <br />
-    <form action="todo/reorder" method="POST">
-        <p>Task to move:</p><input class=inputs type='number' name='taskid' id='taskid' />
-        <br />
-        <p>Position to move task:</p><input class=inputs type='number' name='taskloc' id='taskid' />
-        <br />
-        <input type='submit' value='Move' id=submitbtn /></div>
-        <script>
-            function deleteTask(idx){
-                document.getElementById('deletetaskid').value=idx;
-                document.getElementById("deleteform").submit();
-            }
-        </script>
+    <p>Position to move task:</p><input class=inputs type='number' name='taskloc' id='taskid' />
+    <br />
+    <input type='submit' value='Move' id=submitbtn /></div>
+    <script>
+        function deleteTask(idx) {
+            document.getElementById('deletetaskid').value = idx;
+            dropdown = document.getElementById("listdropdown");
+        }
+        function chooselist() {
+            dropdown = document.getElementById("listdropdown");
+            selection = dropdown[dropdown.selectedIndex].value;
+            populatetasks(selection);
+        }
+        function populatetasks(selectedlist="All") {
+            var taskgrandparent = document.getElementById("answers");
+            taskgrandparent.innerHTML='';
+            taskgrandparent.addEventListener("click",function(e){
+                var tgt=e.target;
+                deleteTask(parseInt(tgt.id, 10)+1);
+            })
+            todos = [
+                {% for todo, tasklist in result %}
+                    ["{{todo}}", "{{tasklist}}"],
+                {% endfor %}
+                ];
+            for (i = 0; i < todos.length; i++) {
+                if (selectedlist=="All" | selectedlist==todos[i][1]){
+                    var taskparent=document.createElement('div');
+                    var task=document.createElement("li");
+                    taskparent.className="task";
+                    task.appendChild(document.createTextNode(todos[i][0]));
+                    task.id=i;
+                    //task.addEventListener("click",function(){deleteTask(i);});
+                    taskparent.appendChild(task);
+                    taskgrandparent.appendChild(taskparent);
+                };
+            }; 
+        };
+        populatetasks();
+    </script>
     <!--<iframe src="https://ticktick.com" style="border:0px #ffffff none; float:right;" name="ticktick" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="400px" width="600px" allowfullscreen></iframe>-->
-{% endblock %}
+    {% endblock %}

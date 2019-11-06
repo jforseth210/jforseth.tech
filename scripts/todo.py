@@ -9,12 +9,20 @@ def get_todos():
     try:
         with open('text/todo.csv', 'r') as file:
             todos = file.readlines()
+            todos = [i.replace('COMMA', ',') for i in todos]
+            todos = [i.replace('\n','') for i in todos]
+            todos = [i.split(',') for i in todos]
     except FileNotFoundError:
         with open('text/todo.csv', 'w') as file:
             file.write("")
+            get_todos()
     return todos
 
-
+def get_lists():
+    todos=get_todos()
+    lists=[todo[1] for todo in todos]
+    lists=list(set(lists))
+    return lists
 def add_todo(name):
     with open('text/todo.csv', 'a') as file:
         file.write('{}\n'.format(name))
@@ -56,10 +64,10 @@ def reorder_todo(item_to_reorder, position_to_move):
 @login_required(must=have_access_to_todo)
 def todo_page():
     todos = get_todos()
-    todos = [i.replace('\n', '') for i in todos]
-    todos = [i.replace('COMMA', ',') for i in todos]
+    
     todos.reverse()
-    return render_template('todo/todo2.html', result=todos)
+    lists=get_lists()
+    return render_template('todo/todo2.html', result=todos, lists=lists)
 
 #Since I escape the device input, I have to escape the list it's 
 #being compared to.
