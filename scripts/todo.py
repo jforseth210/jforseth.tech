@@ -93,7 +93,7 @@ def new_todo_api():
 
 @todo.route('/todo/delete/api')
 def delete_todo_api():
-    if request.args.get("device") in VALID_DEVICES:
+    if escape(request.args.get("device")) in VALID_DEVICES:
         task_id = int(escape(request.args.get('taskid'))) #Shouldn't be necessary, but just in case. 
         delete_todo(task_id)
         return ""
