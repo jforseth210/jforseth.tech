@@ -96,6 +96,9 @@ def delete_todo_api():
     if request.args.get("device") in VALID_DEVICES:
         task_id = int(escape(request.form.get('taskid'))) #Shouldn't be necessary, but just in case. 
         delete_todo(task_id)
+        return ""
+    else:
+        return "Device not approved"
 # Submission route for new todos.
 @todo.route('/todo/submitted', methods=['POST', 'GET'])
 @login_required(must=have_access_to_todo)
