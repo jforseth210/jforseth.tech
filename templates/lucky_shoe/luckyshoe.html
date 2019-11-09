@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Literata&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --main-bg-color: #7E5C3A;
+            --main-txt-color: #000;
+            --main-element-color: #C2B091;
+            --main-hover-color: #987A5C;
+        }
+        body{
+            color: var(--main-txt-color);
+            background-color: var(--main-bg-color);
+            font-family: 'Literata', serif;
+        }
+        .coverimage{
+            width:100%;  
+            padding: 0px;
+            margin: 0px;
+        }
+        .bodytext{
+            padding: 10px;
+        }
+        /* Shamelessly copied from w3schools*/
+        ul {
+          list-style-type: none;
+          margin: -10px;
+          margin-top: 30px; 
+          padding: 0;
+          overflow: hidden;
+          background-color: var(--main-element-color);
+          position: -webkit-sticky; /* Safari */
+          position: sticky;
+          top: 0;
+        }
+
+        li {
+          float: left;
+        }
+
+        li a {
+          display: block;
+        color: var(--main-txt-color);
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+        }
+
+        li a:hover {
+          background-color: var(--main-hover-color);
+        }        
+        /*End shamelessly copied from w3schools*/
+        .right {
+            float: right;
+        }
+        .left{
+            float: left;
+        }
+        .half{
+            width: 45%;
+            padding: inherit;
+        }
+        .row {
+         overflow: auto;
+        margin: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <img class=coverimage src=/static/lucky_shoe/Logo.png />
+    <ul>
+      <li class=right><a href="mailto:luckyshoe@jforseth.tech">Contact</a></li>
+    </ul>
+    <div class="bodytext left">
+    <h1>About:</h1>
+    <p>Lucky Shoe Welding sells custom built, handmade horseshoe art including crosses, Christmas trees and more. All pieces are built by Nolan Forseth and Decorated by Karen Forseth. Take a look at our work: </p>
+    <div class=row>
+    <div class="half left">
+    <img class=right src=/static/lucky_shoe/LargeTree.JPG />
+    <h1>Large Tree</h1>
+    <h5>{{PRICE}}</h5>
+    <p>These trees are four rows high and made using 14 large horseshoes. They are available with or without lights, decorated or undecorated, with or without a skirt.</p>
+    </div>
+    
+    <div class="half right">
+    <img class=right src=/static/lucky_shoe/LargeCross.JPG />
+    <h1>Large Cross</h1>
+    <h5>{{PRICE}}</h5>
+    <p>This cross is made using ten large horse-shoes and is available in a variety of colors.</p>
+    </div>    
+    </div>
+    
+    <div class="row">
+    <div class="half left">
+    <img class=right src=/static/lucky_shoe/LargeTree.JPG />
+    <h1>Large Tree</h1>
+    <h5>{{PRICE}}</h5>
+    <p>These trees are four rows high and made using 14 large horseshoes. They are available with or without lights, decorated or undecorated, with or without a skirt.</p>
+    </div>
+    
+    <div class="half right">
+    <img class=right src=/static/lucky_shoe/LargeCross.JPG />
+    <h1>Large Cross</h1>
+    <h5>{{PRICE}}</h5>
+    <p>This cross is made using ten large horse-shoes and is available in a variety of colors.</p>
+    </div>
+    </div>
+    
+    </div>
+    <footer>
+        <small>Proudly designed and maintained by Justin Forseth</small>
+    </footer>
+</body>
+</html>

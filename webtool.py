@@ -9,6 +9,7 @@ from scripts.welcome import *
 from scripts.videos import *
 from scripts.messenger import *
 from scripts.prayer import *
+from scripts.lucky_shoe import *
 from scripts.todo import *
 from scripts.scattergories import *
 from scripts.quickdraw_game import *
@@ -97,8 +98,15 @@ app.register_blueprint(messenger)
 # /prayer/newemailconfirmed
 # /prayer/prayerrequest
 app.register_blueprint(prayer)
-
-
+# _               _            ____  _
+#| |   _   _  ___| | ___   _  / ___|| |__   ___   ___
+#| |  | | | |/ __| |/ / | | | \___ \| '_ \ / _ \ / _ \
+#| |__| |_| | (__|   <| |_| |  ___) | | | | (_) |  __/
+#|_____\__,_|\___|_|\_\\__, | |____/|_| |_|\___/ \___|
+#                      |___/
+#Contains:
+#/luckyshoe
+app.register_blueprint(lucky_shoe)
 #  _____         _
 # |_   _|__   __| | ___
 #   | |/ _ \ / _` |/ _ \
