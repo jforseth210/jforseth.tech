@@ -1,116 +1,462 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Literata&display=swap" rel="stylesheet">
-    <style>
-        :root{
-            --main-bg-color: #7E5C3A;
-            --main-txt-color: #000;
-            --main-element-color: #C2B091;
-            --main-hover-color: #987A5C;
-        }
-        body{
-            color: var(--main-txt-color);
-            background-color: var(--main-bg-color);
-            font-family: 'Literata', serif;
-        }
-        .coverimage{
-            width:100%;  
-            padding: 0px;
-            margin: 0px;
-        }
-        .bodytext{
-            padding: 10px;
-        }
-        /* Shamelessly copied from w3schools*/
-        ul {
-          list-style-type: none;
-          margin: -10px;
-          margin-top: 30px; 
-          padding: 0;
-          overflow: hidden;
-          background-color: var(--main-element-color);
-          position: -webkit-sticky; /* Safari */
-          position: sticky;
-          top: 0;
-        }
+  <link href="https://fonts.googleapis.com/css?family=Literata&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-bg-color: #7E5C3A;
+      --main-txt-color: #000;
+      --main-element-color: #C2B091;
+      --main-hover-color: #987A5C;
+    }
 
-        li {
-          float: left;
-        }
+    body {
+      color: var(--main-txt-color);
+      background-color: var(--main-bg-color);
+      font-family: 'Literata', serif;
+    }
 
-        li a {
-          display: block;
-        color: var(--main-txt-color);
-          text-align: center;
-          padding: 14px 16px;
-          text-decoration: none;
-        }
+    .coverimage {
+      width: 100%;
+      padding: 0px;
+      margin: 0px;
+    }
 
-        li a:hover {
-          background-color: var(--main-hover-color);
-        }        
-        /*End shamelessly copied from w3schools*/
-        .right {
-            float: right;
-        }
-        .left{
-            float: left;
-        }
-        .half{
-            width: 45%;
-            padding: inherit;
-        }
-        .row {
-         overflow: auto;
-        margin: 5px;
-            margin-top: 20px;
-        }
-    </style>
+    .bodytext {
+      padding: 10px;
+    }
+
+    /* Shamelessly copied from w3schools*/
+    ul {
+      list-style-type: none;
+      margin: -10px;
+      margin-top: 30px;
+      padding: 0;
+      overflow: hidden;
+      background-color: var(--main-element-color);
+      position: -webkit-sticky;
+      /* Safari */
+      position: sticky;
+      top: 0;
+    }
+
+    li {
+      float: left;
+    }
+
+    li a {
+      display: block;
+      color: var(--main-txt-color);
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    li a:hover {
+      background-color: var(--main-hover-color);
+    }
+
+    /*End shamelessly copied from w3schools*/
+    .right {
+      float: right;
+    }
+
+    .left {
+      float: left;
+    }
+
+    .half {
+      width: 45%;
+      padding: inherit;
+    }
+
+    .row {
+      overflow: auto;
+      margin: 5px;
+      margin-top: 20px;
+    }
+
+    .orderform {
+      display: inline-block;
+    }
+
+    .input {
+      background-color: var(--main-element-color);
+      border: none;
+    }
+
+    /* Shamelessly copied from a different w3schools page */
+    /* The Modal (background) */
+    .modal {
+      display: none;
+      /* Hidden by default */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Sit on top */
+      padding-top: 100px;
+      /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* Full width */
+      height: 100%;
+      /* Full height */
+      overflow: auto;
+      /* Enable scroll if needed */
+      background-color: rgb(0, 0, 0);
+      /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background-color: var(--main-hover-color);
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    /* The Close Button */
+    .close {
+      color: var(--main-text-color);
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: var(--main-hovercolor);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* End w3schools */
+    /*Alerts from https://www.w3schools.com/howto/howto_js_alert.asp*/
+    /* The alert message box */
+    .alert {
+      padding: 20px;
+      background-color: #f44336;
+      /* Red */
+      color: white;
+      margin-bottom: 15px;
+      margin-left: -30%;
+      width: 60%;
+      position: absolute;
+      margin-top: 20;
+      left: 50%;
+      z-index: 8;
+    }
+
+    /* The close button */
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    /* When moving the mouse over the close button */
+    .closebtn:hover {
+      color: black;
+    }
+
+    .alert.success {
+      background-color: #4CAF50;
+    }
+
+    .alert.info {
+      background-color: #2196F3;
+    }
+
+    .alert.warning {
+      background-color: #ff9800;
+    }
+
+    /*For simplelogin*/
+    .alert.primary {
+      background-color: #4CAF50;
+    }
+
+    .alert.danger {
+      background-color: #ff9800;
+    }
+  </style>
+  <title>Lucky Shoe Welding</title>
 </head>
+
 <body>
-    <img class=coverimage src=/static/lucky_shoe/Logo.png />
-    <ul>
-      <li class=right><a href="mailto:luckyshoe@jforseth.tech">Contact</a></li>
-    </ul>
-    <div class="bodytext left">
+  <!--Alerts from https://www.w3schools.com/howto/howto_js_alert.asp-->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert {{category}}">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    {{message}}
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <img class=coverimage src=/static/lucky_shoe/Logo.png />
+  <ul>
+    <li class=right><a href="mailto:luckyshoe@jforseth.tech">Contact</a></li>
+  </ul>
+  <div class="bodytext left">
     <h1>About:</h1>
-    <p>Lucky Shoe Welding sells custom built, handmade horseshoe art including crosses, Christmas trees and more. All pieces are built by Nolan Forseth and Decorated by Karen Forseth. Take a look at our work: </p>
+    <p>Lucky Shoe Welding sells custom built, handmade horseshoe art including crosses, Christmas trees and more. All
+      pieces are built by Nolan Forseth and Decorated by Karen Forseth. Take a look at our work: </p>
     <div class=row>
-    <div class="half left">
-    <img class=right src=/static/lucky_shoe/LargeTree.JPG />
-    <h1>Large Tree</h1>
-    <h5>{{PRICE}}</h5>
-    <p>These trees are four rows high and made using 14 large horseshoes. They are available with or without lights, decorated or undecorated, with or without a skirt.</p>
+      <div class="half left">
+        <img class=right src=/static/lucky_shoe/LargeTree.JPG />
+        <h1>Large Tree</h1>
+        <h5>{{PRICE}}*</h5>
+        <p>These trees are four rows high and made using 14 large horseshoes. They are available with or without lights,
+          decorated or undecorated, with or without a skirt.</p>
+        <button class=orderButton id=LargeTree>Order</button>
+      </div>
+      <div class="half right">
+        <img class=right src=/static/lucky_shoe/LargeCross.JPG />
+        <h1>Large Cross</h1>
+        <h5>{{PRICE}}*</h5>
+        <p>This cross is made using ten large horse-shoes and is available in a variety of colors.</p>
+        <button class=orderButton id=LargeCross>Order</button>
+      </div>
     </div>
-    
-    <div class="half right">
-    <img class=right src=/static/lucky_shoe/LargeCross.JPG />
-    <h1>Large Cross</h1>
-    <h5>{{PRICE}}</h5>
-    <p>This cross is made using ten large horse-shoes and is available in a variety of colors.</p>
-    </div>    
-    </div>
-    
     <div class="row">
-    <div class="half left">
-    <img class=right src=/static/lucky_shoe/LargeTree.JPG />
-    <h1>Large Tree</h1>
-    <h5>{{PRICE}}</h5>
-    <p>These trees are four rows high and made using 14 large horseshoes. They are available with or without lights, decorated or undecorated, with or without a skirt.</p>
+      <div class="half left">
+        <img class=right src=/static/lucky_shoe/SmallTree.JPG />
+        <h1>Small Tree</h1>
+        <h5>{{PRICE}}*</h5>
+        <p>These trees are three rows high, made with large horsehoes. They are available with or without lights,
+          decorations, and skirt.</p>
+        <button class=orderButton id=SmallTree>Order</button>
+      </div>
+      <div class="half right">
+        <img class=right src=/static/lucky_shoe/SmallCross.JPG />
+        <h1>Small Cross</h1>
+        <h5>{{PRICE}}*</h5>
+        <p>This cross is made using ten horse-shoes and is available in a variety of colors.</p>
+        <button class=orderButton id=SmallCross>Order</button>
+      </div>
     </div>
-    
-    <div class="half right">
-    <img class=right src=/static/lucky_shoe/LargeCross.JPG />
-    <h1>Large Cross</h1>
-    <h5>{{PRICE}}</h5>
-    <p>This cross is made using ten large horse-shoes and is available in a variety of colors.</p>
+    <div class="row">
+      <div class="half left">
+        <img class=right src="/static/lucky_shoe/20191010_123010.JPG" />
+        <h1>Snowman</h1>
+        <h5>{{PRICE}}*</h5>
+        <p>These snowmen are three horseshoes tall with a handmade scraft and hat.</p>
+        <button class=orderButton id=Snowman>Order</button>
+      </div>
+      <div class="half right">
+        <img class=right src="/static/lucky_shoe/20191024_153719.JPG" />
+        <h1>Turkey</h1>
+        <h5>{{PRICE}}*</h5>
+        <p>Made using eight horseshoes and hand-painted.</p>
+        <button class=orderButton id=Turkey>Order</button>
+      </div>
     </div>
+    <div class="row">
+      <div class="half left">
+        <img class=right src="/static/lucky_shoe/20191010_123046.JPG" />
+        <h1>Star</h1>
+        <h5>{{PRICE}}*</h5>
+        <p>Star made from five horseshoes.</p>
+        <button class=orderButton id=Star>Order</button>
+      </div>
+      <!--				<div class="half right">
+					<img class=right src=/static/lucky_shoe/20191024_153719.JPG />
+					<h1>Turkey</h1>
+					<h5>{{PRICE}}*</h5>
+					<p>Made using eight horseshoes and hand-painted.</p>
+					<button class=orderButton id=Turkey>Order</button>
+				</div>-->
     </div>
-    
+  </div>
+  <footer>
+    <small>*Prices listed are for standard option. Decorations, different colors, etc may cost extra.</small> <br />
+    <small>Proudly designed and maintained by Justin Forseth</small>
+  </footer>
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h1>Order:</h1>
+      <form id=orderform class="orderform" action="/luckyshoe/order" method="POST">
+        <p class=orderform>Name:</p>
+        <input name=name class="input orderform" type="text" placeholder="John Doe" /> <br />
+        <p class=orderform>Phone Number:</p>
+        <input name=phone class="input orderform" type="tel" placeholder="(555) 555-5555" /> <br />
+        <div id="templateSpot"></div>
+        <input type="submit" value="Order" />
+      </form>
     </div>
-    <footer>
-        <small>Proudly designed and maintained by Justin Forseth</small>
-    </footer>
+  </div>
+  <template id="LargeTree">
+    <input type="text" name="Item Ordered" value="Large Tree" hidden />
+    <p class=orderform>Shoes: </p>
+    <select  name=shoes class=input>
+      <option>000 (Normal Sized)</option>
+      <option selected>Pony (Small)</option>
+    </select>
+    <br />
+    <p class=orderform>Ornaments: </p>
+    <select  name=lights class=input>
+      <option>Yes</option>
+      <option selected>No</option>
+    </select>
+    <br />
+    <p class=orderform>Skirt: </p>
+    <select  name=skirt class=input>
+      <option>Yes</option>
+      <option selected>No</option>
+    </select>
+    <br />
+    <p class=orderform>Lights: </p>
+    <select  name=ornaments class=input>
+      <option>Yes</option>
+      <option selected>No</option>
+    </select>
+    <br />
+    <p class=orderform>Color: </p>
+    <select  name=color class=input>
+      <option>Black</option>
+      <option>Gray</option>
+      <option>Blue</option>
+      <option>White</option>
+      <option selected>None</option>
+    </select>
+    <br />
+  </template>
+  <template id="SmallTree">
+    <input type="text" name="Item Ordered" value="Small Tree" hidden />
+    <p class=orderform>Shoes: </p>
+    <select  name=shoes class=input>
+      <option>000 (Normal Sized)</option>
+      <option selected>Pony (Small)</option>
+    </select>
+    <br />
+    <p class=orderform>Ornaments: </p>
+    <select  name=lights class=input>
+      <option>Yes</option>
+      <option selected>No</option>
+    </select>
+    <br />
+    <p class=orderform>Skirt: </p>
+    <select  name=skirt class=input>
+      <option>Yes</option>
+      <option selected>No</option>
+    </select>
+    <br />
+    <p class=orderform>Lights: </p>
+    <select  name=ornaments class=input>
+      <option>Yes</option>
+      <option selected>No</option>
+    </select>
+    <br />
+    <p class=orderform>Color: </p>
+    <select  name=color class=input>
+      <option>Black</option>
+      <option>Gray</option>
+      <option>Blue</option>
+      <option>White</option>
+      <option selected>None</option>
+    </select>
+    <br />
+  </template>
+  <template id="LargeCross">
+    <input type="text" name="Item Ordered" value="Large Cross" hidden />
+    <!--<p class=orderform>Shoes: </p>
+				<select  name=shoes class=input>
+				  <option>000 (Normal Sized)</option>
+				  <option selected>Pony (Small)</option>
+				</select> <br/>-->
+    <p class=orderform>Color: </p>
+    <select  name=color class=input>
+      <option>Black</option>
+      <option>Gray</option>
+      <option>Blue</option>
+      <option>White</option>
+      <option selected>None</option>
+    </select>
+    <br />
+  </template>
+  <template id="SmallCross">
+    <input type="text" name="Item Ordered" value="Small Cross" hidden />
+    <p class=orderform>Shoes: </p>
+    <select  name=shoes class=input>
+      <option>000 (Normal Sized)</option>
+      <option selected>Pony (Small)</option>
+    </select>
+    <br />
+    <p class=orderform>Color: </p>
+    <select  name=color class=input>
+      <option>Black</option>
+      <option>Gray</option>
+      <option>Blue</option>
+      <option>White</option>
+      <option selected>None </option>
+    </select>
+    <br />
+  </template>
+  <template id=Snowman>
+    <!--JS will throw an error if there's no template, but no options are needed here.-->
+  </template>
+  <template id=Turkey>
+    <!--JS will throw an error if there's no template, but no options are needed here.-->
+  </template>
+  <template id=Star>
+    <p class=orderform>Color: </p>
+    <select  name=color class=input>
+      <option>Black</option>
+      <option>Gray</option>
+      <option>Blue</option>
+      <option>White</option>
+      <option selected>None</option>
+    </select>
+  </template>
+  <script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    var templateSpot = document.getElementById("templateSpot");
+    // Get the button that opens the modal
+    var orderbuttons = document.getElementsByClassName("orderButton");
+    for (var i = 0; i < orderbuttons.length; i++) {
+      orderbuttons[i].onclick = function () {
+        showModal(this);
+      }
+    }
+    function showModal(button) {
+      var temp = document.querySelectorAll("template#" + button.id)[0];
+      console.log(temp)
+      var clon = temp.content.cloneNode(true);
+      templateSpot.innerHTML = "";
+      templateSpot.appendChild(clon);
+      modal.style.display = "block";
+    }
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
 </body>
+
 </html>
