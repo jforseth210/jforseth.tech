@@ -1,4 +1,5 @@
 from flask import *
+from twilio.rest import Client
 from simple_mail import send_email
 from SensitiveData import *
 lucky_shoe = Blueprint('lucky_shoe', __name__)  # Main page
@@ -18,4 +19,20 @@ def lucky_shoe_order():
     paramlist="<br />".join(paramlist)
     send_email("luckyshoe@jforseth.tech","New Horseshoe Order", paramlist, PROJECT_EMAIL,PROJECT_PASSWORD) 
     flash("Order submitted sucessfully.", category="success")
+
+
+
+    # Your Account Sid and Auth Token from twilio.com/console
+    # DANGER! This is insecure. See http://twil.io/secure
+    account_sid = TWILIO_SID
+    auth_token = TWILIO_TOKEN
+    client = Client(account_sid, auth_token)
+
+    message = client.messages \
+                    .create(
+                        body="JForseth.tech: Horseshoe Order",
+                        from_='+12564190477',
+                        to=NOLAN_NUMBER
+                    )
+
     return redirect("/luckyshoe")
