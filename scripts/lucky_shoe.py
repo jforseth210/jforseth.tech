@@ -17,7 +17,7 @@ def lucky_shoe_order():
     for key, val in rq.items():
         paramlist.append("{}: {}".format(key, val))
     paramlist="<br />".join(paramlist)
-    send_email("dinodigger210@gmail.com","New Horseshoe Order", paramlist, PROJECT_EMAIL,PROJECT_PASSWORD) 
+    send_email("luckyshoe@jforseth.tech","New Horseshoe Order", paramlist, PROJECT_EMAIL,PROJECT_PASSWORD) 
     flash("Order submitted sucessfully.", category="success")
 
 
