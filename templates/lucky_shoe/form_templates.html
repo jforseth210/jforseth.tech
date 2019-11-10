@@ -23,7 +23,7 @@
     </select>
     <br />
     <p class=orderform>Color: </p>
-    <select name=color class=input>
+    <select name=color/condition class=input>
         <option>Black</option>
         <option selected>Raw</option>
     </select>
@@ -62,7 +62,7 @@
     </select>
     <br />
     <p class=orderform>Color: </p>
-    <select name=color class=input>
+    <select name=color/condition class=input>
         <option>Black</option>
         <option selected>Raw</option>
     </select>
@@ -72,7 +72,7 @@
     <input type="text" name="Item Ordered" value="Large Cross" hidden />
 
     <p class=orderform>Color: </p>
-    <select name=color class=input>
+    <select name=color/condition class=input>
         <option>Black</option>
         <option selected>Raw</option>
     </select>
@@ -93,7 +93,7 @@
     </div>
     <br />
     <p class=orderform>Color: </p>
-    <select name=color class=input>
+    <select name=color/condition class=input>
         <option>Black</option>
         <option selected>Raw</option>
     </select>
@@ -103,15 +103,18 @@
     <!--JS will throw an error if there's no template, but no options are needed here.-->
 </template>
 <template id=Turkey>
-    <!--JS will throw an error if there's no template, but no options are needed here.-->
+    <p class=orderform>New/Used Horseshoes:</p>
+    <select name=color/condition class=input>
+        <option>Used</option>
+        <option selected>New</option>
+    </select>
 </template>
 <template id=Star>
     <p class=orderform>Color: </p>
-    <select name=color class=input>
+    <select name=color/condition class=input>
         <option>Black</option>
+        <option>Used</option>
         <option selected>Raw</option>
-    </select>
-    <br />
     </select>
 </template>
 </body>
