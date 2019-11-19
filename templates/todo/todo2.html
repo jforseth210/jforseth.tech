@@ -48,8 +48,8 @@ Justin's Todo List
             {%endfor%}
         </select>
         <form id='form1' action="todo/submitted" method="POST">
-            <input class='inputs todo_main_input' type='name' name='taskname' id='name' placeholder='Task' required
-                autofocus />
+            <input class='inputs todo_main_input' type='name' name='taskname' id='name' placeholder='Task' required autofocus />
+	    <input id=newTaskCurrentList type=text name='list' hidden />
             <input type='submit' value='Add' id=submitbtn />
     </div>
     </form>
@@ -89,6 +89,7 @@ Justin's Todo List
             populatetasks(selection);
         }
         function populatetasks(selectedlist="All") {
+            document.getElementById("newTaskCurrentList").value=selectedlist;
             var taskgrandparent = document.getElementById("answers");
             taskgrandparent.innerHTML='';
             taskgrandparent.addEventListener("click",function(e){

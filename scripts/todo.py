@@ -20,12 +20,13 @@ def get_todos():
 
 def get_lists():
     todos=get_todos()
+    print(todos)
     lists=[todo[1] for todo in todos]
     lists=list(set(lists))
     return lists
-def add_todo(name):
+def add_todo(name,currentlist):
     with open('text/todo.csv', 'a') as file:
-        file.write('{}\n'.format(name))
+        file.write('{},{}\n'.format(name,currentlist))
 
 
 def delete_todo(taskid):
@@ -85,8 +86,10 @@ def todo_api():
 def new_todo_api():
     if escape(request.args.get("device")) in VALID_DEVICES:
         taskname=escape(request.args.get("taskname"))
+        taskname,list = taskname.split(',')
         taskname = taskname.replace('COMMA',",")
-        add_todo(taskname)
+        list=list.replace("COMMA",",")
+        add_todo(taskname,list)
         return ""
     else:
         return "Device not approved"
@@ -105,7 +108,8 @@ def delete_todo_api():
 def new_todo():
     name = escape(request.form.get('taskname'))
     name = name.replace(',', 'COMMA')
-    add_todo(name)
+    currentlist=escape(request.form.get('list'))
+    add_todo(name,currentlist)
     #send_email('todo+19z1n4ovd3rf@mail.ticktick.com', name, 'Submitted from jforseth.tech',PERSONAL_EMAIL, PERSONAL_PASSWORD)
 
     return redirect('/todo')
