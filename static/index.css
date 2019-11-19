@@ -410,3 +410,64 @@ ul.messagelist {
 /*For simplelogin*/
 .alert.primary{background-color: #4CAF50;}
 .alert.danger{background-color: #ff9800;}
+.alert {
+	opacity: 1;
+	transition: opacity 0.6s;
+	/* 600ms to fade out */
+}
+
+/* Shamelessly copied from a different w3schools page */
+/* The Modal (background) */
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: fixed;
+	/* Stay in place */
+	z-index: 1;
+	/* Sit on top */
+	padding-top: 100px;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%;
+	/* Full width */
+	height: 120%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color:var(--main-bg-color);
+	margin: auto;
+	padding: 5px;
+	border-radius: 10px;
+	border:1px solid var(--main-txt-color);
+	width: 80%;
+	height: 50%;
+	padding-bottom: 45px;
+
+	
+}
+
+/* The Close Button */
+.close {
+	color: var(--main-text-color);
+	float: right;
+	font-size: 26px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: var(--main-hovercolor);
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* End w3schools */

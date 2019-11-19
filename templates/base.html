@@ -4,7 +4,7 @@
 <head>
     <base href='../'>
     <title>{% block title %}{% endblock %} </title>
-    
+
     <!--Thanks to the creator of https://html-online.com/demo/popup-box/-->
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -26,14 +26,10 @@
     <link rel="shortcut icon" href="static/cross_favicon.ico" type="image/x-icon" />
 
     <!--Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy&display=swap" rel="stylesheet">
     <!--End Google fonts-->
     <style>
-            .alert {
-                opacity: 1;
-                transition: opacity 0.6s;
-                /* 600ms to fade out */
-            }
+ 
     </style>
     {% block head %}{% endblock %}
 </head>
@@ -41,30 +37,30 @@
 <body>
     <!--Alerts from https://www.w3schools.com/howto/howto_js_alert.asp-->
     {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert {{category}}">
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    {{message}}
-                </div>
-            {% endfor %}
-        {% endif %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert {{category}}">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
     {% endwith %}
     {% block headingimage %}{% endblock %}
     <div class="account">
-    {% if is_logged_in()%}
-    <p>Hello, {{ get_username() }}</p>
-    <ul class="account-content">
+        {% if is_logged_in()%}
+        <p>Hello, {{ get_username() }}</p>
+        <ul class="account-content">
             <a href="/account">Account</a>
             <a href="/logout">Log Out</a>
-    </ul>
-    {% else %}
-    <p>Account</p>
-    <ul class="account-content">
-        <li><a href="/login">Log In</a></li>
-        <li><a href="/signup">Create Account</a></li>
-    </ul>
-    {% endif %}
+        </ul>
+        {% else %}
+        <p>Account</p>
+        <ul class="account-content">
+            <li><a href="/login">Log In</a></li>
+            <li><a href="/signup">Create Account</a></li>
+        </ul>
+        {% endif %}
     </div>
     <h1 class='heading'>{% block heading%}{% endblock %}</h1>
     <!--Don't forget to update menu.html!-->
@@ -74,20 +70,29 @@
             <li><a href="/instructions">Instructions</a></li>
             <li><a href="/prayer">Prayer Requests</a></li>
             <li><a href="/videos">Videos</a></li>
-            <li><a class="trigger_popup_fricc">Chat</a></li>
+            <li><a id="messenger_popup_trigger">Chat</a></li>
             <li><a href="/luckyshoe">Horseshoe Art</a></li>
             {% if check_if_admin() %}
             <li><a href="/todo">Todo</a></li>
-            <li><a href="/mail">Mail</a></li>            
+            <li><a href="/mail">Mail</a></li>
             {% endif %}
             <li><a href='/filesharing'>File Sharing</a></li>
             <li class='right'><a href="mailto:support@jforseth.tech">Contact</a></li>
             </div>
-        </div>
+            </div>
         </ul>
     </nav>
     {% block content %}
     {% endblock %}
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            
+            <iframe frameborder='no' src='/messenger' scrolling='yes' height='100%' width='100%' />
+        </div>
+    </div>
+    <iframe src="/luckyshoe/formtemplates" id=formtemplates style="display: none;"></iframe>
     <script>
         // Get all elements with class="closebtn"
         var close = document.getElementsByClassName("closebtn");
@@ -109,9 +114,37 @@
             }
         }
     </script>
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+        var templateSpot = document.getElementById("templateSpot");
+        // Get the button that opens the modal
+        var orderbutton = document.getElementById("messenger_popup_trigger");
+        orderbutton.onclick = function () {
+            showModal();
+        }
+        function showModal(button) {
+            modal.style.display = "block";
+        }
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
     <!--End W3schools-->
 
-    <!--Thanks to the creator of https://html-online.com/demo/popup-box/-->
+    <!--Thanks to the creator of https://html-online.com/demo/popup-box/
     <div class="hover_bkgr_fricc" style="display: none;">
         <span class="helper"></span>
         <div>
@@ -119,7 +152,7 @@
             <iframe frameborder='no' src='/messenger' scrolling='no' height='100%' width='100%' />
         </div>
     </div>
-    <!--End https://html-online.com/demo/popup-box/-->
+    End https://html-online.com/demo/popup-box/-->
 
 </body>
 
