@@ -36,7 +36,7 @@ Videos
 
 
         {% if not check_if_admin() %}
-            <a href="https://youtu.be/{{video[1]}}">
+            <a href="/videos/video/{{video[0]}}">
                 <h3>{{ video[0]}}</h3>
             </a>
 
@@ -111,7 +111,7 @@ Videos
         });
 
     function labnolThumb(id) {
-        var thumb = '<img src="https://i.ytimg.com/vi/ID/hqdefault.jpg">',
+         var thumb = '<img src="http://img.youtube.com/vi/ID/0.jpg">',
             play = '<div class="play"></div>';
         return thumb.replace("ID", id) + play;
     }

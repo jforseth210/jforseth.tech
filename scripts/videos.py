@@ -1,15 +1,24 @@
 from flask import *
+import random
+
 from flask_simplelogin import login_required, get_username, is_logged_in
 from account_management import have_access_to_admin, get_current_access
+
 videos = Blueprint('videos', __name__)
 
 
-def get_videos():
+def get_videos(videotitle=None, videoid=None):
     # videotitle|videoid
     with open("text/videos.txt", 'r') as file:
         videos = file.readlines()
     videos = [i.replace('\n', '') for i in videos]
     videos = [i.split('|') for i in videos]
+    if videotitle:
+        for i in videos:
+            print(i[0],videotitle)
+        return [i for i in videos if i[0]==videotitle][0]
+    if videoid:
+        return [i for i in videos if i[0]==videoid][0]
     return videos
 
 
@@ -22,6 +31,10 @@ def overwrite_videos(video_list):
 @videos.route('/videos')
 def video_page():
     videos = get_videos()
+    #This doesn't actually do anything. 
+    #As long as the number is a multiple of 3, 
+    #or greater than the total number of videos
+    #it works. 
     VIDEOS_PER_ROW = 3
     video_master_list = []
     for i in range(0, len(videos), VIDEOS_PER_ROW):
@@ -114,7 +127,7 @@ def update_video_id():
 @videos.route('/videos/move', methods=["POST"])
 @login_required(must=have_access_to_admin)
 def move():
-    video_to_move = escape(request.form.get('element').split('|'))
+    video_to_move = request.form.get('element').split('|')
     direction = escape(request.form.get('direction'))
 
     video_list = get_videos()
@@ -133,3 +146,9 @@ def move():
 
     overwrite_videos(video_list)
     return redirect('../videos')
+@videos.route("/videos/video/<video>")
+def individual_video_page(video):
+    video=get_videos(video)
+    videos=get_videos()
+    random.shuffle(videos)
+    return render_template("/videos/individual_video.html", video=video, videos=videos)
