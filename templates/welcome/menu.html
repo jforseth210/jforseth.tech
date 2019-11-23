@@ -27,24 +27,27 @@
 </head>
 
 <body>
-    <!--Don't forget to update base.html!-->
-    <nav>
-        <ul id='mobile-list-nav'>
-            <li><a href="/">Home</a></li>
-            <li><a href="/instructions">Instructions</a></li>
-            <li><a href="/prayer">Prayer Requests</a></li>
-            <li><a href="/videos">Videos</a></li>
-            <li><a class="trigger_popup_fricc">Chat</a></li>
-            {% if check_if_admin() %}
-            <li><a href="/todo">Todo</a></li>
-            <li><a href="/mail">Mail</a></li>            
-            {% endif %}
-            <li><a href='/filesharing'>File Sharing</a></li>
-            {% if is_logged_in()%}
-            <li><a href="/logout">Logout</a></li> 
-            {% else %}
-            <li><a href="/login">Login</a></li>  
-            {% endif %}
-        </ul>
+    <!-- Top Navigation Menu -->
+    <div class="topnav">
+        <a href="#home" class="active">Logo</a>
+        <div id="myLinks">
+            <a href="#news">News</a>
+            <a href="#contact">Contact</a>
+            <a href="#about">About</a>
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
     </nav>
+    <script>
+            function myFunction() {
+              var x = document.getElementById("myLinks");
+              if (x.style.display === "block") {
+                x.style.display = "none";
+              } else {
+                x.style.display = "block";
+              }
+            }
+            </script>
 </body>

@@ -205,41 +205,41 @@ ul.topnav li a:hover:not(.active) {
 ul.topnav li a.active {
 	background-color: var(--main-element-color);
 }
-
-ul.topnav li.right {
-	float: right;
+.expandicon img{
+	height:40px;
 }
-/*The menu bar on mobile*/
-
-#mobile-list-nav {
-	padding: 0px;
-	padding-bottom: 0px;
-	width: 100%;
+a.expandicon{
+	display:none; 
 }
-
-#mobile-list-nav li {
-	list-style: none;
+.expandicon img{
+	display:none;
 }
-
-#mobile-list-nav li a {
-	text-decoration: none;
-	padding: 25px 0 0;
-	width: 100% !important;
-	background: --main-element-color;
-	color: var(--main-txt-color);
-	float: left;
-	text-align: center;
-	height: 75px
+@media screen and (min-width: 712px) {
+	ul.topnav li.right {
+		float: right;
+	}
+	#myLinks{
+		display:block !important;
+	}
+	.expandicon{
+		display:none !important;
+	}
 }
-
-#mobile-list-nav li a:hover {
-	background: --hover-color;
-}
-
 @media screen and (max-width: 712px) {
-	ul.topnav li.right,
-	ul.topnav li {
+	#myLinks{
+		display:none;
+	}
+	ul.topnav li{
 		float: none;
+		margin: 0px auto;
+	}
+	.expandicon{
+		display:block;
+		float:left;
+	}
+	.expandicon img{
+		display:block;
+		height:20px;
 	}
 }
 

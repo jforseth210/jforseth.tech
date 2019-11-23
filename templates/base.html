@@ -17,6 +17,7 @@
     <!--Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy&display=swap" rel="stylesheet">
     <!--End Google fonts-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
 
     </style>
@@ -55,19 +56,24 @@
     <!--Don't forget to update menu.html!-->
     <nav>
         <ul class="topnav" id="list-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/instructions">Instructions</a></li>
-            <li><a href="/prayer">Prayer Requests</a></li>
-            <li><a href="/videos">Videos</a></li>
-            <li><a class="messenger_popup_trigger">Chat</a></li>
-            <li><a href="/luckyshoe">Horseshoe Art</a></li>
-            {% if check_if_admin() %}
-            <li><a href="/todo">Todo</a></li>
-            <li><a href="/mail">Mail</a></li>
-            {% endif %}
-            <li><a href='/filesharing'>File Sharing</a></li>
-            <li class='right'><a href="mailto:support@jforseth.tech">Contact</a></li>
-            </div>
+            <li>
+                <a href="javascript:void(0);" class="expandicon" onclick="toggleMobileMenu()">
+                    <img src=/static/hamburger.png/>
+                </a>
+            </li>
+            <div id=myLinks>
+                <li><a href="/">Home</a></li>
+                <li><a href="/instructions">Instructions</a></li>
+                <li><a href="/prayer">Prayer Requests</a></li>
+                <li><a href="/videos">Videos</a></li>
+                <li><a class="messenger_popup_trigger">Chat</a></li>
+                <li><a href="/luckyshoe">Horseshoe Art</a></li>
+                {% if check_if_admin() %}
+                <li><a href="/todo">Todo</a></li>
+                <li><a href="/mail">Mail</a></li>
+                {% endif %}
+                <li><a href='/filesharing'>File Sharing</a></li>
+                <li class='right'><a href="mailto:support@jforseth.tech">Contact</a></li>
             </div>
         </ul>
     </nav>
@@ -111,7 +117,7 @@
         var orderbutton = document.getElementsByClassName("messenger_popup_trigger");
         for (i = 0; i < orderbutton.length; i++) {
             orderbutton[i].onclick = function () {
-showModal();
+                showModal();
             }
         }
         function showModal(button) {
@@ -133,6 +139,17 @@ showModal();
             }
         }
     </script>
+    <script>
+        function toggleMobileMenu() {
+            var x = document.getElementById("myLinks");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+    </script>
+
     <!--End W3schools-->
 </body>
 
