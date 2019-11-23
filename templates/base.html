@@ -18,7 +18,7 @@
     <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy&display=swap" rel="stylesheet">
     <!--End Google fonts-->
     <style>
- 
+
     </style>
     {% block head %}{% endblock %}
 </head>
@@ -59,7 +59,7 @@
             <li><a href="/instructions">Instructions</a></li>
             <li><a href="/prayer">Prayer Requests</a></li>
             <li><a href="/videos">Videos</a></li>
-            <li><a id="messenger_popup_trigger">Chat</a></li>
+            <li><a class="messenger_popup_trigger">Chat</a></li>
             <li><a href="/luckyshoe">Horseshoe Art</a></li>
             {% if check_if_admin() %}
             <li><a href="/todo">Todo</a></li>
@@ -77,7 +77,7 @@
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close">&times;</span>
-            
+
             <iframe frameborder='no' src='/messenger' scrolling='yes' height='100%' width='100%' />
         </div>
     </div>
@@ -108,9 +108,11 @@
         var modal = document.getElementById("myModal");
         var templateSpot = document.getElementById("templateSpot");
         // Get the button that opens the modal
-        var orderbutton = document.getElementById("messenger_popup_trigger");
-        orderbutton.onclick = function () {
-            showModal();
+        var orderbutton = document.getElementsByClassName("messenger_popup_trigger");
+        for (i = 0; i < orderbutton.length; i++) {
+            orderbutton[i].onclick = function () {
+showModal();
+            }
         }
         function showModal(button) {
             modal.style.display = "block";

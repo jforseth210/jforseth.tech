@@ -148,7 +148,10 @@ def move():
     return redirect('../videos')
 @videos.route("/videos/video/<video>")
 def individual_video_page(video):
-    video=get_videos(video)
+    try:
+        video=get_videos(video)
+    except IndexError:
+        return redirect('/videos')
     videos=get_videos()
     random.shuffle(videos)
     return render_template("/videos/individual_video.html", video=video, videos=videos)

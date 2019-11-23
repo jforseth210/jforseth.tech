@@ -90,8 +90,7 @@ a {
 /*The thumbnails on the welcome page.*/
 
 .thumbnail {
-	width: 20%;
-	height: 20%;
+	width: 100%;
 	border: 2px solid var(--main-txt-color)
 }
 
@@ -471,3 +470,21 @@ ul.messagelist {
 }
 
 /* End w3schools */
+/*This is from W3Schools. I'm trying (and failing) to understand how it works.*/
+.column {
+    float: left;
+    width: 32%;
+	margin: 5px;
+}
+
+.row:after {
+    content: "";
+    display: table;
+	clear: both;
+}
+@media screen and (max-width: 710px) {
+.column {
+    float: none;
+    width:100%;
+}
+}

@@ -57,8 +57,11 @@
     background: url("//i.imgur.com/TxzC70f.png") no-repeat;
     cursor: pointer;
 }
-/*This is from W3Schools. I'm trying (and failing) to understand how it works.*/
-.column {
+/*This is from W3Schools. I'm trying (and failing) to understand how it works.
+
+This is being used in the welcome page too. Update it there. 
+*/
+/*.column {
     float: left;
     width: 33.33%;
 }
@@ -73,4 +76,4 @@
     float: none;
     width:100%;
 }
-}
+}*/

@@ -5,54 +5,94 @@ Jforseth.tech
 {% endblock %}
 {% block content %}
 <h2>Welcome to jforseth.tech</h2>
-<p>This is a website I've created for testing, and experimenting and trying new things. (Note: I've decided to make the github repository for this site private. If you'd like to take a look at the source code, let me know!)</p>
+<p>This is a website I've created for testing, and experimenting and trying new things.</p>
 <h3>My projects so far:</h3>
-
-<a href='/prayer'>
-    <img class='thumbnail' src='/static/PrayerRequests.png' />
-    <br />
-    <b>Prayer Requests:</b></a>
-<br/><a href="/instructions#prayerrequests">Instructions</a>
-<br />
-<p>An ongoing project that allows people in my church to exchange prayer requests.</p>
-<a href='/videos'>
-    <img class='thumbnail' src='/static/video.PNG' />
-    <br />
-    <b>Videos:</b></a>
-    <br/><a href="/instructions#videos">Instructions</a>
-<br />
-<p>A page containing all (or at least most) of my video editing projects.</p>
-<a href='/messenger'>
-    <img class='thumbnail' src='/static/Messenger.png'>
-    <br />
-    <b><u>Messenger:</u></b></a>
-    <br/><a href="/instructions#chat">Instructions</a>
-<br />
-<p>This is an experimental messenger using SQLite. I'm still working on it, but it works okay...</p>
-
-<a href='/todo'>
-    <img class='thumbnail' src='/static/Todo.PNG'>
-    <br />
-    <b><u>Todo list:</u></b></a>
-    <br/><a href="/instructions#todo">Instructions</a>
-<br />
-<p>A simple todo list I created for personal use. Not available to general public.</p>
-<a href='/filesharing'>
-    <img class='thumbnail' src='/static/filesharing.PNG'>
-    <br />
-    <b><u>File Sharing:</u></b></a>
-    <br/><a href="/instructions#filesharing">Instructions</a>
-<br />
-<p>A simple file sharing service I created. Upload a file to the server download it on another device. All uploads are
-    public and are wiped at midnight.</p>
-    
-    <a href='/barrelracing/counter'>
-        <img class='thumbnail' src='/static/barrelracingcounter.png'>
+<div class=row>
+    <div class=column>
+        <a href='/prayer'>
+            <b>Prayer Requests:</b>
+            <br />
+            <img class='thumbnail' src='/static/PrayerRequests.png' /></a>
+        <br /><a href="/instructions#prayerrequests">Instructions</a>
         <br />
-        <b><u>Barrel Racing Current Rider:</u></b></a>
-        <br/><a href="/instructions#barrelracingcounter">Instructions</a>
-    <br />
-    <p>A widget I made for a friend to help her keep track of which rider is currently up for barrel racing.</p>
+        <p>A simple tool I created to allow members of my church to exchange prayer requests.</p>
+    </div>
+    <div class=column><a href='/videos'>
+            <b>Videos:</b>
+            <br />
+            <img class='thumbnail' src='/static/video.PNG' /></a>
+        <br /><a href="/instructions#videos">Instructions</a>
+        <br />
+        <p>In my free time I make videos about farming, ranching, events I go to, and whatever else I feel
+            like. You can find them here.</p>
+    </div>
+    <div class=column><a class=messenger_popup_trigger>
+            <b>Messenger:</b>
+            <br />
+            <img class='thumbnail' src='/static/Messenger.png'></a>
+        <br /><a href="/instructions#chat">Instructions</a>
+        <br />
+        <p>A simple little popup widget I made as a challenge.</p>
+    </div>
+</div>
+<div class=row>
+    <div class=column>
+        <a href='/todo'>
+            <b>Todo list:</b>
+            <br />
+            <img class='thumbnail' src='/static/Todo.PNG'></a>
+        <br /><a href="/instructions#todo">Instructions</a>
+        <br />
+        <p>A simple todo list I created for personal use. Not available to general public.</p>
+    </div>
+    <div class=column>
+        <a href='/luckyshoe'>
+            <b>Horseshoe Art:</b>
+            <img class='thumbnail' src='/static/HorseshoeArt.PNG'></a>
+        <br /><a href="/instructions#horseshoeart">Instructions</a>
+        <br />
+        <p>My brother is a welder who makes horseshoe art, which you can look at and order from here.</p>
+    </div>
+    <div class=column>
+        <a href='/mail'>
+            <b>Mail:</b>
+            <img class='thumbnail' src='/static/mail.png'></a>
+        <br /><a href="/instructions#mail">Instructions</a>
+        <br />
+        <p>Created so I didn't have to deal with Gmail to send prayer requests. Allows me to create custom
+            email addresses for use on the site.</p>
+    </div>
+</div>
+<div class=row>
+    <div class=column>
+        <a href='/filesharing'>
+            <b>File Sharing:</b>
+            <img class='thumbnail' src='/static/filesharing.PNG'></a>
+        <br /><a href="/instructions#filesharing">Instructions</a>
+        <br />
+        <p>A simple file sharing service I created. Upload a file to the server download it on another device. All
+            uploads
+            are
+            public and are wiped at midnight.</p>
+    </div>
+    <div class=column>
+        <a href='/barrelracing/counter'>
+            <b>Barrel Racing Current Rider:</b>
+            <img class='thumbnail' src='/static/barrelracingcounter.png'></a>
+        <br /><a href="/instructions#barrelracingcounter">Instructions</a>
+        <br />
+        <p>A widget I made for a friend to help her keep track of which rider is currently up for barrel racing.</p>
+    </div>
+    <div class=column>
+        <a href='/login'>
+            <b>Accounts:</b>
+            <img class='thumbnail' src='/static/account.png'></a>
+        <br /><a href="/instructions#barrelracingcounter">Instructions</a>
+        <br />
+        <p>Mostly used to prevent the general public from using personal/admin tools, not needed for
+                prayer requests or anything else.</p>
+    </div>
+</div>
 <footer>
     <small>More experiments and tools coming soon!</small>
 </footer>
