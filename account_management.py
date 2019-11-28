@@ -42,6 +42,10 @@ def get_current_access(username):
 
 # Checks if user has access to a specific area.
 # Used by @login_required decorator.
+def have_access_to_writer(username):
+    user_data = get_account(username)
+    if 'writer' not in user_data.get('have_access_to'):
+        return render_template("errors/403.html")
 def have_access_to_todo(username):
     user_data = get_account(username)
     if 'todo' not in user_data.get('have_access_to'):

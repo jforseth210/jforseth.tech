@@ -6,6 +6,7 @@ from flask_simplelogin import SimpleLogin
 from account_management import check_login
 
 from scripts.welcome import *
+from scripts.writer import *
 from scripts.videos import *
 from scripts.messenger import *
 from scripts.prayer import *
@@ -98,6 +99,15 @@ app.register_blueprint(messenger)
 # /prayer/newemailconfirmed
 # /prayer/prayerrequest
 app.register_blueprint(prayer)
+#__        __    _ _
+#\ \      / / __(_) |_ ___ _ __ 
+# \ \ /\ / / '__| | __/ _ \ '__|
+#  \ V  V /| |  | | ||  __/ |
+#   \_/\_/ |_|  |_|\__\___|_|   
+#/writer
+#/writer/document/<name>
+#/writer/save/<name>
+app.register_blueprint(writer)
 # _               _            ____  _
 #| |   _   _  ___| | ___   _  / ___|| |__   ___   ___
 #| |  | | | |/ __| |/ / | | | \___ \| '_ \ / _ \ / _ \
