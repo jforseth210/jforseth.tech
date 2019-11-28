@@ -28,11 +28,11 @@ def experiment():
         page = requests.get(requested_url).content
         requested_url_utf = requested_url.encode('utf-8')
         for attribute in ATTRIBUTES:
-            # page=page.replace(attribute.encode('utf-8')+b"=",attribute.encode('utf-8')+b"=http://jforseth.tech/experiment?url="+requested_url_utf)
+            # page=page.replace(attribute.encode('utf-8')+b"=",attribute.encode('utf-8')+b"=https://jforseth.tech/experiment?url="+requested_url_utf)
             page = page.replace(attribute.encode('utf-8')+b"='/", attribute.encode(
-                'utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
+                'utf-8')+b'=https://jforseth.tech/experiment?url='+requested_url_utf+b'/')
             page = page.replace(attribute.encode('utf-8')+b'=\"/', attribute.encode(
-                'utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
+                'utf-8')+b'=https://jforseth.tech/experiment?url='+requested_url_utf+b'/')
             page = page.replace(attribute.encode('utf-8')+b'=/', attribute.encode(
-                'utf-8')+b'=http://jforseth.tech/experiment?url='+requested_url_utf+b'/')
+                'utf-8')+b'=https://jforseth.tech/experiment?url='+requested_url_utf+b'/')
         return "<form><input name='url' /><input type='submit'></form>"+str(page)
