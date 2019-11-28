@@ -227,7 +227,7 @@ def server_error(e):
         send_email('support@jforseth.tech', 'It\'s reprogramming time!',
                    "<a href=\"https://youtu.be/QDSEpjjavhY?t=182\">It's reprogramming time!</a><br/>An error was detected on your server: {}".format(e), 
                    PROJECT_EMAIL, PROJECT_PASSWORD)
-    return render_template('errors/500.html')
+    return render_template('errors/500.html'), 500
 
 
 if __name__ == "__main__":
