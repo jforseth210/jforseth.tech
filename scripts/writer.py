@@ -42,6 +42,6 @@ def document(name):
     #    io.open("text/writerdocs/{}.html".format(name))
     #    document=""
     except IOError: #Python2
-        io.open("text/writerdocs/{}.html".format(name))
+        io.open("text/writerdocs/{}.html".format(name),"w")
         document=""
     return Markup(document)
