@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Writer{% endblock %}
+{% block heading %}
+Writer
+{% endblock %}
+{% block content %}
+<br/>
+
+{% for i in docs %}
+<a href='/writer/{{i}}'><img style="height:200px !important;" src="writer/thumb/{{i}}" /><br/>{{i}}</a>
+{% endfor %}
+
+{% endblock %}

@@ -10,6 +10,7 @@ text/barrel_racing_current_number.txt
 text/videos.txt
 text/todo.csv
 text/writerdocs
+static/writer_thumbs
 \#webtool.py\#
 # Byte-compiled / optimized / DLL files
 __pycache__/
