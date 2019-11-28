@@ -1,10 +1,11 @@
 from flask import *
 import os 
+import io
 from werkzeug.utils import secure_filename
 from account_management import have_access_to_writer
 from flask_simplelogin import login_required
 writer = Blueprint('writer', __name__)
-
+open=io.open()
 @writer.route('/writer')
 @login_required(must=have_access_to_writer)
 def writer_home():
