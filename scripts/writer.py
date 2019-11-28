@@ -41,6 +41,9 @@ def document(name):
     except FileNotFoundError:
         io.open("text/writerdocs/{}.html".format(name))
         document=""
+    except IOError: #Python2
+        io.open("text/writerdocs/{}.html".format(name))
+        document=""
     return Markup(document)
 if __name__ == "__main__":
     writer.debug = True
