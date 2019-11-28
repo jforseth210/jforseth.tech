@@ -45,6 +45,3 @@ def document(name):
         io.open("text/writerdocs/{}.html".format(name))
         document=""
     return Markup(document)
-if __name__ == "__main__":
-    writer.debug = True
-    writer.run()
