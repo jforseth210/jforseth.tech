@@ -38,9 +38,9 @@ def document(name):
     try:
         with io.open("text/writerdocs/{}.html".format(name), "r", encoding="utf-8") as file:
             document=file.read()
-    except FileNotFoundError:
-        io.open("text/writerdocs/{}.html".format(name))
-        document=""
+    #except FileNotFoundError:
+    #    io.open("text/writerdocs/{}.html".format(name))
+    #    document=""
     except IOError: #Python2
         io.open("text/writerdocs/{}.html".format(name))
         document=""
