@@ -5,7 +5,6 @@ from werkzeug.utils import secure_filename
 from account_management import have_access_to_writer
 from flask_simplelogin import login_required
 writer = Blueprint('writer', __name__)
-open=io.open()
 @writer.route('/writer')
 @login_required(must=have_access_to_writer)
 def writer_home():
@@ -20,7 +19,7 @@ def writer_home():
 @writer.route('/writer/<name>')
 @login_required(must=have_access_to_writer)
 def writer_page(name):
-    #with open("The Healer.html",encoding="utf-8") as file:
+    #with io.open("The Healer.html",encoding="utf-8") as file:
     #    document=file.read()
     #document=Markup(document)    
     return render_template("Summernote.html",name=name)
@@ -29,7 +28,7 @@ def writer_page(name):
 def save(name):
     name=secure_filename(name)
     data=request.form.get("text")
-    with open("text/writerdocs/{}.html".format(name), "w", encoding="utf-8") as file:
+    with io.open("text/writerdocs/{}.html".format(name), "w", encoding="utf-8") as file:
         document=file.write(data)
     return ""
 @writer.route('/writer/document/<name>')
@@ -37,10 +36,10 @@ def save(name):
 def document(name):
     name=secure_filename(name)
     try:
-        with open("text/writerdocs/{}.html".format(name), "r", encoding="utf-8") as file:
+        with io.open("text/writerdocs/{}.html".format(name), "r", encoding="utf-8") as file:
             document=file.read()
     except FileNotFoundError:
-        open("text/writerdocs/{}.html".format(name))
+        io.open("text/writerdocs/{}.html".format(name))
         document=""
     return Markup(document)
 if __name__ == "__main__":
