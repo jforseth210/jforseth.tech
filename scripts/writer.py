@@ -34,6 +34,7 @@ def writer_home():
 @writer.route('/writer/thumb/<name>')
 def writer_thumb(name):
     return send_file('static/writer_thumbs/{}.html_thumb.png'.format(name))
+
 @writer.route('/writer/<name>')
 @login_required(must=have_access_to_writer)
 def writer_page(name):
@@ -41,6 +42,7 @@ def writer_page(name):
     #    document=file.read()
     #document=Markup(document)    
     return render_template("writer/Summernote.html",name=name)
+
 @writer.route('/writer/save/<name>', methods=["POST"])
 @login_required(must=have_access_to_writer)
 def save(name):
@@ -67,6 +69,7 @@ def document(name):
         files=file.readlines()
     files=[i for i in files if i.replace("\n","")!=name+".html"]
     files.insert(0,name+".html\n")
+    files=[i.decode("utf-8") for i in files]
     with io.open("text/writer_file_order.txt", "w") as file:
         file.writelines(files)
     return Markup(document)
