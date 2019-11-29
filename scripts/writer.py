@@ -23,7 +23,6 @@ def writer_home():
         files=ordered_files
     else:
         additional_files=set(listdir_files).difference(ordered_files)
-        files=ordered_files
         for i in additional_files:
             files.insert(0,i)
     new_files=[]
