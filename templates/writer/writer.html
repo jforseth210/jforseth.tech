@@ -5,9 +5,11 @@ Writer
 {% endblock %}
 {% block content %}
 <br/>
-
+<div class=row>
 {% for i in docs %}
+<div class=column>
 <a href='/writer/{{i}}'><img style="height:200px !important;" src="static/writer_thumbs/{{i}}.html_thumb.png" /><br/>{{i}}</a>
+</div>
 {% endfor %}
-
+</div>
 {% endblock %}
