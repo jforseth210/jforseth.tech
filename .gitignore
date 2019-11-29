@@ -2,6 +2,7 @@ AP\ Create\ Task/
 
 .goutputsream-*
 static/*.mp4
+static/writer_thumbs
 SensitiveData.py
 database.db
 uploads/
