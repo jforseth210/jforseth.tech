@@ -13,6 +13,7 @@ text/todo.csv
 text/writerdocs
 static/writer_thumbs
 \#webtool.py\#
+text/writer_file_order.txt
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

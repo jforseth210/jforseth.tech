@@ -6,6 +6,7 @@ import os.path
 from werkzeug.utils import secure_filename
 from account_management import have_access_to_writer
 from flask_simplelogin import login_required
+import refresh_writer_thumbs
 writer = Blueprint('writer', __name__)
 
 WRITER_PATH="text/writerdocs"
@@ -13,7 +14,17 @@ WRITER_PATH="text/writerdocs"
 @writer.route('/writer')
 @login_required(must=have_access_to_writer)
 def writer_home():
-    files = os.listdir(WRITER_PATH)
+    files=[]
+    listdir_files = os.listdir(WRITER_PATH)
+    with open("text/writer_file_order.txt", "r") as file:
+        ordered_files = file.readlines()
+    ordered_files=[i.replace("\n",'') for i in ordered_files]
+    if len(ordered_files)==len(listdir_files):
+        files=ordered_files
+    else:
+        additional_files=set(listdir_files).difference(ordered_files)
+        for i in additional_files:
+            files.insert(0,i)
     new_files=[]
     for i in files:
         i=i.replace('.html',"")
@@ -50,5 +61,12 @@ def document(name):
     #    document=""
     except IOError: #Python2
         io.open("text/writerdocs/{}.html".format(name),"w")
+        refresh_writer_thumbs.main()
         document=""
+    with io.open("text/writer_file_order.txt","r") as file:
+        files=file.readlines()
+    files=[i for i in files if i.replace("\n","")!=name+".html"]
+    files.insert(0,name+".html\n")
+    with io.open("text/writer_file_order.txt", "w") as file:
+        file.writelines(files)
     return Markup(document)
