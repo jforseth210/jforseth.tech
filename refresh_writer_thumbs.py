@@ -12,6 +12,8 @@ def main():
         config=imgkit.config(wkhtmltoimage=b"C:/Program Files/wkhtmltopdf/bin/wkhtmltoimage.exe")
     else:
         config=imgkit.config()
+    if os.name == 'posix':
+        options.update(xvfb="")
     files = os.listdir(WRITER_PATH)
     for i in files:
         print(WRITER_PATH+"/"+i, THUMB_PATH+"/"+i+"_thumb.png", options,config)
