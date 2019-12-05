@@ -47,10 +47,10 @@ def writer_page(name):
 @login_required(must=have_access_to_writer)
 def save(name):
     name=secure_filename(name)
-    data=request.form.get("text")
+    data=request.form.get("editordata")
     with io.open("text/writerdocs/{}.html".format(name), "w", encoding="utf-8") as file:
         document=file.write(data)
-    return ""
+    return redirect('/writer/{}'.format(name))
 @writer.route('/writer/document/<name>')
 @login_required(must=have_access_to_writer)
 def document(name):
@@ -69,7 +69,7 @@ def document(name):
         files=file.readlines()
     files=[i for i in files if i.replace("\n","")!=name+".html"]
     files.insert(0,name+".html\n")
-    files=[i.decode("utf-8") for i in files]
+    #files=[i.decode("utf-8") for i in files]
     with io.open("text/writer_file_order.txt", "w") as file:
         file.writelines(files)
     return Markup(document)
