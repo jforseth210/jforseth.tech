@@ -17,7 +17,7 @@ Prayer Requests
     <h2>Request Prayer:</h2>
     <form id='form1' action="/prayer/prayerrequest" method="POST">
         <input class='inputs' type='name' name='name' id='name' placeholder='Nickname' required />
-        <select class='inputs dropdown' form='form1' name='parish' required>
+        <select class='inputs parish' form='form1' name='parish' required>
             <option disabled selected>Select</option>
             {% for option in options %}
                 <option>{{ option }}</option>
@@ -44,7 +44,7 @@ Prayer Requests
         <p class='no-pad'>
             <input class='inputs' id='email' autocomplete='off' type="email" name="email"
                 placeholder='someone@example.com' required />
-            <input class='inputs dropdown' name='parish' placeholder='PARISH'>
+            <input class='inputs parish' name='parish' placeholder='PARISH'>
             <input class='no=pad' id='submit' type="submit" value="Submit" />
         </p>
     </form>

@@ -1,22 +1,47 @@
 /*The cross image on the prayer requests page*/
 #cross {
-	height: 80px;
+    height: 80px;
 	float: left;
 }
 @media screen and (max-width: 712px) {
-	#cross{
-		display: none;
+    #cross{
+        display: none;
 	}
 }
+
+/*The quote on the right side of the prayer page*/
+#quote {
+    float: right;
+    width: 50%;
+    text-align: center;
+}
+
+/*Forms on the prayer requests page*/
+.forms {
+	padding-left: 5px;
+	float: left;
+	width: 40%;
+}
+
 /*Specific inputs. For general input styles, see index.css
-  The main prayer requests input.*/
+The main prayer requests input.*/
 textarea {
-	width: 300px;
+    width: 300px;
 	height: 100px;
 }
 
 /*The nickname field on the prayer requests page.*/
 #name {
-	width: 100px;
+    width: 100px;
 	height: 25px;
 }
+
+/*Parish input (dropdown and code)*/
+.parish {
+    height: 25px;
+    width: 75px;
+	background-color: var(--main-bg-color);
+	padding: 0px;
+	margin: 0px;
+}
+

@@ -67,16 +67,6 @@ a {
 	padding-bottom:20px;
 }
 
-
-
-/*Forms on the prayer requests page*/
-.forms {
-	padding-left: 5px;
-	float: left;
-	width: 40%;
-}
-
-
 /*All form inputs. Mostly*/
 
 .inputs {
@@ -88,23 +78,9 @@ a {
 	font: 12pt;
 }
 
-/*Parish dropdown menu*/
-.dropdown {
-	height: 25px !important;
-	width: 75px !important;
-	background-color: var(--main-bg-color);
-	padding: 0px;
-	margin: 0px;
-}
 
 
-/*The quote on the right side of the prayer page*/
 
-#quote {
-	float: right;
-	width: 50%;
-	text-align: center;
-}
 
 
 /*The footer*/
