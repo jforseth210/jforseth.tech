@@ -1,7 +1,33 @@
+/*Individual video */
+.more-videos{
+    float:right;
+    width:33%;
+}
+.video{
+    overflow:auto;
+    padding:3px;
+}
+
+/* Both */
+@media screen and (max-width: 712px) {
+    /* Individual video*/
+    .more-videos{
+        width:100% !important;
+        float:none !important;
+    }
+    /* Both */
+    .player-parent{
+        width:100% !important;
+        float:none !important;   
+    }
+}
+
 .player-parent{
     width: 64%;
     height: 48%;
+    float: left;
 }
+
 .youtube-player {
     position: relative;
     padding-bottom: 56.23%;
@@ -57,23 +83,3 @@
     background: url("//i.imgur.com/TxzC70f.png") no-repeat;
     cursor: pointer;
 }
-/*This is from W3Schools. I'm trying (and failing) to understand how it works.
-
-This is being used in the welcome page too. Update it there. 
-*/
-/*.column {
-    float: left;
-    width: 33.33%;
-}
-
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-@media screen and (max-width: 710px) {
-.column {
-    float: none;
-    width:100%;
-}
-}*/

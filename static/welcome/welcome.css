@@ -1,6 +1,13 @@
-
 /*The thumbnails for each page.*/
 .thumbnail {
 	width: 100%;
 	border: 2px solid var(--main-txt-color)
+}
+
+/*Tableon accounts page*/
+table,td{
+	border: 1px solid wheat;
+}
+table{
+	border-collapse: collapse;
 }

@@ -1,44 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}Justin's Todo List{% endblock %}
+{% block head %}
+<link rel='stylesheet' href='/static/todo/todo.css' type='text/css' />
+{% endblock %}
 {% block heading %}
 Justin's Todo List
-{% endblock %}
-{% block head %}
-<style>
-    #taskid {
-        width: 50px;
-        padding: 10px
-    }
-</style>
 {% endblock %}
 {% block content %}
 <br />
 <br />
 <div>
-    <style>
-        #answered {
-            text-align: center;
-
-        }
-
-        #tasks {
-            text-align: center;
-            font-size: 22px !important;
-        }
-
-        .task :hover {
-            text-decoration: line-through !important;
-        }
-
-        .todo_main_input {
-            width: 400px !important;
-            font-size: 26px;
-        }
-
-        .deleteform {
-            display: none;
-        }
-    </style>
     <div id='answered'>
 
         <select onchange="chooselist()" id=listdropdown class="inputs dropdown">
@@ -116,5 +87,4 @@ Justin's Todo List
         };
         populatetasks();
     </script>
-    <!--<iframe src="https://ticktick.com" style="border:0px #ffffff none; float:right;" name="ticktick" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="400px" width="600px" allowfullscreen></iframe>-->
     {% endblock %}

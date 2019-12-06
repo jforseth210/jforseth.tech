@@ -1,0 +1,40 @@
+html{
+    background-color: #fff;
+}
+#current_number {
+    border: 0px;
+    font-size: 100px;
+    color: black;
+}
+
+#formparent {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.button {
+    border: 1px sold black;
+    font-size: 60px;
+    background: none;
+    font-weight: bold;
+    border-radius: 3px;
+    width: 75px;
+}
+
+#minus {
+    color: red;
+}
+
+#plus {
+    color: green;
+}
+
+.invisible {
+    visibility: hidden;
+    display: none;
+}
+
+h1 {
+    font-family: sans-serif;
+    color:black;
+}
