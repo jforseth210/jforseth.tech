@@ -138,10 +138,10 @@ a.expandicon{
 		float: right;
 	}
 	#myLinks{
-		display:block;
+		display:block !important;
 	}
 	.expandicon{
-		display:none;
+		display:none !important;
 	}
 }
 @media screen and (max-width: 712px) {
@@ -300,4 +300,10 @@ a.expandicon{
     float: none;
     width:100%;
 }
+}
+.left{
+	float: left;
+}
+.right{
+	float: right;
 }

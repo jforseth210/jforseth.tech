@@ -1,0 +1,58 @@
+/*Bunch of junk from messages that I have to make work*/
+
+ul.messagelist {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+
+#text {
+	border: none;
+	outline: none;
+}
+
+#form1.send {
+	border: 1px solid var(--main-txt-color);
+	border-radius: 15px;
+	padding: 1px 10px;
+	width: 210px;
+	height: 23px;
+	background:transparent;
+}
+
+.message {
+	display: inline-block;
+	border-radius: 15px;
+	padding: 7px;
+	margin: 3px 0px;
+	width: auto;
+	background: var(--main-element-color);
+  color: var(--main-txt-color);
+  font-family: var(--main-font);
+}
+
+#message-submit {
+	border-radius: 10px;
+	color: var(--main-txt-color);
+	font-weight: bold;
+	border: none;
+	outline: none;
+  background: var(--main-bg-color);
+}
+
+#clear {
+	font-weight: bold;
+	border-radius: 10px;
+	border: 1px solid var(--main-txt-color);
+	background: var(--main-element-color);
+	color: var(--main-txt-color)
+}
+
+#text {
+	border: none;
+	outline: none;
+  background: transparent;
+  color:var(--main-txt-color);
+  font-family: var(--main-font);
+}

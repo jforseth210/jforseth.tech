@@ -1,5 +1,5 @@
-html{
-    background-color: #ffffff !important;
+html.summernote{
+    background-color: #ffffff;
   }
   .switch {
     position: relative;
@@ -56,4 +56,7 @@ html{
 }
 .writer_thumb{
   height:200px !important;
+}
+#saveBtn{
+  float: right;
 }
