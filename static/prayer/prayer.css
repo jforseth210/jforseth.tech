@@ -8,3 +8,15 @@
 		display: none;
 	}
 }
+/*Specific inputs. For general input styles, see index.css
+  The main prayer requests input.*/
+textarea {
+	width: 300px;
+	height: 100px;
+}
+
+/*The nickname field on the prayer requests page.*/
+#name {
+	width: 100px;
+	height: 25px;
+}

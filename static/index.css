@@ -88,25 +88,7 @@ a {
 	font: 12pt;
 }
 
-
-/*The main prayer requests input.*/
-
-textarea {
-	width: 300px;
-	height: 100px;
-}
-
-
-/*The nickname field on the prayer requests page.*/
-
-#name {
-	width: 100px;
-	height: 25px;
-}
-
-
 /*Parish dropdown menu*/
-
 .dropdown {
 	height: 25px !important;
 	width: 75px !important;
