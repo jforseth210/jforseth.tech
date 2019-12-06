@@ -5,19 +5,20 @@
     <title>Counter</title>
     <link rel='stylesheet' href='/static/index.css' type='text/css' />
     <link rel='stylesheet' href='/static/barrel_racing/barrel_racing.css' type='text/css' />
+    <script src="/static/barrel_racing/barrel_racing.js"></script>
 </head>
 
 <body>
     {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <!--Alerts from https://www.w3schools.com/howto/howto_js_alert.asp-->
-                <div class="alert {{category}}">
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    {{message}}
-                </div>
-            {% endfor %}
-        {% endif %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <!--Alerts from https://www.w3schools.com/howto/howto_js_alert.asp-->
+    <div class="alert {{category}}">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
     {% endwith %}
     <p>{{error}}</p>
     <h1>Horse #</h1>
@@ -27,17 +28,18 @@
     </form>
     <h1>is currently running</h1>
     <div id=formparent>
-        
+
         <form id=plusform action="/barrelracing/current_number_update" method="POST">
-            <input type=number name=current_number id=plushidden class=invisible value={%if current_number != "ERROR"%}{{ current_number + 1 }}{%endif%} />
+            <input type=number name=current_number id=plushidden class=invisible
+                value={%if current_number != "ERROR"%}{{ current_number + 1 }}{%endif%} />
             <input type=submit id=plus class=button value=+>
         </form>
         <form id=minusform action="/barrelracing/current_number_update" method="POST">
-            <input type=number name=current_number id=minushidden class=invisible value={%if current_number != "ERROR"%}{{ current_number - 1 }}{%endif%} />
+            <input type=number name=current_number id=minushidden class=invisible
+                value={%if current_number != "ERROR"%}{{ current_number - 1 }}{%endif%} />
             <input type=submit id=minus class=button value=->
         </form>
     </div>
-    <script src="/static/barrel_racing/barrel_racing.js"></script>
 </body>
 
 </html>
