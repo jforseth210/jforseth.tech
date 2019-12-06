@@ -13,6 +13,7 @@
     href="https://fonts.googleapis.com/css?family=Baskervville|Calistoga|Gupter|Merriweather|Playfair+Display|Roboto+Condensed|Roboto+Mono|Roboto+Slab|Source+Sans+Pro&display=swap"
     rel="stylesheet">
 
+  <link rel='stylesheet' href='/static/index.css' type='text/css' />
   <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
   <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
@@ -20,6 +21,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
   <meta content="text/html; charset=UTF-8" http-equiv="content-type">
   <style>
+    html{
+      background-color: #ffffff !important;
+    }
     .switch {
       position: relative;
       display: inline-block;
@@ -74,6 +78,15 @@
 </head>
 
 <body>
+  <!--Offline alert-->
+    <div id=offlineAlert class="j4talert warning" style="display: none;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Whoops! You're offline. Connect to the internet to make sure your changes get saved. (Or copy-paste it somewhere safe.)
+    </div>
+    <div id=onlineAlert class="j4talert success" style="display: none;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        Back online! Make sure you save your changes. 
+    </div>
   <p>Autosave:</p>
   <label class="switch">
     <input type="checkbox" id="autoSave" onclick="autoSaveToggle();" checked >
@@ -84,6 +97,15 @@
     <textarea id="summernote" name="editordata"></textarea>
   </form>
   <script>
+    function updateOnlineStatus(event){
+      if(navigator.onLine){
+        document.getElementById("onlineAlert").style.display="block";
+      } else {
+        document.getElementById("offlineAlert").style.display="block";
+      }
+    }
+    window.addEventListener('online',  updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
     function autoSaveToggle(){
       if (document.getElementById("autoSave").checked){
         document.getElementById("saveBtn").style.display="none";

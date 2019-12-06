@@ -374,7 +374,7 @@ ul.messagelist {
 
 /*Alerts from https://www.w3schools.com/howto/howto_js_alert.asp*/
  /* The alert message box */
- .alert {
+ .j4talert {
 	padding: 20px;
 	background-color: #f44336; /* Red */
 	color: white;
@@ -403,13 +403,13 @@ ul.messagelist {
   .closebtn:hover {
 	color: black;
   } 
-.alert.success {background-color: #4CAF50;}
-.alert.info {background-color: #2196F3;}
-.alert.warning {background-color: #ff9800;}
+.j4talert.success {background-color: #4CAF50;}
+.j4talert.info {background-color: #2196F3;}
+.j4talert.warning {background-color: #ff9800;}
 /*For simplelogin*/
-.alert.primary{background-color: #4CAF50;}
-.alert.danger{background-color: #ff9800;}
-.alert {
+.j4talert.primary{background-color: #4CAF50;}
+.j4talert.danger{background-color: #ff9800;}
+.j4talert {
 	opacity: 1;
 	transition: opacity 0.6s;
 	/* 600ms to fade out */
