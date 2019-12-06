@@ -7,7 +7,13 @@
     overflow:auto;
     padding:3px;
 }
-
+.video_thumbnail{
+    float:left;
+    width:33%;
+}
+.main_video_title{
+    margin-top:-10px;
+}
 /* Both */
 @media screen and (max-width: 712px) {
     /* Individual video*/
