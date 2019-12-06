@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}Prayer Requests{% endblock %}
+{% block head %}
+<link rel='stylesheet' href='/static/prayer/prayer.css' type='text/css' />
+{% endblock%}
 {% block headingimage %}
 <img onload='loaded()'
-    src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Cross_in_sunset.jpg/320px-Cross_in_sunset.jpg'
+    src='/static/prayer/cross.jpg'
     id='cross' />
 {% endblock %}
 {% block heading %}
