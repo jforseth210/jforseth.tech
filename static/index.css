@@ -1,3 +1,8 @@
+/*BTW, this file is:
+	70% W3Schools
+	20% Stackoverflow
+	10% Entering things until it work
+*/
 /*The entire page*/
 :root {
 	--main-bg-color: #0f2f4f;
@@ -6,7 +11,6 @@
   --hover-color: #1f3f5f;
   --main-font: 'Sorts Mill Goudy', serif;
 }
-
 html {
 	background: var(--main-bg-color);
 	color: var(--main-txt-color);
@@ -48,7 +52,6 @@ a {
 .account:hover .account-content {
 	display: block;
 }
-
 .account-content a,ul {
 	color: var(--main-txt-color);
 	padding: 12px 16px;
@@ -68,7 +71,6 @@ a {
 }
 
 /*All form inputs. Mostly*/
-
 .inputs {
 	border: none;
 	background: transparent;
@@ -78,29 +80,15 @@ a {
 	font: 12pt;
 }
 
-
-
-
-
-
 /*The footer*/
-
 footer {
 	width: 100%;
 	float: left;
 }
 
-
-/*The refresh button for the quotes*/
-
-#refresh {
-	float: right;
-	padding-right: 10px
-}
-
-
-/*The submit buttons*/
-
+/*The submit buttons
+  Used by prayer, file_sharing, todo
+*/
 #submit {
 	border-radius: 20px;
 	border: 1px solid var(--main-txt-color);
@@ -108,7 +96,7 @@ footer {
 	color: var(--main-txt-color);
 }
 
-
+/*Navigation bar*/
 ul.topnav {
 	list-style-type: none;
 	margin: -10px;
@@ -116,11 +104,9 @@ ul.topnav {
 	overflow: hidden;
 	background-color: var(--main-element-color);
 }
-
 ul.topnav li {
 	float: left;
 }
-
 ul.topnav li a {
 	display: block;
 	color: var(--main-txt-color);
@@ -128,14 +114,14 @@ ul.topnav li a {
 	padding: 15px 16px;
 	text-decoration: none;
 }
-
 ul.topnav li a:hover:not(.active) {
 	background-color: var(--hover-color);
 }
-
 ul.topnav li a.active {
 	background-color: var(--main-element-color);
 }
+
+/*Mobile hamburger menu*/
 .expandicon img{
 	height:40px;
 }
@@ -145,15 +131,17 @@ a.expandicon{
 .expandicon img{
 	display:none;
 }
+
+/*Show hamburger on mobile, navbar on desktop*/
 @media screen and (min-width: 712px) {
 	ul.topnav li.right {
 		float: right;
 	}
 	#myLinks{
-		display:block !important;
+		display:block;
 	}
 	.expandicon{
-		display:none !important;
+		display:none;
 	}
 }
 @media screen and (max-width: 712px) {
@@ -174,30 +162,8 @@ a.expandicon{
 	}
 }
 
-
-/* Dropdown Button: Currently unused*/
-.dropbtn {
-	text-decoration: none;
-	padding: 0;
-	width: 100%;
-	background: var(--main-element-color);
-	color: var(--main-txt-color);
-	float: left;
-	text-align: center;
-	height: 75px;
-	border: none;
-}
-
-
-/* Dropdown button on hover & focus */
-.dropbtn:hover,
-.dropbtn:focus {
-	background: var(--hover-color);
-}
-
-
-/* The container <div> - needed to position the dropdown content */
-
+/*Probably W3Schools*/
+/*The container <div> - needed to position the dropdown content.*/
 .dropdown {
 	position: relative;
 	display: inline-block;
@@ -205,9 +171,7 @@ a.expandicon{
 	white-space: nowrap;
 }
 
-
 /* Dropdown Content (Hidden by Default) */
-
 .dropdown-content {
 	display: none;
 	position: absolute;
@@ -218,7 +182,6 @@ a.expandicon{
 	z-index: 1;
 	text-align: center;
 }
-
 .dropdown-content a {
 	background-color: var(--main-element-color);
 	color: white;
@@ -227,85 +190,18 @@ a.expandicon{
 	margin: 3px;
 }
 
-
 /* Links inside the dropdown */
-
 .dropdown-content :hover {
 	background-color: var(--hover-color);
 }
 
-
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-
 .show {
 	display: block;
 }
 
-
-/*Bunch of junk from messages that I have to make work*/
-
-ul.messagelist {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-
-#text {
-	border: none;
-	outline: none;
-}
-
-#form1.send {
-	border: 1px solid var(--main-txt-color);
-	border-radius: 15px;
-	padding: 1px 10px;
-	width: 210px;
-	height: 23px;
-	background:transparent;
-}
-
-.message {
-	display: inline-block;
-	border-radius: 15px;
-	padding: 7px;
-	margin: 3px 0px;
-	width: auto;
-	background: var(--main-element-color);
-  color: var(--main-txt-color);
-  font-family: var(--main-font);
-}
-
-#message-submit {
-	border-radius: 10px;
-	color: var(--main-txt-color);
-	font-weight: bold;
-	border: none;
-	outline: none;
-  background: var(--main-bg-color);
-}
-
-#clear {
-	font-weight: bold;
-	border-radius: 10px;
-	border: 1px solid var(--main-txt-color);
-	background: var(--main-element-color);
-	color: var(--main-txt-color)
-}
-
-#text {
-	border: none;
-	outline: none;
-  background: transparent;
-  color:var(--main-txt-color);
-  font-family: var(--main-font);
-}
-
-
-
-/*Alerts from https://www.w3schools.com/howto/howto_js_alert.asp*/
- /* The alert message box */
- .j4talert {
+/* The alert message box */
+.alert {
 	padding: 20px;
 	background-color: #f44336; /* Red */
 	color: white;
@@ -316,10 +212,18 @@ ul.messagelist {
 	margin-top: 20;
 	left: 50%;
 	z-index:8;
-  }
-  
-  /* The close button */
-  .closebtn {
+	opacity: 1;
+	transition: opacity 0.6s;
+	 /* 600ms to fade out */
+}
+.alert.success {background-color: #4CAF50;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+/*For simplelogin*/
+.alert.primary{background-color: #4CAF50;}
+.alert.danger{background-color: #ff9800;}
+/*Little X btn*/
+.closebtn {
 	margin-left: 15px;
 	color: white;
 	font-weight: bold;
@@ -328,26 +232,12 @@ ul.messagelist {
 	line-height: 20px;
 	cursor: pointer;
 	transition: 0.3s;
-  }
-  
-  /* When moving the mouse over the close button */
-  .closebtn:hover {
-	color: black;
-  } 
-.j4talert.success {background-color: #4CAF50;}
-.j4talert.info {background-color: #2196F3;}
-.j4talert.warning {background-color: #ff9800;}
-/*For simplelogin*/
-.j4talert.primary{background-color: #4CAF50;}
-.j4talert.danger{background-color: #ff9800;}
-.j4talert {
-	opacity: 1;
-	transition: opacity 0.6s;
-	/* 600ms to fade out */
 }
+.closebtn:hover {
+	color: black;
+} 
 
-/* Shamelessly copied from a different w3schools page */
-/* The Modal (background) */
+/* W3Schools modal (messenger popup)*/
 .modal {
 	display: none;
 	/* Hidden by default */
@@ -369,10 +259,7 @@ ul.messagelist {
 	/* Fallback color */
 	background-color: rgba(0, 0, 0, 0.4);
 	/* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
+}.modal-content {
 	background-color:var(--main-bg-color);
 	margin: auto;
 	padding: 5px;
@@ -384,15 +271,12 @@ ul.messagelist {
 
 	
 }
-
-/* The Close Button */
 .close {
 	color: var(--main-text-color);
 	float: right;
 	font-size: 26px;
 	font-weight: bold;
 }
-
 .close:hover,
 .close:focus {
 	color: var(--main-hovercolor);
@@ -400,14 +284,12 @@ ul.messagelist {
 	cursor: pointer;
 }
 
-/* End w3schools */
-/*This is from W3Schools. I'm trying (and failing) to understand how it works.*/
+/*Grid for videos, welcome, and writer. (Also W3Schools)*/
 .column {
     float: left;
     width: 32%;
 	margin: 5px;
 }
-
 .row:after {
     content: "";
     display: table;
