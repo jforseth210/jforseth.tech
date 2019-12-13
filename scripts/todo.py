@@ -6,16 +6,16 @@ from flask_simplelogin import login_required
 todo = Blueprint('todo', __name__)  # Main page
 
 def get_todos():
-    try:
-        with open('text/todo.csv', 'r') as file:
-            todos = file.readlines()
-            todos = [i.replace('COMMA', ',') for i in todos]
-            todos = [i.replace('\n','') for i in todos]
-            todos = [i.split(',') for i in todos]
-    except FileNotFoundError:
-        with open('text/todo.csv', 'w') as file:
-            file.write("")
-            get_todos()
+    #try:
+    with open('text/todo.csv', 'r') as file:
+        todos = file.readlines()
+        todos = [i.replace('COMMA', ',') for i in todos]
+        todos = [i.replace('\n','') for i in todos]
+        todos = [i.split(',') for i in todos]
+    #except FileNotFoundError:
+    #    with open('text/todo.csv', 'w') as file:
+    #        file.write("")
+    #        get_todos()
     return todos
 
 def get_lists():
@@ -65,7 +65,7 @@ def reorder_todo(item_to_reorder, position_to_move):
 @login_required(must=have_access_to_todo)
 def todo_page():
     todos = get_todos()
-    
+
     todos.reverse()
     lists=get_lists()
     return render_template('todo/todo2.html', result=todos, lists=lists)
