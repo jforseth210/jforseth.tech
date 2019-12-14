@@ -2,7 +2,6 @@ AP\ Create\ Task/
 
 .goutputsream-*
 static/*.mp4
-static/writer_thumbs
 SensitiveData.py
 database.db
 uploads/
@@ -11,7 +10,7 @@ text/barrel_racing_current_number.txt
 text/videos.txt
 text/todo.csv
 text/writerdocs
-static/writer_thumbs
+static/writer/thumbs
 \#webtool.py\#
 text/writer_file_order.txt
 # Byte-compiled / optimized / DLL files
