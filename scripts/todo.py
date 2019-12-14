@@ -68,7 +68,7 @@ def todo_page():
 
     todos.reverse()
     lists=get_lists()
-    return render_template('todo/todo2.html', result=todos, lists=lists)
+    return render_template('todo/todo.html', result=todos, lists=lists)
 
 #Since I escape the device input, I have to escape the list it's 
 #being compared to.
