@@ -60,3 +60,6 @@ html.summernote{
 #saveBtn{
   float: right;
 }
+#documentIdentifier{
+  display: none;
+}
