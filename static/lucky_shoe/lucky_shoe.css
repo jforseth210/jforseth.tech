@@ -228,3 +228,7 @@
         width: 45%;
       }
     }
+
+    #formtemplates{
+      display: none;
+    }

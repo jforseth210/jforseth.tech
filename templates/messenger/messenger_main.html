@@ -3,56 +3,31 @@
 
 <head>
     <title>Messages</title>
-    <base href="../"/>
+    <base href="../" />
+    <link rel='stylesheet' href='/static/messenger/messenger.css' type='text/css' />
     <link rel='stylesheet' href='/static/index.css' type='text/css' />
+    <script src="/static/messenger/messenger.js"></script>
     <meta name='viewport' content='width=device-width initial-scale=1.0' />
 </head>
 
 <body onload="form1.reset();">
-
+    <!--messenger_main-->
     <h1 class='no-pad'>Messages</h1>
     <form action="/messenger/clear" method="POST">
         <p><input id='clear' type="submit" value="Clear" /></p>
     </form>
     <ul id=messagelist class="messagelist">
-            {% for value in result %}
-                <li class='message'> {{ value }} </li><br/>
-            {% endfor %}
+        {% for value in result %}
+        <li class='message'> {{ value }} </li><br />
+        {% endfor %}
     </ul>
     <!--<div id=messageListParent>
 
-    </div>-->
+                </div>-->
     <form class='send' id='form1' action="/messenger/result" method="POST">
-<input id='text' autocomplete='off' type="text" name="Data" /><input class='no=pad' id='message-submit'
-                type="submit" value="Send" />
+        <input id='text' autocomplete='off' type="text" name="Data" /><input class='no=pad' id='message-submit'
+            type="submit" value="Send" />
     </form>
-    <script>
-                 //I stole, ahem, borrowed this from https://stackoverflow.com/questions/12232304/how-to-implement-server-push-in-flask-framework
-               var eventSource = new EventSource("/message/stream")
-               eventSource.onmessage = function (e) {
-                       //document.getElementById("messageListParent").appendChild(appendToList(e.data));
-                       appendToList(e.data);
-               };
-               //Based on https://stackoverflow.com/questions/11128700/create-a-ul-and-fill-it-based-on-a-passed-array
-               function appendToList(message) {
-                   /*var list = document.createElement('ul');
-                   for (var i = 0; i < messages.length; i++) {
-                       var message = document.createElement('li');
-                       message.classList.add("message");
-                       message.appendChild(document.createTextNode(messages[i]));
-       
-                       list.appendChild(message);
-                   }
-                   return list;*/
-                   var messageList=document.getElementById("messagelist");
-                   var messageObject=document.createElement('li');
-                   var lineBreak=document.createElement('li');
-                   messageObject.classList.add("message");
-                   messageObject.appendChild(document.createTextNode(message));
-                   messageList.appendChild(messageObject);
-                   messageList.appendChild(lineBreak);
-               }
-    </script>
 </body>
 
 </html>

@@ -1,0 +1,27 @@
+#answered {
+    text-align: center;
+
+}
+
+#tasks {
+    text-align: center;
+    font-size: 22px !important;
+}
+
+.task :hover {
+    text-decoration: line-through !important;
+}
+
+.todo_main_input {
+    width: 400px !important;
+    font-size: 26px;
+}
+
+.deleteform {
+    display: none;
+}
+
+#taskid {
+    width: 50px;
+    padding: 10px
+}

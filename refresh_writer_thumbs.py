@@ -1,7 +1,7 @@
 import imgkit
 import os
 WRITER_PATH="text/writerdocs"
-THUMB_PATH="static/writer_thumbs"
+THUMB_PATH="static/writer/thumbs"
 options={
     'height':'300',
     'width':'500',

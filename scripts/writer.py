@@ -33,7 +33,7 @@ def writer_home():
 
 @writer.route('/writer/thumb/<name>')
 def writer_thumb(name):
-    return send_file('static/writer_thumbs/{}.html_thumb.png'.format(name))
+    return send_file('static/writer/thumbs/{}.html_thumb.png'.format(name))
 
 @writer.route('/writer/<name>')
 @login_required(must=have_access_to_writer)

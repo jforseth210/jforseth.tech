@@ -1,44 +1,24 @@
 {% extends 'base.html' %}
 {% block title %}Justin's Todo List{% endblock %}
+{% block head %}
+<link rel='stylesheet' href='/static/todo/todo.css' type='text/css' />
+<script src="/static/todo/todo.js"></script>
+<!--Jinja stuff. Will almost certainly cause headaches in the future.-->
+<script>
+    todos = [
+                {% for todo, tasklist in result %}
+                    ["{{todo}}", "{{tasklist}}"],
+                {% endfor %}
+            ];
+</script>
+{% endblock %}
 {% block heading %}
 Justin's Todo List
-{% endblock %}
-{% block head %}
-<style>
-    #taskid {
-        width: 50px;
-        padding: 10px
-    }
-</style>
 {% endblock %}
 {% block content %}
 <br />
 <br />
 <div>
-    <style>
-        #answered {
-            text-align: center;
-
-        }
-
-        #tasks {
-            text-align: center;
-            font-size: 22px !important;
-        }
-
-        .task :hover {
-            text-decoration: line-through !important;
-        }
-
-        .todo_main_input {
-            width: 400px !important;
-            font-size: 26px;
-        }
-
-        .deleteform {
-            display: none;
-        }
-    </style>
     <div id='answered'>
 
         <select onchange="chooselist()" id=listdropdown class="inputs dropdown">
@@ -48,15 +28,16 @@ Justin's Todo List
             {%endfor%}
         </select>
         <form id='form1' action="todo/submitted" method="POST">
-            <input class='inputs todo_main_input' type='name' name='taskname' id='name' placeholder='Task' required autofocus />
-	    <input id=newTaskCurrentList type=text name='list' hidden />
-            <input type='submit' value='Add' id=submitbtn />
+            <input class='inputs todo_main_input' type='name' name='taskname' id='name' placeholder='Task' required
+                autofocus />
+            <input id=newTaskCurrentList type=text name='list' hidden />
+            <input type='submit' value='Add' id=submit />
     </div>
     </form>
 </div>
 <br />
 <div id="tasks">
-    <ol class='answers' id='answers' onload="populatetasks();">
+    <ol class='answers' id='answers'>
         <!--{% for value in result %}
         <div class=task>
             <li onclick="deleteTask({{loop.index}});">
@@ -69,7 +50,7 @@ Justin's Todo List
 <form class=deleteform id=deleteform action="todo/delete" method='POST'>
     <p>Task to delete:</p>
     <input type='number' class=inputs id='deletetaskid' name='taskid' />
-    <input type='submit' id=submitbtn value='Delete' />
+    <input type='submit' id=submit value='Delete' />
 </form>
 <br />
 <form action="todo/reorder" method="POST">
@@ -77,44 +58,5 @@ Justin's Todo List
     <br />
     <p>Position to move task:</p><input class=inputs type='number' name='taskloc' id='taskid' />
     <br />
-    <input type='submit' value='Move' id=submitbtn /></div>
-    <script>
-        function deleteTask(idx) {
-            document.getElementById('deletetaskid').value = idx;
-            dropdown = document.getElementById("listdropdown");
-        }
-        function chooselist() {
-            dropdown = document.getElementById("listdropdown");
-            selection = dropdown[dropdown.selectedIndex].value;
-            populatetasks(selection);
-        }
-        function populatetasks(selectedlist="All") {
-            document.getElementById("newTaskCurrentList").value=selectedlist;
-            var taskgrandparent = document.getElementById("answers");
-            taskgrandparent.innerHTML='';
-            taskgrandparent.addEventListener("click",function(e){
-                var tgt=e.target;
-                deleteTask(parseInt(tgt.id, 10)+1);
-            })
-            todos = [
-                {% for todo, tasklist in result %}
-                    ["{{todo}}", "{{tasklist}}"],
-                {% endfor %}
-                ];
-            for (i = 0; i < todos.length; i++) {
-                if (selectedlist=="All" | selectedlist==todos[i][1]){
-                    var taskparent=document.createElement('div');
-                    var task=document.createElement("li");
-                    taskparent.className="task";
-                    task.appendChild(document.createTextNode(todos[i][0]));
-                    task.id=i;
-                    //task.addEventListener("click",function(){deleteTask(i);});
-                    taskparent.appendChild(task);
-                    taskgrandparent.appendChild(taskparent);
-                };
-            }; 
-        };
-        populatetasks();
-    </script>
-    <!--<iframe src="https://ticktick.com" style="border:0px #ffffff none; float:right;" name="ticktick" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="400px" width="600px" allowfullscreen></iframe>-->
+    <input type='submit' value='Move' id=submit /></div>
     {% endblock %}
