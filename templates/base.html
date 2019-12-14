@@ -11,10 +11,9 @@
 
     <meta name='viewport' content='width=device-width initial-scale=1.0' />
     <link rel='stylesheet' href='/static/index.css' type='text/css' />
-    <script src="/static/base.js"></script>
     <link rel="icon" href="static/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon" />
-
+    
     <!--Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy&display=swap" rel="stylesheet">
     <!--End Google fonts-->
@@ -22,7 +21,7 @@
     {% block head %}{% endblock %}
 </head>
 
-<body onload="main()">
+<body>
     <!--Alerts from https://www.w3schools.com/howto/howto_js_alert.asp-->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -55,7 +54,7 @@
     <nav>
         <ul class="topnav" id="list-nav">
             <li>
-                <a href="javascript:void(0);" class="expandicon" onclick="toggleMobileMenu()">
+                <a href="javascript:void(0);" class="expandicon" id="expandicon" onclick="toggleMobileMenu()">
                     <img src=/static/hamburger.png/>
                 </a>
             </li>
@@ -72,7 +71,7 @@
                 <li><a href="/writer">Writer</a></li>
                 {% endif %}
                 <li><a href='/filesharing'>File Sharing</a></li>
-		<li><a href='http://jforseth.tech:8011'>CowCams</a></li>
+                <li><a href='http://jforseth.tech:8011'>CowCams</a></li>
                 <li class='right'><a href="mailto:support@jforseth.tech">Contact</a></li>
             </div>
         </ul>
@@ -87,6 +86,7 @@
             <iframe frameborder='no' src='/messenger' scrolling='yes' height='100%' width='100%'></iframe>
         </div>
     </div>
+    <script src="/static/base.js"></script>
 </body>
 
 </html>
