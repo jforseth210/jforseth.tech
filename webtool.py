@@ -23,8 +23,6 @@ from scripts.file_sharing import *
 # Create the website
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
-if platform.node()=="backup-server-vm":
-    flash("The main jforseth.tech server is currently experiencing issues. A backup version of the site is currently running. This version is updated less frequently. Please contact support if you experience issues.")
 
 messages = {
     'login_success': 'Login Successfull',

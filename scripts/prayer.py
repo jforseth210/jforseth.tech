@@ -1,6 +1,7 @@
+import platform
+import random
 from flask import *
 import sqlite3
-import random
 from simple_mail import send_email
 from SensitiveData import *
 import pprint  # Useful for debug.
@@ -92,7 +93,9 @@ def get_emails_from_parish(parish):
 # The main page
 @prayer.route('/prayer')
 def prayer_page():
-    return render_template('prayer/prayer.html', options=PARISH_DICTIONARY.values())
+     if platform.node()=="backup-server-vm":
+         flash("The jforseth.tech main server is experiencing issues. Emails may fail to send and new accounts may not be saved.")
+     return render_template('prayer/prayer.html', options=PARISH_DICTIONARY.values())
 
 @prayer.route('/FlaskApp/prayer')
 def old_prayer_page():

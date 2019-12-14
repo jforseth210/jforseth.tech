@@ -1,3 +1,4 @@
+import platform
 from flask import *
 from account_management import get_account
 from flask_simplelogin import get_username
@@ -6,6 +7,8 @@ welcome = Blueprint('welcome', __name__)
 
 @welcome.route('/')
 def welcome_page():
+    if platform.node()=="backup-server-vm":
+         flash("The main jforseth.tech server is currently experiencing issues. Some functionality may not be available.")
     return render_template("welcome/welcome.html")
 
 

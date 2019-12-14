@@ -2,6 +2,7 @@ from flask import *
 import os 
 import io
 import time
+import platform
 import os.path
 from werkzeug.utils import secure_filename
 from account_management import have_access_to_writer
@@ -14,6 +15,8 @@ WRITER_PATH="text/writerdocs"
 @writer.route('/writer')
 @login_required(must=have_access_to_writer)
 def writer_home():
+    if platform.node()=="backup-server-vm":
+         flash("The main jforseth.tech server is currently experiencing issues. Your changes may not be saved when the main server comes back online.")
     files=[]
     listdir_files = os.listdir(WRITER_PATH)
     with open("text/writer_file_order.txt", "r") as file:
