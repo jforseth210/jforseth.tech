@@ -20,21 +20,19 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
-    
-    <script src="/static/writer/writer.js"></script>
-  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-</head>
-
-<body>
+    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+  </head>
+  
+  <body>
   <!--Offline alert-->
-    <div id=offlineAlert class="alert warning">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        Whoops! You're offline. Connect to the internet to make sure your changes get saved. (Or copy-paste it somewhere safe.)
-    </div>
-    <div id=onlineAlert class="alert success">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        Back online! Make sure you save your changes. 
-    </div>
+  <div id=offlineAlert class="alert warning">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    Whoops! You're offline. Connect to the internet to make sure your changes get saved. (Or copy-paste it somewhere safe.)
+  </div>
+  <div id=onlineAlert class="alert success">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    Back online! Make sure you save your changes. 
+  </div>
   
   <a href="/writer">Home</a>
   <p>Autosave:</p>
@@ -46,6 +44,7 @@
   <form id=form method="post" action="/writer/save/{{name}}">
     <textarea id="summernote" name="editordata"></textarea>
   </form>
+<script src="/static/writer/writer.js"></script>
 </body>
 
 </html>
