@@ -25,7 +25,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
 
 messages = {
-    'login_success': 'Login Successfull',
+    'login_success': 'Login Successful',
     'login_failure': 'Invalid username or password',
     'is_logged_in': 'You\'re already logged in!',
     'logout': 'Logout Successful',
