@@ -94,6 +94,7 @@ footer {
 	border: 1px solid var(--main-txt-color);
 	background: var(--main-element-color);
 	color: var(--main-txt-color);
+	padding: 8px 10px;
 }
 
 /*Navigation bar*/
