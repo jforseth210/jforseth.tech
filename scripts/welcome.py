@@ -1,7 +1,8 @@
 import platform
 from flask import *
-from account_management import get_account
+from account_management import get_account, update_pw
 from flask_simplelogin import get_username
+from werkzeug.security import generate_password_hash, check_password_hash
 welcome = Blueprint('welcome', __name__)
 
 
@@ -37,3 +38,18 @@ def account(account):
         account.pop("hashed_password")
         return render_template('welcome/account.html',account=account)
     return render_template("errors/403.html"), 403
+
+@welcome.route('/changepw', methods=["GET","POST"])
+def change_password():
+    old_password=request.form.get("old_password")
+    new_password=request.form.get("new_password")
+    current_username=get_username()
+    current_account=get_account(current_username)
+    if check_password_hash(current_account.get("hashed_password"), old_password):
+        new_hashed_password=generate_password_hash(new_password)
+        update_pw(current_username, new_hashed_password)
+        flash("Success!", category="success")
+    else:
+        flash("Old password incorrect.", category="warning")
+    return redirect("/account/{}".format(current_username))
+    

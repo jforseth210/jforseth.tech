@@ -39,7 +39,17 @@ def get_current_access(username):
     user_data = get_account(username)
     return user_data["have_access_to"].split(',')
 
-
+def update_pw(current_username, new_hashed_password):
+    conn = sqlite3.connect('database.db')
+    cur = conn.cursor()
+    with conn:
+        cur.execute("""
+            UPDATE accounts
+            SET hashed_password=:new_hashed_password
+            WHERE username=:current_username""",
+        
+            {'new_hashed_password':new_hashed_password,
+            'current_username':current_username})
 # Checks if user has access to a specific area.
 # Used by @login_required decorator.
 def have_access_to_writer(username):
