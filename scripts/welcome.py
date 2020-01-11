@@ -53,3 +53,8 @@ def change_password():
         flash("Old password incorrect.", category="warning")
     return redirect("/account/{}".format(current_username))
     
+
+#Random redirects
+@welcome.route("/italypics")
+def italypics():
+    return redirect("https://photos.app.goo.gl/ouxubTRRHkEVnpbr5")
