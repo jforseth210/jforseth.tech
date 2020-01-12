@@ -55,6 +55,7 @@ def save(name):
     with io.open("text/writerdocs/{}.html".format(name), "w", encoding="utf-8") as file:
         document=file.write(data)
     return redirect('/writer/{}'.format(name))
+
 def get_document(name):
     name=secure_filename(name)
     try:
@@ -87,6 +88,7 @@ def document_api(name):
     request_id=request.args.get("id")
     if request_id==ANDROID_ID:
         requested_document=get_document(name)
+        print(requested_document)
         return requested_document
     else:
         print(ANDROID_ID,request_id)
