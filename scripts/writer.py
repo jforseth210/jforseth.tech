@@ -5,6 +5,7 @@ import time
 import platform
 import os.path
 from werkzeug.utils import secure_filename
+from SensitiveData import ANDROID_ID
 from account_management import have_access_to_writer
 from flask_simplelogin import login_required
 import refresh_writer_thumbs
@@ -76,3 +77,12 @@ def document(name):
     with io.open("text/writer_file_order.txt", "w") as file:
         file.writelines(files)
     return Markup(document)
+
+@writer.route("/writer/api/document/<name>")
+def document_api(name):
+    request_id=request.args.get(id)
+    if requst_id==ANDROID_ID:
+        requested_document=document(name)
+        return requested_document
+    else:
+        return "Invalid id."
