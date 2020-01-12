@@ -88,7 +88,6 @@ def document_api(name):
     request_id=request.args.get("id")
     if request_id==ANDROID_ID:
         requested_document=get_document(name)
-        print(requested_document)
         return requested_document
     else:
         print(ANDROID_ID,request_id)
