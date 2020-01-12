@@ -81,12 +81,12 @@ def get_document(name):
 def document_noapi(name):
     document=get_document(name)
     return document
-    
+
 @writer.route("/writer/api/document/<name>")
 def document_api(name):
     request_id=request.args.get("id")
     if request_id==ANDROID_ID:
-        requested_document=document(name)
+        requested_document=get_document(name)
         return requested_document
     else:
         print(ANDROID_ID,request_id)
