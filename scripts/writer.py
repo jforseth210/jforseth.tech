@@ -55,9 +55,7 @@ def save(name):
     with io.open("text/writerdocs/{}.html".format(name), "w", encoding="utf-8") as file:
         document=file.write(data)
     return redirect('/writer/{}'.format(name))
-@writer.route('/writer/document/<name>')
-@login_required(must=have_access_to_writer)
-def document(name):
+def get_document(name):
     name=secure_filename(name)
     try:
         with io.open("text/writerdocs/{}.html".format(name), "r", encoding="utf-8") as file:
@@ -78,6 +76,12 @@ def document(name):
         file.writelines(files)
     return Markup(document)
 
+@writer.route('/writer/document/<name>')
+@login_required(must=have_access_to_writer)
+def document_noapi(name):
+    document=get_document(name)
+    return document
+    
 @writer.route("/writer/api/document/<name>")
 def document_api(name):
     request_id=request.args.get("id")
