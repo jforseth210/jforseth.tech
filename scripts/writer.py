@@ -80,7 +80,7 @@ def document(name):
 
 @writer.route("/writer/api/document/<name>")
 def document_api(name):
-    request_id=request.args.get(id)
+    request_id=request.args.get("id")
     if request_id==ANDROID_ID:
         requested_document=document(name)
         return requested_document
