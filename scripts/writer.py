@@ -85,4 +85,5 @@ def document_api(name):
         requested_document=document(name)
         return requested_document
     else:
+        print(ANDROID_ID,request_id)
         return "Invalid id."
