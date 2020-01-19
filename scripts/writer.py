@@ -50,21 +50,22 @@ def writer_page(name):
 @writer.route('/writer/save/<name>', methods=["POST"])
 @login_required(must=have_access_to_writer)
 def web_save(name):
-    return save(name)
+    data=request.form.get("editordata")
+    return save(name,data)
 
-@writer.route("/writer/api/save/<name>")
+@writer.route("/writer/api/save/<name>", methods=["POST"])
 def api_save(name):
-    request_id=request.args.get("id")
+    request_id=request.form.get("id")
+    data=request.form.get("editordata")
     if request_id==ANDROID_ID:
-        save(name)
+        save(name,data)
         return ""
     else:
         print(ANDROID_ID,request_id)
         return "Invalid id."
 
-def save(name):
+def save(name,data):
     name=secure_filename(name)
-    data=request.form.get("editordata")
     with io.open("text/writerdocs/{}.html".format(name), "w", encoding="utf-8") as file:
         document=file.write(data)
     return redirect('/writer/{}'.format(name))
