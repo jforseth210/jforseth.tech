@@ -53,7 +53,7 @@ def web_save(name):
     return save(name)
 
 @writer.route("/writer/api/save/<name>")
-def document_api(name):
+def api_save(name):
     request_id=request.args.get("id")
     if request_id==ANDROID_ID:
         save(name)
