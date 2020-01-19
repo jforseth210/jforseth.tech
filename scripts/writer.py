@@ -49,6 +49,18 @@ def writer_page(name):
 
 @writer.route('/writer/save/<name>', methods=["POST"])
 @login_required(must=have_access_to_writer)
+def web_save(name):
+    return save(name)
+
+@writer.route("/writer/api/save/<name>")
+def document_api(name):
+    request_id=request.args.get("id")
+    if request_id==ANDROID_ID:
+        save(name)
+    else:
+        print(ANDROID_ID,request_id)
+        return "Invalid id."
+
 def save(name):
     name=secure_filename(name)
     data=request.form.get("editordata")
