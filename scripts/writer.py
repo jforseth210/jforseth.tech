@@ -66,12 +66,14 @@ def api_save(name):
 
 def save(name,data):
     name=secure_filename(name)
+    name=name.lower()
     with io.open("text/writerdocs/{}.html".format(name), "w", encoding="utf-8") as file:
         document=file.write(data)
     return redirect('/writer/{}'.format(name))
 
 def get_document(name):
     name=secure_filename(name)
+    name=name.lower()
     try:
         with io.open("text/writerdocs/{}.html".format(name), "r", encoding="utf-8") as file:
             document=file.read()
