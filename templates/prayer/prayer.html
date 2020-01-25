@@ -17,8 +17,8 @@ Prayer Requests
 <div class='forms'>
     <h2>Request Prayer:</h2>
     <form id='form1' action="/prayer/prayerrequest" method="POST">
-        <input class='inputs' type='name' name='name' id='name' placeholder='Nickname' required />
-        <select class='inputs parish' form='form1' name='parish' required>
+        <input class='w3-input w3-border w3-round' type='name' name='name' placeholder='Nickname' required />
+        <select class='w3-input w3-border w3-round' form='form1' name='parish' required>
             <option disabled selected>Select</option>
             {% for option in options %}
                 <option>{{ option }}</option>
@@ -33,11 +33,11 @@ Prayer Requests
             <option>LL Small Group 3</option>-->
         </select>
         <br />
-        <textarea id='prequest' class='inputs' form='form1' name='prequest' placeholder="Type your prayer request here"
+        <textarea id='prequest' class='w3-input w3-border w3-round' form='form1' name='prequest' placeholder="Type your prayer request here"
             required></textarea>
         <br />
         <br />
-        <input class='no=pad' id='submit' type="submit" value="Submit" />
+        <input class=w3-button type="submit" value="Submit" />
     </form>
     <br /><br />
     <h2>Recieve Prayer Requests</h2>
