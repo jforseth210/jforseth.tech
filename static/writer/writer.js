@@ -10,10 +10,9 @@ $(document).ready(function () {
     document.getElementById("saveBtn").style.display = "none";
   }
   $('#summernote').summernote({
-    airMode:true,
     fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Baskerville', 'Gupter', 'Roboto Mono', 'Roboto Condensed', 'Source Sans Pro', 'Merriweather', 'Roboto Slab', 'Calistoga', 'Playfair Display'],
     fontNamesIgnoreCheck: ['Baskerville', 'Gupter', 'Roboto Mono', 'Roboto Condensed', 'Source Sans Pro', 'Merriweather', 'Roboto Slab', 'Calistoga', 'Playfair Display'],
-    popover:{air: [
+    toolbar: [
       //['paragraph style', ['style', 'ol', 'ul', 'paragraph', 'height']],
       //['font style', ['fontname', 'fontsize', 'color', 'bold', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
       //['insert', ['picture', 'link', 'video', 'table', 'hr']],
@@ -25,7 +24,7 @@ $(document).ready(function () {
       ['paragraph2', ['paragraph', 'height']],
       ['insert', ['picture', 'link', 'video', 'table', 'hr']],
       ['misc', ['fullscreen', 'codeview', 'help']]
-    ]},
+    ],
     lorem: {
       el: '#summernote', // Element ID or Class used to Initialise Summernote.
       html: true // Place Lorem Ipsum Paragraphs inside <p> or set to false to not too.
