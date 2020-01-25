@@ -1,13 +1,12 @@
 /*The thumbnails for each page.*/
 .thumbnail {
-	width: 100%;
-	border: 2px solid var(--main-txt-color)
+	width: 80%;
+	border: 3px solid var(--main-txt-color) !important;
+	border-radius: 3px;
 }
-
-/*Tableon accounts page*/
-table,td{
-	border: 1px solid wheat;
-}
-table{
-	border-collapse: collapse;
-}
+.col-container {
+	display: flex;
+  }
+.col {
+	flex: 1;
+  }

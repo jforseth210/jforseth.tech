@@ -10,18 +10,22 @@
     <!--End Clicky Web Analytics-->
 
     <meta name='viewport' content='width=device-width initial-scale=1.0' />
-    <link rel='stylesheet' href='/static/index.css' type='text/css' />
+    <!--<link rel='stylesheet' href='/static/index.css' type='text/css' />-->
     <link rel="icon" href="static/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon" />
-    
+
     <!--Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy&display=swap" rel="stylesheet">
     <!--End Google fonts-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {% block head %}{% endblock %}
+    <!--w3css-->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel='stylesheet' href='/static/w3theme.css' type='text/css' />
+    <!--End w3css-->
 </head>
 
-<body>
+<body class="w3-theme-bg w3-theme-txt">
     <!--Alerts from https://www.w3schools.com/howto/howto_js_alert.asp-->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -34,48 +38,46 @@
     {% endif %}
     {% endwith %}
     {% block headingimage %}{% endblock %}
-    <div class="account">
-        {% if is_logged_in()%}
-        <p>Hello, {{ get_username() }}</p>
-        <ul class="account-content">
-            <a href="/account/{{ get_username() }}">Account</a>
-            <a href="/logout">Log Out</a>
-        </ul>
-        {% else %}
-        <p>Account</p>
-        <ul class="account-content">
-            <li><a href="/login">Log In</a></li>
-            <li><a href="/signup">Create Account</a></li>
-        </ul>
-        {% endif %}
+    <div class="w3-dropdown-hover w3-right">
+        <button class=w3-button>{% if is_logged_in()%}Hello, {{ get_username() }}{% else %}Account{% endif %}</button>
+        <div class="w3-center w3-animate-zoom w3-dropdown-content w3-bar-block w3-border" style="right:0">
+            {% if is_logged_in()%}
+            <ul class="w3-ul account-content">
+                <a href="/account/{{ get_username() }}">Account</a>
+                <a href="/logout">Log Out</a>
+            </ul>
+            {% else %}
+            <ul class="w3-ul account-content">
+                <li><a href="/login">Log In</a></li>
+                <li><a href="/signup">Create Account</a></li>
+            </ul>
+            {% endif %}
+        </div>
     </div>
     <h1 class='heading'>{% block heading%}{% endblock %}</h1>
     <!--Don't forget to update menu.html!-->
-    <nav>
-        <ul class="topnav" id="list-nav">
-            <li>
-                <a href="javascript:void(0);" class="expandicon" id="expandicon" onclick="toggleMobileMenu()">
-                    <img src=/static/hamburger.png/>
-                </a>
-            </li>
-            <div id=myLinks>
-                <li><a href="/">Home</a></li>
-                <li><a href="/instructions">Instructions</a></li>
-                <li><a href="/prayer">Prayer Requests</a></li>
-                <li><a href="/videos">Videos</a></li>
-                <li><a class="messenger_popup_trigger">Chat</a></li>
-                <li><a href="/luckyshoe">Horseshoe Art</a></li>
-                {% if check_if_admin() %}
-                <li><a href="/todo">Todo</a></li>
-                <li><a href="/mail">Mail</a></li>
-                <li><a href="/writer">Writer</a></li>
-                <li><a href="http://localhost:5000/">Dev</a></li>
-                <li><a href="https://localhost:8443/">Backup</a></li>
-                {% endif %}
-                <li><a href='/filesharing'>File Sharing</a></li>
-                <li><a href='http://jforseth.tech:8011'>CowCams</a></li>
-                <li class='right'><a href="mailto:support@jforseth.tech">Contact</a></li>
-            </div>
+    <nav class='w3-bar w3-theme-element'>
+        <i class="w3-button fa fa-bars w3-hide-large w3-hide-medium w3-left"
+            onclick="toggleMobileMenu()"></i>
+        <div id=menu class="w3-animate-fade w3-hide-small">
+            <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href="/">Home</a>
+            <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href="/instructions">Instructions</a>
+            <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href="/prayer">Prayer Requests</a>
+            <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href="/videos">Videos</a>
+            <a class="w3-padding-16 w3-bar-item w3-button w3-mobile messenger_popup_trigger">Chat</a>
+            <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href="/luckyshoe">Horseshoe Art</a>
+            {% if check_if_admin() %}
+            <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="/todo">Todo</a>
+            <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="/mail">Mail</a>
+            <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="/writer">Writer</a>
+            <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="http://localhost:5000/">Dev</a>
+            <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="https://localhost:8443/">Backup</a>
+            {% endif %}
+            <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href='/filesharing'>File Sharing</a>
+            <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href='http://jforseth.tech:8011'>CowCams</a>
+            <a class="w3-padding-16 w3-bar-item w3-button w3-mobile w3-right" href="mailto:support@jforseth.tech">Contact</a>
+        </div>
+        </div>
         </ul>
     </nav>
     {% block content %}

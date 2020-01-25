@@ -17,13 +17,13 @@ for (i = 0; i < close.length; i++) {
     setTimeout(function () { div.style.display = "none"; }, 600);
   }
 }
-function toggleMobileMenu() {
-  var x = document.getElementById("myLinks");
-  if (x.style.display === "block") {
-    x.style.display = "none";
-  } else {
-    x.style.display = "block";
-  }
+function toggleMobileMenu(){
+var x = document.getElementById("menu");
+if (x.classList.contains("w3-hide-small")) {
+  x.className = x.className.replace(" w3-hide-small", "");
+} else { 
+  x.className += " w3-hide-small";
+}
 }
 
 // Get the modal

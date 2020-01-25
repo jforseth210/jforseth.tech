@@ -1,0 +1,14 @@
+:root {
+	--main-bg-color: #0f2f4f;
+	--main-txt-color: #AAAAAA;
+	--main-element-color: #0a1f3f;
+  --hover-color: #1f3f5f;
+  --main-font: 'Sorts Mill Goudy', serif;
+}
+.w3-theme-bg{background-color:var(--main-bg-color);}
+.w3-theme-txt{color:var(--main-txt-color);}
+.w3-theme-element{background-color:var(--main-element-color);}
+.w3-theme-hover{background-color: var(--hover-color)}
+html, body, h1, h2, h3, h4, h5, h6{
+  font-family: var(--main-font) !important;
+}
