@@ -22,6 +22,8 @@
     <!--w3css-->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel='stylesheet' href='/static/w3theme.css' type='text/css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
     <!--End w3css-->
 </head>
 
@@ -39,20 +41,20 @@
     {% endwith %}
     {% block headingimage %}{% endblock %}
     <div class="w3-container">
-        <div class="w3-theme-element w3-dropdown-hover w3-right w3-round-xlarge w3-theme-txt">
-            <button class="w3-button w3-round-xlarge w3-theme-element w3-theme-txt">{% if is_logged_in()%}Hello,
+        <div class="w3-round-large w3-theme-element w3-dropdown-hover w3-right">
+            <button class="w3-round-large w3-button w3-theme-element w3-theme-txt">{% if is_logged_in()%}Hello,
                 {{ get_username() }}{% else %}Account{% endif %}</button>
-            <div class="w3-center w3-animate-zoom w3-dropdown-content w3-bar-block w3-border" style="right:0">
+            <div class="w3-dropdown-content w3-bar-block w3-theme-element w3-theme-txt" style="right:0">
                 {% if is_logged_in()%}
-                <ul class="w3-ul account-content">
-                    <a href="/account/{{ get_username() }}">Account</a>
-                    <a href="/logout">Log Out</a>
-                </ul>
+                <div>
+                    <a class="w3-bar-item w3-hoverable w3-button" href="/account/{{ get_username() }}">Account</a>
+                    <a class="w3-bar-item w3-hoverable w3-button" href="/logout">Log Out</a>
+                </div>
                 {% else %}
-                <ul class="w3-ul account-content">
-                    <li><a href="/login">Log In</a></li>
-                    <li><a href="/signup">Create Account</a></li>
-                </ul>
+                <div>
+                    <a class="w3-bar-item w3-hoverable w3-button" href="/login">Log In</a>
+                    <a class="w3-bar-item w3-hoverable w3-button" href="/signup">Create Account</a>
+                </div>
                 {% endif %}
             </div>
         </div>
@@ -72,8 +74,14 @@
             <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="/todo">Todo</a>
             <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="/mail">Mail</a>
             <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="/writer">Writer</a>
-            <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="http://localhost:5000/">Dev</a>
-            <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="https://localhost:8443/">Backup</a>
+            <div class='w3-dropdown-hover'>
+                <button class='w3-button w3-padding-16'>Versions <i class="fa fa-caret-down"></i></button>
+                <div class="w3-dropdown-content w3-bar-block w3-theme-element w3-theme-txt w3-card-4">
+                    <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="http://localhost:5000/">Dev</a>
+                    <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="https://localhost:8443/">Backup</a>
+                    <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="http://jforseth.tech/">Production</a>
+                </div>
+            </div>
             {% endif %}
             <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href='/filesharing'>File Sharing</a>
             <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href='http://jforseth.tech:8011'>CowCams</a>
