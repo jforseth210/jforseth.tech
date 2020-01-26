@@ -20,18 +20,20 @@ def writer_home():
          flash("The main jforseth.tech server is currently experiencing issues. Your changes may not be saved when the main server comes back online.")
     files=[]
     listdir_files = os.listdir(WRITER_PATH)
-    with open("text/writer_file_order.txt", "r") as file:
-        ordered_files = file.readlines()
-    ordered_files=[i.replace("\n",'') for i in ordered_files]
-    if len(ordered_files)==len(listdir_files):
-        files=ordered_files
-    else:
-        additional_files=set(listdir_files).difference(ordered_files)
-        for i in additional_files:
-            files.insert(0,i)
+    #with open("text/writer_file_order.txt", "r") as file:
+    #    ordered_files = file.readlines()
+    #ordered_files=[i.replace("\n",'') for i in ordered_files]
+    #if len(ordered_files)==len(listdir_files):
+    #    files=ordered_files
+    #else:
+    #    additional_files=set(listdir_files).difference(ordered_files)
+    #    for i in additional_files:
+    #        files.insert(0,i)
+    files=listdir_files
     new_files=[]
     for i in files:
         i=i.replace('.html',"")
+        i=i.title()
         new_files.append(i)
     return render_template("writer/writer.html",docs=new_files)
 
