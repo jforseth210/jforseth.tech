@@ -9,12 +9,6 @@
 	}
 }
 
-/*The quote on the right side of the prayer page*/
-#quote {
-    float: right;
-    width: 50%;
-    text-align: center;
-}
 
 /*The refresh button for the quotes*/
 #refresh {

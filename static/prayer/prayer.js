@@ -1,3 +1,6 @@
+window.addEventListener('DOMContentLoaded', (event) => {
+    main();
+});
 function main() {
     var today = new Date().getHours();
     if (today <= 6 || today >= 22) {
@@ -6,7 +9,10 @@ function main() {
     getQuote();
 }
 function getQuote() {
-    console.log("getQuote()")
+    document.getElementById("reloadbtn").classList.toggle("w3-spin")
+    setTimeout(() => {
+        document.getElementById("reloadbtn").classList.toggle("w3-spin")
+    }, 1000);
     var quotes = [
         {
             text: "Ask and you will receive; seek and you will find; knock and the door will be opened to you.",
@@ -47,7 +53,7 @@ function getQuote() {
     var quote = quotes[Math.floor(Math.random() * quotes.length)];
     if (screen.width > 650) {
         document.getElementById("quote").innerHTML =
-            '<h2>"' + quote.text + '"</h2>' +
+            '<h2><i>"' + quote.text + '"</i></h2>' +
             '<cite>' + quote.verse + '</cite>'
             ;
     }
