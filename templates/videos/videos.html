@@ -43,7 +43,7 @@ Videos
             {% if not check_if_admin() %}
             <a href="/videos/video/{{video[0]}}">
                 <h3>{{ video[0]}}</h3>
-                <img src="https://img.youtube.com/vi/{{video[1]}}/mqdefault.jpg" />
+                <img src="https://img.youtube.com/vi/{{video[1]}}/mqdefault.jpg" style="width: 100%;"/>
             </a>
 
 
@@ -60,7 +60,7 @@ Videos
                 <input hidden value="{{ video[1]}}" name=old_youtube_id />
                 <input class="w3-button w3-theme-dark-element w3-round-large" type=submit id=submit value="Update ID" />
             </form>
-            <img src="https://img.youtube.com/vi/{{video[1]}}/mqdefault.jpg" />
+            <img class=wid100 src="https://img.youtube.com/vi/{{video[1]}}/mqdefault.jpg" />
             {% endif %}
 
 
