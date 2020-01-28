@@ -8,11 +8,12 @@ Writer
 {% endblock %}
 {% block content %}
 <br/>
-<div class=row>
+<div class=w3-row>
 {% for i in docs %}
-<div class=column>
-<a href='/writer/{{i}}'>{{i}}<br/><img class=writer_thumb src="static/writer/thumbs/{{i.lower()}}.html_thumb.png" /></a>
-</div>
+<div class=w3-third>
+    <div class='w3-card w3-padding w3-margin w3-theme-element'>
+<a href='/writer/{{i}}'><h3>{{i}}</h3><br/><img class=wid100 src="static/writer/thumbs/{{i.lower()}}.html_thumb.png" /></a>
+</div></div>
 {% endfor %}
 </div>
 {% endblock %}

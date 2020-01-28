@@ -8,7 +8,7 @@
 {% block content %}
 {%if is_logged_in()%}
 <p>This page is still kinda under construction. Here's what we know about you:</p>
-<table>
+<table class='w3-table w3-bordered'>
     {% for key,value in account.items() %}
     <tr>
         <td>{{key}}</td>
@@ -17,14 +17,16 @@
     {%endfor%}
 </table>
 <h3>Change Password</h3>
+<div class=w3-third>
 <form action="/changepw" method="POST">
-	<p>Old Password:</p><input class=inputs type="password" name="old_password"/>
+	<p>Old Password:</p><input class="w3-theme-bg w3-theme-txt w3-input w3-animate-input wid50" type="password" name="old_password"/>
 	<br />
-	<p>New Password:</p><input class=inputs type="password" name="new_password"/>
+	<p>New Password:</p><input class="w3-theme-bg w3-theme-txt w3-input w3-animate-input wid50" type="password" name="new_password"/>
 	<br />
 	<br />
-	<input id=submit type="submit" name="submit" value="Change Password">
+	<input class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" id=submit type="submit" name="submit" value="Change Password">
 </form>
+</div>
 {% else %}
 <p>Please <a href="/login">sign in</a> first.</p>
 {% endif %}
