@@ -24,9 +24,11 @@ Videos
     <li>To move the video use the 'Move Up' and 'Move Down' buttons.</li>
 </ul>
 <form method=post action="videos/newupload" method="POST">
-    <input type=text name=title placeholder='Title' />
-    <input type=text name=youtube_id placeholder="YouTube Link" />
-    <input type=submit name=submit id='submit' value="Upload">
+    <div class=w3-twothird>
+    <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type=text name=title placeholder='Title' />
+    <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type=text name=youtube_id placeholder="YouTube Link" />
+    <input class="w3-button w3-theme-dark-element w3-round-large" type=submit name=submit id='submit' value="Upload">
+    </div>
 </form>
 <br /><br />
 {% else %}
