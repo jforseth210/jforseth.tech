@@ -30,28 +30,3 @@ html, body, h1, h2, h3, h4, h5, h6{
 	transition: opacity 0.6s;
 	 /* 600ms to fade out */
 }
-.alert.success {background-color: #4CAF50;}
-.alert.info {background-color: #2196F3;}
-.alert.warning {background-color: #ff9800;}
-/*For simplelogin*/
-.alert.primary{background-color: #4CAF50;}
-.alert.danger{background-color: #ff9800;}
-/*Little X btn*/
-.closebtn {
-	margin-left: 15px;
-	color: white;
-	font-weight: bold;
-	float: right;
-	font-size: 22px;
-	line-height: 20px;
-	cursor: pointer;
-	transition: 0.3s;
-}
-.closebtn:hover {
-	color: black;
-} 
-
-
-.wid50{
-  width: 50% !important;
-  }
