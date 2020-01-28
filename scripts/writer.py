@@ -32,9 +32,10 @@ def writer_home():
     files=listdir_files
     new_files=[]
     for i in files:
-        i=i.replace('.html',"")
-        i=i.title()
-        new_files.append(i)
+        if i!='oopsie':
+            i=i.replace('.html',"")
+            i=i.title()
+            new_files.append(i)
     return render_template("writer/writer.html",docs=new_files)
 
 @writer.route('/writer/thumb/<name>')
