@@ -8,7 +8,7 @@
 Videos
 {% endblock %}
 {% block content %}
-<br/>
+<br />
 <script src="https://apis.google.com/js/platform.js"></script>
 
 <div class="g-ytsubscribe" data-channelid="UCJm15XU1Uity6plzSyyDDvQ" data-layout="default" data-count="default"></div>
@@ -35,52 +35,64 @@ Videos
     internet connection just aren't up to that. Enjoy!</p>
 {% endif %}
 {% for row in video_master_list %}
-<div class="row">
+<div class="w3-row w3-cell-row">
     {% for video in row %}
-    <div class="column">
+    <div class="w3-third">
+        <div class='w3-card w3-theme-element w3-center w3-margin w3-padding'>
 
-
-        {% if not check_if_admin() %}
+            {% if not check_if_admin() %}
             <a href="/videos/video/{{video[0]}}">
                 <h3>{{ video[0]}}</h3>
+                <img src="https://img.youtube.com/vi/{{video[1]}}/mqdefault.jpg" />
             </a>
 
 
-        {% else %}
+            {% else %}
             <form method=post action="videos/rename" method="POST">
-                <input type=text value="{{ video[0]}}" name=title />
+                <input class="w3-theme-element w3-theme-txt w3-input w3-threequarter" type=text value="{{ video[0]}}"
+                    name=title />
                 <input hidden value="{{ video[1]}}" name=youtube_id />
-                <input type=submit id=submit value="Rename" />
+                <input class="w3-button w3-theme-dark-element w3-round-large" type=submit id=submit value="Rename" />
             </form>
+            <img src="https://img.youtube.com/vi/{{video[1]}}/mqdefault.jpg" />
             <form method=post action="videos/updateid" method="POST">
-                <input type=text value="{{ video[1]}}" name=new_youtube_id />
+                <input class="w3-theme-element w3-theme-txt w3-input w3-threequarter" type=text value="{{ video[1]}}"
+                    name=new_youtube_id />
                 <input hidden value="{{ video[1]}}" name=old_youtube_id />
-                <input type=submit id=submit value="Update ID" />
+                <input class="w3-button w3-theme-dark-element w3-round-large" type=submit id=submit value="Update ID" />
             </form>
-        {% endif %}
+            {% endif %}
 
 
-        {% if check_if_admin() %}
-        <form method=post action="videos/move" method="POST">
-            <input hidden value='{{ video[0] }}|{{ video[1]}}' name='element' />
-            <input hidden value='up' name=direction />
-            <input type=submit id=submit value="Move Up" />
-        </form>
-        <form method=post action="videos/deletion" method="POST">
-            <input hidden value="{{ video[1]}}" name=youtube_id />
-            <input type=submit id=submit value="Delete" />
-        </form>
+            {% if check_if_admin() %}
+            <br />
+            <br />
+            <form id=mvUpmethod method=post action="videos/move" method="POST">
+                <input hidden value='{{ video[0] }}|{{ video[1]}}' name='element' />
+                <input hidden value='up' name=direction />
+            </form>
+            <form id=del method=post action="videos/deletion" method="POST">
+                <input hidden value="{{ video[1]}}" name=youtube_id />
+            </form>
+            <form id=mvDown method=post action="videos/move" method="POST">
+                <input hidden value='{{ video[0] }}|{{ video[1]}}' name='element' />
+                <input hidden value='down' name=direction />
+            </form>
+            <div class="w3-bar">
+                <button class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" type="submit" form=mvUp>Move
+                    Up</button>
+                <button class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" type="submit"
+                    form=del>Delete</button>
+                <button class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" type="submit"
+                    form=mvDown>Move Down</button>
 
-        <form method=post action="videos/move" method="POST">
-            <input hidden value='{{ video[0] }}|{{ video[1]}}' name='element' />
-            <input hidden value='down' name=direction />
-            <input type=submit id=submit value="Move Down" />
-        </form>
-        {% endif %}
+            </div>
+            {% endif %}
 
-        
-        <div class="player-parent">
+
+            <!--<div class="player-parent">
             <div class="youtube-player" data-id="{{video[1]}}"></div>
+        </div>-->
         </div>
     </div>
     {%endfor%}
