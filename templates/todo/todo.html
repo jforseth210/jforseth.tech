@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}Justin's Todo List{% endblock %}
 {% block head %}
-<link rel='stylesheet' href='/static/todo/todo.css' type='text/css' />
+<!--<link rel='stylesheet' href='/static/todo/todo.css' type='text/css' />-->
 <script src="/static/todo/todo.js"></script>
 <!--Jinja stuff. Will almost certainly cause headaches in the future.-->
 <script>
     todos = [
-                {% for todo, tasklist in result %}
-                    ["{{todo}}", "{{tasklist}}"],
-                {% endfor %}
+        {% for todo, tasklist in result %}
+    ["{{todo}}", "{{tasklist}}"],
+        {% endfor %}
             ];
 </script>
 {% endblock %}
@@ -18,45 +18,56 @@ Justin's Todo List
 {% block content %}
 <br />
 <br />
-<div>
-    <div id='answered'>
+<div class=w3-display-container id='answered'>
 
-        <select onchange="chooselist()" id=listdropdown class="inputs dropdown">
+    <div class="w3-display-topmiddle w3-center">
+        <select class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" onchange="chooselist()"
+            id=listdropdown class="inputs dropdown">
             <option selected>All</option>
             {% for i in lists %}
             <option>{{i}}</option>
             {%endfor%}
         </select>
         <form id='form1' action="todo/submitted" method="POST">
-            <input class='inputs todo_main_input' type='name' name='taskname' id='name' placeholder='Task' required
-                autofocus />
+            <input class="w3-theme-bg w3-theme-txt w3-input" type='name' name='taskname' id='name' placeholder='Task'
+                required autofocus />
             <input id=newTaskCurrentList type=text name='list' hidden />
-            <input type='submit' value='Add' id=submit />
+            <input class="w3-round-large w3-button w3-theme-dark-element" type='submit' value='Add' />
+        </form>
     </div>
-    </form>
-</div>
-<br />
-<div id="tasks">
-    <ol class='answers' id='answers'>
-        <!--{% for value in result %}
+
+    <br />
+    <div id="tasks">
+        <ol class='answers' id='answers'>
+            <!--{% for value in result %}
         <div class=task>
             <li onclick="deleteTask({{loop.index}});">
                 {{ value }}
             </li>
         </div>
         {% endfor %}-->
-    </ol>
+        </ol>
+    </div>
+    <div class=w3-quarter>
+        <form class=deleteform id=deleteform action="todo/delete" method='POST'>
+            <p>Task to delete:</p>
+            <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type='number' id='deletetaskid' name='taskid' />
+            <input class="w3-round-large w3-button w3-theme-dark-element" type='submit' value='Delete' />
+        </form>
+        <br /><br /><br />
+        <form action="todo/reorder" method="POST">
+            <p>Task to move:</p>
+            <br />
+            <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type='number' name='taskid'
+                id='taskid' />
+            <br />
+            <br />
+            <p>Position to move task:</p>
+            <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type='number'
+                name='taskloc' id='taskid' />
+            <br />
+            <input class="w3-round-large w3-button w3-theme-dark-element" type='submit' value='Move' />
+        </form>
+    </div c>
 </div>
-<form class=deleteform id=deleteform action="todo/delete" method='POST'>
-    <p>Task to delete:</p>
-    <input type='number' class=inputs id='deletetaskid' name='taskid' />
-    <input type='submit' id=submit value='Delete' />
-</form>
-<br />
-<form action="todo/reorder" method="POST">
-    <p>Task to move:</p><input class=inputs type='number' name='taskid' id='taskid' />
-    <br />
-    <p>Position to move task:</p><input class=inputs type='number' name='taskloc' id='taskid' />
-    <br />
-    <input type='submit' value='Move' id=submit /></div>
-    {% endblock %}
+{% endblock %}
