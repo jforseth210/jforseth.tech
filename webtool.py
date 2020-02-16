@@ -3,6 +3,7 @@ import subprocess
 import platform
 
 from flask import *
+from flask_debugtoolbar import DebugToolbarExtension
 from flask_simplelogin import SimpleLogin
 from account_management import check_login
 
@@ -233,4 +234,5 @@ def server_error(e):
 
 if __name__ == "__main__":
     app.debug = True
+    toolbar=DebugToolbarExtension(app)
     app.run(host="0.0.0.0")
