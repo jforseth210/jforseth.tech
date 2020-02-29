@@ -3,8 +3,9 @@ import os
 WRITER_PATH="text/writerdocs"
 THUMB_PATH="static/writer/thumbs"
 options={
-    'height':'300',
-    'width':'500',
+    'height':'600',
+    #'width':'500',
+    'crop-w': '1024',
     'encoding':'utf-8'
 }
 def main():
