@@ -82,6 +82,8 @@ def api_save(name):
 def save(name, data):
     name = secure_filename(name)
     name = name.lower()
+    if not os.path.isfile("text/writerdocs/{}.html".format(name)):
+        refresh_writer_thumbs()
     with io.open("text/writerdocs/{}.html".format(name), "w", encoding="utf-8") as file:
         document = file.write(data)
     return redirect('/writer/{}'.format(name))
