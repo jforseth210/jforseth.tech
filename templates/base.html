@@ -44,7 +44,7 @@
         <div class="w3-round-large w3-theme-element w3-dropdown-hover w3-right">
             <button class="w3-round-large w3-button w3-theme-element w3-theme-txt">{% if is_logged_in()%}Hello,
                 {{ get_username() }}{% else %}Account{% endif %}</button>
-            <div class="w3-dropdown-content w3-bar-block w3-theme-element w3-theme-txt" style="right:0">
+            <div class="w3-dropdown-content w3-bar-block w3-theme-element w3-animate-opacity w3-theme-txt" style="right:0">
                 {% if is_logged_in()%}
                 <div>
                     <a class="w3-bar-item w3-hoverable w3-button" href="/account/{{ get_username() }}">Account</a>
@@ -63,7 +63,7 @@
     </div>
     <nav class='w3-bar w3-theme-element'>
         <i class="w3-button fa fa-bars w3-hide-large w3-hide-medium w3-left" onclick="toggleMobileMenu()"></i>
-        <div id=menu class="w3-animate-fade w3-hide-small">
+        <div id=menu class="w3-animate-zoom w3-hide-small">
             <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href="/">Home</a>
             <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href="/instructions">Instructions</a>
             <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href="/prayer">Prayer Requests</a>
@@ -76,7 +76,7 @@
             <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="/writer">Writer</a>
             <div class='w3-dropdown-hover w3-mobile'>
                 <button class='w3-button w3-padding-16'>Versions <i class="fa fa-caret-down"></i></button>
-                <div class="w3-dropdown-content w3-bar-block w3-theme-element w3-theme-txt w3-card-4">
+                <div class="w3-dropdown-content w3-animate-opacity w3-bar-block w3-theme-element w3-theme-txt w3-card-4">
                     <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="http://localhost:5000/">Dev</a>
                     <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="https://localhost:8443/">Backup</a>
                     <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="http://jforseth.tech/">Production</a>
@@ -86,7 +86,7 @@
             <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href='/filesharing'>File Sharing</a>
             <div class='w3-dropdown-hover w3-mobile'>
                 <button class='w3-button w3-padding-16 w3-center w3-mobile'>CowCams<i class="fa fa-caret-down"></i></button>
-                <div class="w3-dropdown-content w3-bar-block w3-theme-element w3-theme-txt w3-card-4">
+                <div class="w3-dropdown-content w3-animate-opacity w3-bar-block w3-theme-element w3-theme-txt w3-card-4">
                     <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href='http://jforseth.tech:8011'>WAN</a>
                     <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href='http://192.168.1.2:8011'>LAN</a>
                 </div>

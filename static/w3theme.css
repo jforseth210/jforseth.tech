@@ -3,7 +3,7 @@
 	--main-txt-color: #AAAAAA;
   --main-element-color: #0a1f3f;
   --dark-element-color: #050f1f;
-  --hover-color: #1f3f5f;
+  --hover-color: #4b7399;
   --main-font: 'Sorts Mill Goudy', serif;
 }
 .w3-theme-bg{background-color:var(--main-bg-color);}
@@ -29,4 +29,46 @@ html, body, h1, h2, h3, h4, h5, h6{
 	opacity: 1;
 	transition: opacity 0.6s;
 	 /* 600ms to fade out */
+}
+.w3-button:hover{
+	transition: all 500ms ease;
+}
+.w3-button:hover{
+	background-color: var(--dark-element-color) !important;
+	color: var(--main-txt-color) !important;
+}
+.w3-card{
+	transition: all 500ms ease;
+}
+.w3-card:hover{
+	scale:108%;
+}
+nav{
+	transition: all 500ms ease !important;
+	box-shadow: 0.2px 10px 10px var(--dark-element-color);
+}
+.w3-dropdown-content{
+	box-shadow: 0.5px 10px 10px var(--dark-element-color);
+}
+div.sticky{
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+}
+input.w3-button:hover{
+	scale:120%;
+}
+.newbutton{
+	color:green;
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+	transition: all 500ms ease;
+}
+.newbutton:hover{
+	transform: rotate(90deg);
+	transform-origin: center center;
+}
+.fas.fa-plus-circle{
+	background-image: radial-gradient(at center, white 40%, transparent 40%);
 }

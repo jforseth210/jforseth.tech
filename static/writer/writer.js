@@ -1,3 +1,7 @@
+function create(){
+var input=document.getElementById("newdocinput");
+open("/writer/"+input.value);
+}
 var timeoutId;
 var currentDoc;
 $(document).ready(function () {
