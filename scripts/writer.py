@@ -106,7 +106,7 @@ def get_document(name):
         files = file.readlines()
     files = [i for i in files if i.replace("\n", "") != name+".html"]
     files.insert(0, name+".html\n")
-    #files=[i.decode("utf-8") for i in files]
+    files=[i.decode("utf-8") for i in files]
     with io.open('text/writer_file_order.txt', 'w') as file:
         file.writelines(files)
     return Markup(document)
