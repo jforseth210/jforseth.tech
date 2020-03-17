@@ -21,6 +21,12 @@
             <audio controls preload='none'>
                 <source src="/jeopardy/song?song={{clues[i][x]}}" />
             </audio>
+            <button onclick="show_hide('{{x}}{{loop.index}}');">Reveal answer</button>
+            <h5 id="{{x}}{{loop.index}}" style="display: none;">
+                {% set split_path = clues[i][x].split("\\") %}
+                {% set split_path = split_path[-1].strip(".m4a") %}
+                {{split_path}}
+            </h5>
         </td>
         {% endfor%}
     </tr>
@@ -33,7 +39,9 @@
         <th>Grab Bag</th>
     <tr>
     <tr>
-        <td><div id=final_jeopardy></td>
+        <td>
+            <div id=final_jeopardy>
+        </td>
 </table>
 <button onclick="newfinal()">Get Final Jeopardy</button>
-    <script src="static/jeopardy/jeopardy.js" {% endblock %}
+<script src="static/jeopardy/jeopardy.js" {% endblock %}

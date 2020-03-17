@@ -21,6 +21,7 @@ def welcome_page():
         "Justin":listsongs("Justin"),
         "Nolan":listsongs("Nolan")
     }
+    flash(Markup("Warning!<br/><img style='text-align:center'src=https://imgs.xkcd.com/comics/pandora.png />"))
     return render_template("jeopardy/jeopardy.html",clues=clues)  
 @jeopardy.route("/jeopardy/song")
 def song():

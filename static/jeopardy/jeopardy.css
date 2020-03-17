@@ -5,6 +5,3 @@ table{
 table,th,td{
     border: 1px solid var(--main-txt-color);
 }
-td{
-    font-size: 48px;
-}

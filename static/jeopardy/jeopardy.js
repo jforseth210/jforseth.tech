@@ -39,11 +39,23 @@ function newfinal(){
     xmlHttp.onreadystatechange = function () {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             var final=xmlHttp.responseText
-            var temp ='<audio controls preload="none"><source src="/jeopardy/song?song={{song}}" /></audio>';
+            var temp ='<audio controls preload="none"><source src="/jeopardy/song?song={{song}}" /></audio><button onclick=show_hide("final");>Reveal answer</button><h5 id="final" style="display: none;">{{song(clean)}}</h5>'
             console.log()
             temp=temp.replace("{{song}}",final);
+            final = final.split("\\");
+            final = final[final.length-1];
+            final = final.replace(".m4a","");
+            temp=temp.replace("{{song(clean)}}",final)
             document.getElementById('final_jeopardy').innerHTML=temp;
     }
     xmlHttp.open("GET", "/jeopardy/final", true); // true for asynchronous 
     xmlHttp.send(null);
+}
+function show_hide(id){
+    var x = document.getElementById(id);
+    if (x.style.display === "none"){
+        x.style.display = "block";
+    } else {
+        x.style.display = "none"; 
+    }
 }
