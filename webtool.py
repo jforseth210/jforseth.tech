@@ -21,6 +21,7 @@ from scripts.http_forwarding import *
 from scripts.admin import *
 from scripts.barrel_racing import *
 from scripts.file_sharing import *
+from scripts.jeopardy import *
 # Create the website
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -208,6 +209,15 @@ app.register_blueprint(barrel_racing)
 app.register_blueprint(file_sharing)
 
 
+
+#     _                                _       
+#    | | ___  ___  _ __   __ _ _ __ __| |_   _ 
+# _  | |/ _ \/ _ \| '_ \ / _` | '__/ _` | | | |
+#| |_| |  __/ (_) | |_) | (_| | | | (_| | |_| |
+# \___/ \___|\___/| .__/ \__,_|_|  \__,_|\__, |
+#                 |_|                    |___/ 
+app.register_blueprint(jeopardy)
+
 #  _____                       _   _                 _ _
 # | ____|_ __ _ __ ___  _ __  | | | | __ _ _ __   __| | | ___ _ __ ___
 # |  _| | '__| '__/ _ \| '__| | |_| |/ _` | '_ \ / _` | |/ _ \ '__/ __|
@@ -215,12 +225,12 @@ app.register_blueprint(file_sharing)
 # |_____|_|  |_|  \___/|_|    |_| |_|\__,_|_| |_|\__,_|_|\___|_|  |___/
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('errors/404.html')
+    return render_template('errors/404.html'),404
 
 
 @app.errorhandler(403)
 def forbidden(e):
-    return render_template('errors/403.html')
+    return render_template('errors/403.html'),403
 
 
 @app.errorhandler(500)

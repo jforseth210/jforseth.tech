@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel=stylesheet href='static/jeopardy/jeopardy.css' type="text/css" />{% endblock %}
+{% block title %}Jeopardy{% endblock %}
+{% block heading %}Jeopardy
+{% endblock %}
+{% block content %}
+<br />
+<br />
+<button onclick="httpGetAsync('/jeopardy/buzzedin?name=False,RESET');">Reset Buzzers</button>
+<table>
+    <tr>
+        {%for i in clues%}
+        <th>{{i}}</th>
+        {%endfor%}
+    </tr>
+    {% for x in range(5)%}
+    <tr>
+        {%for i in clues %}
+        <td>
+            <audio controls preload='none'>
+                <source src="/jeopardy/song?song={{clues[i][x]}}" />
+            </audio>
+        </td>
+        {% endfor%}
+    </tr>
+    {%endfor%}
+</table>
+
+<h2>Final:</h2>
+<table>
+    <tr>
+        <th>Grab Bag</th>
+    <tr>
+    <tr>
+        <td><div id=final_jeopardy></td>
+</table>
+<button onclick="newfinal()">Get Final Jeopardy</button>
+    <script src="static/jeopardy/jeopardy.js" {% endblock %}
