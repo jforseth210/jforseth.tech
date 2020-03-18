@@ -66,6 +66,8 @@ def buzzedin():
 
 @jeopardy.route("/jeopardy/final")
 def final():
+    with open("text/final_jeopardy_submission.txt", "w") as file:
+        file.write("")
     final=listsongs("Final")[0]
     print(final)
     with open("text/jeopardy_final.txt", "w") as file:

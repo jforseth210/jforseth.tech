@@ -43,7 +43,6 @@ function newfinal() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             var final = xmlHttp.responseText;
         var temp = '<audio controls preload="none"><source src="/jeopardy/song?song={{song}}" /></audio>';
-        var answer = '<h5 id="final" style="display: none;">{{song(clean)}}</h5>';
         console.log()
         temp = temp.replace("{{song}}", final);
         final = final.split("\\");
@@ -55,6 +54,10 @@ function newfinal() {
         answer.id = 'final';
         answer.style = 'display:none';
         document.getElementById('final_jeopardy').innerHTML = temp;
+        oldfinalanswer=document.getElementById('final');
+        if (oldfinalanswer!=null){
+        oldfinalanswer.parentNode.removeChild(oldfinalanswer);
+        }
         document.getElementsByClassName('w3-modal-content')[0].appendChild(answer);
     }
     xmlHttp.open("GET", "/jeopardy/final", true); // true for asynchronous 
