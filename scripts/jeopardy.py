@@ -5,6 +5,8 @@ import random
 import pprint as pp
 jeopardy = Blueprint('jeopardy', __name__)
 
+names=sorted(["Mom","Dad","Justin","Nolan"])
+
 PATH=r"C:\\Users\\Forseth\\Music\\Music Jeopardy\\"
 def listsongs(person):
     files=[]
@@ -21,8 +23,11 @@ def welcome_page():
         "Justin":listsongs("Justin"),
         "Nolan":listsongs("Nolan")
     }
-    flash(Markup("Warning!<br/><img style='text-align:center'src=https://imgs.xkcd.com/comics/pandora.png />"))
-    return render_template("jeopardy/jeopardy.html",clues=clues)  
+    with open("text/jeopardy_final.txt", "w") as file:
+        file.write("False")
+    with open("text/final_jeopardy_submission.txt", "w") as file:
+        file.write("")
+    return render_template("jeopardy/jeopardy.html",clues=clues,names=names)  
 @jeopardy.route("/jeopardy/song")
 def song():
     song=request.args.get('song')
@@ -45,7 +50,7 @@ def buzzerstream():
     return Response(eventStream(), mimetype="text/event-stream")
 @jeopardy.route('/jeopardy/buzzer')
 def buzzer():
-    return render_template('jeopardy/jeopardy_buzzer.html')
+    return render_template('jeopardy/jeopardy_buzzer.html',names=names)
 @jeopardy.route('/jeopardy/buzzedin')
 def buzzedin():
     name=request.args.get("name")
@@ -63,4 +68,32 @@ def buzzedin():
 def final():
     final=listsongs("Final")[0]
     print(final)
+    with open("text/jeopardy_final.txt", "w") as file:
+        file.write("True")
     return final
+
+@jeopardy.route("/jeopardy/finalstream")
+def finalstream():
+    def eventStream():
+        while True:
+            time.sleep(0.5)
+            with open("text/jeopardy_final.txt", 'r') as file:
+                final = file.read()
+            if final == "True":
+                yield "data: {}\n\n".format(final)
+    return Response(eventStream(), mimetype="text/event-stream")
+
+@jeopardy.route("/jeopardy/final_submissions")
+def final_submissions():
+    name=request.args.get('name')
+    wager=request.args.get('wager')
+    answer=request.args.get('answer')
+    with open("text/final_jeopardy_submission.txt","a") as file:
+        file.write("\n{},{},{}".format(name,wager,answer))
+    return "Done!"
+
+@jeopardy.route("/jeopardy/finalresponses")
+def final_responses():
+    with open("text/final_jeopardy_submission.txt") as file:
+        responses=file.read()
+    return str(responses)

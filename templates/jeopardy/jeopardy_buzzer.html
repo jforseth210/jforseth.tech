@@ -4,8 +4,18 @@
 <head>
 </head>
 
-<body><input style="font-size:48px; width:100%;text-align:center" placholder="Your Name" id=name />
-    <button style="background-color: red; font-size:72px; border-radius: 16px; width:100%; height:80%;" onclick=buzzIn()>Buzz In</button>
+<body style="background-color: #0f2f4f;">
+    <!--<input form=finalform style="font-size:48px; width:100%;text-align:center" placeholder="Your Name" id=name name=name />-->
+    <select form="finalform" style="font-size:48px; width:100%;text-align:center" id=name name=name>
+        <option disabled selected>Your Name</option>
+        {% for name in names %}
+        <option>{{name}}</option>
+        {% endfor %}
+    </select>
+    <div id="mainBody">
+        <button style="background-color: #050f1f; color:#AAAAAA; font-size:72px; border-radius: 16px; width:100%; height:80%;"
+            onclick=buzzIn()>Buzz In</button>
+    </div>
     <script>
         function buzzIn() {
             function httpGetAsync(theUrl, callback) {
@@ -17,8 +27,17 @@
                 xmlHttp.open("GET", theUrl, true); // true for asynchronous 
                 xmlHttp.send(null);
             }
-            httpGetAsync('/jeopardy/buzzedin?name='+document.getElementById('name').value);
+            httpGetAsync('/jeopardy/buzzedin?name=' + document.getElementById('name').value);
         }
+        var eventSource = new EventSource("/jeopardy/finalstream")
+        eventSource.onmessage = function (e) {
+            if (e.data == "True") {
+                final_form = "<form id=finalform onsubmit='document.getElementById(\'finalform\').disabled=true;' action='final_submissions'><input name=wager style='font-size:48px; width:100%;text-align:center' type=num placeholder='Your Wager'></input><input name=answer style='font-size:48px; width:100%;text-align:center' type=num placeholder='Your Answer'></input><input type=submit style='background-color: #050f1f; color:#AAAAAA; font-size:72px; border-radius: 16px; width:100%; height:80%;' value='Submit Your Guess'></form>"
+                document.getElementById("mainBody").innerHTML=final_form
+                eventSource.close()
+            }
+        };
     </script>
 </body>
+
 </html>

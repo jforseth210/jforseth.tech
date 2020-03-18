@@ -7,11 +7,25 @@
 {% block content %}
 <br />
 <br />
-<button onclick="httpGetAsync('/jeopardy/buzzedin?name=False,RESET');">Reset Buzzers</button>
-<table>
+<button class="w3-theme-dark-element w3-button w3-round" onclick="httpGetAsync('/jeopardy/buzzedin?name=False,RESET');">Reset Buzzers</button>
+<table style="table-layout: fixed;">
     <tr>
-        {%for i in clues%}
-        <th>{{i}}</th>
+        {%for i in names|sort()%}
+        <th>
+            <h3>{{i}}</h3>
+            <button class="w3-theme-dark-element w3-button w3-round" onclick="incrementpoints('{{i}}','+');">+</button>
+            <p id=currentscore{{i}}>0</p>
+            <button class="w3-theme-dark-element w3-button w3-round" onclick="incrementpoints('{{i}}','-')">-</button>
+        </th>
+        {%endfor%}
+    </tr>
+</table>
+<table style="table-layout: fixed;">
+    <tr>
+        {%for key,value in clues|dictsort(by='key')%}
+        <th>
+            <h3>{{key}}</h3>
+        </th>
         {%endfor%}
     </tr>
     {% for x in range(5)%}
@@ -21,7 +35,7 @@
             <audio controls preload='none'>
                 <source src="/jeopardy/song?song={{clues[i][x]}}" />
             </audio>
-            <button onclick="show_hide('{{x}}{{loop.index}}');">Reveal answer</button>
+            <button class="w3-theme-dark-element w3-button w3-round" onclick="show_hide('{{x}}{{loop.index}}');">Reveal answer</button>
             <h5 id="{{x}}{{loop.index}}" style="display: none;">
                 {% set split_path = clues[i][x].split("\\") %}
                 {% set split_path = split_path[-1].strip(".m4a") %}
@@ -34,14 +48,28 @@
 </table>
 
 <h2>Final:</h2>
-<table>
+<table style="table-layout: fixed;">
     <tr>
-        <th>Grab Bag</th>
+        <th>
+            <h3>Grab Bag</h3>
+        </th>
     <tr>
     <tr>
         <td>
             <div id=final_jeopardy>
         </td>
 </table>
-<button onclick="newfinal()">Get Final Jeopardy</button>
-<script src="static/jeopardy/jeopardy.js" {% endblock %}
+<button class="w3-theme-dark-element w3-button w3-round" onclick="newfinal()">Get Clue</button>
+<button class="w3-theme-dark-element w3-button w3-round" onclick="getresponses()">Get Responses</button>
+<div id="id02" class="w3-modal">
+    <!-- Modal content -->
+    <div class="w3-modal-content w3-theme-bg">
+        <span onclick="document.getElementById('id02').style.display='none'"
+            class="w3-button w3-display-topright w3-theme-bg">&times;</span>
+        <br />
+        <br />
+        <div id=modalcontent></div>
+    </div>
+</div>
+<script src="static/jeopardy/jeopardy.js"></script>
+{% endblock %}
