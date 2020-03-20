@@ -1,5 +1,6 @@
 import platform
 from flask import *
+import time
 from account_management import get_account, update_pw
 from flask_simplelogin import get_username
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -52,8 +53,34 @@ def change_password():
     else:
         flash("Old password incorrect.", category="warning")
     return redirect("/account/{}".format(current_username))
-    
+@welcome.route('/sign/edit')
+def sign_edit():
+    with open("text/sign_text.txt") as file:
+        text=file.read()
+    return render_template("welcome/sign_edit.html", text=text)
 
+@welcome.route('/sign')
+def sign():
+    return render_template("welcome/sign.html")
+
+@welcome.route('/sign/stream')
+def sign_stream():
+    def eventStream():
+        old_current_number=''
+        while True:
+            time.sleep(0.1)
+            with open("text/sign_text.txt", 'r') as file:
+                current_number = file.readline()
+            if old_current_number != current_number:
+                old_current_number = current_number
+                yield "data: {}\n\n".format(current_number)
+    return Response(eventStream(), mimetype="text/event-stream")
+@welcome.route("/sign/update")
+def sign_update():
+    text=request.args.get("text")
+    with open("text/sign_text.txt","w") as file:
+        file.write(text)
+    return ""
 #Random redirects
 @welcome.route("/italypics")
 def italypics():
