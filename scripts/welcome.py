@@ -85,3 +85,7 @@ def sign_update():
 @welcome.route("/italypics")
 def italypics():
     return redirect("https://photos.app.goo.gl/ouxubTRRHkEVnpbr5")
+
+@welcome.route("/jeopardy")
+def jeopardy():
+    return redirect("http://192.168.1.3:5000/jeopardy/buzzer")
