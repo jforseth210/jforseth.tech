@@ -51,7 +51,7 @@
     <script>
         var eventSource = new EventSource("/sign/stream")
         eventSource.onmessage = function (e) {
-                document.getElementById("signtext").innerHTML=e.data;
+                document.getElementById("signtext").innerHTML="<br/>"+e.data;
         };
     </script>
 </body>
