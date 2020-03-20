@@ -6,7 +6,9 @@
     <title>Sign</title>
 </head>
 <body>
+	<div id=parent>
     <h1 id=signtext>Default</h1>
+</div>
     <style>
         @keyframes bgcolor {
             0% {
@@ -36,6 +38,9 @@
             -webkit-animation-direction: alternate;
             animation-direction: alternate;
         }
+	#parent{
+	display:table;
+	}
         h1{
             display: table-cell;
             font-family: sans-serif;
