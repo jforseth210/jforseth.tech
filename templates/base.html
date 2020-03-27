@@ -70,10 +70,10 @@
             <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href="/videos">Videos</a>
             <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" onclick="document.getElementById('id01').style.display='block'">Chat</a>
             <a class="w3-padding-16 w3-bar-item w3-button w3-mobile" href="/luckyshoe">Horseshoe Art</a>
-            {% if check_if_admin() %}
             <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="/todo">Todo</a>
             <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="/mail">Mail</a>
             <a class='w3-padding-16 w3-bar-item w3-button w3-mobile' href="/writer">Writer</a>
+            {% if check_if_admin() %}
             <div class='w3-dropdown-hover w3-mobile'>
                 <button class='w3-button w3-padding-16'>Versions <i class="fa fa-caret-down"></i></button>
                 <div class="w3-dropdown-content w3-animate-opacity w3-bar-block w3-theme-element w3-theme-txt w3-card-4">
