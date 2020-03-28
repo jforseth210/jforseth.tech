@@ -1,4 +1,6 @@
 from flask import *
+from account_management import have_access_to_lqa
+from flask_simplelogin import login_required
 
 LQA = Blueprint('LQA', __name__)
 CHOICES = {
@@ -19,10 +21,12 @@ CHOICES = {
     '15':[(1,"Try Again")]
 }
 @LQA.route("/lqa")
+@login_required(must=have_access_to_lqa)
 def lqa():
     return load_lqa_temp('1')
 
 @LQA.route("/lqa/<station>")
+@login_required(must=have_access_to_lqa)
 def lqa_station(station):
     return load_lqa_temp(station)
 
