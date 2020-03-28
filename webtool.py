@@ -21,6 +21,7 @@ from scripts.http_forwarding import *
 from scripts.admin import *
 from scripts.barrel_racing import *
 from scripts.file_sharing import *
+from scripts.LQA import *
 # Create the website
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -206,8 +207,15 @@ app.register_blueprint(barrel_racing)
 # /filesharing/<filename>
 # /filesharing/filelist
 app.register_blueprint(file_sharing)
-
-
+# _     ___      _    
+#| |   / _ \    / \   
+#| |  | | | |  / _ \  
+#| |__| |_| | / ___ \ 
+#|_____\__\_\/_/   \_\
+#Contains:
+#/lqa
+#/lqa/<station>
+app.register_blueprint(LQA)
 #  _____                       _   _                 _ _
 # | ____|_ __ _ __ ___  _ __  | | | | __ _ _ __   __| | | ___ _ __ ___
 # |  _| | '__| '__/ _ \| '__| | |_| |/ _` | '_ \ / _` | |/ _ \ '__/ __|
