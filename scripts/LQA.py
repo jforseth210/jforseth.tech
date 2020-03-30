@@ -4,18 +4,18 @@ from flask_simplelogin import login_required
 
 LQA = Blueprint('LQA', __name__)
 CHOICES = {
-    '1':[(2,"A"),(3,"B")],
+    '1':[(2,"Option A"),(3,"Option B")],
     '2':[(3,"Continue")],
-    '3':[(4,"A"),(11,"B")],
-    '4':[(5,"A"),(6,"B")],
+    '3':[(4,"Option A"),(11,"Option B")],
+    '4':[(5,"Option A"),(6,"Option B")],
     '5':[(6,"Continue")],
-    '6':[(7,"A"),(12,"B")],
+    '6':[(7,"Option A"),(12,"Option B")],
     '7':[(8,"Continue")],
-    '8':[(9,"A"),(10,"B")],
+    '8':[(9,"Option A"),(10,"Option B")],
     '9':[(10,"Continue")],
-    '10':[(13,"A"),(14,"B")],
+    '10':[(13,"Option A"),(14,"Option B")],
     '11':[(4,"Continue")],
-    '12':[(7,"A"),(7,"B")],
+    '12':[(7,"Option A"),(7,"Option B")],
     '13':[(15,"Continue")],
     '14':[(1,"Play Again")],
     '15':[(1,"Try Again")]
