@@ -15,7 +15,7 @@ CHOICES = {
     '9':[(10,"Continue")],
     '10':[(13,"Option A"),(14,"Option B")],
     '11':[(4,"Continue")],
-    '12':[(7,"Option A"),(7,"Option B")],
+    '12':[(7,"Option A"),(15,"Option B")],
     '13':[(15,"Continue")],
     '14':[(1,"Play Again")],
     '15':[(1,"Try Again")]
