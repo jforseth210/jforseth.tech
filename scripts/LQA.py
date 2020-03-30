@@ -4,18 +4,18 @@ from flask_simplelogin import login_required
 
 LQA = Blueprint('LQA', __name__)
 CHOICES = {
-    '1':[(2,"It'll be fine. Go buy your animal."),(3,"Fix the panel and clean out the pen.")],
+    '1':[(2,"A"),(3,"B")],
     '2':[(3,"Continue")],
-    '3':[(4,"Remain calm"),(11,"Kick your animal")],
-    '4':[(5,"Call the vet."),(6,"Check the waterer")],
+    '3':[(4,"A"),(11,"B")],
+    '4':[(5,"A"),(6,"B")],
     '5':[(6,"Continue")],
-    '6':[(7,"Mix the finisher with the grower slowly"),(12,"Wait until you run out of grower, then switch.")],
+    '6':[(7,"A"),(12,"B")],
     '7':[(8,"Continue")],
-    '8':[(9,"Throw it out."),(10,"Keep it for 3 years.")],
+    '8':[(9,"A"),(10,"B")],
     '9':[(10,"Continue")],
-    '10':[(13,"Play tag with your friends in the barns."),(14,"Clean your animal's pen, help other 4-Hers")],
+    '10':[(13,"A"),(14,"B")],
     '11':[(4,"Continue")],
-    '12':[(7,"I still have my spare!"),(7,"That was my spare. I guess I'll help my friends.")],
+    '12':[(7,"A"),(7,"B")],
     '13':[(15,"Continue")],
     '14':[(1,"Play Again")],
     '15':[(1,"Try Again")]
