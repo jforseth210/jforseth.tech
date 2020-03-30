@@ -4,7 +4,7 @@ from flask_simplelogin import login_required
 
 LQA = Blueprint('LQA', __name__)
 CHOICES = {
-    '1':[(2,"You are running late and don’t have time to fix the panel and clean the pen.  You’ll do it later."),(3,"You call the breeder, apologize, and tell them you will be late.  You fix the panel and clean the pen and then go pick up your animal.")],
+    '1':[(2,"You are running late and don't have time to fix the panel and clean the pen.  You'll do it later."),(3,"You call the breeder, apologize, and tell them you will be late.  You fix the panel and clean the pen and then go pick up your animal.")],
     '2':[(3,"Continue")],
     '3':[(4,"You remain calm and keep working patiently with your animal.  It will take time to train your animal."),(11,"You are so frustrated that you yell at your animal and kick at it as hard as you can.")],
     '4':[(5,"You think your animal might be sick.  You call the vet and leave the water, for now."),(6,"You decide to clean the water and see if your animal starts drinking again.")],
