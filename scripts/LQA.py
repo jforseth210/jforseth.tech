@@ -4,18 +4,18 @@ from flask_simplelogin import login_required
 
 LQA = Blueprint('LQA', __name__)
 CHOICES = {
-    '1':[(2,"You are running late and don't have time to fix the panel and clean the pen.  You'll do it later."),(3,"You call the breeder, apologize, and tell them you will be late.  You fix the panel and clean the pen and then go pick up your animal.")],
+    '1':[(2,"It'll be fine. Go buy your animal."),(3,"Fix the panel and clean out the pen.")],
     '2':[(3,"Continue")],
-    '3':[(4,"You remain calm and keep working patiently with your animal.  It will take time to train your animal."),(11,"You are so frustrated that you yell at your animal and kick at it as hard as you can.")],
-    '4':[(5,"You think your animal might be sick.  You call the vet and leave the water, for now."),(6,"You decide to clean the water and see if your animal starts drinking again.")],
+    '3':[(4,"Remain calm"),(11,"Kick your animal")],
+    '4':[(5,"Call the vet."),(6,"Check the waterer")],
     '5':[(6,"Continue")],
-    '6':[(7,"You mix finisher feed in with the grower feed slowly to get your animal used to the change in feed."),(12,"You feed your animal the rest of the grower feed, and then switch to the finisher feed.")],
+    '6':[(7,"Mix the finisher with the grower slowly"),(12,"Wait until you run out of grower, then switch.")],
     '7':[(8,"Continue")],
-    '8':[(9,"You don't own the animal anymore, so you decide to throw it away."),(10,"You decide to keep your treatment record in a safe place for three years.")],
+    '8':[(9,"Throw it out."),(10,"Keep it for 3 years.")],
     '9':[(10,"Continue")],
-    '10':[(13,"You decide to get a group of friends together and play tag, running and yelling in the barns by the animals."),(14,"You clean your animal's pen and help other 4-H members get their animals ready.")],
+    '10':[(13,"Play tag with your friends in the barns."),(14,"Clean your animal's pen, help other 4-Hers")],
     '11':[(4,"Continue")],
-    '12':[(7,"If you still have a buddy animal, click here."),(7,"If you no longer have a buddy animal, this is the end of your project year. Click here.")],
+    '12':[(7,"I still have my spare!"),(7,"That was my spare. I guess I'll help my friends.")],
     '13':[(15,"Continue")],
     '14':[(1,"Play Again")],
     '15':[(1,"Try Again")]
