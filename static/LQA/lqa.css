@@ -5,3 +5,9 @@ body{
   background-size: cover;
   -o-background-size: cover;
 }
+p, li{
+font-size: 24px !important;
+}
+h5{
+font-size: 32px !important;
+}
