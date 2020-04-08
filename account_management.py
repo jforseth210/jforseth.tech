@@ -70,6 +70,10 @@ def have_access_to_lqa(username):
     user_data = get_account(username)
     if 'lqa' not in user_data.get('have_access_to'):
         return render_template("errors/403.html")
+def have_access_to_class_links(username):
+    user_data = get_account(username)
+    if 'class_links' not in user_data.get('have_access_to'):
+        return render_template("errors/403.html")
 
 if __name__ == "__main__":
     print("The function to check user authentication using flask_simplelogin")

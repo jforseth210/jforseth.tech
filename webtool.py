@@ -22,6 +22,7 @@ from scripts.admin import *
 from scripts.barrel_racing import *
 from scripts.file_sharing import *
 from scripts.LQA import *
+from scripts.class_links import *
 # Create the website
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
@@ -216,6 +217,8 @@ app.register_blueprint(file_sharing)
 #/lqa
 #/lqa/<station>
 app.register_blueprint(LQA)
+
+app.register_blueprint(class_links)
 #  _____                       _   _                 _ _
 # | ____|_ __ _ __ ___  _ __  | | | | __ _ _ __   __| | | ___ _ __ ___
 # |  _| | '__| '__/ _ \| '__| | |_| |/ _` | '_ \ / _` | |/ _ \ '__/ __|
