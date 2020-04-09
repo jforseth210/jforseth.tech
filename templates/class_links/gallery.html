@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<style>
+		body {
+			background-image: url(https://images.wallpaperscraft.com/image/blue_backgrounds_solid_light_65833_1366x768.jpg) !important;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			background-size: cover;
+			-o-background-size: cover;
+		}
+	</style>
+	<title>Classes</title>
+</head>
+
+<body>
+	{% for cat in categories %}
+	<h1>{{cat}}</h1>
+	</div>
+	<div class="row">
+		{% for card in cards %}
+		{%if card.category == cat%}
+		<div class="col-3 card m-5">
+			<div class="avatar mx-auto">
+				<img
+					src="https://48cd4b81947d422529a7-2a1eefb8c6f7c2c9224372990cf139bd.ssl.cf1.rackcdn.com/directory/300021/small_919586dc-b7d8-4919-bca4-6d7aed940cbc.png" />
+			</div>
+			<h2>{{card.name}}</h2>
+			{%for i in card.items%}
+			<h4>{{i.period}}: <a href='{{i.link}}'>{{i.name}}</a></h4>
+			{%endfor%}
+		</div>
+		{%endif%}
+		{%endfor%}
+	</div>
+	{%endfor%}
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
