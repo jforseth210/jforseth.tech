@@ -18,10 +18,21 @@
 			-o-background-size: cover;
 		}
 	</style>
+
+	<!-- include libraries(jQuery, bootstrap) -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<!-- include summernote css/js -->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
+
 	<title>Classes</title>
 </head>
 
 <body>
+	<div id="summernote"></div>
 	{% for cat in categories %}
 	<h1>{{cat}}</h1>
 	</div>
@@ -29,19 +40,25 @@
 		{% for card in cards %}
 		{%if card.category == cat%}
 		<div class="col-3 card m-5">
-			<div class="avatar mx-auto">
-				<img
-					src="https://48cd4b81947d422529a7-2a1eefb8c6f7c2c9224372990cf139bd.ssl.cf1.rackcdn.com/directory/300021/small_919586dc-b7d8-4919-bca4-6d7aed940cbc.png" />
-			</div>
-			<h2>{{card.name}}</h2>
-			{%for i in card.items%}
-			<h4>{{i.period}}: <a href='{{i.link}}'>{{i.name}}</a></h4>
-			{%endfor%}
+			<form>
+				<div class="avatar mx-auto">
+					<img src="{{card.profile_image}}" width="100px" height="100px" />
+				</div>
+				<h2>{{card.name}}</h2>
+				{%for i in card.items%}
+				<h4>{{i.period}}<a href='{{i.link}}'>{{i.name}}</a></h4>
+				{%endfor%}
+			</form>
 		</div>
 		{%endif%}
 		{%endfor%}
 	</div>
 	{%endfor%}
+	<script>
+		$(document).ready(function () {
+			$('#summernote').summernote();
+		});
+	</script>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
