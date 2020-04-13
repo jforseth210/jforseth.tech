@@ -19,20 +19,12 @@
 		}
 	</style>
 
-	<!-- include libraries(jQuery, bootstrap) -->
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-	<!-- include summernote css/js -->
-	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
-
 	<title>Classes</title>
 </head>
-
+<button type="button" class="m-2 btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    New Card
+</button>
 <body>
-	<div id="summernote"></div>
 	{% for cat in categories %}
 	<h1>{{cat}}</h1>
 	</div>
@@ -40,7 +32,6 @@
 		{% for card in cards %}
 		{%if card.category == cat%}
 		<div class="col-3 card m-5">
-			<form>
 				<div class="avatar mx-auto">
 					<img src="{{card.profile_image}}" width="100px" height="100px" />
 				</div>
@@ -48,17 +39,36 @@
 				{%for i in card.items%}
 				<h4>{{i.period}}<a href='{{i.link}}'>{{i.name}}</a></h4>
 				{%endfor%}
-			</form>
 		</div>
 		{%endif%}
 		{%endfor%}
 	</div>
 	{%endfor%}
-	<script>
-		$(document).ready(function () {
-			$('#summernote').summernote();
-		});
-	</script>
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+				<h1>New Card</h1>
+			</div>
+			<div class="modal-body">
+						<form>
+							<select class=custom-select name=category>
+								<option selected disabled>Category</option>
+								{% for category in categories %}
+								<option>{{category}}</option>
+								{% endfor %}
+							</select>
+							<input class="form-control" name=name placeholder="Name"/>
+							<input class="form-control" name=profile_image placeholder="Profile Photo URL">
+						</form>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		  </div>
+		</div>
+
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
