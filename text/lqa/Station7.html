@@ -1,7 +1,45 @@
 <h5>Station 7</h5>
+<!-- Button trigger modal -->
+<button type="button" class="m-2 btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    Show medication label
+  </button>
 <p>Your animal switched to finisher successfully and is gaining weight for the fair!
 
     Unfortunately, your animal gets sick (this can happen to even the most experienced people). You call the vet and
     they have you treat your animal with penicillin. A copy of the label will either be shown here or sent by email with
-    a treatment record. Finish filling out the treatment record for your animal and email it to teton@montana.edu.
+    a treatment record. Finish filling out the treatment record for your animal and email it to teton@montana.edu
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Medication Label</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body"><p>
+            Description: For use in the treatment of disease organisms susceptible to penicillin in cattle, sheep, swine and horses.
+            <br />
+            Indicated for the treatment of: Cattle and Sheep - bacterial pneumonia (shipping fever) caused by pasteurella multocida; Swine - erysipelas caused by erysipelothrix insidiosa; Horses - strangles caused by streptococcus equi.  Contains 300,000 units penicillin G procaine per ml.
+            <br />
+            Dosage: 1 ml IM per 100 lbs body weight once daily. If no improvement is observed within 48 hours, consult a veterinarian. Daily treatment should be continued for at least 48 hours after temperature has returned to normal and all other signs of infection have subsided.
+            <br />
+            Treatment should not exceed 7 days in non-lactating dairy and beef cattle, sheep and swine, or 5 days in lactating dairy cattle. Not more than 10 ml should be injected at any 1 site. 48-hour milk withholding.
+            <br />
+            Slaughter withdrawal: Cattle - 4 days; Sheep - 8 days; Swine - 6 days; nonruminating calves - 7 days.
+            <br />
+            Not for use in horses intended for food.
+            <br />
+            Lot: 4H4U20
+            <br />
+            Exp: 0822</p>            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </p>
