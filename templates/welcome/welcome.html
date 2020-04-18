@@ -2,14 +2,30 @@
 {% block title %}Welcome{% endblock %}
 {% block head %}
 <link rel='stylesheet' href='/static/welcome/welcome.css' type='text/css' />
+<script src='/static/welcome/welcome.js' type="text/javascript"></script>
 {% endblock%}
 {% block heading %}
 Jforseth.tech
 {% endblock %}
 {% block content %}
 <h2>Welcome to jforseth.tech</h2>
-<p>This is a website I've created for testing, and experimenting and trying new things.</p>
-<h3>My projects so far:</h3>
+<p style="display:inline">My name is Justin Forseth and this is a website I've created for testing, and experimenting and trying new things. It runs on a laptop that's about</p>
+<div class="countup" id="countup1" style="display:inline">
+<!--Stolen from https://guwii.com/bytes/count-date-time-javascript/-->
+    <span class="timeel years">00</span>
+    <span class="timeel timeRefYears">years, </span>
+    <span class="timeel days">00</span>
+    <span class="timeel timeRefDays">days, </span>
+    <span class="timeel hours">00</span>
+    <span class="timeel timeRefHours">hours, </span>
+    <span class="timeel minutes">00</span>
+    <span class="timeel timeRefMinutes">minutes, </span>
+    and
+    <span class="timeel seconds">00</span>
+    <span class="timeel timeRefSeconds">seconds</span>
+    </div>
+    old. But hey, it works!</p>
+    <h3>My projects so far:</h3>
 <div class="w3-row w3-cell-row">
     <div class="w3-third w3-cell">
        
