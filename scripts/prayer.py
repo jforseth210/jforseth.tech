@@ -19,9 +19,9 @@ PARISH_DICTIONARY = {
     'STJOSEPHRE': 'Saint Joseph RE',
     #'FFTEACHERS': 'Fairfield Catholic Teachers',
     'JESUS': 'LL Small Group 3',
-    'MT4H': "State Award Demo"
+    'MT4H': "State Award Demo",
     # There shouldn't be any way to sign up for testing group.
-    "sdkfjglhgjnfkbsdnfbjgksdngfkjngkfdsgjksdgjbak": "Testing",
+    "sdkfjglhgjnfkbsdnfbjgksdngfkjngkfdsgjksdgjbak": "Testing"
 }
 enter_tests_into_db=False
 
