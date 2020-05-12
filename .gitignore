@@ -6,13 +6,8 @@ static/*.mp4
 SensitiveData.py
 database.db
 uploads/
-text/sign_text.txt
-text/validcodes.txt
-text/barrel_racing_current_number.txt
-text/videos.txt
-text/todo.csv
-text/writerdocs
-static/writer/thumbs
+test/
+userdata/
 \#webtool.py\#
 text/writer_file_order.txt
 prod_deploy_log.txt
