@@ -6,8 +6,8 @@ static/*.mp4
 SensitiveData.py
 database.db
 uploads/
-test/
-userdata/*
+text/
+userdata
 \#webtool.py\#
 text/writer_file_order.txt
 prod_deploy_log.txt
