@@ -2,7 +2,6 @@ import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template, flash
 import os
-from cryptography.fernet import Fernet
 
 # Retrieve all date on a given user. Returns a dict with columns as keys.
 def get_account(username):

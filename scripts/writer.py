@@ -11,7 +11,8 @@ from flask_simplelogin import login_required, get_username
 from refresh_writer_thumbs import refresh_thumbs
 writer = Blueprint('writer', __name__)
 
-
+#TODO: Add multiaccount support to writer app. 
+#TODO: Massive app refactor
 
 @writer.route('/writer')
 @login_required(must=have_access_to_writer)
@@ -23,6 +24,7 @@ def writer_home():
     print(path)
     if not os.path.isdir(path):
         os.makedirs(path)
+        os.makedirs("userdata/{}/writer/thumbnails/".format(username))
     files = os.listdir(path)
     files = [i for i in files if i!='oopsie']
     new_files = []
@@ -36,7 +38,11 @@ def writer_home():
 
 @writer.route('/writer/thumb/<name>')
 def writer_thumb(name):
-    return send_file('static/writer/thumbs/{}.html_thumb.png'.format(name))
+    try:
+        return send_file('userdata/{}/writer/thumbnails/{}.html_thumb.png'.format(get_username(),name.lower()))
+    except:
+        refresh_thumbs(get_username())
+        return send_file('userdata/{}/writer/thumbnails/{}.html_thumb.png'.format(get_username(),name.lower()))
 
 
 @writer.route('/writer/<name>')
@@ -55,7 +61,7 @@ def web_save(name):
     return save(name, data)
 
 
-@writer.route("/writer/api/save/<name>", methods=["POST"])
+"""@writer.route("/writer/api/save/<name>", methods=["POST"])
 def api_save(name):
     request_id = request.form.get("id")
     data = request.form.get("editordata")
@@ -65,7 +71,7 @@ def api_save(name):
     else:
         print(ANDROID_ID, request_id)
         return "Invalid id."
-
+"""
 @writer.route('/writer/document/<name>')
 @login_required(must=have_access_to_writer)
 def document_noapi(name):
@@ -73,7 +79,7 @@ def document_noapi(name):
     return document
 
 
-@writer.route("/writer/api/document/<name>")
+"""@writer.route("/writer/api/document/<name>")
 def document_api(name):
     request_id = request.args.get("id")
     if request_id == ANDROID_ID:
@@ -82,22 +88,20 @@ def document_api(name):
     else:
         print(ANDROID_ID, request_id)
         return "Invalid id."
-
+"""
 def save(filename, data):
     filename = secure_filename(filename)
     filename = filename.lower()
     username = get_username()
-    path = "/userdata/{}/writer/documents/".format(username)
+    path = "userdata/{}/writer/documents/".format(username)
     if not os.path.isdir(path):
         os.makedirs(path)
-    if not os.path.isfile(path+"{}.html".format(username, filename)):
-        newfile=True
-    else: 
-        newfile=False
-    with io.open(path+"{}.html".format(username, filename), "w", encoding="utf-8") as file:
-        document = file.write(data)
-    if newfile:
-        refresh_thumbs(username)
+
+    print(data)
+    print(path+"{}.html".format(filename))
+    with io.open(path+"{}.html".format(filename), "w", encoding="utf-8") as file:
+        file.write(data)
+        print("Wrote {} to {}".format(data, path+"{}.html".format(filename)))
     return redirect('/writer/{}'.format(filename))
 
 
@@ -115,11 +119,11 @@ def get_document(filename):
         io.open("userdata/{}/writer/documents/{}.html".format(get_username(), filename), "w")
         refresh_thumbs(username)
         document = ""
-    files = [i for i in files if i.replace("\n", "") != filename+".html"]
-    files.insert(0, filename+".html\n")
+    #files = [i for i in files if i.replace("\n", "") != filename+".html"]
+    #files.insert(0, filename+".html\n")
     #files=[i.decode("utf-8") for i in files]
-    with io.open('text/writer_file_order.txt', 'w') as file:
-        file.writelines(files)
+    #with io.open('text/writer_file_order.txt', 'w') as file:
+    #    file.writelines(files)
     return Markup(document)
 
 
