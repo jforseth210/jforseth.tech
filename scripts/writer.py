@@ -6,7 +6,7 @@ import platform
 import os.path
 from werkzeug.utils import secure_filename
 from SensitiveData import ANDROID_ID
-from account_management import have_access_to_writer
+#from account_management import have_access_to_writer
 from flask_simplelogin import login_required, get_username
 from refresh_writer_thumbs import refresh_thumbs
 writer = Blueprint('writer', __name__)
@@ -15,7 +15,7 @@ writer = Blueprint('writer', __name__)
 #TODO: Massive app refactor
 
 @writer.route('/writer')
-@login_required(must=have_access_to_writer)
+@login_required()
 def writer_home():
     if platform.node() == "backup-server-vm":
         flash("The main jforseth.tech server is currently experiencing issues. Your changes may not be saved when the main server comes back online.")
@@ -46,7 +46,7 @@ def writer_thumb(name):
 
 
 @writer.route('/writer/<name>')
-@login_required(must=have_access_to_writer)
+@login_required()
 def writer_page(name):
     # with io.open("The Healer.html",encoding="utf-8") as file:
     #    document=file.read()
@@ -55,7 +55,7 @@ def writer_page(name):
 
 
 @writer.route('/writer/save/<name>', methods=["POST"])
-@login_required(must=have_access_to_writer)
+@login_required()
 def web_save(name):
     data = request.form.get("editordata")
     return save(name, data)
@@ -73,7 +73,7 @@ def api_save(name):
         return "Invalid id."
 """
 @writer.route('/writer/document/<name>')
-@login_required(must=have_access_to_writer)
+@login_required()
 def document_noapi(name):
     document = get_document(name)
     return document
