@@ -1,36 +1,41 @@
 from flask import *
+import os
 from SensitiveData import *
 from simple_mail import send_email
 from account_management import have_access_to_todo
-from flask_simplelogin import login_required
+from flask_simplelogin import login_required, get_username
 todo = Blueprint('todo', __name__)  # Main page
 #TODO: Multi-user todo
-def get_todos():
+def get_todos(todoFilePath):
     #try:
-    with open('text/todo.csv', 'r') as file:
+    with open(todoFilePath, 'r') as file:
         todos = file.readlines()
-        todos = [i.replace('COMMA', ',') for i in todos]
-        todos = [i.replace('\n','') for i in todos]
-        todos = [i.split(',') for i in todos]
+        if todos != '':
+            todos = [i.replace('COMMA', ',') for i in todos]
+            todos = [i.replace('\n','') for i in todos]
+            todos = [i.split(',') for i in todos]
     #except FileNotFoundError:
-    #    with open('text/todo.csv', 'w') as file:
+    #    with open(todoFilePath, 'w') as file:
     #        file.write("")
     #        get_todos()
     return todos
 
-def get_lists():
-    todos=get_todos()
+def get_lists(todoFilePath):
+    todos=get_todos(todoFilePath)
+    if todos == "":
+        return ""
     print(todos)
     lists=[todo[1] for todo in todos]
     lists=list(set(lists))
     return lists
-def add_todo(name,currentlist):
-    with open('text/todo.csv', 'a') as file:
+
+def add_todo(todoFilePath, name,currentlist):
+    with open(todoFilePath, 'a') as file:
         file.write('{},{}\n'.format(name,currentlist))
 
 
-def delete_todo(taskid):
-    with open("text/todo.csv", 'r') as file:
+def delete_todo(todoFilePath, taskid):
+    with open(todoFilePath, 'r') as file:
         todos = file.readlines()
 
     # This line is magic. No idea what's going on.
@@ -39,13 +44,13 @@ def delete_todo(taskid):
     except IndexError:
         flash("That isn't a valid task.", category="warning")
         return redirect('/todo')
-    with open("text/todo.csv", 'w') as file:
+    with open(todoFilePath, 'w') as file:
         for i in todos:
             file.write(i)
 
 
-def reorder_todo(item_to_reorder, position_to_move):
-    with open("text/todo.csv", 'r') as file:
+def reorder_todo(todoFilePath, item_to_reorder, position_to_move):
+    with open(todoFilePath, 'r') as file:
         todos = file.readlines()
 
     item_to_reorder = todos[len(todos)-item_to_reorder]
@@ -55,7 +60,7 @@ def reorder_todo(item_to_reorder, position_to_move):
     todos.remove(item_to_reorder)
     todos.insert(position_to_move, item_to_reorder)
 
-    with open("text/todo.csv", 'w') as file:
+    with open(todoFilePath, 'w') as file:
         # Now that the item has been reordered, rewrite the file.
         for i in todos:
             file.write(i)
@@ -64,18 +69,24 @@ def reorder_todo(item_to_reorder, position_to_move):
 @todo.route('/todo')
 @login_required(must=have_access_to_todo)
 def todo_page():
-    todos = get_todos()
-
+    if not os.path.isdir("userdata/{}/todo/".format(get_username())):
+        os.makedirs('userdata/{}/todo/'.format(get_username()))
+        with open("userdata/{}/todo/list.csv".format(get_username()), 'w'):
+            pass
+    todoFilePath='userdata/{}/todo/list.csv'.format(get_username())
+    todos = get_todos(todoFilePath)
+    print(todos)
     todos.reverse()
-    lists=get_lists()
+    lists=get_lists(todoFilePath)
     return render_template('todo/todo.html', result=todos, lists=lists)
+
 
 #Since I escape the device input, I have to escape the list it's 
 #being compared to.
-VALID_DEVICES=[escape(i) for i in VALID_DEVICES]
+#TODO: Make api be not a security nightmare
+"""VALID_DEVICES=[escape(i) for i in VALID_DEVICES]
 
-@todo.route('/todo/api')
-def todo_api():
+@todo.route('/todo/api'
     if escape(request.args.get("device")) in VALID_DEVICES:
         todos=get_todos()
         todos.reverse()
@@ -102,14 +113,16 @@ def delete_todo_api():
         return ""
     else:
         return "Device not approved"
+"""
 # Submission route for new todos.
 @todo.route('/todo/submitted', methods=['POST', 'GET'])
 @login_required(must=have_access_to_todo)
 def new_todo():
+    todoFilePath='userdata/{}/todo/list.csv'.format(get_username())
     name = escape(request.form.get('taskname'))
     name = name.replace(',', 'COMMA')
     currentlist=escape(request.form.get('list'))
-    add_todo(name,currentlist)
+    add_todo(todoFilePath,name,currentlist)
     #send_email('todo+19z1n4ovd3rf@mail.ticktick.com', name, 'Submitted from jforseth.tech',PERSONAL_EMAIL, PERSONAL_PASSWORD)
 
     return redirect('/todo')
@@ -118,22 +131,24 @@ def new_todo():
 @todo.route('/todo/delete', methods=['POST', 'GET'])
 @login_required(must=have_access_to_todo)
 def todo_deleted():
+    todoFilePath='userdata/{}/todo/list.csv'.format(get_username())
     try:
         task_id = int(escape(request.form.get('taskid')))
     except ValueError:
         flash("Please enter a number", category='warning')
         return redirect('/todo')
-    delete_todo(task_id)
+    delete_todo(todoFilePath, task_id)
     return redirect('/todo')
 
 # Ordering route
 @todo.route('/todo/reorder', methods=['POST', 'GET'])
 @login_required(must=have_access_to_todo)
 def todo_reordered():
+    todoFilePath='userdata/{}/todo/list.csv'.format(get_username())
     try:
         item_to_reorder = int(escape(request.form.get("taskid")))
         position_to_move = int(escape(request.form.get("taskloc")))
     except ValueError:
         flash("Please enter a number", category="warning")
-    reorder_todo(item_to_reorder, position_to_move)
+    reorder_todo(todoFilePath, item_to_reorder, position_to_move)
     return redirect('/todo')

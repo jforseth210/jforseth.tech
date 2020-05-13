@@ -5,11 +5,15 @@
 <script src="/static/todo/todo.js"></script>
 <!--Jinja stuff. Will almost certainly cause headaches in the future.-->
 <script>
+    //TODO: Get rid of this horrible hack.
     todos = [
         {% for todo, tasklist in result %}
     ["{{todo}}", "{{tasklist}}"],
         {% endfor %}
             ];
+            document.addEventListener("DOMContentLoaded", function(event){
+                populatetasks();
+              });
 </script>
 {% endblock %}
 {% block heading %}

@@ -1,6 +1,3 @@
-function main(){
-    populatetasks();
-}
 function deleteTask(idx) {
     document.getElementById('deletetaskid').value = idx;
     dropdown = document.getElementById("listdropdown");
