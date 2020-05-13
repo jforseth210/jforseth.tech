@@ -3,7 +3,7 @@ from twilio.rest import Client
 from simple_mail import send_email
 from SensitiveData import *
 lucky_shoe = Blueprint('lucky_shoe', __name__)  # Main page
-
+#TODO: Fix this horrible mess of spaghetti code. Bootstrap anyone? 
 @lucky_shoe.route('/luckyshoe')
 def lucky_shoe_home():
     return render_template('lucky_shoe/luckyshoe.html')

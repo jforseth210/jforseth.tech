@@ -2,6 +2,7 @@ from flask import *
 import time
 barrel_racing = Blueprint("barrel_racing", __name__)
 
+#TODO: Talk to Rylan about depreciating this?
 
 @barrel_racing.route('/barrelracing/app_lab')
 def barrel_racing_app_lab():
