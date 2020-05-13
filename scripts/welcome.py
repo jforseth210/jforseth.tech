@@ -1,7 +1,7 @@
 import platform
 from flask import *
 import time
-from account_management import get_account, update_pw
+from account_management import get_account, update_pw, create_account
 from flask_simplelogin import get_username
 from werkzeug.security import generate_password_hash, check_password_hash
 welcome = Blueprint('welcome', __name__)
@@ -28,10 +28,26 @@ def about():
 def instructions():
     return render_template('welcome/instructions.html')
 
-@welcome.route('/signup')
+@welcome.route('/signup', methods=['POST','GET'])
 def signup():
-    return render_template('welcome/signup.html')
-
+    if request.method == "GET":
+        return render_template('welcome/signup.html')
+    else:
+        username=request.form.get("usernameInput")
+        password=request.form.get("passwordInput")
+        confirmPassword=request.form.get("confirmPasswordInput")
+        print(get_account(username))
+        if get_account(username) != {}:
+            flash("Account exists already.")
+        elif password != confirmPassword:
+            flash("Passwords do not match!")
+        elif len(password) <= 8:
+            flash("You may want to change your password to a more secure one.", category='warning') 
+            create_account(username, password)
+        else:
+            flash("Accout created", category="success")
+            create_account(username, password)
+        return redirect("/signup")
 @welcome.route('/account/<account>')
 def account(account):
     if account == get_username():

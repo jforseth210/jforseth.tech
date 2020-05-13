@@ -1,11 +1,35 @@
 {% extends 'base.html' %}
-{% block title %} Sign Up {% endblock %}
+{% block title %} Login {% endblock %}
 {% block heading %}
-Sign Up
+Login
+{% endblock %}
+{%block head%}
+<link rel="stylesheet" href="static/login.css"/>
 {% endblock %}
 {% block content %}
-<p>Whoops! This page doesn't exist yet. <br/>
-   Right now, accounts are only being used by me for administrator/personal areas of the site. <br/>
-   If you're looking for the prayer requests signup page, <a href="/prayer">click here.</a></p>
+<h3>Welcome to jforseth.tech</h3>
+<p>Please make sure this is the page you're looking for. There are currently three types of jforseth.tech account:</p>
+<ol>
+   <li>A jforseth.tech/prayer account. This is used for prayer requests only.</li>
+   <li>A jforseth.tech/mail account. This is used for sending and recieving emails.</li>
+   <li>A jforseth.tech account. That's this one. It's for the word processor, todo list, and any general purpose pages I want behind a login.</li>
+</ol>
+<p>I hope to combine these in the (somewhat distant) future, but in the meantime, this may not be the type of account you need.</p>
+<div class=w3-row>
+  <div class=w3-quarter><p> </p></div>
+  <form action="/signup" class='w3-container w3-half w3-card-4 w3-center w3-round w3-theme-element' method="post">
+    <h3 class=w3-center>Sign Up:</h3>
+    <p class=w3-center>Please use a unique username and password. Security isn't my strong suit.</p>
+    <div class="form-group">
+    <p id=usernameLabel>Username:</p><input name=usernameInput id="usernameInput" class="w3-theme-element w3-theme-txt w3-input w3-animate-input"/><br>
+    <p id=passwordLabel>Password:</p><input type=password name=passwordInput id="passwordInput" class="w3-theme-element w3-theme-txt w3-input w3-animate-input"/><br>
+    <p id=confirmPasswordLabel>Confirm Password:</p><input type=password name=confirmPasswordInput id="confirmPasswordInput" class="w3-theme-element w3-theme-txt w3-input w3-animate-input"/><br>
+  </form>
+  <input class="w3-button w3-theme-dark-element w3-round-large" type="submit" value="Login">
+</div>
+</form>
+<div class=w3-quarter><p> </p></div>
+</div>
+<script src="static/login.js"></script>
 {% endblock %}
 

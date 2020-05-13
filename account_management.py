@@ -3,6 +3,19 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template, flash
 import os
 
+def create_account(username, password):
+    conn = sqlite3.connect('database.db')
+    cur = conn.cursor()
+    with conn:
+        cur.execute("""
+            INSERT INTO accounts
+            (username, hashed_password, have_access_to) VALUES (:username, :hashed_password, :have_access_to)""",
+        
+            {
+                'username':username,
+                'hashed_password':generate_password_hash(password),
+                'have_access_to':''
+            })
 # Retrieve all date on a given user. Returns a dict with columns as keys.
 def get_account(username):
     conn = sqlite3.connect('database.db')
@@ -33,7 +46,9 @@ def check_login(user):
 
     else:
         return False  # <--- invalid credentials
-
+#TODO: Find a way to encrypt user data.
+#TODO: Mail account frontend.
+#TODO: Merge mail, PR, and general accounts.
 
 # Get the areas of the site the user currently has access to.
 def get_current_access(username):
@@ -53,10 +68,10 @@ def update_pw(current_username, new_hashed_password):
             'current_username':current_username})
 # Checks if user has access to a specific area.
 # Used by @login_required decorator.
-def have_access_to_writer(username):
-    user_data = get_account(username)
-    if 'writer' not in user_data.get('have_access_to'):
-        return render_template("errors/403.html")
+#def have_access_to_writer(username):
+#    user_data = get_account(username)
+#    if 'writer' not in user_data.get('have_access_to'):
+#        return render_template("errors/403.html")
 def have_access_to_todo(username):
     user_data = get_account(username)
     if 'todo' not in user_data.get('have_access_to'):
