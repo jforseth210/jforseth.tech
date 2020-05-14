@@ -63,8 +63,7 @@ def change_password():
     current_username=get_username()
     current_account=get_account(current_username)
     if check_password_hash(current_account.get("hashed_password"), old_password):
-        new_hashed_password=generate_password_hash(new_password)
-        update_pw(current_username, new_hashed_password)
+        update_pw(current_username, new_password)
         flash("Success!", category="success")
     else:
         flash("Old password incorrect.", category="warning")
