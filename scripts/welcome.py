@@ -30,6 +30,8 @@ def instructions():
 
 @welcome.route('/signup', methods=['POST','GET'])
 def signup():
+    if platform.node()=="backup-server-vm":
+         flash("The main jforseth.tech server is experiencing issues. As a result account creation has been temporarily suspended. Please try again later.")
     if request.method == "GET":
         return render_template('welcome/signup.html')
     else:
@@ -41,6 +43,8 @@ def signup():
             flash("Account exists already.")
         elif password != confirmPassword:
             flash("Passwords do not match!")
+        elif platform.node()=="backup-server-vm":
+            pass
         elif len(password) <= 8:
             flash("You may want to change your password to a more secure one.", category='warning') 
             create_account(username, password)
