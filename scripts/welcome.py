@@ -55,6 +55,8 @@ def signup():
 @welcome.route('/account/<account>')
 def account(account):
     if account == get_username():
+        if platform.node()=="backup-server-vm":
+            flash("The main jforseth.tech server is experiencing issues. Password changes and account deletions have been suspended.")
         account=get_account(get_username())
         account.pop("hashed_password")
         return render_template('welcome/account.html',account=account)
@@ -66,7 +68,9 @@ def change_password():
     new_password=request.form.get("new_password")
     current_username=get_username()
     current_account=get_account(current_username)
-    if check_password_hash(current_account.get("hashed_password"), old_password):
+    if platform.node()=="backup-server-vm":
+        pass
+    elif check_password_hash(current_account.get("hashed_password"), old_password):
         update_pw(current_username, new_password)
         flash("Success!", category="success")
     else:
