@@ -69,10 +69,10 @@ def reorder_todo(todoFilePath, item_to_reorder, position_to_move):
 @todo.route('/todo')
 @login_required(must=have_access_to_todo)
 def todo_page():
-    if not os.path.isdir("userdata/{}/todo/".format(get_username())):
-        os.makedirs('userdata/{}/todo/'.format(get_username()))
-        with open("userdata/{}/todo/list.csv".format(get_username()), 'w'):
-            pass
+    #if not os.path.isdir("userdata/{}/todo/".format(get_username())):
+    #    os.makedirs('userdata/{}/todo/'.format(get_username()))
+    #    with open("userdata/{}/todo/list.csv".format(get_username()), 'w'):
+    #        pass
     todoFilePath='userdata/{}/todo/list.csv'.format(get_username())
     todos = get_todos(todoFilePath)
     print(todos)

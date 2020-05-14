@@ -22,9 +22,9 @@ def writer_home():
     username = get_username()
     path = "userdata/{}/writer/documents/".format(username)
     print(path)
-    if not os.path.isdir(path):
-        os.makedirs(path)
-        os.makedirs("userdata/{}/writer/thumbnails/".format(username))
+    #if not os.path.isdir(path):
+    #    os.makedirs(path)
+    #    os.makedirs("userdata/{}/writer/thumbnails/".format(username))
     files = os.listdir(path)
     files = [i for i in files if i!='oopsie']
     new_files = []
@@ -94,8 +94,8 @@ def save(filename, data):
     filename = filename.lower()
     username = get_username()
     path = "userdata/{}/writer/documents/".format(username)
-    if not os.path.isdir(path):
-        os.makedirs(path)
+    #if not os.path.isdir(path):
+    #    os.makedirs(path)
 
     print(data)
     print(path+"{}.html".format(filename))
