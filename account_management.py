@@ -2,6 +2,9 @@ import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template, flash
 import os
+import subprocess
+import crypt
+import shlex
 
 def create_account(username, password):
     conn = sqlite3.connect('database.db')
@@ -16,6 +19,9 @@ def create_account(username, password):
                 'hashed_password':generate_password_hash(password),
                 'have_access_to':''
             })
+def new_linux_user(username, password):
+    subprocess.call(shlex.split("sudo ./new_linux_user.sh {} {}".format(username,password)))
+
 # Retrieve all date on a given user. Returns a dict with columns as keys.
 def get_account(username):
     conn = sqlite3.connect('database.db')
