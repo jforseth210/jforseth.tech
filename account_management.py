@@ -10,8 +10,7 @@ def create_account(username, password):
     os.makedirs("userdata/{}/writer/documents/".format(username))
     os.makedirs("userdata/{}/writer/thumbnails/".format(username))
     os.makedirs('userdata/{}/todo/'.format(username))
-    with open("userdata/{}/todo/list.csv".format(username, 'w')):
-        pass
+    os.mknod("userdata/{}/todo/list.csv".format(username))
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
     with conn:
