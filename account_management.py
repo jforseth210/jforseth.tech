@@ -26,6 +26,7 @@ def create_account(username, password):
             })
 	#Create a new linux user.
 	subprocess.call(shlex.split("sudo ./new_linux_user.sh {} {}".format(username,password)))
+
 def delete_account(username):
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
