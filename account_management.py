@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask import render_template, flash
 import os
 import subprocess
-import crypt
+#import crypt
 import shlex
 
 def create_account(username, password):
@@ -24,8 +24,8 @@ def create_account(username, password):
                 'hashed_password':generate_password_hash(password),
                 'have_access_to':''
             })
-	#Create a new linux user.
-	subprocess.call(shlex.split("sudo ./new_linux_user.sh {} {}".format(username,password)))
+    #Create a new linux user.
+    subprocess.call(shlex.split("sudo ./new_linux_user.sh {} {}".format(username,password)))
 
 def delete_account(username):
     conn = sqlite3.connect('database.db')
@@ -34,7 +34,8 @@ def delete_account(username):
         cur.execute("""
             DELETE FROM accounts WHERE username=:username""",
             {'username':username,})
-    subprocess.call(shlex.split("sudo ./delete_user.sh {}".format(username))
+    subprocess.call(shlex.split("sudo ./delete_user.sh {}".format(username)))
+
 # Retrieve all date on a given user. Returns a dict with columns as keys.
 def get_account(username):
     conn = sqlite3.connect('database.db')
@@ -86,7 +87,7 @@ def update_pw(current_username, new_plain_password):
         
             {'new_hashed_password':new_hashed_password,
             'current_username':current_username})
-    subprocess.call(shlex.split("sudo ./change_pw.sh {} {}".format(current_username,new_plain_password))
+    subprocess.call(shlex.split("sudo ./change_pw.sh {} {}".format(current_username,new_plain_password)))
 # Checks if user has access to a specific area.
 # Used by @login_required decorator.
 #def have_access_to_writer(username):
