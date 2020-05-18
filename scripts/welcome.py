@@ -76,6 +76,12 @@ def change_password():
     else:
         flash("Old password incorrect.", category="warning")
     return redirect("/account/{}".format(current_username))
+@welcome.route('/accountdel')
+def account_del():
+    user=get_username()
+    delete_account(user)
+    flash("Your account has been deleted!",category="success")
+    return redirect('/logout')
 @welcome.route('/sign/edit')
 def sign_edit():
     with open("text/sign_text.txt") as file:

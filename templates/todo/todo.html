@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Justin's Todo List{% endblock %}
+{% block title %}{{ get_username() }}'s Todo List{% endblock %}
 {% block head %}
 <!--<link rel='stylesheet' href='/static/todo/todo.css' type='text/css' />-->
 <script src="/static/todo/todo.js"></script>
@@ -17,7 +17,7 @@
 </script>
 {% endblock %}
 {% block heading %}
-Justin's Todo List
+{{ get_username() }}'s Todo List
 {% endblock %}
 {% block content %}
 <br />

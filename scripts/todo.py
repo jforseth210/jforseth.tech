@@ -67,7 +67,7 @@ def reorder_todo(todoFilePath, item_to_reorder, position_to_move):
 
 # The main page
 @todo.route('/todo')
-@login_required(must=have_access_to_todo)
+@login_required()
 def todo_page():
     #if not os.path.isdir("userdata/{}/todo/".format(get_username())):
     #    os.makedirs('userdata/{}/todo/'.format(get_username()))
@@ -116,7 +116,7 @@ def delete_todo_api():
 """
 # Submission route for new todos.
 @todo.route('/todo/submitted', methods=['POST', 'GET'])
-@login_required(must=have_access_to_todo)
+@login_required()
 def new_todo():
     todoFilePath='userdata/{}/todo/list.csv'.format(get_username())
     name = escape(request.form.get('taskname'))
@@ -129,7 +129,7 @@ def new_todo():
 
 # Deletion route
 @todo.route('/todo/delete', methods=['POST', 'GET'])
-@login_required(must=have_access_to_todo)
+@login_required()
 def todo_deleted():
     todoFilePath='userdata/{}/todo/list.csv'.format(get_username())
     try:
@@ -142,7 +142,7 @@ def todo_deleted():
 
 # Ordering route
 @todo.route('/todo/reorder', methods=['POST', 'GET'])
-@login_required(must=have_access_to_todo)
+@login_required()
 def todo_reordered():
     todoFilePath='userdata/{}/todo/list.csv'.format(get_username())
     try:
