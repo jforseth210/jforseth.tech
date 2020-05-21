@@ -46,10 +46,10 @@ def signup():
         elif platform.node()=="backup-server-vm":
             pass
         elif len(password) <= 8:
-            flash("You may want to change your password to a more secure one.", category='warning') 
+            flash("Account created, ", category='warning') 
             create_account(username, password)
         else:
-            flash("Accout created", category="success")
+            flash("Account created", category="success")
             create_account(username, password)
         return redirect("/signup")
 @welcome.route('/account/<account>')
