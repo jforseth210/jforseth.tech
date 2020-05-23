@@ -5,7 +5,12 @@ import os
 import subprocess
 #import crypt
 import shlex
-
+if os.name=='nt':
+    class subprocess():
+        def call(*args, **kwargs):
+            return True
+def verify_email():
+    
 def create_account(username, password):
     os.makedirs("userdata/{}/writer/documents/".format(username))
     os.makedirs("userdata/{}/writer/thumbnails/".format(username))

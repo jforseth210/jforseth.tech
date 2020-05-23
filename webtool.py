@@ -8,6 +8,7 @@ from flask_simplelogin import SimpleLogin
 from account_management import check_login
 
 from scripts.welcome import *
+from scripts.accounts import * 
 from scripts.writer import *
 from scripts.videos import *
 from scripts.messenger import *
@@ -60,7 +61,12 @@ app.jinja_env.globals.update(check_if_admin=check_if_admin)
 # /instructions
 # /menu
 app.register_blueprint(welcome)
-
+#    _                         _       
+#   / \   ___ ___  _   _ _ __ | |_ ___
+#  / _ \ / __/ _ \| | | | '_ \| __/ __|
+# / ___ \ (_| (_) | |_| | | | | |_\__ \
+#/_/   \_\___\___/ \__,_|_| |_|\__|___/
+app.register_blueprint(accounts)
 
 # __     ___     _
 # \ \   / (_) __| | ___  ___  ___
