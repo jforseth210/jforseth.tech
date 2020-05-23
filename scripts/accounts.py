@@ -19,7 +19,13 @@ def signup():
         password=request.form.get("passwordInput")
         confirmPassword=request.form.get("confirmPasswordInput")
         prayerBool=request.form.get("prayerInput")
-        print(get_account(username))
+        if not prayerBool:
+            prayerGroups='None'
+        else:
+            prayerGroups=request.form.get("parishInput")
+        if prayerGroups == "":
+            prayerGroups="Public"
+
         if get_account(username) != {}:
             flash("Account exists already.")
         elif password != confirmPassword:
@@ -27,12 +33,30 @@ def signup():
         elif platform.node()=="backup-server-vm":
             pass
         elif len(password) <= 8:
-            flash("Account created, do you want to login and choose a more secure password?", category='warning') 
-            create_account(username, password)
+            flash("We've sent a verification email.", category='warning') 
+            create_account(username, password, email, prayerGroups, bad_password=True)
         else:
-            flash("Account created, login to access.", category="success")
-            create_account(username, password)
-        return redirect('/login?next=%2Faccount%2F'+username)
+            flash("We've sent a verification email.", category="success")
+            create_account(username, password, email, prayerGroups, bad_password=False)
+        return redirect('/')
+@accounts.route('/validate')
+def validate_account():
+    username=request.args.get('username')
+    code=request.args.get('code')
+    with open('text/validcodes.txt', 'r') as file:
+        valid_codes = file.readline()
+
+    if code in valid_codes:
+        set_account_validity(username, True)
+    else:
+        flash("Something went wrong. Try signing in, or email support@jforseth.tech")
+    new_code = str(random.randint(10000, 99999))
+    print("New Code:"+new_code)
+    valid_codes = valid_codes.replace(code, new_code)
+    print("New Valid Code List:"+valid_codes)
+    with open('text/validcodes.txt', 'w') as file:
+        file.write(valid_codes)
+    return redirect('/login')
 @accounts.route('/account/<account>')
 def account(account):
     if account == get_username():

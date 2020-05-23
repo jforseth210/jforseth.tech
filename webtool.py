@@ -29,7 +29,7 @@ app.config['SECRET_KEY'] = SECRET_KEY
 
 messages = {
     'login_success': 'Login Successful',
-    'login_failure': 'Invalid username or password',
+    'login_failure': 'Something went wrong. Dismiss this banner to learn more.',
     'is_logged_in': 'You\'re already logged in!',
     'logout': 'Logout Successful',
     'login_required': 'You need to sign in to use this feature.',
