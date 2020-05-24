@@ -18,6 +18,12 @@ def set_account_validity(username, validity):
     cur = conn.cursor()
     with conn:
         cur.execute("""UPDATE accounts SET pending_verification=0 WHERE username=:username""",  {'username':username})
+def generate_valid_code():
+    with open('text/validcodes.txt', 'r') as file:
+        VALID_CODES = file.readline()   
+    random_number = random.randint(0, len(VALID_CODES)-5)
+    code = VALID_CODES[random_number:random_number+5]
+    return code
 def create_account(username, password, recovery_email, prayer_groups, bad_password):
     #Create user files and folders
     os.makedirs("userdata/{}/writer/documents/".format(username))
@@ -46,10 +52,7 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     #Create a new linux user.
     subprocess.call(shlex.split("sudo sh ./new_linux_user.sh {} {}".format(username,password)))
     #Generate a verification code. 
-    with open('text/validcodes.txt', 'r') as file:
-        VALID_CODES = file.readline()
-    random_number = random.randint(0, len(VALID_CODES)-5)
-    code = VALID_CODES[random_number:random_number+5]
+    code=generate_valid_code()
     with open('text/verification_email_template.html') as file:
         VERIFICATION_EMAIL_TEMPLATE = file.read()
     if bad_password:
@@ -98,6 +101,7 @@ def check_login(user):
         return True  # <--- user is logged in!
 
     else:
+        flash("Incorrect password.")
         return False  # <--- invalid credentials
 #TODO: Find a way to encrypt user data.
 #TODO: Mail account frontend.
@@ -107,7 +111,19 @@ def check_login(user):
 def get_current_access(username):
     user_data = get_account(username)
     return user_data["have_access_to"].split(',')
+def check_code(code):
+    with open('text/validcodes.txt', 'r') as file:
+        valid_codes = file.readline()
 
+    if code in valid_codes:
+        code_validity=True
+    else:
+        code_validity=False
+    new_code = str(random.randint(10000, 99999))
+    valid_codes = valid_codes.replace(code, new_code)
+    with open('text/validcodes.txt', 'w') as file:
+        file.write(valid_codes)
+    return code_validity
 def update_pw(current_username, new_plain_password):
     new_hashed_password=generate_password_hash(new_plain_password)
     conn = sqlite3.connect('database.db')
