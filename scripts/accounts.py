@@ -3,6 +3,8 @@ import platform
 import os
 from flask_simplelogin import get_username
 from account_management import *
+import secrets
+import json
 accounts = Blueprint('accounts',__name__)
 if os.name=='nt':
     def sh(*args, **kwargs):
@@ -43,19 +45,11 @@ def signup():
 def validate_account():
     username=request.args.get('username')
     code=request.args.get('code')
-    with open('text/validcodes.txt', 'r') as file:
-        valid_codes = file.readline()
-
-    if code in valid_codes:
+    if check_code(code):
         set_account_validity(username, True)
     else:
         flash("Something went wrong. Try signing in, or email support@jforseth.tech")
-    new_code = str(random.randint(10000, 99999))
-    print("New Code:"+new_code)
-    valid_codes = valid_codes.replace(code, new_code)
-    print("New Valid Code List:"+valid_codes)
-    with open('text/validcodes.txt', 'w') as file:
-        file.write(valid_codes)
+
     return redirect('/login')
 @accounts.route('/account/<account>')
 def account(account):
@@ -81,9 +75,77 @@ def change_password():
     else:
         flash("Old password incorrect.", category="warning")
     return redirect("/account/{}".format(current_username))
-@accounts.route('/accountdel')
+@accounts.route('/forgot_pw', methods=['GET','POST'])
+def forgot_pw():
+    if request.method=="GET":
+        return render_template('accounts/forgot.html')
+    else:
+        email=request.form.get('emailInput')
+        username=request.form.get('usernameInput')
+        token=secrets.token_urlsafe(64)
+        with open('text/active_reset_tokens.txt') as file:
+            reset_dictionary=file.read()
+        reset_dictionary=json.loads(reset_dictionary)
+        reset_dictionary[token]=username
+        reset_dictionary=json.dumps(reset_dictionary)
+        with open('text/active_reset_tokens.txt','w') as file:
+            file.write(reset_dictionary)
+        with open('text/password_reset_email_template.html') as file:
+            message=file.read()
+        message=message.format(token=token)
+        send_email(email,"jforseth.tech password reset",message,PROJECT_EMAIL,PROJECT_PASSWORD)
+        flash("If that email/username combination exists, an email with reset instructions will be sent.", category='success')
+        return redirect('/')
+def check_token(token, delete=False):
+        with open('text/active_reset_tokens.txt') as file:
+            valid_token_dictionary=file.read()
+        valid_token_dictionary=json.loads(valid_token_dictionary)
+        return token in valid_token_dictionary
+def remove_token(token):
+    with open('text/active_reset_tokens.txt') as file:
+            valid_token_dictionary=file.read()
+    valid_token_dictionary=json.loads(valid_token_dictionary)
+    valid_token_dictionary.pop(token)
+    valid_token_dictionary=json.dumps(valid_token_dictionary)
+    print(valid_token_dictionary)
+    with open('text/active_reset_tokens.txt','w') as file:
+        file.write(valid_token_dictionary)
+def get_user_from_token(token):
+    with open('text/active_reset_tokens.txt') as file:
+            valid_token_dictionary=file.read()
+    valid_token_dictionary=json.loads(valid_token_dictionary)
+    return valid_token_dictionary.get(token, "")
+@accounts.route('/forgot_pw/reset/<token>', methods=['GET','POST'])
+def reset_password(token):
+    if request.method=='GET':
+        if check_token(token):
+            return render_template('accounts/reset.html')
+        else:
+            flash("Your reset link is invalid. Try again.")
+            return redirect('/forgot_pw/reset/{}'.format(token))
+    else:
+        username=request.form.get('usernameInput')
+        new_password=request.form.get('passwordInput')
+        if not check_token(token):
+            flash("Your reset link is invalid. Try again.")
+            return redirect('/forgot_pw/reset/{}'.format(token))
+        elif not get_user_from_token(token)==username:
+            flash ("Incorrect username.")
+            return redirect('/forgot_pw/reset/{}'.format(token))
+        else:
+            update_pw(username, new_password)
+            remove_token(token)
+            flash("Password reset sucessfully.",category='success')
+            return redirect('/login')
+@accounts.route('/accountdel',methods=['POST'])
 def account_del():
+    password=request.form.get('confirm_password')
     user=get_username()
-    delete_account(user)
-    flash("Your account has been deleted!",category="success")
-    return redirect('/logout')
+    current_account=get_account(user)
+    if check_password_hash(current_account.get("hashed_password"), password):
+        delete_account(user)
+        flash("Your account has been deleted!",category="success")
+        return redirect('/logout')
+    else:
+        flash('Incorrect password')
+        return redirect('/account/{}'.format(get_username()))

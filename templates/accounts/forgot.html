@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} Forgot Password {% endblock %}
+{% block heading %}
+Forgot Password
+{% endblock %}
+{%block head%}
+<link rel="stylesheet" href="static/login.css"/>
+{% endblock %}
+{% block content %}
+<br/><br/>
+<p>Did you get locked out of your account? Don't worry, we'll have you back up and running in no time!</p>
+<div class=w3-row>
+    <div class=w3-quarter><p> </p></div>
+    <form action="/forgot_pw" class='w3-container w3-half w3-card-4 w3-center w3-round w3-theme-element' method="post">
+      <h3 class=w3-center>Forgot Password:</h3> 
+      <div class=form-group>
+        <p style='text-align:left' id=emailLabel>Recovery Email:</p><input type="email" name=emailInput
+              id="emailInput" class="w3-theme-element w3-theme-txt w3-input w3-animate-input" /><br>
+            <p id=usernameLabel>Username:</p><input name=usernameInput id="usernameInput"
+              class="w3-theme-element w3-theme-txt w3-input w3-animate-input" /><br>
+       </div>
+       <input class="w3-button w3-theme-dark-element w3-round-large" type="submit" value="Reset Password">
+            </form>
+{% endblock %}
