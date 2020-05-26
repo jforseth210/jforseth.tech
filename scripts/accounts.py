@@ -44,8 +44,9 @@ def signup():
 def validate_account():
     username=request.args.get('username')
     token=request.args.get('token')
-    if check_token(token) and get_user_from_token(token) == username:
+    if check_token(token, "new_account") and get_user_from_token(token,"new_account") == username:
         set_account_validity(username, True)
+        remove_token(token,"new_account")
     else:
         flash("Something went wrong. Try signing in, or email support@jforseth.tech")
 
@@ -88,7 +89,7 @@ def forgot_pw():
         email=request.form.get('emailInput')
         username=request.form.get('usernameInput')
         
-        token=generate_token(username)
+        token=generate_token(username, 'password_reset')
         with open('text/password_reset_email_template.html') as file:
             message=file.read()
         message=message.format(token=token)
@@ -99,7 +100,7 @@ def forgot_pw():
 @accounts.route('/forgot_pw/reset/<token>', methods=['GET','POST'])
 def reset_password(token):
     if request.method=='GET':
-        if check_token(token):
+        if check_token(token, "password_reset"):
             return render_template('accounts/reset.html')
         else:
             flash("Your reset link is invalid. Try again.")
@@ -107,15 +108,15 @@ def reset_password(token):
     else:
         username=request.form.get('usernameInput')
         new_password=request.form.get('passwordInput')
-        if not check_token(token):
+        if not check_token(token,"password_reset"):
             flash("Your reset link is invalid. Try again.")
             return redirect('/forgot_pw/reset/{}'.format(token))
-        elif not get_user_from_token(token)==username:
+        elif not get_user_from_token(token, "password_reset")==username:
             flash ("Incorrect username.")
             return redirect('/forgot_pw/reset/{}'.format(token))
         else:
             update_pw(username, new_password)
-            remove_token(token)
+            remove_token(token,"password_reset")
             flash("Password reset sucessfully.",category='success')
             return redirect('/login')
 
