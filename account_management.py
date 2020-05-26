@@ -8,16 +8,47 @@ import shlex
 import random
 from simple_mail import send_email
 from SensitiveData import PROJECT_EMAIL, PROJECT_PASSWORD
+import secrets
+import json
 #If on windows, don't try to run the shell scripts.
 if os.name=='nt':
     class subprocess():
-        def call(*args, **kwargs):
+        def call(self, *args, **kwargs):
             return True
 def set_account_validity(username, validity):
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
     with conn:
         cur.execute("""UPDATE accounts SET pending_verification=0 WHERE username=:username""",  {'username':username})
+def generate_token(username):
+    token=secrets.token_urlsafe(64)
+    with open('text/active_reset_tokens.txt') as file:
+        reset_dictionary=file.read()
+    reset_dictionary=json.loads(reset_dictionary)
+    reset_dictionary[token]=username
+    reset_dictionary=json.dumps(reset_dictionary)
+    with open('text/active_reset_tokens.txt','w') as file:
+        file.write(reset_dictionary)
+    return token
+def check_token(token):
+        with open('text/active_reset_tokens.txt') as file:
+            valid_token_dictionary=file.read()
+        valid_token_dictionary=json.loads(valid_token_dictionary)
+        return token in valid_token_dictionary
+def remove_token(token):
+    with open('text/active_reset_tokens.txt') as file:
+            valid_token_dictionary=file.read()
+    valid_token_dictionary=json.loads(valid_token_dictionary)
+    valid_token_dictionary.pop(token)
+    valid_token_dictionary=json.dumps(valid_token_dictionary)
+    print(valid_token_dictionary)
+    with open('text/active_reset_tokens.txt','w') as file:
+        file.write(valid_token_dictionary)
+def get_user_from_token(token):
+    with open('text/active_reset_tokens.txt') as file:
+            valid_token_dictionary=file.read()
+    valid_token_dictionary=json.loads(valid_token_dictionary)
+    return valid_token_dictionary.get(token, "")
 def generate_valid_code():
     with open('text/validcodes.txt', 'r') as file:
         VALID_CODES = file.readline()   
@@ -52,16 +83,15 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     #Create a new linux user.
     subprocess.call(shlex.split("sudo sh ./new_linux_user.sh {} {}".format(username,password)))
     #Generate a verification code. 
-    code=generate_valid_code()
-    with open('text/verification_email_template.html') as file:
+    token=generate_token(username)
+    with open('text/account_verification_email_template.html') as file:
         VERIFICATION_EMAIL_TEMPLATE = file.read()
     if bad_password:
         BAD_PW_MESSAGE = "By the way, we noticed you're using a pretty short password. Consider changing it to a longer one later!"
     else:
         BAD_PW_MESSAGe = ""
-    message=VERIFICATION_EMAIL_TEMPLATE.format(code=code, username=username, additional_messages=BAD_PW_MESSAGE)
+    message=VERIFICATION_EMAIL_TEMPLATE.format(token=token, username=username, additional_messages=BAD_PW_MESSAGE)
     send_email(recovery_email, "Thanks for signing up for jforseth.tech!",message, PROJECT_EMAIL, PROJECT_PASSWORD)
-
 def delete_account(username):
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
