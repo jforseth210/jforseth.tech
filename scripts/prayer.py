@@ -3,6 +3,7 @@ import random
 from flask import *
 import sqlite3
 from simple_mail import send_email
+from account_management import generate_token, check_token, remove_token, get_user_from_token
 from SensitiveData import *
 import pprint  # Useful for debug.
 pp = pprint.PrettyPrinter(indent=4)
@@ -130,7 +131,8 @@ def prayer_request():
     # Uncommenting this is a really, really bad idea.
     # emails=[personalemail]
     for email in emails:
-        send_email(email[0], subject_template, message_template.replace("EMAIL_PLACEHOLDER", email[0]),
+        #This token generation is a bit hacky because I don't know the username. But, if I don't check on the other side, it doesn't matter anyway.
+        send_email(email[0], subject_template, message_template.format(email=email[0],token=generate_token(email[0],"prayer_unsubscription")),
                    PROJECT_EMAIL, PROJECT_PASSWORD)
     flash("Prayer request sent!", category="success")
     return redirect('/prayer')
@@ -140,21 +142,29 @@ def prayer_request():
 def unsubscribe():
     email = request.args.get('email')
     group = request.args.get('group')
+    token = request.args.get('token')
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
-    with conn:
-        cur.execute(
-            """SELECT prayer_groups, username FROM accounts WHERE prayer_email='{email}'""".format(email=email))
-    users = cur.fetchall()
-    if group != "ALL":
-        users = [user[0].replace(group, "") for user in users]
+    if check_token(token, 'prayer_unsubscription') and get_user_from_token(token,'prayer_unsubscription')==email:
+        with conn:
+            cur.execute(
+                """SELECT prayer_groups, username FROM accounts WHERE prayer_email='{email}'""".format(email=email))
+        users = cur.fetchall()
+        if group != "ALL":
+            users = [(user[0].replace(group, ""),user[1]) for user in users]
+            for idx, user in enumerate(users):
+                print(user)
+                if user[0] == "":
+                    users[idx]=("None", user[1])
+        else:
+            users = [("None",user[1]) for user in users]
+        with conn:
+            for user in users:
+                cur.execute("""UPDATE accounts SET prayer_groups = ? WHERE username = ?""", (user[0],user[1]))
+        remove_token(token, 'prayer_unsubscription')
+        flash("Done",category="success")
     else:
-        users = [("None",user[1]) for user in users]
-    with conn:
-        for user in users:
-            cur.execute("""UPDATE accounts SET prayer_groups = ? WHERE username = ?""", (user[0],user[1]))
-            print(user)
-    flash("Done",category="success")
+        flash("This link is invalid.")
     return redirect('/prayer')
 # @prayer.route('/prayer/newemail', methods=['POST', 'GET'])
 # def new_email():
