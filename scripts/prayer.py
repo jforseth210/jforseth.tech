@@ -132,13 +132,25 @@ def prayer_request():
     # emails=[personalemail]
     for email in emails:
         #This token generation is a bit hacky because I don't know the username. But, if I don't check on the other side, it doesn't matter anyway.
-        send_email(email[0], subject_template, message_template.format(email=email[0],token=generate_token(email[0],"prayer_unsubscription")),
+        send_email(email[0], subject_template, message_template.format(email=email[0]),
                    PROJECT_EMAIL, PROJECT_PASSWORD)
     flash("Prayer request sent!", category="success")
     return redirect('/prayer')
 
-
 @prayer.route('/prayer/unsub')
+def confirm_unsubscription():
+    email=request.args.get('email')
+    group=request.args.get('group')
+    token=generate_token(email, 'prayer_unsubscription')
+    with open('text/prayer_unsubscription_email_template.html') as file:
+        message=file.read()
+    message=message.format(email=email, group=group, token=token)
+    if group == "ALL":
+        group="all prayer requests."
+    send_email(email,"Unsubscribe from "+group,message,PROJECT_EMAIL, PROJECT_PASSWORD)
+    flash("Sorry to see you go! Check your email for an unsubscription link.",category='success')
+    return redirect('/prayer')
+@prayer.route('/prayer/unsub_confirmed')
 def unsubscribe():
     email = request.args.get('email')
     group = request.args.get('group')
