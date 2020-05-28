@@ -206,7 +206,11 @@ def update_pw(current_username, new_plain_password):
 #    if 'writer' not in user_data.get('have_access_to'):
 #        return render_template("errors/403.html")
 
-
+def change_email(username, email, email_type):
+    conn = sqlite3.connect('database.db')
+    cur = conn.cursor()
+    with conn:
+        cur.execute("""UPDATE accounts SET {email_type}='{email}' WHERE username='{username}'""".format(email_type=email_type,email=email, username=username))
 def have_access_to_todo(username):
     user_data = get_account(username)
     if 'todo' not in user_data.get('have_access_to'):

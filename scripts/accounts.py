@@ -25,7 +25,7 @@ def signup():
         else:
             prayerGroups=PARISH_DICTIONARY.get(request.form.get("parishInput"), "Public")
             if 'RE' in prayerGroups:
-                prayerGroups=prayerGroups+'\n'+prayerGroups.replace('RE','Parish')
+                prayerGroups=prayerGroups+'|'+prayerGroups.replace('RE','Parish')
         if get_account(username) != {}:
             flash("Account exists already.")
         elif password != confirmPassword:
@@ -59,8 +59,8 @@ def account(account):
         if platform.node()=="backup-server-vm":
             flash("The main jforseth.tech server is experiencing issues. Password changes and account deletions have been suspended.")
         account=get_account(get_username())
-        account.pop("hashed_password")
-        return render_template('accounts/account.html',account=account)
+        groups=account['prayer_groups'].split('|')
+        return render_template('accounts/account.html',groups=groups)
     return redirect('/')
 
 @accounts.route('/changepw', methods=["GET","POST"])
@@ -81,6 +81,37 @@ def change_password():
         flash("Old password incorrect.", category="warning")
     return redirect("/account/{}".format(current_username))
 
+@accounts.route('/change_email', methods=['POST'])
+def verify_changed_email():
+    email=request.form.get('email')
+    email_type=request.form.get('email_type')
+    username=get_username()
+    token=generate_token(email+username,'email_change')
+    with open('text/change_email_template.html') as file:
+        message=file.read()
+    message=message.format(username=username, email=email, email_type=email_type, token=token)
+    send_email(email, "Change your "+email_type.lower(), message,PROJECT_EMAIL,PROJECT_PASSWORD)
+    flash("We've sent a verification link to that email address.",category='success')
+    return redirect('/account/'+username)
+
+@accounts.route('/change_email/verified')
+def change_email_page():
+    token=request.args.get("token")
+    username=request.args.get("username")
+    email_type=request.args.get("type")
+    email=request.args.get("email")
+    EMAIL_TYPES={
+        'Recovery email':'recovery_email',
+        'Prayer email':'prayer_email'
+    }
+    if check_token(token, 'email_change') and get_user_from_token(token,'email_change') == email+username:
+        email_type=EMAIL_TYPES.get(email_type)
+        change_email(username, email, email_type)
+        flash("Success!", category='success')
+        return redirect('/accounts/'+username)
+    else:
+        flash("That link didn't work, try again.")
+        return redirect('/account/'+username)
 @accounts.route('/forgot_pw', methods=['GET','POST'])
 def forgot_pw():
     if request.method=="GET":
