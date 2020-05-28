@@ -164,11 +164,14 @@ def unsubscribe_page():
                 """SELECT prayer_groups, username FROM accounts WHERE prayer_email='{email}'""".format(email=email))
         users = cur.fetchall()
         if group != "ALL":
-            users = [(user[0].replace(group+"|", ""),user[1]) for user in users]
             for idx, user in enumerate(users):
-                print(user)
+                user=user[0].replace(group, "")
+                user[0]=user[0].strip('|')
+                user[0]=user[0].replace('||','|')
                 if user[0] == "":
                     users[idx]=("None", user[1])
+                else:
+                    users[idx]=(user[0],user[1])
         else:
             users = [("None",user[1]) for user in users]
         with conn:
@@ -189,13 +192,9 @@ def unsubscribe_logged_in():
     with conn:
         cur.execute("""SELECT prayer_groups FROM accounts WHERE username = ? """, ([username]))
     prayer_groups=cur.fetchone()[0]
-    print(prayer_groups)
     prayer_groups=prayer_groups.replace(group,"")
-    print(prayer_groups)
     prayer_groups=prayer_groups.strip('|')
-    print(prayer_groups)
     prayer_groups=prayer_groups.replace('||','|')
-    print(prayer_groups)
     if prayer_groups=='':
         prayer_groups="None"
     print(prayer_groups)
