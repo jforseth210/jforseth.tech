@@ -3,6 +3,7 @@ import random
 from flask import *
 import sqlite3
 from simple_mail import send_email
+from flask_simplelogin import login_required, get_username
 from account_management import generate_token, check_token, remove_token, get_user_from_token
 from SensitiveData import *
 import pprint  # Useful for debug.
@@ -136,7 +137,7 @@ def prayer_request():
                    PROJECT_EMAIL, PROJECT_PASSWORD)
     flash("Prayer request sent!", category="success")
     return redirect('/prayer')
-
+    
 @prayer.route('/prayer/unsub')
 def confirm_unsubscription():
     email=request.args.get('email')
@@ -151,7 +152,7 @@ def confirm_unsubscription():
     flash("Sorry to see you go! Check your email for an unsubscription link.",category='success')
     return redirect('/prayer')
 @prayer.route('/prayer/unsub_confirmed')
-def unsubscribe():
+def unsubscribe_page():
     email = request.args.get('email')
     group = request.args.get('group')
     token = request.args.get('token')
@@ -163,7 +164,7 @@ def unsubscribe():
                 """SELECT prayer_groups, username FROM accounts WHERE prayer_email='{email}'""".format(email=email))
         users = cur.fetchall()
         if group != "ALL":
-            users = [(user[0].replace(group, ""),user[1]) for user in users]
+            users = [(user[0].replace(group+"|", ""),user[1]) for user in users]
             for idx, user in enumerate(users):
                 print(user)
                 if user[0] == "":
@@ -178,6 +179,30 @@ def unsubscribe():
     else:
         flash("This link is invalid.")
     return redirect('/prayer')
+@login_required()
+@prayer.route('/prayer/unsubscribe_logged_in')
+def unsubscribe_logged_in():
+    username=get_username()
+    group=request.args.get('group')
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+    with conn:
+        cur.execute("""SELECT prayer_groups FROM accounts WHERE username = ? """, ([username]))
+    prayer_groups=cur.fetchone()[0]
+    print(prayer_groups)
+    prayer_groups=prayer_groups.replace(group,"")
+    print(prayer_groups)
+    prayer_groups=prayer_groups.strip('|')
+    print(prayer_groups)
+    prayer_groups=prayer_groups.replace('||','|')
+    print(prayer_groups)
+    if prayer_groups=='':
+        prayer_groups="None"
+    print(prayer_groups)
+    with conn:
+        cur.execute("""UPDATE accounts SET prayer_groups = ? WHERE username= ?""", ([prayer_groups, username]))
+    flash('Unsubscribed',category='success')
+    return redirect('/account/'+username)
 # @prayer.route('/prayer/newemail', methods=['POST', 'GET'])
 # def new_email():
 #     if request.method == 'POST':

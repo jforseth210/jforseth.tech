@@ -14,7 +14,7 @@
 		{% for group in groups %}
 		<tr>
 			<td>{{group}}</td>
-			<td><button class="w3-round-large w3-button w3-theme-dark-element w3-bar-item">Unsubscribe</button></td>	
+			<td><a href='/prayer/unsubscribe_logged_in?group={{group}}' class="w3-round-large w3-button w3-theme-dark-element w3-bar-item">Unsubscribe</a></td>	
 		</tr>
 		{%endfor%}
 		<tr>
