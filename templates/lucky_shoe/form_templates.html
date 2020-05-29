@@ -1,124 +1,127 @@
 <!DOCTYPE html>
 <html>
-    <head></head>
-    <body>
-<template id="LargeTree">
-    <input type="text" name="Item Ordered" value="Large Tree" hidden />
-    <p class=orderform>Ornaments: </p>
-    <select name=lights class=input>
-        <option>Yes</option>
-        <option selected>No</option>
-    </select>
-    <br />
-    <p class=orderform>Skirt: </p>
-    <select name=skirt class=input>
-        <option>Yes</option>
-        <option selected>No</option>
-    </select>
-    <br />
-    <p class=orderform>Lights: </p>
-    <select name=ornaments class=input>
-        <option>Yes</option>
-        <option selected>No</option>
-    </select>
-    <br />
-    <p class=orderform>Color: </p>
-    <select name=color/condition class=input>
-        <option>Black</option>
-        <option selected>Raw</option>
-    </select>
-    <br />
-</template>
-<template id="SmallTree">
-    <input type="text" name="Item Ordered" value="Small Tree" hidden />
-    <p class=orderform>Shoes: </p>
-    <select name=shoes class=input>
-        <option>000 (Normal Sized)</option>
-        <option selected>Pony (Small)</option>
-    </select>
-    <div class=tooltip><em>?</em>
-        <span class=tooltiptext>
-            <p>Triple-ots are normal horsehoes (About 5" wide).</p>
-            <p>Pony-shoes are smaller. (About 3" wide).</p>
-        </span>
-    </div>
-    <br />
-    <p class=orderform>Ornaments: </p>
-    <select name=lights class=input>
-        <option>Yes</option>
-        <option selected>No</option>
-    </select>
-    <br />
-    <p class=orderform>Skirt: </p>
-    <select name=skirt class=input>
-        <option>Yes</option>
-        <option selected>No</option>
-    </select>
-    <br />
-    <p class=orderform>Lights: </p>
-    <select name=ornaments class=input>
-        <option>Yes</option>
-        <option selected>No</option>
-    </select>
-    <br />
-    <p class=orderform>Color: </p>
-    <select name=color/condition class=input>
-        <option>Black</option>
-        <option selected>Raw</option>
-    </select>
-    <br />
-</template>
-<template id="LargeCross">
-    <input type="text" name="Item Ordered" value="Large Cross" hidden />
 
-    <p class=orderform>Color: </p>
-    <select name=color/condition class=input>
-        <option>Black</option>
-        <option selected>Raw</option>
-    </select>
-    <br />
-</template>
-<template id="SmallCross">
-    <input type="text" name="Item Ordered" value="Small Cross" hidden />
-    <p class=orderform>Shoes: </p>
-    <select name=shoes class=input>
-        <option>000 (Normal Sized)</option>
-        <option selected>Pony (Small)</option>
-    </select>
-    <div class=tooltip><em>?</em>
-        <span class=tooltiptext>
-            <p>Triple-ots are normal horsehoes (About 5" wide).</p>
-            <p>Pony-shoes are smaller. (About 3" wide).</p>
-        </span>
-    </div>
-    <br />
-    <p class=orderform>Color: </p>
-    <select name=color/condition class=input>
-        <option>Black</option>
-        <option selected>Raw</option>
-    </select>
-    <br />
-</template>
-<template id=Snowman>
-    <input type="text" name="Item Ordered" value="Small Cross" hidden />
-    <!--JS will throw an error if there's no template, but no options are needed here.-->
-</template>
-<template id=Turkey>
-    <input type="text" name="Item Ordered" value="Turkey" hidden />
-    <p class=orderform>New/Used Horseshoes:</p>
-    <select name=color/condition class=input>
-        <option>Used</option>
-        <option selected>New</option>
-    </select>
-</template>
-<template id=Star>
-    <input type="text" name="Item Ordered" value="Star" hidden />
-    <p class=orderform>Color: </p>
-    <select name=color/condition class=input>
-        <option>Black</option>
-        <option>Used</option>
-        <option selected>Raw</option>
-    </select>
-</template>
+<head></head>
+
+<body>
+    <template id="LargeTree">
+        <input type="text" name="Item Ordered" value="Large Tree" hidden />
+        <p class=orderform>Ornaments: </p>
+        <select name=lights class=input>
+            <option>Yes</option>
+            <option selected>No</option>
+        </select>
+        <br />
+        <p class=orderform>Skirt: </p>
+        <select name=skirt class=input>
+            <option>Yes</option>
+            <option selected>No</option>
+        </select>
+        <br />
+        <p class=orderform>Lights: </p>
+        <select name=ornaments class=input>
+            <option>Yes</option>
+            <option selected>No</option>
+        </select>
+        <br />
+        <p class=orderform>Color: </p>
+        <select name=color/condition class=input>
+            <option>Black</option>
+            <option selected>Raw</option>
+        </select>
+        <br />
+    </template>
+    <template id="SmallTree">
+        <input type="text" name="Item Ordered" value="Small Tree" hidden />
+        <p class=orderform>Shoes: </p>
+        <select name=shoes class=input>
+            <option>000 (Normal Sized)</option>
+            <option selected>Pony (Small)</option>
+        </select>
+        <div class=tooltip><em>?</em>
+            <span class=tooltiptext>
+                <p>Triple-ots are normal horsehoes (About 5" wide).</p>
+                <p>Pony-shoes are smaller. (About 3" wide).</p>
+            </span>
+        </div>
+        <br />
+        <p class=orderform>Ornaments: </p>
+        <select name=lights class=input>
+            <option>Yes</option>
+            <option selected>No</option>
+        </select>
+        <br />
+        <p class=orderform>Skirt: </p>
+        <select name=skirt class=input>
+            <option>Yes</option>
+            <option selected>No</option>
+        </select>
+        <br />
+        <p class=orderform>Lights: </p>
+        <select name=ornaments class=input>
+            <option>Yes</option>
+            <option selected>No</option>
+        </select>
+        <br />
+        <p class=orderform>Color: </p>
+        <select name=color/condition class=input>
+            <option>Black</option>
+            <option selected>Raw</option>
+        </select>
+        <br />
+    </template>
+    <template id="LargeCross">
+        <input type="text" name="Item Ordered" value="Large Cross" hidden />
+
+        <p class=orderform>Color: </p>
+        <select name=color/condition class=input>
+            <option>Black</option>
+            <option selected>Raw</option>
+        </select>
+        <br />
+    </template>
+    <template id="SmallCross">
+        <input type="text" name="Item Ordered" value="Small Cross" hidden />
+        <p class=orderform>Shoes: </p>
+        <select name=shoes class=input>
+            <option>000 (Normal Sized)</option>
+            <option selected>Pony (Small)</option>
+        </select>
+        <div class=tooltip><em>?</em>
+            <span class=tooltiptext>
+                <p>Triple-ots are normal horsehoes (About 5" wide).</p>
+                <p>Pony-shoes are smaller. (About 3" wide).</p>
+            </span>
+        </div>
+        <br />
+        <p class=orderform>Color: </p>
+        <select name=color/condition class=input>
+            <option>Black</option>
+            <option selected>Raw</option>
+        </select>
+        <br />
+    </template>
+    <template id=Snowman>
+        <input type="text" name="Item Ordered" value="Small Cross" hidden />
+        <!--JS will throw an error if there's no template, but no options are needed here.-->
+    </template>
+    <template id=Turkey>
+        <input type="text" name="Item Ordered" value="Turkey" hidden />
+        <p class=orderform>New/Used Horseshoes:</p>
+        <select name=color/condition class=input>
+            <option>Used</option>
+            <option selected>New</option>
+        </select>
+    </template>
+    <template id=Star>
+        <input type="text" name="Item Ordered" value="Star" hidden />
+        <p class=orderform>Color: </p>
+        <select name=color/condition class=input>
+            <option>Black</option>
+            <option>Used</option>
+            <option selected>Raw</option>
+        </select>
+    </template>
 </body>
+
 </html>

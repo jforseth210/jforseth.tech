@@ -8,6 +8,8 @@ ALLOWED_EXTENSIONS = ['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'py']
 UPLOAD_PATH = "uploads"
 
 # This is a magic function from the flask documentation. I have no idea what it does or how it works.
+
+
 def allowed_file(file_name):
     return '.' in file_name and \
         file_name.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

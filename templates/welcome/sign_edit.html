@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Editor</title>
 </head>
+
 <body>
     <input id=signEdit onchange="signUpdated()" value={{text}} />
     <style>
@@ -12,33 +14,34 @@
             0% {
                 background-color: #45a3e5
             }
-        
+
             30% {
                 background-color: #66bf39
             }
-        
+
             60% {
                 background-color: #eb670f
             }
-        
+
             90% {
                 background-color: #f35
             }
-        
+
             100% {
                 background-color: #864cbf
             }
         }
-        
+
         body {
             -webkit-animation: bgcolor 20s infinite;
             animation: bgcolor 10s infinite;
             -webkit-animation-direction: alternate;
             animation-direction: alternate;
         }
-        #signEdit{
+
+        #signEdit {
             background-color: transparent;
-            border:none;
+            border: none;
             font-family: sans-serif;
             width: 100%;
             color: white;
@@ -51,15 +54,16 @@
         }
     </style>
     <script>
-        function signUpdated(){
+        function signUpdated() {
             var xmlHttp = new XMLHttpRequest();
             xmlHttp.onreadystatechange = function () {
             }
-            var sign_text=document.getElementById("signEdit")
-            xmlHttp.open("GET", "/sign/update?text="+sign_text.value, true); // true for asynchronous 
+            var sign_text = document.getElementById("signEdit")
+            xmlHttp.open("GET", "/sign/update?text=" + sign_text.value, true); // true for asynchronous 
             xmlHttp.send(null);
-             
+
         }
     </script>
 </body>
+
 </html>

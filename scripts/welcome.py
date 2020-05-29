@@ -12,8 +12,8 @@ welcome = Blueprint('welcome', __name__)
 
 @welcome.route('/')
 def welcome_page():
-    if platform.node()=="backup-server-vm":
-         flash("The main jforseth.tech server is currently experiencing issues. Some functionality may not be available.")
+    if platform.node() == "backup-server-vm":
+        flash("The main jforseth.tech server is currently experiencing issues. Some functionality may not be available.")
     return render_template("welcome/welcome.html")
 
 
@@ -31,20 +31,23 @@ def about():
 def instructions():
     return render_template('welcome/instructions.html')
 
+
 @welcome.route('/sign/edit')
 def sign_edit():
     with open("text/sign_text.txt") as file:
-        text=file.read()
+        text = file.read()
     return render_template("welcome/sign_edit.html", text=text)
+
 
 @welcome.route('/sign')
 def sign():
     return render_template("welcome/sign.html")
 
+
 @welcome.route('/sign/stream')
 def sign_stream():
     def eventStream():
-        old_current_number=''
+        old_current_number = ''
         while True:
             time.sleep(0.1)
             with open("text/sign_text.txt", 'r') as file:
@@ -53,16 +56,19 @@ def sign_stream():
                 old_current_number = current_number
                 yield "data: {}\n\n".format(current_number)
     return Response(eventStream(), mimetype="text/event-stream")
+
+
 @welcome.route("/sign/update")
 def sign_update():
-    text=request.args.get("text")
-    with open("text/sign_text.txt","w") as file:
+    text = request.args.get("text")
+    with open("text/sign_text.txt", "w") as file:
         file.write(text)
     return ""
-#Random redirects
+# Random redirects
 @welcome.route("/italypics")
 def italypics():
     return redirect("https://photos.app.goo.gl/ouxubTRRHkEVnpbr5")
+
 
 @welcome.route("/jeopardy")
 def jeopardy():

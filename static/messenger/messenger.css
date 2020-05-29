@@ -6,7 +6,6 @@ ul.messagelist {
 	margin: 0;
 }
 
-
 #text {
 	border: none;
 	outline: none;
@@ -18,7 +17,7 @@ ul.messagelist {
 	padding: 1px 10px;
 	width: 210px;
 	height: 23px;
-	background:transparent;
+	background: transparent;
 }
 
 .message {
@@ -28,8 +27,8 @@ ul.messagelist {
 	margin: 3px 0px;
 	width: auto;
 	background: var(--main-element-color);
-  color: var(--main-txt-color);
-  font-family: var(--main-font);
+	color: var(--main-txt-color);
+	font-family: var(--main-font);
 }
 
 #message-submit {
@@ -38,7 +37,7 @@ ul.messagelist {
 	font-weight: bold;
 	border: none;
 	outline: none;
-  background: var(--main-bg-color);
+	background: var(--main-bg-color);
 }
 
 #clear {
@@ -52,7 +51,7 @@ ul.messagelist {
 #text {
 	border: none;
 	outline: none;
-  background: transparent;
-  color:var(--main-txt-color);
-  font-family: var(--main-font);
+	background: transparent;
+	color: var(--main-txt-color);
+	font-family: var(--main-font);
 }

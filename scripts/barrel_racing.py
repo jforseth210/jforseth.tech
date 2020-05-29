@@ -3,7 +3,8 @@ import time
 from flask import *
 barrel_racing = Blueprint("barrel_racing", __name__)
 
-#TODO: Talk to Rylan about depreciating this?
+# TODO: Talk to Rylan about depreciating this?
+
 
 @barrel_racing.route('/barrelracing/app_lab')
 def barrel_racing_app_lab():
@@ -17,7 +18,8 @@ def barrel_racing_counter():
     try:
         current_number = int(current_number)
     except ValueError:
-        flash("Current number is not a number! Please type in a number.",category="alert")
+        flash("Current number is not a number! Please type in a number.",
+              category="alert")
         return render_template("barrel_racing/barrel_racing_counter.html", current_number="ERROR")
     return render_template("barrel_racing/barrel_racing_counter.html", current_number=current_number)
 

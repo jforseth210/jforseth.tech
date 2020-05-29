@@ -8,33 +8,37 @@ from simple_mail import send_email
 from account_management import have_access_to_todo
 
 todo = Blueprint('todo', __name__)  # Main page
-#TODO: Multi-user todo
+# TODO: Multi-user todo
+
+
 def get_todos(todoFilePath):
-    #try:
+    # try:
     with open(todoFilePath, 'r') as file:
         todos = file.readlines()
         if todos != '':
             todos = [i.replace('COMMA', ',') for i in todos]
-            todos = [i.replace('\n','') for i in todos]
+            todos = [i.replace('\n', '') for i in todos]
             todos = [i.split(',') for i in todos]
-    #except FileNotFoundError:
+    # except FileNotFoundError:
     #    with open(todoFilePath, 'w') as file:
     #        file.write("")
     #        get_todos()
     return todos
 
+
 def get_lists(todoFilePath):
-    todos=get_todos(todoFilePath)
+    todos = get_todos(todoFilePath)
     if todos == "":
         return ""
     print(todos)
-    lists=[todo[1] for todo in todos]
-    lists=list(set(lists))
+    lists = [todo[1] for todo in todos]
+    lists = list(set(lists))
     return lists
 
-def add_todo(todoFilePath, name,currentlist):
+
+def add_todo(todoFilePath, name, currentlist):
     with open(todoFilePath, 'a') as file:
-        file.write('{},{}\n'.format(name,currentlist))
+        file.write('{},{}\n'.format(name, currentlist))
 
 
 def delete_todo(todoFilePath, taskid):
@@ -72,21 +76,21 @@ def reorder_todo(todoFilePath, item_to_reorder, position_to_move):
 @todo.route('/todo')
 @login_required()
 def todo_page():
-    #if not os.path.isdir("userdata/{}/todo/".format(get_username())):
+    # if not os.path.isdir("userdata/{}/todo/".format(get_username())):
     #    os.makedirs('userdata/{}/todo/'.format(get_username()))
     #    with open("userdata/{}/todo/list.csv".format(get_username()), 'w'):
     #        pass
-    todoFilePath='userdata/{}/todo/list.csv'.format(get_username())
+    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username())
     todos = get_todos(todoFilePath)
     print(todos)
     todos.reverse()
-    lists=get_lists(todoFilePath)
+    lists = get_lists(todoFilePath)
     return render_template('todo/todo.html', result=todos, lists=lists)
 
 
-#Since I escape the device input, I have to escape the list it's 
-#being compared to.
-#TODO: Make api be not a security nightmare
+# Since I escape the device input, I have to escape the list it's
+# being compared to.
+# TODO: Make api be not a security nightmare
 """VALID_DEVICES=[escape(i) for i in VALID_DEVICES]
 
 @todo.route('/todo/api'
@@ -121,11 +125,11 @@ def delete_todo_api():
 @todo.route('/todo/submitted', methods=['POST', 'GET'])
 @login_required()
 def new_todo():
-    todoFilePath='userdata/{}/todo/list.csv'.format(get_username())
+    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username())
     name = escape(request.form.get('taskname'))
     name = name.replace(',', 'COMMA')
-    currentlist=escape(request.form.get('list'))
-    add_todo(todoFilePath,name,currentlist)
+    currentlist = escape(request.form.get('list'))
+    add_todo(todoFilePath, name, currentlist)
     #send_email('todo+19z1n4ovd3rf@mail.ticktick.com', name, 'Submitted from jforseth.tech',PERSONAL_EMAIL, PERSONAL_PASSWORD)
 
     return redirect('/todo')
@@ -134,7 +138,7 @@ def new_todo():
 @todo.route('/todo/delete', methods=['POST', 'GET'])
 @login_required()
 def todo_deleted():
-    todoFilePath='userdata/{}/todo/list.csv'.format(get_username())
+    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username())
     try:
         task_id = int(escape(request.form.get('taskid')))
     except ValueError:
@@ -147,7 +151,7 @@ def todo_deleted():
 @todo.route('/todo/reorder', methods=['POST', 'GET'])
 @login_required()
 def todo_reordered():
-    todoFilePath='userdata/{}/todo/list.csv'.format(get_username())
+    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username())
     try:
         item_to_reorder = int(escape(request.form.get("taskid")))
         position_to_move = int(escape(request.form.get("taskloc")))

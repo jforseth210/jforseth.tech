@@ -1,10 +1,27 @@
-.alert.success {background-color: #4CAF50;}
-.alert.info {background-color: #2196F3;}
-.alert.warning {background-color: #ff9800;}
+.alert.success {
+	background-color: #4CAF50;
+}
+
+.alert.info {
+	background-color: #2196F3;
+}
+
+.alert.warning {
+	background-color: #ff9800;
+}
+
 /*For simplelogin*/
-.alert.primary{background-color: #4CAF50;}
-.alert.danger{background-color: #ff9800;}
+
+.alert.primary {
+	background-color: #4CAF50;
+}
+
+.alert.danger {
+	background-color: #ff9800;
+}
+
 /*Little X btn*/
+
 .closebtn {
 	margin-left: 15px;
 	color: white;
@@ -15,14 +32,15 @@
 	cursor: pointer;
 	transition: 0.3s;
 }
+
 .closebtn:hover {
 	color: black;
-} 
-
-
-.wid50{
-  width: 50% !important;
 }
-.wid100{
-    width: 100%;
+
+.wid50 {
+	width: 50% !important;
+}
+
+.wid100 {
+	width: 100%;
 }

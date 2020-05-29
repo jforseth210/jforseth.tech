@@ -4,7 +4,7 @@
 Login
 {% endblock %}
 {%block head%}
-<link rel="stylesheet" href="static/login.css"/>
+<link rel="stylesheet" href="static/login.css" />
 {% endblock %}
 {% block content %}
 {{super()}}
@@ -17,22 +17,29 @@ Login
 {% endif %}
 <h3>Welcome to jforseth.tech</h3>
 <div class=w3-row>
-  <div class=w3-quarter><p> </p></div>
-  <form action="{{ url_for('simplelogin.login') }}" class='w3-container w3-half w3-card-4 w3-center w3-round w3-theme-element' method="post">
+  <div class=w3-quarter>
+    <p> </p>
+  </div>
+  <form action="{{ url_for('simplelogin.login') }}"
+    class='w3-container w3-half w3-card-4 w3-center w3-round w3-theme-element' method="post">
     <h3 class=w3-center>Sign In:</h3>
     <p class=w3-center>Please use a unique username and password. Security isn't my strong suit.</p>
     <div class="form-group">
-    {{ form.csrf_token }}
-    <p id=usernameLabel>Username:</p><div class="">{{ form.username }}</div><br>
-    <p id=passwordLabel>Password:</p><div class=""> {{ form.password }}</div><br>
-    {% if next %}<input type="hidden" name="next" value="{{next}}">{% endif %}
+      {{ form.csrf_token }}
+      <p id=usernameLabel>Username:</p>
+      <div class="">{{ form.username }}</div><br>
+      <p id=passwordLabel>Password:</p>
+      <div class=""> {{ form.password }}</div><br>
+      {% if next %}<input type="hidden" name="next" value="{{next}}">{% endif %}
   </form>
   <a href="/forgot_pw">Forgot Password?</a>
-  <br/><br/>
+  <br /><br />
   <input class="w3-button w3-theme-dark-element w3-round-large" type="submit" value="Login">
 </div>
 </form>
-<div class=w3-quarter><p> </p></div>
+<div class=w3-quarter>
+  <p> </p>
+</div>
 </div>
 <script src="static/login.js"></script>
 {% endblock %}

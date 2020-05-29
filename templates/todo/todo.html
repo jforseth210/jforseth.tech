@@ -11,9 +11,9 @@
     ["{{todo}}", "{{tasklist}}"],
         {% endfor %}
             ];
-            document.addEventListener("DOMContentLoaded", function(event){
-                populatetasks();
-              });
+    document.addEventListener("DOMContentLoaded", function (event) {
+        populatetasks();
+    });
 </script>
 {% endblock %}
 {% block heading %}
@@ -62,13 +62,11 @@
         <form action="todo/reorder" method="POST">
             <p>Task to move:</p>
             <br />
-            <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type='number' name='taskid'
-                id='taskid' />
+            <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type='number' name='taskid' id='taskid' />
             <br />
             <br />
             <p>Position to move task:</p>
-            <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type='number'
-                name='taskloc' id='taskid' />
+            <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type='number' name='taskloc' id='taskid' />
             <br />
             <input class="w3-round-large w3-button w3-theme-dark-element" type='submit' value='Move' />
         </form>

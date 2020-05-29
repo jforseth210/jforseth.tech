@@ -8,7 +8,7 @@ from flask_simplelogin import SimpleLogin
 from account_management import check_login
 
 from scripts.welcome import *
-from scripts.accounts import * 
+from scripts.accounts import *
 from scripts.writer import *
 from scripts.videos import *
 from scripts.messenger import *
@@ -47,6 +47,7 @@ def check_if_admin():
     else:
         return False
 
+
 app.jinja_env.globals.update(check_if_admin=check_if_admin)
 
 # __        __   _
@@ -61,11 +62,11 @@ app.jinja_env.globals.update(check_if_admin=check_if_admin)
 # /instructions
 # /menu
 app.register_blueprint(welcome)
-#    _                         _       
+#    _                         _
 #   / \   ___ ___  _   _ _ __ | |_ ___
 #  / _ \ / __/ _ \| | | | '_ \| __/ __|
 # / ___ \ (_| (_) | |_| | | | | |_\__ \
-#/_/   \_\___\___/ \__,_|_| |_|\__|___/
+# /_/   \_\___\___/ \__,_|_| |_|\__|___/
 app.register_blueprint(accounts)
 
 # __     ___     _
@@ -108,23 +109,23 @@ app.register_blueprint(messenger)
 # /prayer/newemailconfirmed
 # /prayer/prayerrequest
 app.register_blueprint(prayer)
-#__        __    _ _
-#\ \      / / __(_) |_ ___ _ __ 
+# __        __    _ _
+# \ \      / / __(_) |_ ___ _ __
 # \ \ /\ / / '__| | __/ _ \ '__|
 #  \ V  V /| |  | | ||  __/ |
-#   \_/\_/ |_|  |_|\__\___|_|   
-#/writer
-#/writer/document/<name>
-#/writer/save/<name>
+#   \_/\_/ |_|  |_|\__\___|_|
+# /writer
+# /writer/document/<name>
+# /writer/save/<name>
 app.register_blueprint(writer)
 # _               _            ____  _
-#| |   _   _  ___| | ___   _  / ___|| |__   ___   ___
-#| |  | | | |/ __| |/ / | | | \___ \| '_ \ / _ \ / _ \
-#| |__| |_| | (__|   <| |_| |  ___) | | | | (_) |  __/
-#|_____\__,_|\___|_|\_\\__, | |____/|_| |_|\___/ \___|
+# | |   _   _  ___| | ___   _  / ___|| |__   ___   ___
+# | |  | | | |/ __| |/ / | | | \___ \| '_ \ / _ \ / _ \
+# | |__| |_| | (__|   <| |_| |  ___) | | | | (_) |  __/
+# |_____\__,_|\___|_|\_\\__, | |____/|_| |_|\___/ \___|
 #                      |___/
-#Contains:
-#/luckyshoe
+# Contains:
+# /luckyshoe
 app.register_blueprint(lucky_shoe)
 #  _____         _
 # |_   _|__   __| | ___
@@ -213,14 +214,14 @@ app.register_blueprint(barrel_racing)
 # /filesharing/<filename>
 # /filesharing/filelist
 app.register_blueprint(file_sharing)
-# _     ___      _    
-#| |   / _ \    / \   
-#| |  | | | |  / _ \  
-#| |__| |_| | / ___ \ 
-#|_____\__\_\/_/   \_\
-#Contains:
-#/lqa
-#/lqa/<station>
+# _     ___      _
+# | |   / _ \    / \
+# | |  | | | |  / _ \
+# | |__| |_| | / ___ \
+# |_____\__\_\/_/   \_\
+# Contains:
+# /lqa
+# /lqa/<station>
 app.register_blueprint(LQA)
 #  _____                       _   _                 _ _
 # | ____|_ __ _ __ ___  _ __  | | | | __ _ _ __   __| | | ___ _ __ ___
@@ -241,12 +242,12 @@ def forbidden(e):
 def server_error(e):
     # if not app.debug:
     #     send_email('support@jforseth.tech', 'It\'s reprogramming time!',
-    #                "<a href=\"https://youtu.be/QDSEpjjavhY?t=182\">It's reprogramming time!</a><br/>An error was detected on your server: {}".format(e), 
+    #                "<a href=\"https://youtu.be/QDSEpjjavhY?t=182\">It's reprogramming time!</a><br/>An error was detected on your server: {}".format(e),
     #                'errors@jforseth.tech', PROJECT_PASSWORD)
     return render_template('errors/500.html'), 500
 
 
 if __name__ == "__main__":
     app.debug = True
-    #toolbar=DebugToolbarExtension(app)
+    # toolbar=DebugToolbarExtension(app)
     app.run(host="0.0.0.0")

@@ -135,25 +135,30 @@ def prayer_request():
     # Uncommenting this is a really, really bad idea.
     # emails=[personalemail]
     for email in emails:
-        #This token generation is a bit hacky because I don't know the username. But, if I don't check on the other side, it doesn't matter anyway.
+        # This token generation is a bit hacky because I don't know the username. But, if I don't check on the other side, it doesn't matter anyway.
         send_email(email[0], subject_template, message_template.format(email=email[0]),
                    PROJECT_EMAIL, PROJECT_PASSWORD)
     flash("Prayer request sent!", category="success")
     return redirect('/prayer')
-    
+
+
 @prayer.route('/prayer/unsub')
 def confirm_unsubscription():
-    email=request.args.get('email')
-    group=request.args.get('group')
-    token=generate_token(email, 'prayer_unsubscription')
+    email = request.args.get('email')
+    group = request.args.get('group')
+    token = generate_token(email, 'prayer_unsubscription')
     with open('text/prayer_unsubscription_email_template.html') as file:
-        message=file.read()
-    message=message.format(email=email, group=group, token=token)
+        message = file.read()
+    message = message.format(email=email, group=group, token=token)
     if group == "ALL":
-        group="all prayer requests."
-    send_email(email,"Unsubscribe from "+group,message,PROJECT_EMAIL, PROJECT_PASSWORD)
-    flash("Sorry to see you go! Check your email for an unsubscription link.",category='success')
+        group = "all prayer requests."
+    send_email(email, "Unsubscribe from "+group,
+               message, PROJECT_EMAIL, PROJECT_PASSWORD)
+    flash("Sorry to see you go! Check your email for an unsubscription link.",
+          category='success')
     return redirect('/prayer')
+
+
 @prayer.route('/prayer/unsub_confirmed')
 def unsubscribe_page():
     email = request.args.get('email')
@@ -161,72 +166,81 @@ def unsubscribe_page():
     token = request.args.get('token')
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
-    if check_token(token, 'prayer_unsubscription') and get_user_from_token(token,'prayer_unsubscription')==email:
+    if check_token(token, 'prayer_unsubscription') and get_user_from_token(token, 'prayer_unsubscription') == email:
         with conn:
             cur.execute(
                 """SELECT prayer_groups, username FROM accounts WHERE prayer_email='{email}'""".format(email=email))
         users = cur.fetchall()
         if group != "ALL":
             for idx, user in enumerate(users):
-                user=user[0].replace(group, "")
-                user[0]=user[0].strip('|')
-                user[0]=user[0].replace('||','|')
+                user = user[0].replace(group, "")
+                user[0] = user[0].strip('|')
+                user[0] = user[0].replace('||', '|')
                 if user[0] == "":
-                    users[idx]=("None", user[1])
+                    users[idx] = ("None", user[1])
                 else:
-                    users[idx]=(user[0],user[1])
+                    users[idx] = (user[0], user[1])
         else:
-            users = [("None",user[1]) for user in users]
+            users = [("None", user[1]) for user in users]
         with conn:
             for user in users:
-                cur.execute("""UPDATE accounts SET prayer_groups = ? WHERE username = ?""", (user[0],user[1]))
+                cur.execute(
+                    """UPDATE accounts SET prayer_groups = ? WHERE username = ?""", (user[0], user[1]))
         remove_token(token, 'prayer_unsubscription')
-        flash("Done",category="success")
+        flash("Done", category="success")
     else:
         flash("This link is invalid.")
     return redirect('/prayer')
+
+
 @login_required()
 @prayer.route('/prayer/unsubscribe_logged_in')
 def unsubscribe_logged_in():
-    username=get_username()
-    group=request.args.get('group')
+    username = get_username()
+    group = request.args.get('group')
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     with conn:
-        cur.execute("""SELECT prayer_groups FROM accounts WHERE username = ? """, ([username]))
-    prayer_groups=cur.fetchone()[0]
-    prayer_groups=prayer_groups.replace(group,"")
-    prayer_groups=prayer_groups.strip('|')
-    prayer_groups=prayer_groups.replace('||','|')
-    if prayer_groups=='':
-        prayer_groups="None"
+        cur.execute(
+            """SELECT prayer_groups FROM accounts WHERE username = ? """, ([username]))
+    prayer_groups = cur.fetchone()[0]
+    prayer_groups = prayer_groups.replace(group, "")
+    prayer_groups = prayer_groups.strip('|')
+    prayer_groups = prayer_groups.replace('||', '|')
+    if prayer_groups == '':
+        prayer_groups = "None"
     print(prayer_groups)
     with conn:
-        cur.execute("""UPDATE accounts SET prayer_groups = ? WHERE username= ?""", ([prayer_groups, username]))
-    flash('Unsubscribed',category='success')
+        cur.execute("""UPDATE accounts SET prayer_groups = ? WHERE username= ?""", ([
+                    prayer_groups, username]))
+    flash('Unsubscribed', category='success')
     return redirect('/account/'+username)
+
+
 @prayer.route('/prayer/addgroup', methods=['POST'])
 def add_group():
-    group=request.form.get('group')
-    username=get_username()
-    group=PARISH_DICTIONARY.get(group)
+    group = request.form.get('group')
+    username = get_username()
+    group = PARISH_DICTIONARY.get(group)
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
     with conn:
-        cur.execute("""SELECT prayer_groups FROM accounts WHERE username = ? """, ([username]))
-    prayer_groups=cur.fetchone()[0]
+        cur.execute(
+            """SELECT prayer_groups FROM accounts WHERE username = ? """, ([username]))
+    prayer_groups = cur.fetchone()[0]
     print(prayer_groups)
-    if prayer_groups=='None':
-        prayer_groups=group
-        flash('Subscribed',category='success')
+    if prayer_groups == 'None':
+        prayer_groups = group
+        flash('Subscribed', category='success')
     elif group in prayer_groups:
         flash("Already part of this group")
     else:
-        prayer_groups=prayer_groups+"|"+group
-        flash('Subscribed',category='success')
-    
+        prayer_groups = prayer_groups+"|"+group
+        flash('Subscribed', category='success')
+
     with conn:
-        cur.execute("""UPDATE accounts SET prayer_groups = ? WHERE username= ?""", ([prayer_groups, username]))
+        cur.execute("""UPDATE accounts SET prayer_groups = ? WHERE username= ?""", ([
+                    prayer_groups, username]))
     return redirect('/account/'+username)
 # @prayer.route('/prayer/newemail', methods=['POST', 'GET'])
 # def new_email():

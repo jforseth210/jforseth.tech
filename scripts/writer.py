@@ -13,8 +13,9 @@ from refresh_writer_thumbs import refresh_thumbs
 
 writer = Blueprint('writer', __name__)
 
-#TODO: Add multiaccount support to writer app. 
-#TODO: Massive app refactor
+# TODO: Add multiaccount support to writer app.
+# TODO: Massive app refactor
+
 
 @writer.route('/writer')
 @login_required()
@@ -24,11 +25,11 @@ def writer_home():
     username = get_username()
     path = "userdata/{}/writer/documents/".format(username)
     print(path)
-    #if not os.path.isdir(path):
+    # if not os.path.isdir(path):
     #    os.makedirs(path)
     #    os.makedirs("userdata/{}/writer/thumbnails/".format(username))
     files = os.listdir(path)
-    files = [i for i in files if i!='oopsie']
+    files = [i for i in files if i != 'oopsie']
     new_files = []
     for i in files:
         if i != 'oopsie':
@@ -41,10 +42,10 @@ def writer_home():
 @writer.route('/writer/thumb/<name>')
 def writer_thumb(name):
     try:
-        return send_file('userdata/{}/writer/thumbnails/{}.html_thumb.png'.format(get_username(),name.lower()))
+        return send_file('userdata/{}/writer/thumbnails/{}.html_thumb.png'.format(get_username(), name.lower()))
     except:
         refresh_thumbs(get_username())
-        return send_file('userdata/{}/writer/thumbnails/{}.html_thumb.png'.format(get_username(),name.lower()))
+        return send_file('userdata/{}/writer/thumbnails/{}.html_thumb.png'.format(get_username(), name.lower()))
 
 
 @writer.route('/writer/<name>')
@@ -91,12 +92,14 @@ def document_api(name):
         print(ANDROID_ID, request_id)
         return "Invalid id."
 """
+
+
 def save(filename, data):
     filename = secure_filename(filename)
     filename = filename.lower()
     username = get_username()
     path = "userdata/{}/writer/documents/".format(username)
-    #if not os.path.isdir(path):
+    # if not os.path.isdir(path):
     #    os.makedirs(path)
 
     print(data)
@@ -118,14 +121,14 @@ def get_document(filename):
     #    io.open("text/writerdocs/{}.html".format(name))
     #    document=""
     except IOError:  # Python2
-        io.open("userdata/{}/writer/documents/{}.html".format(get_username(), filename), "w")
+        io.open(
+            "userdata/{}/writer/documents/{}.html".format(get_username(), filename), "w")
         refresh_thumbs(username)
         document = ""
     #files = [i for i in files if i.replace("\n", "") != filename+".html"]
     #files.insert(0, filename+".html\n")
     #files=[i.decode("utf-8") for i in files]
-    #with io.open('text/writer_file_order.txt', 'w') as file:
+    # with io.open('text/writer_file_order.txt', 'w') as file:
     #    file.writelines(files)
     return Markup(document)
-
 

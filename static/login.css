@@ -1,14 +1,17 @@
-.form-group{
-    margin:auto;
-    width:30%;
+.form-group {
+    margin: auto;
+    width: 30%;
     text-align: center;
 }
-#usernameLabel{
+
+#usernameLabel {
     text-align: left;
 }
-#passwordLabel{
+
+#passwordLabel {
     text-align: left;
 }
-.inputs{
+
+.inputs {
     width: 100% !important;
 }

@@ -1,234 +1,246 @@
 :root {
-      --main-bg-color: #7E5C3A;
-      --main-txt-color: #000;
-      --main-element-color: #C2B091;
-      --main-hover-color: #987A5C;
-    }
+  --main-bg-color: #7E5C3A;
+  --main-txt-color: #000;
+  --main-element-color: #C2B091;
+  --main-hover-color: #987A5C;
+}
 
-    body {
-      color: var(--main-txt-color);
-      background-color: var(--main-bg-color);
-      font-family: 'Literata', serif;
-    }
+body {
+  color: var(--main-txt-color);
+  background-color: var(--main-bg-color);
+  font-family: 'Literata', serif;
+}
 
-    .coverimage {
-      width: 100%;
-      padding: 0px;
-      margin: 0px;
-    }
+.coverimage {
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
 
-    .bodytext {
-      padding: 10px;
-    }
+.bodytext {
+  padding: 10px;
+}
 
-    /* Shamelessly copied from w3schools*/
-    ul {
-      list-style-type: none;
-      margin: -10px;
-      margin-top: 30px;
-      padding: 0;
-      overflow: hidden;
-      background-color: var(--main-element-color);
-      position: -webkit-sticky;
-      /* Safari */
-      position: sticky;
-      top: 0;
-    }
+/* Shamelessly copied from w3schools*/
 
-    li {
-      float: left;
-    }
+ul {
+  list-style-type: none;
+  margin: -10px;
+  margin-top: 30px;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--main-element-color);
+  position: -webkit-sticky;
+  /* Safari */
+  position: sticky;
+  top: 0;
+}
 
-    li a {
-      display: block;
-      color: var(--main-txt-color);
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
-    }
+li {
+  float: left;
+}
 
-    li a:hover {
-      background-color: var(--main-hover-color);
-    }
+li a {
+  display: block;
+  color: var(--main-txt-color);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
 
-    /*End shamelessly copied from w3schools*/
-    .right {
-      float: right;
-    }
+li a:hover {
+  background-color: var(--main-hover-color);
+}
 
-    .left {
-      float: left;
-    }
-    
-    .half {
-      width: 45%;
-      padding: inherit;
-    }
+/*End shamelessly copied from w3schools*/
 
-    .row {
-      overflow: auto;
-      margin: 5px;
-      margin-top: 20px;
-    }
+.right {
+  float: right;
+}
 
-    .orderform {
-      display: inline-block;
-    }
+.left {
+  float: left;
+}
 
-    .orderButton {
-      border: none;
-      border-radius: 10px;
-      box-shadow: none;
-      background: var(--main-element-color);
-      font-family: 'Literata', serif;
-      width: 90px;
-      height: 50px;
-    }
+.half {
+  width: 45%;
+  padding: inherit;
+}
 
-    .input {
-      background-color: var(--main-element-color);
-      border: none;
-    }
+.row {
+  overflow: auto;
+  margin: 5px;
+  margin-top: 20px;
+}
 
-    /* Shamelessly copied from a different w3schools page */
-    /* The Modal (background) */
-    .modal {
-      display: none;
-      /* Hidden by default */
-      position: fixed;
-      /* Stay in place */
-      z-index: 1;
-      /* Sit on top */
-      padding-top: 100px;
-      /* Location of the box */
-      left: 0;
-      top: 0;
-      width: 100%;
-      /* Full width */
-      height: 100%;
-      /* Full height */
-      overflow: auto;
-      /* Enable scroll if needed */
-      background-color: rgb(0, 0, 0);
-      /* Fallback color */
-      background-color: rgba(0, 0, 0, 0.4);
-      /* Black w/ opacity */
-    }
+.orderform {
+  display: inline-block;
+}
 
-    /* Modal Content */
-    .modal-content {
-      background-color: var(--main-hover-color);
-      margin: auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-    }
+.orderButton {
+  border: none;
+  border-radius: 10px;
+  box-shadow: none;
+  background: var(--main-element-color);
+  font-family: 'Literata', serif;
+  width: 90px;
+  height: 50px;
+}
 
-    /* The Close Button */
-    .close {
-      color: var(--main-text-color);
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
+.input {
+  background-color: var(--main-element-color);
+  border: none;
+}
 
-    .close:hover,
-    .close:focus {
-      color: var(--main-hovercolor);
-      text-decoration: none;
-      cursor: pointer;
-    }
+/* Shamelessly copied from a different w3schools page */
 
-    /* End w3schools */
-    /*Alerts from https://www.w3schools.com/howto/howto_js_alert.asp*/
-    /* The alert message box */
-    .alert {
-      padding: 20px;
-      background-color: #f44336;
-      /* Red */
-      color: white;
-      margin-bottom: 15px;
-      margin-left: -30%;
-      width: 60%;
-      position: absolute;
-      margin-top: 20;
-      left: 50%;
-      z-index: 8;
-    }
+/* The Modal (background) */
 
-    /* The close button */
-    .closebtn {
-      margin-left: 15px;
-      color: white;
-      font-weight: bold;
-      float: right;
-      font-size: 22px;
-      line-height: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
 
-    /* When moving the mouse over the close button */
-    .closebtn:hover {
-      color: black;
-    }
+/* Modal Content */
 
-    .alert.success {
-      background-color: #4CAF50;
-    }
+.modal-content {
+  background-color: var(--main-hover-color);
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
 
-    .alert.info {
-      background-color: #2196F3;
-    }
+/* The Close Button */
 
-    .alert.warning {
-      background-color: #ff9800;
-    }
+.close {
+  color: var(--main-text-color);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
 
-    /*For simplelogin*/
-    .alert.primary {
-      background-color: #4CAF50;
-    }
+.close:hover, .close:focus {
+  color: var(--main-hovercolor);
+  text-decoration: none;
+  cursor: pointer;
+}
 
-    .alert.danger {
-      background-color: #ff9800;
-    }
+/* End w3schools */
 
-    /*Tooltips also from w3schools*/
-    .tooltip {
-      position: relative;
-      display: inline-block;
-      border-bottom: 1px dotted black;
-    }
+/*Alerts from https://www.w3schools.com/howto/howto_js_alert.asp*/
 
-    .tooltip .tooltiptext {
-      visibility: hidden;
-      width: 300px;
-      background-color: var(--main-bg-color);
-      color: var(--main-txt-color);
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
+/* The alert message box */
 
-      /* Position the tooltip */
-      position: absolute;
-      z-index: 2;
-      top: 100%;
-      left: 50%;
-      margin-left: -60px;
-    }
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  /* Red */
+  color: white;
+  margin-bottom: 15px;
+  margin-left: -30%;
+  width: 60%;
+  position: absolute;
+  margin-top: 20;
+  left: 50%;
+  z-index: 8;
+}
 
-    .tooltip:hover .tooltiptext {
-      visibility: visible;
-    }
+/* The close button */
 
-    /*End tooltips*/
-    @media screen and (max-width: 712px) {
-      img{
-        width: 45%;
-      }
-    }
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-    #formtemplates{
-      display: none;
-    }
+/* When moving the mouse over the close button */
+
+.closebtn:hover {
+  color: black;
+}
+
+.alert.success {
+  background-color: #4CAF50;
+}
+
+.alert.info {
+  background-color: #2196F3;
+}
+
+.alert.warning {
+  background-color: #ff9800;
+}
+
+/*For simplelogin*/
+
+.alert.primary {
+  background-color: #4CAF50;
+}
+
+.alert.danger {
+  background-color: #ff9800;
+}
+
+/*Tooltips also from w3schools*/
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 300px;
+  background-color: var(--main-bg-color);
+  color: var(--main-txt-color);
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 2;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+/*End tooltips*/
+
+@media screen and (max-width: 712px) {
+  img {
+    width: 45%;
+  }
+}
+
+#formtemplates {
+  display: none;
+}

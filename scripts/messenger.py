@@ -44,7 +44,7 @@ def new_message():
     if request.method == 'POST':
         message = escape(request.form.get('Data'))
         add_message(message)
-    
+
     return redirect('/messenger')
 
 
@@ -59,10 +59,11 @@ def message_stream():
             if previous_messages != messages:
                 previous_messages = messages
                 formatted_messages = [''.join(i) for i in messages]
-            
+
                 yield "data: {}\n\n".format(formatted_messages[-1])
-    
+
     return Response(eventStream(), mimetype="text/event-stream")
+
 
 @messenger.route('/messenger/clear', methods=['POST', 'GET'])
 def clear_all_messages():

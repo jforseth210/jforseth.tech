@@ -16,10 +16,10 @@ def get_videos(videotitle=None, videoid=None):
     videos = [i.split('|') for i in videos]
     if videotitle:
         for i in videos:
-            print(i[0],videotitle)
-        return [i for i in videos if i[0]==videotitle][0]
+            print(i[0], videotitle)
+        return [i for i in videos if i[0] == videotitle][0]
     if videoid:
-        return [i for i in videos if i[0]==videoid][0]
+        return [i for i in videos if i[0] == videoid][0]
     return videos
 
 
@@ -32,15 +32,14 @@ def overwrite_videos(video_list):
 @videos.route('/videos')
 def video_page():
     videos = get_videos()
-    #This doesn't actually do anything. 
-    #As long as the number is a multiple of 3, 
-    #or greater than the total number of videos
-    #it works. 
+    # This doesn't actually do anything.
+    # As long as the number is a multiple of 3,
+    # or greater than the total number of videos
+    # it works.
     VIDEOS_PER_ROW = 3
     video_master_list = []
     for i in range(0, len(videos), VIDEOS_PER_ROW):
         video_master_list.append(videos[i:i+VIDEOS_PER_ROW])
-
 
     return render_template('videos/videos.html', video_master_list=video_master_list)
 
@@ -53,7 +52,7 @@ def new_video_upload():
 
     youtube_id = request.form.get('youtube_id')
     if 'https://www.youtube.com/watch?v=' not in youtube_id and 'https://youtu.be/' not in youtube_id:
-        flash("This doesn't look like a YouTube link. Try again.",category="warning")
+        flash("This doesn't look like a YouTube link. Try again.", category="warning")
         return redirect('/videos')
     youtube_id = youtube_id.replace('https://www.youtube.com/watch?v=', '')
     youtube_id = youtube_id.replace('https://youtu.be/', '')
@@ -74,7 +73,7 @@ def deletion():
 
     video_list = get_videos()
     if len(youtube_id) < 11:
-        flash("This doesn't look like a YouTube link. Try again.",category="warning")
+        flash("This doesn't look like a YouTube link. Try again.", category="warning")
         return redirect('/videos')
 
     video_list = [video for video in video_list if youtube_id not in video]
@@ -147,12 +146,14 @@ def move():
 
     overwrite_videos(video_list)
     return redirect('../videos')
+
+
 @videos.route("/videos/video/<video>")
 def individual_video_page(video):
     try:
-        video=get_videos(video)
+        video = get_videos(video)
     except IndexError:
         return redirect('/videos')
-    videos=get_videos()
+    videos = get_videos()
     random.shuffle(videos)
     return render_template("/videos/individual_video.html", video=video, videos=videos)

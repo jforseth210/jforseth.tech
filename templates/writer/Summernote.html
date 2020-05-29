@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"class=summernote>
+<html lang="en" class=summernote>
 
 <head>
   <!--Clicky Web Analytics-->
@@ -12,40 +12,41 @@
   <link
     href="https://fonts.googleapis.com/css?family=Baskervville|Calistoga|Gupter|Merriweather|Playfair+Display|Roboto+Condensed|Roboto+Mono|Roboto+Slab|Source+Sans+Pro&display=swap"
     rel="stylesheet">
-    
-    <link rel='stylesheet' href='/static/index.css' type='text/css' />
-    <link rel='stylesheet' href='/static/writer/writer.css' type='text/css' />
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
-    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-  </head>
-  
-  <body>
+
+  <link rel='stylesheet' href='/static/index.css' type='text/css' />
+  <link rel='stylesheet' href='/static/writer/writer.css' type='text/css' />
+  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+</head>
+
+<body>
   <p id=documentIdentifier>{{name}}</p>
   <!--Offline alert-->
   <div id=offlineAlert class="alert warning">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-    Whoops! You're offline. Connect to the internet to make sure your changes get saved. (Or copy-paste it somewhere safe.)
+    Whoops! You're offline. Connect to the internet to make sure your changes get saved. (Or copy-paste it somewhere
+    safe.)
   </div>
   <div id=onlineAlert class="alert success">
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-    Back online! Make sure you save your changes. 
+    Back online! Make sure you save your changes.
   </div>
-  
+
   <a href="/writer">Home</a>
   <p>Autosave:</p>
   <label class="switch">
-    <input type="checkbox" id="autoSave" onclick="autoSaveToggle();" checked >
+    <input type="checkbox" id="autoSave" onclick="autoSaveToggle();" checked>
     <span class="slider round"></span>
   </label>
   <button type="submit" id=saveBtn form="form" value="Save">Save</button>
   <form id=form method="post" action="/writer/save/{{name}}">
     <textarea id="summernote" name="editordata"></textarea>
   </form>
-<script src="/static/writer/writer.js"></script>
+  <script src="/static/writer/writer.js"></script>
 </body>
 
 </html>

@@ -17,13 +17,13 @@ for (i = 0; i < close.length; i++) {
     setTimeout(function () { div.style.display = "none"; }, 600);
   }
 }
-function toggleMobileMenu(){
-var x = document.getElementById("menu");
-if (x.classList.contains("w3-hide-small")) {
-  x.className = x.className.replace(" w3-hide-small", "");
-} else { 
-  x.className += " w3-hide-small";
-}
+function toggleMobileMenu() {
+  var x = document.getElementById("menu");
+  if (x.classList.contains("w3-hide-small")) {
+    x.className = x.className.replace(" w3-hide-small", "");
+  } else {
+    x.className += " w3-hide-small";
+  }
 }
 
 // Get the modal

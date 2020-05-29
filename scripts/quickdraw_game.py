@@ -5,6 +5,7 @@ from flask_simplelogin import login_required
 
 quickdraw_game = Blueprint('quickdraw_game', __name__)  # Main page
 
+
 @quickdraw_game.route('/quickdraw')
 @login_required()
 def quickdraw():

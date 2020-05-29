@@ -1,47 +1,50 @@
-.theBigFour{
-transition: all 500ms ease;
-}
-.theBigFour:hover{
-transform:scale(1.1);
-}
-.hidden{
-display:none
-}
-.blueBG{
-background-color: #01334C !important;
-}
-.grayBG{
-background-color: White !important;
-}
-#ctl00_tv_Trackert0, #ctl00_tv_Trackert1, 
-#ctl00_tv_Trackert2,#ctl00_tv_Trackert3, 
-#ctl00_tv_Trackert4, #ctl00_tv_Moneyt0,
-#ctl00_tv_Moneyt1, #ctl00_tv_Moneyt2,
-#ctl00_tv_Moneyt3, #ctl00_tv_Moneyt4,
-#ctl00_tv_AddInfot0,#ctl00_tv_AddInfot1,
-#ctl00_tv_AddInfot2,#ctl00_tv_AddInfot3{
-color: #AAAAAA !important;
-}
-.advisorAlert{
-color: red !important;
-font-size: 12px !important;
+.theBigFour {
+    transition: all 500ms ease;
 }
 
-.otherBtns{
-transition: all 500ms ease;
+.theBigFour:hover {
+    transform: scale(1.1);
 }
-.otherBtns:hover{
-transform:scale(1.1);
+
+.hidden {
+    display: none
 }
-.randomTabCSS{
-background-position: center bottom;
+
+.blueBG {
+    background-color: #01334C !important;
 }
-.noBgImage{
-background-position: center bottom;
-width: 137px;
-padding-right: 9px;
-padding-top: 15px;
-background-image: url('/Graphics/2018/Header_Tab.png');
-background-repeat: no-repeat;
-font-family: Open Sans!important;
+
+.grayBG {
+    background-color: White !important;
+}
+
+#ctl00_tv_Trackert0, #ctl00_tv_Trackert1, #ctl00_tv_Trackert2, #ctl00_tv_Trackert3, #ctl00_tv_Trackert4, #ctl00_tv_Moneyt0, #ctl00_tv_Moneyt1, #ctl00_tv_Moneyt2, #ctl00_tv_Moneyt3, #ctl00_tv_Moneyt4, #ctl00_tv_AddInfot0, #ctl00_tv_AddInfot1, #ctl00_tv_AddInfot2, #ctl00_tv_AddInfot3 {
+    color: #AAAAAA !important;
+}
+
+.advisorAlert {
+    color: red !important;
+    font-size: 12px !important;
+}
+
+.otherBtns {
+    transition: all 500ms ease;
+}
+
+.otherBtns:hover {
+    transform: scale(1.1);
+}
+
+.randomTabCSS {
+    background-position: center bottom;
+}
+
+.noBgImage {
+    background-position: center bottom;
+    width: 137px;
+    padding-right: 9px;
+    padding-top: 15px;
+    background-image: url('/Graphics/2018/Header_Tab.png');
+    background-repeat: no-repeat;
+    font-family: Open Sans!important;
 }

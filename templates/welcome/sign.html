@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign</title>
 </head>
+
 <body>
-	<div id=parent>
-    <h1 id=signtext>Default</h1>
-</div>
+    <div id=parent>
+        <h1 id=signtext>Default</h1>
+    </div>
     <style>
         @keyframes bgcolor {
             0% {
                 background-color: #45a3e5
             }
-        
+
             30% {
                 background-color: #66bf39
             }
-        
+
             60% {
                 background-color: #eb670f
             }
-        
+
             90% {
                 background-color: #f35
             }
-        
+
             100% {
                 background-color: #864cbf
             }
         }
-        
+
         body {
             -webkit-animation: bgcolor 20s infinite;
             animation: bgcolor 10s infinite;
             -webkit-animation-direction: alternate;
             animation-direction: alternate;
         }
-	#parent{
-	display:table;
-	}
-        h1{
+
+        #parent {
+            display: table;
+        }
+
+        h1 {
             display: table-cell;
             font-family: sans-serif;
             width: 100%;
@@ -57,8 +61,9 @@
     <script>
         var eventSource = new EventSource("/sign/stream")
         eventSource.onmessage = function (e) {
-                document.getElementById("signtext").innerHTML="<br/>"+e.data;
+            document.getElementById("signtext").innerHTML = "<br/>" + e.data;
         };
     </script>
 </body>
+
 </html>

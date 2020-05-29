@@ -1,6 +1,6 @@
-function create(){
-var input=document.getElementById("newdocinput");
-open("/writer/"+input.value);
+function create() {
+  var input = document.getElementById("newdocinput");
+  open("/writer/" + input.value);
 }
 var timeoutId;
 var currentDoc;
