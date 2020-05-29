@@ -1,6 +1,7 @@
-from flask import *
 import sqlite3
+from flask import *
 from flask_simplelogin import login_required
+
 from account_management import have_access_to_admin
 admin = Blueprint("admin", __name__)
 

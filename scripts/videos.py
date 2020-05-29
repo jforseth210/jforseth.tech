@@ -1,7 +1,8 @@
-from flask import *
 import random
 
+from flask import *
 from flask_simplelogin import login_required, get_username, is_logged_in
+
 from account_management import have_access_to_admin, get_current_access
 
 videos = Blueprint('videos', __name__)

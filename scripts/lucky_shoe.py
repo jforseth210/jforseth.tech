@@ -1,5 +1,6 @@
 from flask import *
 from twilio.rest import Client
+
 from simple_mail import send_email
 from SensitiveData import *
 lucky_shoe = Blueprint('lucky_shoe', __name__)  # Main page

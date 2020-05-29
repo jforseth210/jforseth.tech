@@ -1,14 +1,16 @@
-from flask import *
 import os
+import os.path
 import io
 import time
 import platform
-import os.path
+
+from flask import *
 from werkzeug.utils import secure_filename
-from SensitiveData import ANDROID_ID
-#from account_management import have_access_to_writer
 from flask_simplelogin import login_required, get_username
+
+from SensitiveData import ANDROID_ID
 from refresh_writer_thumbs import refresh_thumbs
+
 writer = Blueprint('writer', __name__)
 
 #TODO: Add multiaccount support to writer app. 

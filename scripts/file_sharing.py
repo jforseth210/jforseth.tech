@@ -1,5 +1,6 @@
-from flask import *
 import os
+
+from flask import *
 from werkzeug.utils import secure_filename
 
 file_sharing = Blueprint("file_sharing", __name__)

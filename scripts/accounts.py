@@ -1,10 +1,12 @@
-from flask import *
-import platform
 import os
-from flask_simplelogin import get_username, login_required
-from account_management import *
-import secrets
+import platform
 import json
+
+import secrets
+from flask import *
+from flask_simplelogin import get_username, login_required
+
+from account_management import *
 from scripts.prayer import PARISH_DICTIONARY
 accounts = Blueprint('accounts',__name__)
 

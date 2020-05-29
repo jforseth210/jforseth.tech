@@ -1,9 +1,12 @@
-import platform
-from flask import *
 import time
-from account_management import get_account, update_pw, create_account, delete_account
+import platform
+
+from flask import *
 from flask_simplelogin import get_username
 from werkzeug.security import generate_password_hash, check_password_hash
+
+from account_management import get_account, update_pw, create_account, delete_account
+
 welcome = Blueprint('welcome', __name__)
 
 

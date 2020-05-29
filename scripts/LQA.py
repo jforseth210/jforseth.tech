@@ -1,4 +1,5 @@
 from flask import *
+
 from account_management import have_access_to_lqa
 from flask_simplelogin import login_required
 

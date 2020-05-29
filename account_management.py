@@ -1,15 +1,15 @@
-import sqlite3
-from werkzeug.security import generate_password_hash, check_password_hash
-from flask import render_template, flash
 import os
 import subprocess
-#import crypt
-import shlex
 import random
-from simple_mail import send_email
-from SensitiveData import PROJECT_EMAIL, PROJECT_PASSWORD
-import secrets
 import json
+import shlex
+import sqlite3
+import secrets
+from flask import render_template, flash
+from werkzeug.security import generate_password_hash, check_password_hash
+from SensitiveData import PROJECT_EMAIL, PROJECT_PASSWORD
+from simple_mail import send_email
+
 # If on windows, don't try to run the shell scripts.
 if os.name == 'nt':
     class subprocess():

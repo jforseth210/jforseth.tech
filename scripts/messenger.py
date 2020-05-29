@@ -1,7 +1,8 @@
-from flask import *
-import sqlite3
 import time
 import pprint  # Useful for debug.
+
+from flask import *
+import sqlite3
 pp = pprint.PrettyPrinter(indent=4)
 
 messenger = Blueprint('messenger', __name__)  # Main page

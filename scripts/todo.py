@@ -1,9 +1,12 @@
-from flask import *
 import os
+
+from flask import *
+from flask_simplelogin import login_required, get_username
+
 from SensitiveData import *
 from simple_mail import send_email
 from account_management import have_access_to_todo
-from flask_simplelogin import login_required, get_username
+
 todo = Blueprint('todo', __name__)  # Main page
 #TODO: Multi-user todo
 def get_todos(todoFilePath):

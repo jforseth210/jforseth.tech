@@ -1,6 +1,8 @@
-from flask import *
 import random
+
+from flask import *
 from flask_simplelogin import login_required
+
 quickdraw_game = Blueprint('quickdraw_game', __name__)  # Main page
 
 @quickdraw_game.route('/quickdraw')

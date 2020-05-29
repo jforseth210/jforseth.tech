@@ -1,6 +1,7 @@
-from flask import *
 import random
 import string
+
+from flask import *
 
 scattergories = Blueprint("scattergories", __name__)
 

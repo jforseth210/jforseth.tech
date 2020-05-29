@@ -1,12 +1,15 @@
 import platform
 import random
+import pprint  # Useful for debug.
+
 from flask import *
 import sqlite3
-from simple_mail import send_email
 from flask_simplelogin import login_required, get_username
+
+from simple_mail import send_email
 from account_management import generate_token, check_token, remove_token, get_user_from_token
 from SensitiveData import *
-import pprint  # Useful for debug.
+
 pp = pprint.PrettyPrinter(indent=4)
 
 prayer = Blueprint('prayer', __name__)
