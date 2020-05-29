@@ -27,38 +27,38 @@ def set_account_validity(username, validity):
 
 def generate_token(username, tokentype):
     token = secrets.token_urlsafe(64)
-    with open('text/active_reset_tokens.json') as file:
+    with open('text/active_tokens.json') as file:
         reset_dictionary = file.read()
     reset_dictionary = json.loads(reset_dictionary)
     reset_dictionary[tokentype][token] = username
     reset_dictionary = json.dumps(
         reset_dictionary, sort_keys=True, indent=4, separators=(',', ': '))
-    with open('text/active_reset_tokens.json', 'w') as file:
+    with open('text/active_tokens.json', 'w') as file:
         file.write(reset_dictionary)
     return token
 
 
 def check_token(token, tokentype):
-    with open('text/active_reset_tokens.json') as file:
+    with open('text/active_tokens.json') as file:
         valid_token_dictionary = file.read()
     valid_token_dictionary = json.loads(valid_token_dictionary)
     return token in valid_token_dictionary[tokentype]
 
 
 def remove_token(token, tokentype):
-    with open('text/active_reset_tokens.json') as file:
+    with open('text/active_tokens.json') as file:
         valid_token_dictionary = file.read()
     valid_token_dictionary = json.loads(valid_token_dictionary)
     valid_token_dictionary[tokentype].pop(token)
     valid_token_dictionary = json.dumps(
         valid_token_dictionary, sort_keys=True, indent=4, separators=(',', ': '))
     print(valid_token_dictionary)
-    with open('text/active_reset_tokens.json', 'w') as file:
+    with open('text/active_tokens.json', 'w') as file:
         file.write(valid_token_dictionary)
 
 
 def get_user_from_token(token, tokentype):
-    with open('text/active_reset_tokens.json') as file:
+    with open('text/active_tokens.json') as file:
         valid_token_dictionary = file.read()
     valid_token_dictionary = json.loads(valid_token_dictionary)
     return valid_token_dictionary.get(tokentype).get(token, "")
