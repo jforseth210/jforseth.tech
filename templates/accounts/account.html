@@ -18,12 +18,14 @@
 		</tr>
 		{%endfor%}
 		<tr>
+			<form action='/prayer/addgroup' method="POST">
 			<td>
-				<input class="w3-theme-bg w3-theme-txt " name="new_prayer_group" style="border:none" placeholder='GROUP CODE'/>
+				<input class="w3-theme-bg w3-theme-txt " name="group" style="border:none" placeholder='GROUP CODE'/>
 			</td>
 			<td>
-				<button class="w3-round-large w3-button w3-theme-dark-element w3-bar-item">Subscribe</button>
+				<input type="submit" class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" value="Subscribe"/>
 			</td>
+			</form>
 		</tr>
 	</table>
 <h3>Change Password</h3>

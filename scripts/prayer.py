@@ -202,6 +202,29 @@ def unsubscribe_logged_in():
         cur.execute("""UPDATE accounts SET prayer_groups = ? WHERE username= ?""", ([prayer_groups, username]))
     flash('Unsubscribed',category='success')
     return redirect('/account/'+username)
+@prayer.route('/prayer/addgroup', methods=['POST'])
+def add_group():
+    group=request.form.get('group')
+    username=get_username()
+    group=PARISH_DICTIONARY.get(group)
+    conn = sqlite3.connect('database.db')
+    cur = conn.cursor()
+    with conn:
+        cur.execute("""SELECT prayer_groups FROM accounts WHERE username = ? """, ([username]))
+    prayer_groups=cur.fetchone()[0]
+    print(prayer_groups)
+    if prayer_groups=='None':
+        prayer_groups=group
+        flash('Subscribed',category='success')
+    elif group in prayer_groups:
+        flash("Already part of this group")
+    else:
+        prayer_groups=prayer_groups+"|"+group
+        flash('Subscribed',category='success')
+    
+    with conn:
+        cur.execute("""UPDATE accounts SET prayer_groups = ? WHERE username= ?""", ([prayer_groups, username]))
+    return redirect('/account/'+username)
 # @prayer.route('/prayer/newemail', methods=['POST', 'GET'])
 # def new_email():
 #     if request.method == 'POST':
