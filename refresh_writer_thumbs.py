@@ -9,6 +9,11 @@ options = {
 
 
 def refresh_thumbs(user):
+    """Refresh the thumbnail images for the writer homepage. 
+
+    Arguments:
+        user {str} -- The user to refresh the thumbs for. Passing 'all' will update all users thumbnails. 
+    """    
     if user != "all":
         WRITER_PATH = "userdata/{}/writer/documents".format(user)
         THUMB_PATH = "userdata/{}/writer/thumbnails".format(user)

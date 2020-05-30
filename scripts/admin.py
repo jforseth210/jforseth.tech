@@ -10,6 +10,14 @@ admin = Blueprint("admin", __name__)
 
 
 def get_all_from_table(table):
+    """Select everything from a given table.
+
+    Arguments:
+        table {str} -- The table to retrieve from
+
+    Returns:
+        list -- A list of cells (Probably nested?)
+    """    
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
     cur.execute("SELECT * FROM {}".format(table))

@@ -18,6 +18,12 @@ if os.name == 'nt':
 
 
 def set_account_validity(username, validity):
+    """Sets the validity of a newly created account. 
+
+    Arguments:
+        username {str} -- The username to modify
+        validity {int} -- 1 for invalid, 0 for valid. 
+    """    
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
     with conn:
@@ -26,6 +32,15 @@ def set_account_validity(username, validity):
 
 
 def generate_token(username, tokentype):
+    """Create a token to verify the legitimacy of a jforseth.tech link.
+
+    Arguments:
+        username {str} -- The username to issue the token too. Email addresses also work. 
+        tokentype {str} -- The type of token issued. Check the active_tokens.json file for valid tokentypes.
+
+    Returns:
+        str -- A token
+    """    
     token = secrets.token_urlsafe(64)
     with open('text/active_tokens.json') as file:
         reset_dictionary = file.read()
@@ -39,6 +54,15 @@ def generate_token(username, tokentype):
 
 
 def check_token(token, tokentype):
+    """Checks that a given token and type are valid in the active_tokens.json file.
+
+    Arguments:
+        token {str} -- The token to check
+        tokentype {str} -- The type of token being checked
+
+    Returns:
+        bool -- Whether or not the token is valid. 
+    """    
     with open('text/active_tokens.json') as file:
         valid_token_dictionary = file.read()
     valid_token_dictionary = json.loads(valid_token_dictionary)
@@ -46,6 +70,12 @@ def check_token(token, tokentype):
 
 
 def remove_token(token, tokentype):
+    """Delete a token that has be "used up"
+
+    Arguments:
+        token {str} -- The token to remove
+        tokentype {str} -- The type of token being removed.
+    """
     with open('text/active_tokens.json') as file:
         valid_token_dictionary = file.read()
     valid_token_dictionary = json.loads(valid_token_dictionary)
@@ -58,6 +88,15 @@ def remove_token(token, tokentype):
 
 
 def get_user_from_token(token, tokentype):
+    """Retrieve the username the token was issued to.
+
+    Arguments:
+        token {str} -- The token being checked.
+        tokentype {str} -- The type of token.
+
+    Returns:
+        str -- The username
+    """    
     with open('text/active_tokens.json') as file:
         valid_token_dictionary = file.read()
     valid_token_dictionary = json.loads(valid_token_dictionary)
@@ -65,6 +104,11 @@ def get_user_from_token(token, tokentype):
 
 
 def generate_valid_code():
+    """DEPRECIATED. DO NOT USE.
+
+    Returns:
+        str -- A five-digit string of integers.
+    """    
     with open('text/validcodes.txt', 'r') as file:
         VALID_CODES = file.readline()
     random_number = random.randint(0, len(VALID_CODES)-5)
@@ -73,6 +117,15 @@ def generate_valid_code():
 
 
 def create_account(username, password, recovery_email, prayer_groups, bad_password):
+    """Create a new account.
+
+    Arguments:
+        username {str} -- The username of the new account
+        password {str} -- The user's password in plaintext.
+        recovery_email {str} -- The user's email address. (Used for recovery_email AND prayer_email on account creation.)
+        prayer_groups {str} -- The prayer groups the user is a part of. Separated by a '|'.
+        bad_password {bool} -- Whether or not the user is using an insecure password.
+    """    
     # Create user files and folders
     os.makedirs("userdata/{}/writer/documents/".format(username))
     os.makedirs("userdata/{}/writer/thumbnails/".format(username))
@@ -115,6 +168,11 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
 
 
 def delete_account(username):
+    """Remove an account.
+
+    Arguments:
+        username {str} -- The username to remove.
+    """    
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
     with conn:
@@ -127,6 +185,14 @@ def delete_account(username):
 
 
 def get_account(username):
+    """Retrieve a user's account data.
+
+    Arguments:
+        username {str} -- The username to retrieve data on. 
+
+    Returns:
+        dict -- A dictionary with column names as keys, and account data as values. 
+    """    
     conn = sqlite3.connect('database.db')
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
@@ -144,6 +210,14 @@ def get_account(username):
 
 # Check if a given username and password is valid.
 def check_login(user):
+    """Given login information, determine whether or not to sign the user in. 
+
+    Arguments:
+        user {dict} -- Dictionary of login information
+
+    Returns:
+        bool -- Whether or not the user is signed in. 
+    """    
     user_data = get_account(user['username'])
 
     if not user_data:
@@ -166,11 +240,27 @@ def check_login(user):
 
 
 def get_current_access(username):
+    """Determine what pages a given user has access to.
+
+    Arguments:
+        username {str} -- The user to check
+
+    Returns:
+        list -- A list of places the user has permission to view.
+    """    
     user_data = get_account(username)
     return user_data["have_access_to"].split(',')
 
 
 def check_code(code):
+    """DEPRECIATED. DO NOT USE.
+
+    Arguments:
+        code {code} -- The code to check
+
+    Returns:
+        bool -- Whether or not the code is valid.
+    """    
     with open('text/validcodes.txt', 'r') as file:
         valid_codes = file.readline()
 
@@ -186,6 +276,12 @@ def check_code(code):
 
 
 def update_pw(current_username, new_plain_password):
+    """Update a users password.
+
+    Arguments:
+        current_username {str} -- The username
+        new_plain_password {str} -- The new password, in plaintext.
+    """    
     new_hashed_password = generate_password_hash(new_plain_password)
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
@@ -208,6 +304,13 @@ def update_pw(current_username, new_plain_password):
 
 
 def change_email(username, email, email_type):
+    """Change a user's email address.
+
+    Arguments:
+        username {str} -- The user to modify.
+        email {str} -- The new email address.
+        email_type {str} -- Whether the email is a recover_email or a prayer_email.
+    """    
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
     with conn:

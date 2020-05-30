@@ -42,6 +42,11 @@ SimpleLogin(app, login_checker=check_login, messages=messages)
 
 
 def check_if_admin():
+    """Check if a given user has admin access.
+
+    Returns:
+        bool -- Whether or not the user has admin access. 
+    """    
     if is_logged_in() and 'admin' in get_current_access(get_username()):
         return True
     else:

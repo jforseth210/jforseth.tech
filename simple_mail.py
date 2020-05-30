@@ -4,7 +4,15 @@ from email.mime.text import MIMEText
 
 
 def send_email(email_recipient, email_subject, email_message, sender, password):
+    """Send an email. HTML format.
 
+    Arguments:
+        email_recipient {str} -- The recipient of the email.
+        email_subject {str} -- The subject.
+        email_message {str} -- The message. (In HTML)
+        sender {str} -- The jforseth.tech email address to send from.
+        password {str} -- DO NOT COMMIT PASSWORDS! The password to login with.
+    """
     s = smtplib.SMTP(host='jforseth.tech', port='587')
     s.starttls()
     s.login(sender, password)
