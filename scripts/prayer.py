@@ -230,7 +230,7 @@ def add_group():
     prayer_groups = cur.fetchone()[0]
     print(prayer_groups)
     if prayer_groups == 'None':
-        prayer_groups = group
+        prayer_groups = group+'|Public'
         flash('Subscribed', category='success')
     elif group in prayer_groups:
         flash("Already part of this group")
