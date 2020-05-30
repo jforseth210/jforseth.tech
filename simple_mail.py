@@ -13,6 +13,7 @@ def send_email(email_recipient, email_subject, email_message, sender, password):
         sender {str} -- The jforseth.tech email address to send from.
         password {str} -- DO NOT COMMIT PASSWORDS! The password to login with.
     """
+    # Login
     s = smtplib.SMTP(host='jforseth.tech', port='587')
     s.starttls()
     s.login(sender, password)

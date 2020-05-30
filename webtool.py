@@ -23,7 +23,7 @@ from scripts.admin import *
 from scripts.barrel_racing import *
 from scripts.file_sharing import *
 from scripts.LQA import *
-# Create the website
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
 
@@ -60,13 +60,9 @@ app.jinja_env.globals.update(check_if_admin=check_if_admin)
 #  \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \
 #   \ V  V /  __/ | (_| (_) | | | | | |  __/
 #    \_/\_/ \___|_|\___\___/|_| |_| |_|\___|
-# Contains:
-# /
-# /FlaskApp
-# /about
-# /instructions
-# /menu
 app.register_blueprint(welcome)
+
+
 #    _                         _
 #   / \   ___ ___  _   _ _ __ | |_ ___
 #  / _ \ / __/ _ \| | | | '_ \| __/ __|
@@ -79,13 +75,6 @@ app.register_blueprint(accounts)
 #  \ \ / /| |/ _` |/ _ \/ _ \/ __|
 #   \ V / | | (_| |  __/ (_) \__ \
 #    \_/  |_|\__,_|\___|\___/|___/
-# Contains:
-# /videos
-# /videos/newupload
-# /videos/deletion
-# /videos/rename
-# /videos/updateid
-# /videos/move
 app.register_blueprint(videos)
 
 
@@ -94,11 +83,7 @@ app.register_blueprint(videos)
 # | |\/| |/ _ \/ __/ __|/ _ \ '_ \ / _` |/ _ \ '__|
 # | |  | |  __/\__ \__ \  __/ | | | (_| |  __/ |
 # |_|  |_|\___||___/___/\___|_| |_|\__, |\___|_|
-# Contains:                        |___/
-# /messenger
-# /messenger/result
-# /message/stream
-# /messenger/clear
+#                                  |___/
 app.register_blueprint(messenger)
 
 
@@ -107,52 +92,41 @@ app.register_blueprint(messenger)
 # | |_) | '__/ _` | | | |/ _ \ '__|
 # |  __/| | | (_| | |_| |  __/ |
 # |_|   |_|  \__,_|\__, |\___|_|
-# Contains         |___/
-# /prayer
-# /FlaskApp/prayer
-# /prayer/newemail
-# /prayer/newemailconfirmed
-# /prayer/prayerrequest
+#                  |___/
 app.register_blueprint(prayer)
+
+
 # __        __    _ _
 # \ \      / / __(_) |_ ___ _ __
 # \ \ /\ / / '__| | __/ _ \ '__|
 #  \ V  V /| |  | | ||  __/ |
 #   \_/\_/ |_|  |_|\__\___|_|
-# /writer
-# /writer/document/<name>
-# /writer/save/<name>
 app.register_blueprint(writer)
+
+
 # _               _            ____  _
 # | |   _   _  ___| | ___   _  / ___|| |__   ___   ___
 # | |  | | | |/ __| |/ / | | | \___ \| '_ \ / _ \ / _ \
 # | |__| |_| | (__|   <| |_| |  ___) | | | | (_) |  __/
 # |_____\__,_|\___|_|\_\\__, | |____/|_| |_|\___/ \___|
-#                      |___/
-# Contains:
-# /luckyshoe
+#                       |___/
+#HACK
 app.register_blueprint(lucky_shoe)
+
+
 #  _____         _
 # |_   _|__   __| | ___
 #   | |/ _ \ / _` |/ _ \
 #   | | (_) | (_| | (_) |
 #   |_|\___/ \__,_|\___/
-# Contains:
-# /todolocal
-# /todo/submitted
-# /todo/delete
-# /todo/reorder
 app.register_blueprint(todo)
+
 
 # ____            _   _                            _
 # / ___|  ___ __ _| |_| |_ ___ _ __ __ _  ___  _ __(_) ___  ___
 # \___ \ / __/ _` | __| __/ _ \ '__/ _` |/ _ \| '__| |/ _ \/ __|
 # ___) | (_| (_| | |_| ||  __/ | | (_| | (_) | |  | |  __/\__ \
 # |____/ \___\__,_|\__|\__\___|_|  \__, |\___/|_|  |_|\___||___/
-# Contains:
-# /scattergories
-# /scattergories/newlist
-# /scattergories/roll
 app.register_blueprint(scattergories)
 
 
@@ -161,11 +135,6 @@ app.register_blueprint(scattergories)
 # | | | | | | | |/ __| |/ / _` | '__/ _` \ \ /\ / /
 # | |_| | |_| | | (__|   < (_| | | | (_| |\ V  V /
 #  \__\_\\__,_|_|\___|_|\_\__,_|_|  \__,_| \_/\_/
-# Contains:
-# /quickdraw
-# /quickdraw/shot
-# /quickdraw/bigscreen
-# /quickdraw/bigscreen/begin
 app.register_blueprint(quickdraw_game)
 
 
@@ -174,13 +143,7 @@ app.register_blueprint(quickdraw_game)
 # |  _ \| | | | | |  _  | | | | |/ _` |/ _` | | '_ \ / _` |
 # | |_) | |_| | | | | |_| | |_| | (_| | (_| | | | | | (_| |
 # |____/ \__,_|_|_|  \___/ \__,_|\__,_|\__, |_|_| |_|\__, |
-# Contains:                             |___/         |___/
-# /bulljudging
-# /bulljudging1
-# /bulljudging2
-# /bulljudging3
-# /bulljudging4
-# /bulljudgingdone
+#                                       |___/         |___/
 app.register_blueprint(bull_judging)
 
 
@@ -189,9 +152,6 @@ app.register_blueprint(bull_judging)
 #   / _ \ / _` | '_ ` _ \| | '_ \
 #  / ___ \ (_| | | | | | | | | | |
 # /_/   \_\__,_|_| |_| |_|_|_| |_|
-# #Contains:
-# /DBbrowser
-# /error
 # app.register_blueprint(admin)
 
 
@@ -200,12 +160,6 @@ app.register_blueprint(bull_judging)
 # |  _ \ / _` | '__| '__/ _ \ | | |_) / _` |/ __| | '_ \ / _` |
 # | |_) | (_| | |  | | |  __/ | |  _ < (_| | (__| | | | | (_| |
 # |____/ \__,_|_|  |_|  \___|_| |_| \_\__,_|\___|_|_| |_|\__, |
-# Contains:                                               |___/
-# /barrelracing/app_lab
-# /barrelracing/counter
-# /barrelracing/counter/currentnumber
-# /barrelracing/current_number_update
-# /barrelracing/stream
 app.register_blueprint(barrel_racing)
 
 
@@ -214,20 +168,17 @@ app.register_blueprint(barrel_racing)
 # | |_  | | |/ _ \ \___ \| '_ \ / _` | '__| | '_ \ / _` |
 # |  _| | | |  __/  ___) | | | | (_| | |  | | | | | (_| |
 # |_|   |_|_|\___| |____/|_| |_|\__,_|_|  |_|_| |_|\__, |
-# Contains:                                         |___/
-# /filesharing
-# /filesharing/<filename>
-# /filesharing/filelist
 app.register_blueprint(file_sharing)
+
+
 # _     ___      _
 # | |   / _ \    / \
 # | |  | | | |  / _ \
 # | |__| |_| | / ___ \
 # |_____\__\_\/_/   \_\
-# Contains:
-# /lqa
-# /lqa/<station>
 app.register_blueprint(LQA)
+
+
 #  _____                       _   _                 _ _
 # | ____|_ __ _ __ ___  _ __  | | | | __ _ _ __   __| | | ___ _ __ ___
 # |  _| | '__| '__/ _ \| '__| | |_| |/ _` | '_ \ / _` | |/ _ \ '__/ __|

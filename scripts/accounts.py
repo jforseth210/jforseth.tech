@@ -13,10 +13,14 @@ accounts = Blueprint('accounts', __name__)
 
 @accounts.route('/signup', methods=['POST', 'GET'])
 def signup():
-    if platform.node() == "backup-server-vm":
-        flash("The main jforseth.tech server is experiencing issues. As a result account creation has been temporarily suspended. Please try again later.")
+    # The page.
     if request.method == "GET":
+        # Don't allow signups on the backup server.
+        if platform.node() == "backup-server-vm":
+            flash("The main jforseth.tech server is experiencing issues. As a result account creation has been temporarily suspended. Please try again later.")
+            return redirect('/')
         return render_template('accounts/signup.html')
+        #The form
     else:
         email = request.form.get("emailInput")
         username = request.form.get("usernameInput")
