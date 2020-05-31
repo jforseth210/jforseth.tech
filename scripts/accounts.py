@@ -147,7 +147,7 @@ def change_email_page():
     if check_token(token, 'email_change') and get_user_from_token(token, 'email_change') == email+username:
         email_type = EMAIL_TYPES.get(email_type)
         change_email(username, email, email_type)
-
+        remove_token(token, 'email_change')
         flash("Success!", category='success')
         return redirect('/account/'+username)
 
