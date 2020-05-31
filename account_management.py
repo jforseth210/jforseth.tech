@@ -184,10 +184,9 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     with open('text/account_verification_email_template.html') as file:
         VERIFICATION_EMAIL_TEMPLATE = file.read()
     #Append this to the message if the user chooses a weak password:
+    BAD_PW_MESSAGE=""
     if bad_password:
         BAD_PW_MESSAGE = "By the way, we noticed you're using a pretty short password. Consider changing it to a longer one later!"
-    else:
-        BAD_PW_MESSAGe = ""
 
     message = VERIFICATION_EMAIL_TEMPLATE.format(
         token=token, username=username, additional_messages=BAD_PW_MESSAGE)
