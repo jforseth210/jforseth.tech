@@ -149,7 +149,7 @@ def change_email_page():
         change_email(username, email, email_type)
 
         flash("Success!", category='success')
-        return redirect('/accounts/'+username)
+        return redirect('/account/'+username)
 
     else:
         flash("That link didn't work, try again.")
