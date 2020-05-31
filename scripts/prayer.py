@@ -173,6 +173,7 @@ def unsubscribe_page():
         users = cur.fetchall()
         if group != "ALL":
             for idx, user in enumerate(users):
+                user=list(user)
                 user[0] = user[0].replace(group, "")
                 user[0] = user[0].strip('|')
                 user[0] = user[0].replace('||', '|')
