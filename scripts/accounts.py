@@ -21,18 +21,18 @@ def signup():
         return render_template('accounts/signup.html')
     #The form
     else:
-        email = request.form.get("emailInput")
-        username = request.form.get("usernameInput")
-        password = request.form.get("passwordInput")
-        confirmPassword = request.form.get("confirmPasswordInput")
-        prayerBool = request.form.get("prayerInput")
+        email = escape(request.form.get("emailInput"))
+        username = escape(request.form.get("usernameInput"))
+        password = escape(request.form.get("passwordInput"))
+        confirmPassword = escape(request.form.get("confirmPasswordInput"))
+        prayerBool = escape(request.form.get("prayerInput"))
         # The user doesn't want to recieve any prayer requests.
         if not prayerBool:
             prayerGroups = 'None'
         else:
             #User wants prayer requests, but doesn't supply a code.
             prayerGroups = PARISH_DICTIONARY.get(
-                request.form.get("parishInput"), "Public")
+                escape(request.form.get("parishInput"), "Public"))
 
             #RE members should also be signed up for their parishes.
             if 'RE' in prayerGroups:
@@ -63,8 +63,8 @@ def signup():
 #The link in the validation email.
 @accounts.route('/validate')
 def validate_account():
-    username = request.args.get('username')
-    token = request.args.get('token')
+    username = escape(request.args.get('username'))
+    token = escape(request.args.get('token'))
     #Check that the token is valid, and has been issued to this user.
     if check_token(token, "new_account") and get_user_from_token(token, "new_account") == username:
         #Validate the account and deactivate the token.
@@ -90,9 +90,9 @@ def account(account):
 #The change password form
 @accounts.route('/changepw', methods=["GET", "POST"])
 def change_password():
-    old_password = request.form.get("old_password")
-    new_password = request.form.get("new_password")
-    confirm_new_password = request.form.get("confirm_new_password")
+    old_password = escape(request.form.get("old_password"))
+    new_password = escape(request.form.get("new_password"))
+    confirm_new_password = escape(request.form.get("confirm_new_password"))
 
     current_username = get_username()
     current_account = get_account(current_username)
@@ -115,8 +115,8 @@ def change_password():
 #Email change form. Basically just sends an email.
 @accounts.route('/change_email', methods=['POST'])
 def verify_changed_email():
-    email = request.form.get('email')
-    email_type = request.form.get('email_type')
+    email = escape(request.form.get('email'))
+    email_type = escape(request.form.get('email_type'))
 
     username = get_username()
     token = generate_token(email+username, 'email_change')
@@ -134,10 +134,10 @@ def verify_changed_email():
 #Validation link from the email.
 @accounts.route('/change_email/verified')
 def change_email_page():
-    token = request.args.get("token")
-    username = request.args.get("username")
-    email_type = request.args.get("type")
-    email = request.args.get("email")
+    token = escape(request.args.get("token"))
+    username = escape(request.args.get("username"))
+    email_type = escape(request.args.get("type"))
+    email = escape(request.args.get("email"))
 
     EMAIL_TYPES = {
         'Recovery email': 'recovery_email',
@@ -161,8 +161,8 @@ def forgot_pw():
     if request.method == "GET":
         return render_template('accounts/forgot.html')
     else:
-        email = request.form.get('emailInput')
-        username = request.form.get('usernameInput')
+        email = escape(request.form.get('emailInput'))
+        username = escape(request.form.get('usernameInput'))
 
         token = generate_token(username, 'password_reset')
         with open('text/password_reset_email_template.html') as file:
@@ -183,8 +183,8 @@ def reset_password(token):
             flash("Your reset link is invalid. Try again.")
             return redirect('/forgot_pw/reset/{}'.format(token))
     else:
-        username = request.form.get('usernameInput')
-        new_password = request.form.get('passwordInput')
+        username = escape(request.form.get('usernameInput'))
+        new_password = escape(request.form.get('passwordInput'))
         if not check_token(token, "password_reset"):
             flash("Your reset link is invalid. Try again.")
             return redirect('/forgot_pw/reset/{}'.format(token))
@@ -200,7 +200,7 @@ def reset_password(token):
 
 @accounts.route('/accountdel', methods=['POST'])
 def account_del():
-    password = request.form.get('confirm_password')
+    password = escape(request.form.get('confirm_password'))
     user = get_username()
     current_account = get_account(user)
     if check_password_hash(current_account.get("hashed_password"), password):

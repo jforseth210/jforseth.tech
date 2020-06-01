@@ -144,8 +144,8 @@ def prayer_request():
 
 @prayer.route('/prayer/unsub')
 def confirm_unsubscription():
-    email = request.args.get('email')
-    group = request.args.get('group')
+    email = escape(request.args.get('email'))
+    group = escape(request.args.get('group'))
     token = generate_token(email, 'prayer_unsubscription')
     with open('text/prayer_unsubscription_email_template.html') as file:
         message = file.read()
@@ -161,9 +161,9 @@ def confirm_unsubscription():
 
 @prayer.route('/prayer/unsub_confirmed')
 def unsubscribe_page():
-    email = request.args.get('email')
-    group = request.args.get('group')
-    token = request.args.get('token')
+    email = escape(request.args.get('email'))
+    group = escape(request.args.get('group'))
+    token = escape(request.args.get('token'))
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     if check_token(token, 'prayer_unsubscription') and get_user_from_token(token, 'prayer_unsubscription') == email:
@@ -198,7 +198,7 @@ def unsubscribe_page():
 @prayer.route('/prayer/unsubscribe_logged_in')
 def unsubscribe_logged_in():
     username = get_username()
-    group = request.args.get('group')
+    group = escape(request.args.get('group'))
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     with conn:
@@ -220,7 +220,7 @@ def unsubscribe_logged_in():
 
 @prayer.route('/prayer/addgroup', methods=['POST'])
 def add_group():
-    group = request.form.get('group')
+    group = escape(request.form.get('group'))
     username = get_username()
     group = PARISH_DICTIONARY.get(group)
     conn = sqlite3.connect('database.db')

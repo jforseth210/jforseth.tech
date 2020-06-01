@@ -60,7 +60,7 @@ def sign_stream():
 
 @welcome.route("/sign/update")
 def sign_update():
-    text = request.args.get("text")
+    text = escape(request.args.get("text"))
     with open("text/sign_text.txt", "w") as file:
         file.write(text)
     return ""
