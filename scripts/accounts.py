@@ -31,8 +31,9 @@ def signup():
             prayerGroups = 'None'
         else:
             #User wants prayer requests, but doesn't supply a code.
+            #This doesn't need to be escaped, since it'll be checked against a dictionary anyway.
             prayerGroups = PARISH_DICTIONARY.get(
-                escape(request.form.get("parishInput"), "Public"))
+                request.form.get("parishInput"), "Public")
 
             #RE members should also be signed up for their parishes.
             if 'RE' in prayerGroups:
@@ -209,4 +210,4 @@ def account_del():
         return redirect('/logout')
     else:
         flash('Incorrect password')
-        return redirect('/account/{}'.format(get_username()))
+        
