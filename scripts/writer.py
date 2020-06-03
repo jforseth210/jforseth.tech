@@ -22,7 +22,7 @@ writer = Blueprint('writer', __name__)
 def writer_home():
     if platform.node() == "backup-server-vm":
         flash("The main jforseth.tech server is currently experiencing issues. Your changes may not be saved when the main server comes back online.")
-    username = get_username()
+    username = get_username().encode('utf-8')
     path = "userdata/{}/writer/documents/".format(username)
     print(path)
     # if not os.path.isdir(path):
@@ -42,10 +42,10 @@ def writer_home():
 @writer.route('/writer/thumb/<name>')
 def writer_thumb(name):
     try:
-        return send_file('userdata/{}/writer/thumbnails/{}.html_thumb.png'.format(get_username(), name.lower()))
+        return send_file('userdata/{}/writer/thumbnails/{}.html_thumb.png'.format(get_username().encode('utf-8'), name.lower()))
     except:
-        refresh_thumbs(get_username())
-        return send_file('userdata/{}/writer/thumbnails/{}.html_thumb.png'.format(get_username(), name.lower()))
+        refresh_thumbs(get_username().encode('utf-8'))
+        return send_file('userdata/{}/writer/thumbnails/{}.html_thumb.png'.format(get_username().encode('utf-8'), name.lower()))
 
 
 @writer.route('/writer/<name>')
@@ -97,7 +97,7 @@ def document_api(name):
 def save(filename, data):
     filename = secure_filename(filename)
     filename = filename.lower()
-    username = get_username()
+    username = get_username().encode('utf-8')
     path = "userdata/{}/writer/documents/".format(username)
     # if not os.path.isdir(path):
     #    os.makedirs(path)
@@ -113,7 +113,7 @@ def save(filename, data):
 def get_document(filename):
     filename = secure_filename(filename)
     filename = filename.lower()
-    username = get_username()
+    username = get_username().encode('utf-8')
     try:
         with io.open("userdata/{}/writer/documents/{}.html".format(username, filename), "r", encoding="utf-8") as file:
             document = file.read()
@@ -122,7 +122,7 @@ def get_document(filename):
     #    document=""
     except IOError:  # Python2
         io.open(
-            "userdata/{}/writer/documents/{}.html".format(get_username(), filename), "w")
+            "userdata/{}/writer/documents/{}.html".format(get_username().encode('utf-8'), filename), "w")
         refresh_thumbs(username)
         document = ""
     #files = [i for i in files if i.replace("\n", "") != filename+".html"]

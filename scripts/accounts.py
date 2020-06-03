@@ -80,10 +80,10 @@ def validate_account():
 @login_required()
 @accounts.route('/account/<account>')
 def account(account):
-    if account == get_username():
+    if account == get_username().encode('utf-8'):
         if platform.node() == "backup-server-vm":
             flash("The main jforseth.tech server is experiencing issues. Account changes have been suspended.")
-        account = get_account(get_username())
+        account = get_account(get_username().encode('utf-8'))
         groups = account['prayer_groups'].split('|')
         return render_template('accounts/account.html', groups=groups)
     return redirect('/')
@@ -95,7 +95,7 @@ def change_password():
     new_password = escape(request.form.get("new_password"))
     confirm_new_password = escape(request.form.get("confirm_new_password"))
 
-    current_username = get_username()
+    current_username = get_username().encode('utf-8')
     current_account = get_account(current_username)
 
     if platform.node() == "backup-server-vm":
@@ -119,7 +119,7 @@ def verify_changed_email():
     email = escape(request.form.get('email'))
     email_type = escape(request.form.get('email_type'))
 
-    username = get_username()
+    username = get_username().encode('utf-8')
     token = generate_token(email+username, 'email_change')
 
     with open('text/change_email_template.html') as file:
@@ -202,7 +202,7 @@ def reset_password(token):
 @accounts.route('/accountdel', methods=['POST'])
 def account_del():
     password = escape(request.form.get('confirm_password'))
-    user = get_username()
+    user = get_username().encode('utf-8')
     current_account = get_account(user)
     if check_password_hash(current_account.get("hashed_password"), password):
         delete_account(user)

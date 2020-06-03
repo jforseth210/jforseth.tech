@@ -76,11 +76,11 @@ def reorder_todo(todoFilePath, item_to_reorder, position_to_move):
 @todo.route('/todo')
 @login_required()
 def todo_page():
-    # if not os.path.isdir("userdata/{}/todo/".format(get_username())):
-    #    os.makedirs('userdata/{}/todo/'.format(get_username()))
-    #    with open("userdata/{}/todo/list.csv".format(get_username()), 'w'):
+    # if not os.path.isdir("userdata/{}/todo/".format(get_username().encode('utf-8'))):
+    #    os.makedirs('userdata/{}/todo/'.format(get_username().encode('utf-8')))
+    #    with open("userdata/{}/todo/list.csv".format(get_username().encode('utf-8')), 'w'):
     #        pass
-    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username())
+    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username().encode('utf-8'))
     todos = get_todos(todoFilePath)
     print(todos)
     todos.reverse()
@@ -125,7 +125,7 @@ def delete_todo_api():
 @todo.route('/todo/submitted', methods=['POST', 'GET'])
 @login_required()
 def new_todo():
-    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username())
+    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username().encode('utf-8'))
     name = escape(request.form.get('taskname'))
     name = name.replace(',', 'COMMA')
     currentlist = escape(request.form.get('list'))
@@ -138,7 +138,7 @@ def new_todo():
 @todo.route('/todo/delete', methods=['POST', 'GET'])
 @login_required()
 def todo_deleted():
-    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username())
+    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username().encode('utf-8'))
     try:
         task_id = int(escape(request.form.get('taskid')))
     except ValueError:
@@ -151,7 +151,7 @@ def todo_deleted():
 @todo.route('/todo/reorder', methods=['POST', 'GET'])
 @login_required()
 def todo_reordered():
-    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username())
+    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username().encode('utf-8'))
     try:
         item_to_reorder = int(escape(request.form.get("taskid")))
         position_to_move = int(escape(request.form.get("taskloc")))
