@@ -1,7 +1,6 @@
 #!/bin/bash
 #Hash password
 pass=$(perl -e 'print crypt($ARGV[0], "password")' $2)
-echo "$pass"
 #Create a user with the /home/<USERNAME> home directory
 useradd -m -d /home/"$1" -p "$pass" "$1"
 #Echo the password to stdin and use it as a param for passwd command
