@@ -9,6 +9,7 @@ from flask import render_template, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from SensitiveData import PROJECT_EMAIL, PROJECT_PASSWORD
 from simple_mail import send_email
+from werkzeug.utils import secure_filename
 
 # If on windows, don't try to run the shell scripts.
 # HACK: When subprocess is called,
@@ -150,10 +151,10 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     """
 
     # Create user files and folders
-    os.makedirs("userdata/{}/writer/documents/".format(username))
-    os.makedirs("userdata/{}/writer/thumbnails/".format(username))
-    os.makedirs('userdata/{}/todo/'.format(username))
-    open("userdata/{}/todo/list.csv".format(username), 'a').close()
+    os.makedirs(secure_filename("userdata/{}/writer/documents/".format(username))
+    os.makedirs(secure_filename("userdata/{}/writer/thumbnails/".format(username)))
+    os.makedirs(secure_filename('userdata/{}/todo/'.format(username)))
+    open(secure_filename("userdata/{}/todo/list.csv".format(username)), 'a').close()
 
     # Add database entry
     conn = sqlite3.connect('database.db')
@@ -177,7 +178,7 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
 
     # Create a new linux user.
     subprocess.call(shlex.split(
-        "sudo sh ./new_linux_user.sh {} {}".format(username, password)))
+        "sudo sh ./new_linux_user.sh {} {}".format(Markup(username).encode('utf-8'), password)))
 
     token = generate_token(username, "new_account")
     # Create a verification email.
