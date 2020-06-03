@@ -190,11 +190,22 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     #Append this to the message if the user chooses a weak password:
     BAD_PW_MESSAGE=""
     if bad_password:
-        BAD_PW_MESSAGE = "By the way, we noticed you're using a pretty short password. Consider changing it to a longer one later!"
+        BAD_PW_MESSAGE = "We noticed you're using a pretty short password. Consider changing it to a longer one later!"
+
+    try:
+        username.decode('ascii')
+    except UnicodeDecodeError:
+        UNICODE_MESSAGE = "We noticed your using a unicode character (an emoji, character accent, non-latin alphabet, etc.) Note that \
+            the verification link may not load correctly in some older email clients. Try opening the email in your browser if you experience \
+            problems. "
+    else:
+        UNICODE_MESSAGE = ""
     message = VERIFICATION_EMAIL_TEMPLATE.format(
-        token=token, username=username, additional_messages=BAD_PW_MESSAGE)
+        token=token, username=username, additional_messages=UNICODE_MESSAGE+BAD_PW_MESSAGE)
+    print(type(message))
+    print(message)
     send_email(recovery_email, "Thanks for signing up for jforseth.tech!",
-               message.encode('utf-8'), PROJECT_EMAIL, PROJECT_PASSWORD)
+               message, PROJECT_EMAIL, PROJECT_PASSWORD)
 
 
 def delete_account(username):

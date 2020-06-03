@@ -223,6 +223,8 @@ def add_group():
     group = escape(request.form.get('group'))
     username = get_username()
     group = PARISH_DICTIONARY.get(group)
+    if group == None:
+        return redirect('/account/'+username)
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
     with conn:
