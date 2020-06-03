@@ -2,6 +2,7 @@ import os
 
 from flask import *
 from flask_simplelogin import login_required, get_username
+from werkzeug.utils import unescape
 
 from SensitiveData import *
 from simple_mail import send_email
@@ -30,7 +31,6 @@ def get_lists(todoFilePath):
     todos = get_todos(todoFilePath)
     if todos == "":
         return ""
-    print(todos)
     lists = [todo[1] for todo in todos]
     lists = list(set(lists))
     return lists
@@ -38,7 +38,7 @@ def get_lists(todoFilePath):
 
 def add_todo(todoFilePath, name, currentlist):
     with open(todoFilePath, 'a') as file:
-        file.write('{},{}\n'.format(name, currentlist))
+        file.write('{},{}\n'.format(name.encode('utf-8'), currentlist.encode('utf-8')))
 
 
 def delete_todo(todoFilePath, taskid):
@@ -82,9 +82,10 @@ def todo_page():
     #        pass
     todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username().encode('utf-8'))
     todos = get_todos(todoFilePath)
-    print(todos)
     todos.reverse()
     lists = get_lists(todoFilePath)
+    todos=[(todo[0].decode('utf-8'), todo[1].decode('utf-8')) for todo in todos]
+    lists=[list.decode('utf-8') for list in lists]
     return render_template('todo/todo.html', result=todos, lists=lists)
 
 
@@ -115,7 +116,7 @@ def new_todo_api():
 @todo.route('/todo/delete/api')
 def delete_todo_api():
     if escape(request.args.get("device")) in VALID_DEVICES:
-        task_id = int(escape(request.args.get('taskid'))) #Shouldn't be necessary, but just in case. 
+        task_id = int(escape(request.args.get('taskid'))) #Shouldn't be necessary, but just in case.
         delete_todo(task_id)
         return ""
     else:
@@ -126,7 +127,7 @@ def delete_todo_api():
 @login_required()
 def new_todo():
     todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username().encode('utf-8'))
-    name = escape(request.form.get('taskname'))
+    name = request.form.get('taskname') #Not esaping this because reasons.
     name = name.replace(',', 'COMMA')
     currentlist = escape(request.form.get('list'))
     add_todo(todoFilePath, name, currentlist)

@@ -80,7 +80,7 @@ def validate_account():
 @login_required()
 @accounts.route('/account/<account>')
 def account(account):
-    if account == get_username().encode('utf-8'):
+    if account.encode('utf-8') == get_username().encode('utf-8'):
         if platform.node() == "backup-server-vm":
             flash("The main jforseth.tech server is experiencing issues. Account changes have been suspended.")
         account = get_account(get_username().encode('utf-8'))
@@ -210,4 +210,3 @@ def account_del():
         return redirect('/logout')
     else:
         flash('Incorrect password')
-        

@@ -29,7 +29,7 @@
             id=listdropdown class="inputs dropdown">
             <option selected>All</option>
             {% for i in lists %}
-            <option>{{i}}</option>
+            <option>{{ i }}</option>
             {%endfor%}
         </select>
         <form id='form1' action="todo/submitted" method="POST">

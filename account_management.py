@@ -197,13 +197,11 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     except UnicodeDecodeError:
         UNICODE_MESSAGE = "We noticed your using a unicode character (an emoji, character accent, non-latin alphabet, etc.) Note that \
             the verification link may not load correctly in some older email clients. Try opening the email in your browser if you experience \
-            problems. "
+            problems."
     else:
         UNICODE_MESSAGE = ""
     message = VERIFICATION_EMAIL_TEMPLATE.format(
         token=token, username=username, additional_messages=UNICODE_MESSAGE+BAD_PW_MESSAGE)
-    print(type(message))
-    print(message)
     send_email(recovery_email, "Thanks for signing up for jforseth.tech!",
                message, PROJECT_EMAIL, PROJECT_PASSWORD)
 
@@ -241,7 +239,7 @@ def get_account(username):
     cur = conn.cursor()
 
     cur.execute("""SELECT * FROM accounts WHERE username=:username""",
-                {'username': username})
+                {'username': username.decode('utf-8')})
 
     account_data = cur.fetchone()
 
@@ -332,7 +330,7 @@ def update_pw(current_username, new_plain_password):
             WHERE username=:current_username""",
 
                     {'new_hashed_password': new_hashed_password,
-                     'current_username': current_username})
+                     'current_username': current_username.decode('utf-8')})
     #Update UNIX user.
     subprocess.call(shlex.split(
         "sudo sh ./change_pw.sh {} {}".format(current_username, new_plain_password)))
