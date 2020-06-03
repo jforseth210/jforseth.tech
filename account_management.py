@@ -149,13 +149,14 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
         prayer_groups {str} -- The prayer groups the user is a part of. Separated by a '|'.
         bad_password {bool} -- Whether or not the user is using an insecure password.
     """
-
+    username=username.encode('utf-8')
     # Create user files and folders
     os.makedirs(secure_filename("userdata/{}/writer/documents/".format(username))
     os.makedirs(secure_filename("userdata/{}/writer/thumbnails/".format(username)))
     os.makedirs(secure_filename('userdata/{}/todo/'.format(username)))
     open(secure_filename("userdata/{}/todo/list.csv".format(username)), 'a').close()
 
+    username=username.decode('utf-8')
     # Add database entry
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
@@ -176,6 +177,7 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
 
                     })
 
+    username=username.encode('utf-8')
     # Create a new linux user.
     subprocess.call(shlex.split(
         "sudo sh ./new_linux_user.sh {} {}".format(Markup(username).encode('utf-8'), password)))
