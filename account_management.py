@@ -5,7 +5,7 @@ import json
 import shlex
 import sqlite3
 import secrets
-from flask import render_template, flash
+from flask import render_template, flash, escape, Markup
 from werkzeug.security import generate_password_hash, check_password_hash
 from SensitiveData import PROJECT_EMAIL, PROJECT_PASSWORD
 from simple_mail import send_email
@@ -149,15 +149,15 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
         prayer_groups {str} -- The prayer groups the user is a part of. Separated by a '|'.
         bad_password {bool} -- Whether or not the user is using an insecure password.
     """
-    username=username.encode('utf-8')
     # Create user files and folders
-    os.makedirs(secure_filename("userdata/{}/writer/documents/".format(username))
-    os.makedirs(secure_filename("userdata/{}/writer/thumbnails/".format(username)))
-    os.makedirs(secure_filename('userdata/{}/todo/'.format(username)))
-    open(secure_filename("userdata/{}/todo/list.csv".format(username)), 'a').close()
+    username=username.encode('utf-8')
+    os.makedirs("userdata/{}/writer/documents/".format(username))
+    os.makedirs("userdata/{}/writer/thumbnails/".format(username))
+    os.makedirs('userdata/{}/todo/'.format(username))
+    open("userdata/{}/todo/list.csv".format(username), 'a').close()
 
-    username=username.decode('utf-8')
     # Add database entry
+    username=username.decode('utf-8')
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
     with conn:
@@ -177,10 +177,11 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
 
                     })
 
-    username=username.encode('utf-8')
     # Create a new linux user.
+    password=password.encode('utf-8')
+    username=username.encode('utf-8')
     subprocess.call(shlex.split(
-        "sudo sh ./new_linux_user.sh {} {}".format(Markup(username).encode('utf-8'), password)))
+        "sudo sh ./new_linux_user.sh {} {}".format(username, password)))
 
     token = generate_token(username, "new_account")
     # Create a verification email.
@@ -190,11 +191,10 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     BAD_PW_MESSAGE=""
     if bad_password:
         BAD_PW_MESSAGE = "By the way, we noticed you're using a pretty short password. Consider changing it to a longer one later!"
-
     message = VERIFICATION_EMAIL_TEMPLATE.format(
         token=token, username=username, additional_messages=BAD_PW_MESSAGE)
     send_email(recovery_email, "Thanks for signing up for jforseth.tech!",
-               message, PROJECT_EMAIL, PROJECT_PASSWORD)
+               message.encode('utf-8'), PROJECT_EMAIL, PROJECT_PASSWORD)
 
 
 def delete_account(username):
