@@ -193,7 +193,7 @@ def reset_password(token):
             flash("Incorrect username.")
             return redirect('/forgot_pw/reset/{}'.format(token))
         else:
-            update_pw(username, new_password)
+            update_pw(username.encode('utf-8'), new_password.encode('utf-8'))
             remove_token(token, "password_reset")
             flash("Password reset sucessfully.", category='success')
             return redirect('/login')

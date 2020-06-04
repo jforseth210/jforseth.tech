@@ -41,6 +41,7 @@ def writer_home():
 
 @writer.route('/writer/thumb/<name>')
 def writer_thumb(name):
+    name=name.encode('utf-8')
     try:
         return send_file('userdata/{}/writer/thumbnails/{}.html_thumb.png'.format(get_username().encode('utf-8'), name.lower()))
     except:
@@ -95,7 +96,6 @@ def document_api(name):
 
 
 def save(filename, data):
-    filename = secure_filename(filename)
     filename = filename.lower()
     username = get_username().encode('utf-8')
     path = "userdata/{}/writer/documents/".format(username)
@@ -103,16 +103,15 @@ def save(filename, data):
     #    os.makedirs(path)
 
     print(data)
-    print(path+"{}.html".format(filename))
-    with io.open(path+"{}.html".format(filename), "w", encoding="utf-8") as file:
+    print(path+"{}.html".format(filename.encode('utf-8')))
+    with io.open(path+"{}.html".format(filename.encode('utf-8')), "w", encoding="utf-8") as file:
         file.write(data)
-        print("Wrote {} to {}".format(data, path+"{}.html".format(filename)))
     return redirect('/writer/{}'.format(filename))
 
 
 def get_document(filename):
-    filename = secure_filename(filename)
     filename = filename.lower()
+    filename=filename.encode('utf-8')
     username = get_username().encode('utf-8')
     try:
         with io.open("userdata/{}/writer/documents/{}.html".format(username, filename), "r", encoding="utf-8") as file:
@@ -131,4 +130,3 @@ def get_document(filename):
     # with io.open('text/writer_file_order.txt', 'w') as file:
     #    file.writelines(files)
     return Markup(document)
-

@@ -205,7 +205,7 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
         UNICODE_MESSAGE = ""
     message = VERIFICATION_EMAIL_TEMPLATE.format(
         token=token, username=username, additional_messages=UNICODE_MESSAGE+BAD_PW_MESSAGE)
-    send_email(recovery_email, "Thanks for signing up for jforseth.tech!",
+    send_email(recovery_email.encode('utf-8'), "Thanks for signing up for jforseth.tech!",
                message, PROJECT_EMAIL, PROJECT_PASSWORD)
 
 
@@ -262,7 +262,7 @@ def check_login(user):
     Returns:
         bool -- Whether or not the user is signed in.
     """
-    user_data = get_account(user['username'])
+    user_data = get_account(user['username'].encode('utf-8'))
 
     if not user_data:
         flash("Account not found", category="warning")

@@ -92,7 +92,7 @@ def read_prayer_request_template(email, name, prayer_request, parish):
     subject = subject.format(name.encode('utf-8'), parish.encode('utf-8'))
 
     message = PRAYER_REQUEST_TEMPLATE.format(
-        email=email, name=name.encode('utf-8'), group=parish.encode('utf-8'), request=prayer_request)
+        email=email, name=name.encode('utf-8'), group=parish, request=prayer_request.encode('utf-8'))
 
     return(message, subject)
 
@@ -229,9 +229,8 @@ def add_group():
     cur = conn.cursor()
     with conn:
         cur.execute(
-            """SELECT prayer_groups FROM accounts WHERE username = ? """, ([username]))
+            """SELECT prayer_groups FROM accounts WHERE username = ? """, ([username.decode('utf-8')]))
     prayer_groups = cur.fetchone()[0]
-    print(prayer_groups)
     if prayer_groups == 'None':
         prayer_groups = group+'|Public'
         flash('Subscribed', category='success')
@@ -243,7 +242,7 @@ def add_group():
 
     with conn:
         cur.execute("""UPDATE accounts SET prayer_groups = ? WHERE username= ?""", ([
-                    prayer_groups, username]))
+                    prayer_groups, username.decode('utf-8')]))
     return redirect('/account/'+username)
 # @prayer.route('/prayer/newemail', methods=['POST', 'GET'])
 # def new_email():
