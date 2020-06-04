@@ -190,14 +190,17 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     #Append this to the message if the user chooses a weak password:
     BAD_PW_MESSAGE=""
     if bad_password:
-        BAD_PW_MESSAGE = "We noticed you're using a pretty short password. Consider changing it to a longer one later!"
+        BAD_PW_MESSAGE = "We noticed you're using a pretty short password. We won't mention it again, \
+                        your password is your own business, but we'd encourage you to consider changing \
+                        it to a longer one later!"
 
     try:
         username.decode('ascii')
     except UnicodeDecodeError:
-        UNICODE_MESSAGE = "We noticed your using a unicode character (an emoji, character accent, non-latin alphabet, etc.) Note that \
-            the verification link may not load correctly in some older email clients. Try opening the email in your browser if you experience \
-            problems."
+        UNICODE_MESSAGE = "We noticed your using a unicode character (an emoji, character accent, non-latin alphabet, etc.) \
+        I've done my best to support unicode on this site, but you may run into issues with this username, especially with \
+        email-related functionality. You're always welcome to email me if you run into a problem, but it may be a good idea \
+        chose a different username."
     else:
         UNICODE_MESSAGE = ""
     message = VERIFICATION_EMAIL_TEMPLATE.format(
