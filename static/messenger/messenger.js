@@ -26,3 +26,12 @@ function appendToList(message) {
     messageList.appendChild(messageObject);
     messageList.appendChild(lineBreak);
 }
+function load(){
+    form1.reset();
+    var messagelist=document.getElementById('messagelist')
+    for (let index = 0; index < messagelist.children.length; index++) {
+        const element = messagelist.children[index];
+        element.createTextNode(element.innerHTML+"hi");
+        
+    }
+}
