@@ -1,7 +1,7 @@
 from flask import *
-from flask_simplelogin import login_required
 
 from account_management import have_access_to_lqa
+from flask_simplelogin import login_required
 
 LQA = Blueprint('LQA', __name__)
 CHOICES = {

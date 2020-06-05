@@ -7,9 +7,9 @@ import sqlite3
 import secrets
 from flask import render_template, flash, escape, Markup
 from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.utils import secure_filename
 from SensitiveData import PROJECT_EMAIL, PROJECT_PASSWORD
 from simple_mail import send_email
+from werkzeug.utils import secure_filename
 
 # If on windows, don't try to run the shell scripts.
 # HACK: When subprocess is called,
