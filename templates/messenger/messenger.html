@@ -18,7 +18,7 @@
     </form>
     <ul id=messagelist class="messagelist">
         {% for value in result %}
-        <li class='message'> {{ value }} </li><br />
+        <div class='messageParent'><li class='message'> {{ value }} </li><br/></div>
         {% endfor %}
     </ul>
     <!--<div id=messageListParent>

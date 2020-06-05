@@ -21,17 +21,23 @@ function appendToList(message) {
     messageObject.classList.add("message");
     //This abomination is from https://stackoverflow.com/questions/6763148/how-to-show-literal-html-script-in-a-web-page#6763171
     //It's (probably) safe because I'm running createTextNode() which is just text, never interpereted as html.
-    var unescaped = new DOMParser().parseFromString(todos[i][0], 'text/html').documentElement.textContent;
+    var unescaped = new DOMParser().parseFromString(message, 'text/html').documentElement.textContent;
     messageObject.appendChild(document.createTextNode(unescaped));
     messageList.appendChild(messageObject);
     messageList.appendChild(lineBreak);
 }
 function load(){
     form1.reset();
-    var messagelist=document.getElementById('messagelist')
+    var messagelist=document.getElementById('messagelist');
+    console.log(messagelist);
     for (let index = 0; index < messagelist.children.length; index++) {
-        const element = messagelist.children[index];
-        element.createTextNode(element.innerHTML+"hi");
-        
+        const element = messagelist.children[index].children[0];
+        var message = element.innerText
+        //This abomination is from https://stackoverflow.com/questions/6763148/how-to-show-literal-html-script-in-a-web-page#6763171
+        //It's (probably) safe because I'm running createTextNode() which is just text, never interpereted as html.
+        var unescaped = new DOMParser().parseFromString(message, 'text/html').documentElement.textContent;
+        console.log(unescaped)
+        element.replaceChild(document.createTextNode(unescaped), element.childNodes[0]);
+        element.appendChild(document.createElement('br'))
     }
 }
