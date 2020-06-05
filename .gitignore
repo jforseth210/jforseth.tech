@@ -21,7 +21,7 @@ userdata
 text/writer_file_order.txt
 prod_deploy_log.txt
 backup_deploy_log.txt
-
+.idea
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
