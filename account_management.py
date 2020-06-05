@@ -7,9 +7,9 @@ import sqlite3
 import secrets
 from flask import render_template, flash, escape, Markup
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from SensitiveData import PROJECT_EMAIL, PROJECT_PASSWORD
 from simple_mail import send_email
-from werkzeug.utils import secure_filename
 
 # If on windows, don't try to run the shell scripts.
 # HACK: When subprocess is called,
@@ -149,66 +149,68 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
         prayer_groups {str} -- The prayer groups the user is a part of. Separated by a '|'.
         bad_password {bool} -- Whether or not the user is using an insecure password.
     """
-    # Create user files and folders
-    username=username.encode('utf-8')
-    os.makedirs("userdata/{}/writer/documents/".format(username))
-    os.makedirs("userdata/{}/writer/thumbnails/".format(username))
-    os.makedirs('userdata/{}/todo/'.format(username))
-    open("userdata/{}/todo/list.csv".format(username), 'a').close()
-
-    # Add database entry
-    username=username.decode('utf-8')
-    conn = sqlite3.connect('database.db')
-    cur = conn.cursor()
-    with conn:
-        cur.execute("""
-            INSERT INTO accounts
-            (username, hashed_password, have_access_to, recovery_email, prayer_groups, prayer_email, pending_verification)
-            VALUES (:username, :hashed_password, :have_access_to, :recovery_email, :prayer_groups, :prayer_email, :pending_verification)""",
-
-                    {
-                        'username': username,
-                        'hashed_password': generate_password_hash(password),
-                        'have_access_to': '',
-                        'recovery_email': recovery_email,
-                        'prayer_groups': prayer_groups,
-                        'prayer_email': recovery_email,
-                        'pending_verification': 1
-
-                    })
-
-    # Create a new linux user.
-    password=password.encode('utf-8')
-    username=username.encode('utf-8')
-    subprocess.call(shlex.split(
-        "sudo sh ./new_linux_user.sh {} {}".format(username, password)))
-
-    token = generate_token(username, "new_account")
-    # Create a verification email.
-    with open('text/account_verification_email_template.html') as file:
-        VERIFICATION_EMAIL_TEMPLATE = file.read()
-    #Append this to the message if the user chooses a weak password:
-    BAD_PW_MESSAGE=""
-    if bad_password:
-        BAD_PW_MESSAGE = "We noticed you're using a pretty short password. We won't mention it again, \
-                        your password is your own business, but we'd encourage you to consider changing \
-                        it to a longer one later!"
-
     try:
-        username.decode('ascii')
-    except UnicodeDecodeError:
-        UNICODE_MESSAGE = "We noticed your using a unicode character (an emoji, character accent, non-latin alphabet, etc.) \
-        I've done my best to support unicode on this site, but you may run into issues with this username, especially with \
-        email-related functionality. You're always welcome to email me if you run into a problem, but it may be a good idea \
-        chose a different username."
-    else:
-        UNICODE_MESSAGE = ""
-    message = VERIFICATION_EMAIL_TEMPLATE.format(
-        token=token, username=username, additional_messages=UNICODE_MESSAGE+BAD_PW_MESSAGE)
-    send_email(recovery_email.encode('utf-8'), "Thanks for signing up for jforseth.tech!",
-               message, PROJECT_EMAIL, PROJECT_PASSWORD)
+        # Create user files and folders
+        username=username.encode('utf-8')
+        os.makedirs("userdata/{}/writer/documents/".format(username))
+        os.makedirs("userdata/{}/writer/thumbnails/".format(username))
+        os.makedirs('userdata/{}/todo/'.format(username))
+        open("userdata/{}/todo/list.csv".format(username), 'a').close()
+        # Add database entry
+        username=username.decode('utf-8')
+        conn = sqlite3.connect('database.db')
+        cur = conn.cursor()
+        with conn:
+            cur.execute("""
+                INSERT INTO accounts
+                (username, hashed_password, have_access_to, recovery_email, prayer_groups, prayer_email, pending_verification)
+                VALUES (:username, :hashed_password, :have_access_to, :recovery_email, :prayer_groups, :prayer_email, :pending_verification)""",
 
+                        {
+                            'username': username,
+                            'hashed_password': generate_password_hash(password),
+                            'have_access_to': '',
+                            'recovery_email': recovery_email,
+                            'prayer_groups': prayer_groups,
+                            'prayer_email': recovery_email,
+                            'pending_verification': 1
 
+                        })
+
+        # Create a new linux user.
+        password=password.encode('utf-8')
+        username=username.encode('utf-8')
+        subprocess.call(shlex.split(
+            "sudo sh ./new_linux_user.sh {} {}".format(username, password)))
+
+        token = generate_token(username, "new_account")
+        # Create a verification email.
+        with open('text/account_verification_email_template.html') as file:
+            VERIFICATION_EMAIL_TEMPLATE = file.read()
+        #Append this to the message if the user chooses a weak password:
+        BAD_PW_MESSAGE=""
+        if bad_password:
+            BAD_PW_MESSAGE = "We noticed you're using a pretty short password. We won't mention it again, \
+                            your password is your own business, but we'd encourage you to consider changing \
+                            it to a longer one later!"
+
+        try:
+            username.decode('ascii')
+        except UnicodeDecodeError:
+            UNICODE_MESSAGE = "We noticed your using a unicode character (an emoji, character accent, non-latin alphabet, etc.) \
+            I've done my best to support unicode on this site, but you may run into issues with this username, especially with \
+            email-related functionality. You're always welcome to email me if you run into a problem, but it may be a good idea \
+            chose a different username."
+        else:
+            UNICODE_MESSAGE = ""
+        message = VERIFICATION_EMAIL_TEMPLATE.format(
+            token=token, username=username, additional_messages=UNICODE_MESSAGE+BAD_PW_MESSAGE)
+        send_email(recovery_email.encode('utf-8'), "Thanks for signing up for jforseth.tech!",
+                message, PROJECT_EMAIL, PROJECT_PASSWORD)
+    except Exception as e:
+        print(e)
+        delete_account(username.encode('utf-8'))
+        send_email('support@jforseth.tech','Someone had a problem signing up.',"Here's the errror"+e,PROJECT_EMAIL,PROJECT_PASSWORD)
 def delete_account(username):
     """Remove an account.
 

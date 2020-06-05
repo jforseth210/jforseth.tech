@@ -8,7 +8,7 @@ from flask import *
 from werkzeug.utils import secure_filename
 from flask_simplelogin import login_required, get_username
 
-from SensitiveData import ANDROID_ID
+#from SensitiveData import ANDROID_ID
 from refresh_writer_thumbs import refresh_thumbs
 
 writer = Blueprint('writer', __name__)

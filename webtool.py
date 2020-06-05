@@ -5,8 +5,8 @@ import platform
 from flask import *
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_simplelogin import SimpleLogin
-from account_management import check_login
 
+from account_management import check_login
 from scripts.welcome import *
 from scripts.accounts import *
 from scripts.writer import *
