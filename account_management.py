@@ -100,7 +100,6 @@ def remove_token(token, tokentype):
     #Prettify the json output.
     valid_token_dictionary = json.dumps(
         valid_token_dictionary, sort_keys=True, indent=4, separators=(',', ': '))
-    print(valid_token_dictionary)
     with open('text/active_tokens.json', 'w') as file:
         file.write(valid_token_dictionary)
 
@@ -181,8 +180,7 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     password=password.encode('utf-8')
     username=username.encode('utf-8')
     subprocess.call(shlex.split(
-        "sudo sh ./new_linux_user.sh {} {}".format(username, password)))
-
+        "sudo /var/www/html/new_linux_user.sh {} {}".format(username, password)))
     token = generate_token(username, "new_account")
     # Create a verification email.
     with open('text/account_verification_email_template.html') as file:
@@ -224,7 +222,7 @@ def delete_account(username):
             DELETE FROM accounts WHERE username=:username""",
                     {'username': username, })
     subprocess.call(shlex.split(
-        "sudo sh ./delete_user.sh {}".format(username)))
+        "sudo /var/www/html/delete_user.sh {}".format(username)))
 # Retrieve all date on a given user. Returns a dict with columns as keys.
 
 
@@ -336,7 +334,7 @@ def update_pw(current_username, new_plain_password):
                      'current_username': current_username.decode('utf-8')})
     #Update UNIX user.
     subprocess.call(shlex.split(
-        "sudo sh ./change_pw.sh {} {}".format(current_username, new_plain_password)))
+        "sudo /var/www/html/change_pw.sh {} {}".format(current_username, new_plain_password)))
 
 def change_email(username, email, email_type):
     """Change a user's email address.

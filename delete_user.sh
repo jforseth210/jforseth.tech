@@ -1,3 +1,4 @@
+#/!bin/bash
 #Delete the user
 user="$1"
 userdel "$user"
