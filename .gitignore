@@ -15,7 +15,16 @@ text/scattergoriescurrentletter.txt
 text/validcodes.txt
 text/active_tokens.json
 text/videos.txt
+text/todo.csv
+text/writerdocs
+text/account_verification_email_template.html
+text/active_reset_tokens.txt
+text/active_tokens.json
+text/password_reset_email_template.html
+prod-database.db
+static/writer/thumbs
 text/writer_file_order.txt
+text/sign_text.txt
 userdata
 \#webtool.py\#
 text/writer_file_order.txt
