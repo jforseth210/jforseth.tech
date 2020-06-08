@@ -26,14 +26,19 @@ def signup():
         password = escape(request.form.get("passwordInput"))
         confirmPassword = escape(request.form.get("confirmPasswordInput"))
         prayerBool = escape(request.form.get("prayerInput"))
+        username=username.decode('utf-8')
+        print(username)
         # The user doesn't want to recieve any prayer requests.
+        print(prayerBool)
         if not prayerBool:
             prayerGroups = 'None'
         else:
             #User wants prayer requests, but doesn't supply a code.
             #This doesn't need to be escaped, since it'll be checked against a dictionary anyway.
-            prayerGroups = PARISH_DICTIONARY.get(
-                request.form.get("parishInput"), "")+"|Public"
+            prayerGroups = 'Public'
+            if PARISH_DICTIONARY.get(request.form.get('parishInput')):
+                prayerGroups = prayerGroups+'|'+PARISH_DICTIONARY.get(
+                    request.form.get("parishInput"))
 
             #RE members should also be signed up for their parishes.
             if 'RE' in prayerGroups:

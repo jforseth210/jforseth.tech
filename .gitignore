@@ -705,3 +705,6 @@ MigrationBackup/
 
 # End of https://www.gitignore.io/api/git,flask,python,visualstudio
 
+.vscode/settings.json
+.vscode/settings.json
+.vscode/settings.json
