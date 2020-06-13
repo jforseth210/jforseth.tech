@@ -31,6 +31,7 @@ text/writer_file_order.txt
 prod_deploy_log.txt
 backup_deploy_log.txt
 .idea
+.vscode
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
