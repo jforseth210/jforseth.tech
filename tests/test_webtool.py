@@ -63,12 +63,6 @@ class FlaskTestCase(unittest.TestCase):
         self.assertTrue(
             b"You need to sign in to use this feature." in response.data)
 
-    def test_account_no_login(self):
-        tester = app.test_client(self)
-        response = tester.get('/account/testing',
-                              content_type='html/text', follow_redirects=False)
-        self.assertEqual(response.status_code, 403)
-        self.assertTrue(b"Oops" in response.data)
 
     def test_file_sharing_page(self):
         tester = app.test_client(self)
