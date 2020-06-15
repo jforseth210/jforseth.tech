@@ -4,7 +4,7 @@ import json
 
 import secrets
 from flask import *
-from flask_simplelogin import get_username, login_required
+from flask_simplelogin import get_username, login_required, is_logged_in
 
 from account_management import *
 from scripts.prayer import PARISH_DICTIONARY
@@ -85,13 +85,14 @@ def validate_account():
 @login_required()
 @accounts.route('/account/<account>')
 def account(account):
-    if account.encode('utf-8') == get_username().encode('utf-8'):
-        if platform.node() == "backup-server-vm":
-            flash("The main jforseth.tech server is experiencing issues. Account changes have been suspended.")
-        account = get_account(get_username().encode('utf-8'))
-        groups = account['prayer_groups'].split('|')
-        return render_template('accounts/account.html', groups=groups)
-    return redirect('/')
+    if is_logged_in():
+        if account.encode('utf-8') == get_username().encode('utf-8'):
+            if platform.node() == "backup-server-vm":
+                flash("The main jforseth.tech server is experiencing issues. Account changes have been suspended.")
+            account = get_account(get_username().encode('utf-8'))
+            groups = account['prayer_groups'].split('|')
+            return render_template('accounts/account.html', groups=groups)
+    return render_template('errors/403.html'),403
 
 #The change password form
 @accounts.route('/changepw', methods=["GET", "POST"])
