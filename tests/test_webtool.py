@@ -1,3 +1,4 @@
+"""
 import unittest
 import imaplib
 from secrets import token_urlsafe
@@ -103,60 +104,6 @@ class FlaskTestCase(unittest.TestCase):
         _ , data = imap.search(None, 'ALL')
         print(data)
         imap.close()
-"""
-def login(driver, username='testing', password=PROJECT_PASSWORD):
-    username_elem = driver.find_element_by_id('username')
-    username_elem.send_keys(username)
-    password_elem = driver.find_element_by_id('password')
-    password_elem.send_keys(password)
-    password_elem.send_keys(Keys.RETURN)
-
-class LiveServer(LiveServerTestCase):
-    def create_app(self):
-        app.config['TESTING'] = True
-
-        # Set to 0 to have the OS pick the port.
-        app.config['LIVESERVER_PORT'] = 0
-
-        return app
-    # def setUp(self):
-    #    self.driver = webdriver.Firefox()
-    #    self.driver.get(self.get_server_url())
-
-    # def tearDown(self):
-    #    self.driver.quit()
-
-    def test_correct_login(self):
-        driver = webdriver.Firefox()
-        driver.get(self.get_server_url()+"/login")
-        login(driver)
-        time.sleep(2)
-        self.assertTrue('Successful' in driver.page_source)
-        driver.close()
-
-    def test_incorrect_username_login(self):
-        driver = webdriver.Firefox()
-        driver.get(self.get_server_url()+"/login")
-        username = driver.find_element_by_id('username')
-        username.send_keys('thisuserdoesnotexist')
-        password = driver.find_element_by_id('password')
-        password.send_keys(PROJECT_PASSWORD)
-        password.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.assertTrue('Account not found' in driver.page_source)
-        driver.close()
-
-    def test_incorrect_password_login(self):
-        driver = webdriver.Firefox()
-        driver.get(self.get_server_url()+"/login")
-        username = driver.find_element_by_id('username')
-        username.send_keys('testing')
-        password = driver.find_element_by_id('password')
-        password.send_keys('THISISTHEWRONGPASSWORD')
-        password.send_keys(Keys.RETURN)
-        time.sleep(2)
-        self.assertTrue('Incorrect password' in driver.page_source)
-        driver.close()
 
     def test_writer_logged_in(self):
         driver = webdriver.Firefox()
@@ -214,6 +161,7 @@ class LiveServer(LiveServerTestCase):
         self.assertTrue('Unsubscribe' in driver.page_source)
         driver.close()
 
-"""
+
 if __name__ == '__main__':
     unittest.main()
+"""
