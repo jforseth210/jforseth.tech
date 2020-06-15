@@ -5,7 +5,7 @@ bull_judging = Blueprint('bull_judging', __name__)
 
 @bull_judging.route('/bulljudging')
 def bull_judging_homepage():
-    return render_template("bulljudging/bulljudginghome.html")
+    return render_template("bull_judging/bulljudginghome.html")
 
 
 @bull_judging.route('/bulljudging1')
