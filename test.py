@@ -1,20 +1,12 @@
 import unittest
-import time
 import imaplib
-from bs4 import BeautifulSoup
-from flask_simplelogin import SimpleLogin
-from flask import Flask
 from secrets import token_urlsafe
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-import requests
-from flask_testing import LiveServerTestCase
+from bs4 import BeautifulSoup
 from webtool import app
 from SensitiveData import PROJECT_PASSWORD
 
-
 class FlaskTestCase(unittest.TestCase):
-
+    
     def test_welcome_page(self):
         tester = app.test_client(self)
         response = tester.get('/', content_type='html/text')
@@ -94,10 +86,13 @@ class FlaskTestCase(unittest.TestCase):
         self.assertTrue(b"Forgot Password" in response.data)
 
     def test_login(self):
-        tester = app.test_client(self)
-        response = tester.post('/login/', data=dict(username='testing', password=PROJECT_PASSWORD, next='/'))
-        soup = BeautifulSoup(response.data, 'html.parser')
-        print(soup.prettify)
+        #tester = app.test_client(self)
+        with app.test_client() as tester:
+            response = tester.get('/login/')
+            soup = BeautifulSoup(response.data, 'html.parser')
+            token = soup.find(id='csrf_token')['value']
+            response = tester.post('/login', data=dict(csrf_token=token, username='testing', password=PROJECT_PASSWORD, next='/'), follow_redirects=True)
+            self.assertIn(b"Login Successful", response.data)
     def test_signup_page(self):
         tester = app.test_client(self)
         response = tester.get('/signup', content_type='html/text')
@@ -123,20 +118,19 @@ class FlaskTestCase(unittest.TestCase):
         response = tester.post('/prayer/prayerrequest', data=dict(name="Testing: {}".format(token_urlsafe(16)), parish="Testing",
                                                                   prequest="This message should only go to the testing email. Sorry if it doesn't!"), content_type='html/text', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('Prayer request sent!')
+        self.assertTrue('Prayer request sent!' in response.data)
         imap = imaplib.IMAP4_SSL('jforseth.tech')
         imap.login('testing',PROJECT_PASSWORD)
         _ , data = imap.search(None, 'ALL')
         print(data)
         imap.close()
-
+"""
 def login(driver, username='testing', password=PROJECT_PASSWORD):
     username_elem = driver.find_element_by_id('username')
     username_elem.send_keys(username)
     password_elem = driver.find_element_by_id('password')
     password_elem.send_keys(password)
     password_elem.send_keys(Keys.RETURN)
-
 
 class LiveServer(LiveServerTestCase):
     def create_app(self):
@@ -241,6 +235,6 @@ class LiveServer(LiveServerTestCase):
         self.assertTrue('Unsubscribe' in driver.page_source)
         driver.close()
 
-
+"""
 if __name__ == '__main__':
     unittest.main()
