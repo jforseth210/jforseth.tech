@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from webtool import app
 from SensitiveData import PROJECT_PASSWORD
 
-class FlaskTestCase(unittest.TestCase):
+class AdminTestCase(unittest.TestCase):
     def test_admin_disabled(self):
         # Admin contains a number of security risks.
         # It has been disabled and should return 404.
