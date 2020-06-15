@@ -22,7 +22,9 @@ class BarrelRacingTestCase(unittest.TestCase):
         tester = app.test_client(self)
         response = tester.get('/barrelracing/counter', content_type='html/text')
         self.assertIn(b'Horse #', response.data)
-    
+        with open('text/barrel_racing_current_number.txt', 'r') as file:
+            original_value = file.read()
+        self.assertIn(original_value, str(response.data))        
     def test_increment(self):
         with app.test_client() as tester:
             response = tester.get('/barrelracing/counter')
