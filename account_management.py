@@ -246,7 +246,6 @@ def get_account(username):
 
     if account_data == None:
         return {}
-    #TODO: What does this line do?
     return dict(zip(account_data.keys(), account_data))
 
 

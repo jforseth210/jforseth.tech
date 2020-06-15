@@ -13,8 +13,6 @@ from refresh_writer_thumbs import refresh_thumbs
 
 writer = Blueprint('writer', __name__)
 
-# TODO: Add multiaccount support to writer app.
-# TODO: Massive app refactor
 
 
 @writer.route('/writer')

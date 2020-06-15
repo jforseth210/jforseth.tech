@@ -3,7 +3,6 @@ import time
 from flask import *
 barrel_racing = Blueprint("barrel_racing", __name__)
 
-# TODO: Talk to Rylan about depreciating this?
 
 
 @barrel_racing.route('/barrelracing/app_lab')

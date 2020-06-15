@@ -9,7 +9,6 @@ from simple_mail import send_email
 from account_management import have_access_to_todo
 
 todo = Blueprint('todo', __name__)  # Main page
-# TODO: Multi-user todo
 
 
 def get_todos(todoFilePath):
@@ -89,9 +88,7 @@ def todo_page():
     return render_template('todo/todo.html', result=todos, lists=lists)
 
 
-# Since I escape the device input, I have to escape the list it's
-# being compared to.
-# TODO: Make api be not a security nightmare
+# Android app and api
 """VALID_DEVICES=[escape(i) for i in VALID_DEVICES]
 
 @todo.route('/todo/api'
