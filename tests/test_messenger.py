@@ -28,9 +28,11 @@ class TestCase(unittest.TestCase):
 
     def test_chat_deletion(self):
         tester = app.test_client(self)
+        response = tester.post('/messenger/result', data=dict(message='This shouldn\'t show up after the db is cleared.'), follow_redirects=True)
         response = tester.post(
             '/messenger/clear', content_type='html/text', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(b"<li class='message'>" not in response.data)
+
 if __name__ == "__main__":
     unittest.main()
