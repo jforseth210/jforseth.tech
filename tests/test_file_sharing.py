@@ -5,6 +5,7 @@ from webtool import app
 
 class FileSharingTestCase(unittest.TestCase):
     def setUp(self):
+        app.config["TESTING"]=True
         original_files=os.listdir('uploads')
         with open('tests/file_sharing_original_files.txt', 'w') as file:
             file.writelines(original_files)
@@ -35,3 +36,6 @@ class FileSharingTestCase(unittest.TestCase):
             response = tester.get('/filesharing')
             self.assertIs(200, response.status_code)
             self.assertIn(testfile.name, str(response.data))
+
+if __name__ == '__main__':
+    unittest.main()

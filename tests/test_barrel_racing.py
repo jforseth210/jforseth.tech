@@ -2,21 +2,18 @@ import os
 import unittest
 from bs4 import BeautifulSoup
 from webtool import app
-from shutil import copyfile
+from shutil import copyfile, move
 
 class BarrelRacingTestCase(unittest.TestCase):
     
     # Make a copy of the original file to restore from after the tests are finished. 
     def setUp(self):
+        app.config["TESTING"]=True
         copyfile('text/barrel_racing_current_number.txt', 'text/barrel_racing_current_number.txt.orig')
-    
     # Replace the modified file with the original. 
     def tearDown(self):
-        with open('text/barrel_racing_current_number.txt', 'r') as file:
-            original_value = file.read()
-        with open('text/barrel_racing_current_number.txt', 'w') as file:
-            file.write(original_value)
-        os.remove('text/barrel_racing_current_number.txt.orig')
+        os.remove('text/barrel_racing_current_number.txt')
+        move('text/barrel_racing_current_number.txt.orig', 'text/barrel_racing_current_number.txt')
     
     def test_counter_displayed(self):
         tester = app.test_client(self)
@@ -44,3 +41,6 @@ class BarrelRacingTestCase(unittest.TestCase):
             self.assertIs(200, response.status_code)
     def test_current_number_file_exists(self):
         self.assertTrue(os.path.isfile('text/barrel_racing_current_number.txt'))
+
+if __name__ == '__main__':
+    unittest.main()
