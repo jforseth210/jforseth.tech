@@ -359,19 +359,19 @@ def change_email(username, email, email_type):
 #        return render_template("errors/403.html")
 
 def have_access_to_todo(username):
-    user_data = get_account(username)
+    user_data = get_account(username.encode('utf-8'))
     if 'todo' not in user_data.get('have_access_to'):
         return render_template("errors/403.html")
 
 
 def have_access_to_admin(username):
-    user_data = get_account(username)
+    user_data = get_account(username.encode('utf-8'))
     if 'admin' not in user_data.get('have_access_to'):
         return render_template("errors/403.html")
 
 
 def have_access_to_lqa(username):
-    user_data = get_account(username)
+    user_data = get_account(username.encode('utf-8'))
     if 'lqa' not in user_data.get('have_access_to'):
         return render_template("errors/403.html")
 
