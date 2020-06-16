@@ -1,5 +1,6 @@
 import time
 import pprint  # Useful for debug.
+import sys
 
 from flask import *
 import sqlite3
@@ -27,8 +28,9 @@ def clear_messages():
     cur = conn.cursor()
     with conn:
         cur.execute("DELETE FROM messages")
-
-        #cur.execute("END TRANSACTION")
+        if sys.version_info[0] == 3:
+            print("python3")
+            cur.execute("END TRANSACTION")
         cur.execute("VACUUM")
 
 
@@ -42,7 +44,7 @@ def messenger_main_page():
 @messenger.route('/messenger/result', methods=['POST', 'GET'])
 def new_message():
     if request.method == 'POST':
-        message = escape(request.form.get('Data'))
+        message = escape(request.form.get('message'))
         add_message(message)
 
     return redirect('/messenger')
