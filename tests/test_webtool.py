@@ -32,12 +32,6 @@ class FlaskTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTrue(b"YouTube" in response.data)
 
-    def test_messenger_page(self):
-        tester = app.test_client(self)
-        response = tester.get('/messenger', content_type='html/text')
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(b"Clear" in response.data)
-
     def test_luckyshoe(self):
         tester = app.test_client(self)
         response = tester.get('/luckyshoe', content_type='html/text')
