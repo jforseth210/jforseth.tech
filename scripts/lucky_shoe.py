@@ -22,9 +22,11 @@ def lucky_shoe_order():
     for key, val in rq.items():
         paramlist.append("{}: {}".format(key, val))
     paramlist = "<br />".join(paramlist)
+    if current_app.config['TESTING']:
+        print('Testing configuration detected, not sending anything')
+        return paramlist
     send_email("luckyshoe@jforseth.tech", "New Horseshoe Order",
                paramlist, PROJECT_EMAIL, PROJECT_PASSWORD)
-    flash("Order submitted sucessfully.", category="success")
 
 
     # Your Account Sid and Auth Token from twilio.com/console
@@ -40,4 +42,5 @@ def lucky_shoe_order():
                         to=NOLAN_NUMBER
                     )
 
+    flash("Order submitted sucessfully.", category="success")
     return redirect("/luckyshoe")
