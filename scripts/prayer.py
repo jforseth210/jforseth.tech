@@ -1,6 +1,7 @@
 import platform
 import random
 import pprint  # Useful for debug.
+import json
 
 from flask import *
 import sqlite3
@@ -25,11 +26,9 @@ PARISH_DICTIONARY = {
     # 'FFTEACHERS': 'Fairfield Catholic Teachers',
     'JESUS': 'LL Small Group 3',
     'MT4H': "State Award Demo",
-    # There shouldn't be any way to sign up for testing group.
-    "sdkfjglhgjnfkbsdnfbjgksdngfkjngkfdsgjksdgjbak": "Testing",
-    "BRANDNEW": "Signup Tests"
+    # No human should be able to join the testing group:
+    TESTING_GROUP_SIGNUP_CODE: "Testing",
 }
-enter_tests_into_db = False
 
 # Email verification
 
@@ -105,9 +104,11 @@ def get_emails_from_parish(parish):
         cur.execute(
             """SELECT prayer_email FROM accounts WHERE prayer_groups LIKE '%{}%'""".format(parish))
     emails = cur.fetchall()
-
+    emails = [email[0] for email in emails]
     return emails
 # The main page
+
+
 @prayer.route('/prayer')
 def prayer_page():
     if platform.node() == "backup-server-vm":
@@ -134,9 +135,18 @@ def prayer_request():
     # For testing purposes only, manually overrides email list and sends to my personal account instead:
     # Uncommenting this is a really, really bad idea.
     # emails=[personalemail]
+    if current_app.config['TESTING']:
+        print('Looks like this is a test. Here\'s some data:')
+        datadict = {
+            'emails': emails,
+            'subject_template': subject_template,
+            'message_template': message_template
+        }
+        # print(jsonify(datadict))
+        return jsonify(datadict)
     for email in emails:
-        # This token generation is a bit hacky because I don't know the username. But, if I don't check on the other side, it doesn't matter anyway.
-        send_email(email[0], subject_template, message_template.format(email=email[0]),
+        # HACK: This token generation is a bit hacky because I don't know the username. But, if I don't check on the other side, it doesn't matter anyway.
+        send_email(email, subject_template, message_template.format(email=email),
                    PROJECT_EMAIL, PROJECT_PASSWORD)
     flash("Prayer request sent!", category="success")
     return redirect('/prayer')
@@ -173,7 +183,7 @@ def unsubscribe_page():
         users = cur.fetchall()
         if group != "ALL":
             for idx, user in enumerate(users):
-                user=list(user)
+                user = list(user)
                 user[0] = user[0].replace(group, "")
                 user[0] = user[0].strip('|')
                 user[0] = user[0].replace('||', '|')
