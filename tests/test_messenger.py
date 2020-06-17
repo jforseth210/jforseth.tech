@@ -4,7 +4,7 @@ import os
 import time
 from webtool import app
 
-class TestCase(unittest.TestCase):
+class MessengerTestCase(unittest.TestCase):
     def setUp(self):
         app.config['TESTING'] = True
         copyfile('database.db', 'database.db.orig')
