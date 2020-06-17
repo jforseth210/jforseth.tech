@@ -25,16 +25,16 @@ from scripts.file_sharing import *
 from scripts.LQA import *
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = SECRET_KEY
+app.config["SECRET_KEY"] = SECRET_KEY
 
 messages = {
-    'login_success': 'Login Successful',
-    'login_failure': 'Something went wrong. Dismiss this banner to learn more.',
-    'is_logged_in': 'You\'re already logged in!',
-    'logout': 'Logout Successful',
-    'login_required': 'You need to sign in to use this feature.',
-    'access_denied': 'Access Denied',
-    'auth_error': '{0}'
+    "login_success": "Login Successful",
+    "login_failure": "Something went wrong. Dismiss this banner to learn more.",
+    "is_logged_in": "You're already logged in!",
+    "logout": "Logout Successful",
+    "login_required": "You need to sign in to use this feature.",
+    "access_denied": "Access Denied",
+    "auth_error": "{0}",
 }
 
 # Account management
@@ -46,8 +46,8 @@ def check_if_admin():
 
     Returns:
         bool -- Whether or not the user has admin access. 
-    """    
-    if is_logged_in() and 'admin' in get_current_access(get_username().encode('utf-8')):
+    """
+    if is_logged_in() and "admin" in get_current_access(get_username().encode("utf-8")):
         return True
     else:
         return False
@@ -110,7 +110,7 @@ app.register_blueprint(writer)
 # | |__| |_| | (__|   <| |_| |  ___) | | | | (_) |  __/
 # |_____\__,_|\___|_|\_\\__, | |____/|_| |_|\___/ \___|
 #                       |___/
-#HACK
+# HACK
 app.register_blueprint(lucky_shoe)
 
 
@@ -186,12 +186,12 @@ app.register_blueprint(LQA)
 # |_____|_|  |_|  \___/|_|    |_| |_|\__,_|_| |_|\__,_|_|\___|_|  |___/
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('errors/404.html'),404
+    return render_template("errors/404.html"), 404
 
 
 @app.errorhandler(403)
 def forbidden(e):
-    return render_template('errors/403.html'),403
+    return render_template("errors/403.html"), 403
 
 
 @app.errorhandler(500)
@@ -200,7 +200,7 @@ def server_error(e):
     #     send_email('support@jforseth.tech', 'It\'s reprogramming time!',
     #                "<a href=\"https://youtu.be/QDSEpjjavhY?t=182\">It's reprogramming time!</a><br/>An error was detected on your server: {}".format(e),
     #                'errors@jforseth.tech', PROJECT_PASSWORD)
-    return render_template('errors/500.html'), 500
+    return render_template("errors/500.html"), 500
 
 
 if __name__ == "__main__":

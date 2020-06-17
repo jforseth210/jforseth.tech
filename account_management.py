@@ -15,8 +15,9 @@ from simple_mail import send_email
 # HACK: When subprocess is called,
 #       it goes to this class
 #       not the subprocess module.
-if os.name == 'nt':
-    class subprocess():
+if os.name == "nt":
+
+    class subprocess:
         def call(self, *args, **kwargs):
             return True
 
@@ -28,11 +29,13 @@ def set_account_validity(username, validity):
         username {str} -- The username to modify
         validity {int} -- 1 for invalid, 0 for valid.
     """
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     with conn:
-        cur.execute("""UPDATE accounts SET pending_verification=0 WHERE username=:username""",  {
-                    'username': username})
+        cur.execute(
+            """UPDATE accounts SET pending_verification=0 WHERE username=:username""",
+            {"username": username},
+        )
 
 
 def generate_token(username, tokentype):
@@ -46,18 +49,19 @@ def generate_token(username, tokentype):
         str -- A token
     """
     token = secrets.token_urlsafe(64)
-    #json file:
-    #{
+    # json file:
+    # {
     #   tokentype:{token:user}
-    #}
-    with open('text/active_tokens.json') as file:
+    # }
+    with open("text/active_tokens.json") as file:
         reset_dictionary = file.read()
     reset_dictionary = json.loads(reset_dictionary)
     reset_dictionary[tokentype][token] = username
     # Prettify the json output.
     reset_dictionary = json.dumps(
-        reset_dictionary, sort_keys=True, indent=4, separators=(',', ': '))
-    with open('text/active_tokens.json', 'w') as file:
+        reset_dictionary, sort_keys=True, indent=4, separators=(",", ": ")
+    )
+    with open("text/active_tokens.json", "w") as file:
         file.write(reset_dictionary)
     return token
 
@@ -72,11 +76,11 @@ def check_token(token, tokentype):
     Returns:
         bool -- Whether or not the token is valid.
     """
-    #json file:
-    #{
+    # json file:
+    # {
     #   tokentype:{token:user}
-    #}
-    with open('text/active_tokens.json') as file:
+    # }
+    with open("text/active_tokens.json") as file:
         valid_token_dictionary = file.read()
     valid_token_dictionary = json.loads(valid_token_dictionary)
     return token in valid_token_dictionary[tokentype]
@@ -89,18 +93,19 @@ def remove_token(token, tokentype):
         token {str} -- The token to remove
         tokentype {str} -- The type of token being removed.
     """
-    #json file:
-    #{
+    # json file:
+    # {
     #   tokentype:{token:user}
-    #}
-    with open('text/active_tokens.json') as file:
+    # }
+    with open("text/active_tokens.json") as file:
         valid_token_dictionary = file.read()
     valid_token_dictionary = json.loads(valid_token_dictionary)
     valid_token_dictionary[tokentype].pop(token)
-    #Prettify the json output.
+    # Prettify the json output.
     valid_token_dictionary = json.dumps(
-        valid_token_dictionary, sort_keys=True, indent=4, separators=(',', ': '))
-    with open('text/active_tokens.json', 'w') as file:
+        valid_token_dictionary, sort_keys=True, indent=4, separators=(",", ": ")
+    )
+    with open("text/active_tokens.json", "w") as file:
         file.write(valid_token_dictionary)
 
 
@@ -114,18 +119,19 @@ def get_user_from_token(token, tokentype):
     Returns:
         str -- The username
     """
-    #json file:
-    #{
+    # json file:
+    # {
     #   tokentype:{token:user}
-    #}
-    with open('text/active_tokens.json') as file:
+    # }
+    with open("text/active_tokens.json") as file:
         valid_token_dictionary = file.read()
     valid_token_dictionary = json.loads(valid_token_dictionary)
     return valid_token_dictionary.get(tokentype).get(token, "")
 
+
 # This was used in place of tokens before
 # I realized it was a joke to brute force.
-#def generate_valid_code():
+# def generate_valid_code():
 #    """DEPRECIATED. DO NOT USE.
 #
 #    Returns:
@@ -149,51 +155,54 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
         bad_password {bool} -- Whether or not the user is using an insecure password.
     """
     # Create user files and folders
-    username=username.encode('utf-8')
+    username = username.encode("utf-8")
     os.makedirs("userdata/{}/writer/documents/".format(username))
     os.makedirs("userdata/{}/writer/thumbnails/".format(username))
-    os.makedirs('userdata/{}/todo/'.format(username))
-    open("userdata/{}/todo/list.csv".format(username), 'a').close()
+    os.makedirs("userdata/{}/todo/".format(username))
+    open("userdata/{}/todo/list.csv".format(username), "a").close()
 
     # Add database entry
-    username=username.decode('utf-8')
-    conn = sqlite3.connect('database.db')
+    username = username.decode("utf-8")
+    conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     with conn:
-        cur.execute("""
+        cur.execute(
+            """
             INSERT INTO accounts
             (username, hashed_password, have_access_to, recovery_email, prayer_groups, prayer_email, pending_verification)
             VALUES (:username, :hashed_password, :have_access_to, :recovery_email, :prayer_groups, :prayer_email, :pending_verification)""",
-
-                    {
-                        'username': username,
-                        'hashed_password': generate_password_hash(password),
-                        'have_access_to': '',
-                        'recovery_email': recovery_email,
-                        'prayer_groups': prayer_groups,
-                        'prayer_email': recovery_email,
-                        'pending_verification': 1
-
-                    })
+            {
+                "username": username,
+                "hashed_password": generate_password_hash(password),
+                "have_access_to": "",
+                "recovery_email": recovery_email,
+                "prayer_groups": prayer_groups,
+                "prayer_email": recovery_email,
+                "pending_verification": 1,
+            },
+        )
 
     # Create a new linux user.
-    password=password.encode('utf-8')
-    username=username.encode('utf-8')
-    subprocess.call(shlex.split(
-        "sudo /var/www/html/new_linux_user.sh {} {}".format(username, password)))
+    password = password.encode("utf-8")
+    username = username.encode("utf-8")
+    subprocess.call(
+        shlex.split(
+            "sudo /var/www/html/new_linux_user.sh {} {}".format(username, password)
+        )
+    )
     token = generate_token(username, "new_account")
     # Create a verification email.
-    with open('text/account_verification_email_template.html') as file:
+    with open("text/account_verification_email_template.html") as file:
         VERIFICATION_EMAIL_TEMPLATE = file.read()
-    #Append this to the message if the user chooses a weak password:
-    BAD_PW_MESSAGE=""
+    # Append this to the message if the user chooses a weak password:
+    BAD_PW_MESSAGE = ""
     if bad_password:
         BAD_PW_MESSAGE = "We noticed you're using a pretty short password. We won't mention it again, \
                         your password is your own business, but we'd encourage you to consider changing \
                         it to a longer one later!"
 
     try:
-        username.decode('ascii')
+        username.decode("ascii")
     except UnicodeDecodeError:
         UNICODE_MESSAGE = "We noticed your using a unicode character (an emoji, character accent, non-latin alphabet, etc.) \
         I've done my best to support unicode on this site, but you may run into issues with this username, especially with \
@@ -202,9 +211,17 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     else:
         UNICODE_MESSAGE = ""
     message = VERIFICATION_EMAIL_TEMPLATE.format(
-        token=token, username=username, additional_messages=UNICODE_MESSAGE+BAD_PW_MESSAGE)
-    send_email(recovery_email.encode('utf-8'), "Thanks for signing up for jforseth.tech!",
-               message, PROJECT_EMAIL, PROJECT_PASSWORD)
+        token=token,
+        username=username,
+        additional_messages=UNICODE_MESSAGE + BAD_PW_MESSAGE,
+    )
+    send_email(
+        recovery_email.encode("utf-8"),
+        "Thanks for signing up for jforseth.tech!",
+        message,
+        PROJECT_EMAIL,
+        PROJECT_PASSWORD,
+    )
 
 
 def delete_account(username):
@@ -214,15 +231,20 @@ def delete_account(username):
         username {str} -- The username to remove.
     """
     # Delete database entry
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     # Delete UNIX user and user files.
     with conn:
-        cur.execute("""
+        cur.execute(
+            """
             DELETE FROM accounts WHERE username=:username""",
-                    {'username': username, })
-    subprocess.call(shlex.split(
-        "sudo /var/www/html/delete_user.sh {}".format(username)))
+            {"username": username,},
+        )
+    subprocess.call(
+        shlex.split("sudo /var/www/html/delete_user.sh {}".format(username))
+    )
+
+
 # Retrieve all date on a given user. Returns a dict with columns as keys.
 
 
@@ -235,12 +257,14 @@ def get_account(username):
     Returns:
         dict -- A dictionary with column names as keys, and account data as values.
     """
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect("database.db")
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
 
-    cur.execute("""SELECT * FROM accounts WHERE username=:username""",
-                {'username': username.decode('utf-8')})
+    cur.execute(
+        """SELECT * FROM accounts WHERE username=:username""",
+        {"username": username.decode("utf-8")},
+    )
 
     account_data = cur.fetchone()
 
@@ -259,22 +283,24 @@ def check_login(user):
     Returns:
         bool -- Whether or not the user is signed in.
     """
-    user_data = get_account(user['username'].encode('utf-8'))
+    user_data = get_account(user["username"].encode("utf-8"))
 
     if not user_data:
         flash("Account not found", category="warning")
         return False  # <--- No data at all
-    elif user_data.get('pending_verification') == 1:
+    elif user_data.get("pending_verification") == 1:
         flash("This account hasn't been verified. Check your email.")
-        return False # <--- The account hasn't been verified yet.
-    elif check_password_hash(user_data.get('hashed_password'), user['password']):
+        return False  # <--- The account hasn't been verified yet.
+    elif check_password_hash(user_data.get("hashed_password"), user["password"]):
         return True  # <--- User is logged in.
 
     else:
         flash("Incorrect password.")
         return False  # <--- Something else has gone wrong, probably wrong password.
 
+
 # TODO: Find a way to encrypt user data.
+
 
 def get_current_access(username):
     """Determine what pages a given user has access to.
@@ -286,10 +312,11 @@ def get_current_access(username):
         list -- A list of places the user has permission to view.
     """
     user_data = get_account(username)
-    return user_data["have_access_to"].split(',')
+    return user_data["have_access_to"].split(",")
+
 
 # These codes are a joke to brute force. DO NOT USE.
-#def check_code(code):
+# def check_code(code):
 #    """DEPRECIATED. DO NOT USE.
 #
 #    Arguments:
@@ -321,19 +348,28 @@ def update_pw(current_username, new_plain_password):
     """
     # Update database.
     new_hashed_password = generate_password_hash(new_plain_password)
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     with conn:
-        cur.execute("""
+        cur.execute(
+            """
             UPDATE accounts
             SET hashed_password=:new_hashed_password
             WHERE username=:current_username""",
+            {
+                "new_hashed_password": new_hashed_password,
+                "current_username": current_username.decode("utf-8"),
+            },
+        )
+    # Update UNIX user.
+    subprocess.call(
+        shlex.split(
+            "sudo /var/www/html/change_pw.sh {} {}".format(
+                current_username, new_plain_password
+            )
+        )
+    )
 
-                    {'new_hashed_password': new_hashed_password,
-                     'current_username': current_username.decode('utf-8')})
-    #Update UNIX user.
-    subprocess.call(shlex.split(
-        "sudo /var/www/html/change_pw.sh {} {}".format(current_username, new_plain_password)))
 
 def change_email(username, email, email_type):
     """Change a user's email address.
@@ -343,36 +379,41 @@ def change_email(username, email, email_type):
         email {str} -- The new email address.
         email_type {str} -- Whether the email is a recover_email or a prayer_email.
     """
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     with conn:
-        cur.execute("""UPDATE accounts SET {email_type}='{email}' WHERE username='{username}'""".format(
-            email_type=email_type, email=email, username=username))
+        cur.execute(
+            """UPDATE accounts SET {email_type}='{email}' WHERE username='{username}'""".format(
+                email_type=email_type, email=email, username=username
+            )
+        )
+
 
 # Checks if user has to a specific area.
 # Used by @login_required decorator.
 
-#Everyone has access to writer now.
+# Everyone has access to writer now.
 # def have_access_to_writer(username):
 #    user_data = get_account(username)
 #    if 'writer' not in user_data.get('have_access_to'):
 #        return render_template("errors/403.html")
 
+
 def have_access_to_todo(username):
-    user_data = get_account(username.encode('utf-8'))
-    if 'todo' not in user_data.get('have_access_to'):
+    user_data = get_account(username.encode("utf-8"))
+    if "todo" not in user_data.get("have_access_to"):
         return render_template("errors/403.html")
 
 
 def have_access_to_admin(username):
-    user_data = get_account(username.encode('utf-8'))
-    if 'admin' not in user_data.get('have_access_to'):
+    user_data = get_account(username.encode("utf-8"))
+    if "admin" not in user_data.get("have_access_to"):
         return render_template("errors/403.html")
 
 
 def have_access_to_lqa(username):
-    user_data = get_account(username.encode('utf-8'))
-    if 'lqa' not in user_data.get('have_access_to'):
+    user_data = get_account(username.encode("utf-8"))
+    if "lqa" not in user_data.get("have_access_to"):
         return render_template("errors/403.html")
 
 

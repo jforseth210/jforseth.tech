@@ -8,17 +8,17 @@ from SensitiveData import *
 from simple_mail import send_email
 from account_management import have_access_to_todo
 
-todo = Blueprint('todo', __name__)  # Main page
+todo = Blueprint("todo", __name__)  # Main page
 
 
 def get_todos(todoFilePath):
     # try:
-    with open(todoFilePath, 'r') as file:
+    with open(todoFilePath, "r") as file:
         todos = file.readlines()
-        if todos != '':
-            todos = [i.replace('COMMA', ',') for i in todos]
-            todos = [i.replace('\n', '') for i in todos]
-            todos = [i.split(',') for i in todos]
+        if todos != "":
+            todos = [i.replace("COMMA", ",") for i in todos]
+            todos = [i.replace("\n", "") for i in todos]
+            todos = [i.split(",") for i in todos]
     # except FileNotFoundError:
     #    with open(todoFilePath, 'w') as file:
     #        file.write("")
@@ -36,56 +36,57 @@ def get_lists(todoFilePath):
 
 
 def add_todo(todoFilePath, name, currentlist):
-    with open(todoFilePath, 'a') as file:
-        file.write('{},{}\n'.format(name.encode('utf-8'), currentlist.encode('utf-8')))
+    with open(todoFilePath, "a") as file:
+        file.write("{},{}\n".format(name.encode("utf-8"), currentlist.encode("utf-8")))
 
 
 def delete_todo(todoFilePath, taskid):
-    with open(todoFilePath, 'r') as file:
+    with open(todoFilePath, "r") as file:
         todos = file.readlines()
 
     # This line is magic. No idea what's going on.
     try:
-        todos.pop(len(todos)-taskid)
+        todos.pop(len(todos) - taskid)
     except IndexError:
         flash("That isn't a valid task.", category="warning")
-        return redirect('/todo')
-    with open(todoFilePath, 'w') as file:
+        return redirect("/todo")
+    with open(todoFilePath, "w") as file:
         for i in todos:
             file.write(i)
 
 
 def reorder_todo(todoFilePath, item_to_reorder, position_to_move):
-    with open(todoFilePath, 'r') as file:
+    with open(todoFilePath, "r") as file:
         todos = file.readlines()
 
-    item_to_reorder = todos[len(todos)-item_to_reorder]
+    item_to_reorder = todos[len(todos) - item_to_reorder]
 
-    position_to_move = len(todos)-position_to_move
+    position_to_move = len(todos) - position_to_move
 
     todos.remove(item_to_reorder)
     todos.insert(position_to_move, item_to_reorder)
 
-    with open(todoFilePath, 'w') as file:
+    with open(todoFilePath, "w") as file:
         # Now that the item has been reordered, rewrite the file.
         for i in todos:
             file.write(i)
 
+
 # The main page
-@todo.route('/todo')
+@todo.route("/todo")
 @login_required()
 def todo_page():
     # if not os.path.isdir("userdata/{}/todo/".format(get_username().encode('utf-8'))):
     #    os.makedirs('userdata/{}/todo/'.format(get_username().encode('utf-8')))
     #    with open("userdata/{}/todo/list.csv".format(get_username().encode('utf-8')), 'w'):
     #        pass
-    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username().encode('utf-8'))
+    todoFilePath = "userdata/{}/todo/list.csv".format(get_username().encode("utf-8"))
     todos = get_todos(todoFilePath)
     todos.reverse()
     lists = get_lists(todoFilePath)
-    todos=[(todo[0].decode('utf-8'), todo[1].decode('utf-8')) for todo in todos]
-    lists=[list.decode('utf-8') for list in lists]
-    return render_template('todo/todo.html', result=todos, lists=lists)
+    todos = [(todo[0].decode("utf-8"), todo[1].decode("utf-8")) for todo in todos]
+    lists = [list.decode("utf-8") for list in lists]
+    return render_template("todo/todo.html", result=todos, lists=lists)
 
 
 # Android app and api
@@ -120,40 +121,42 @@ def delete_todo_api():
         return "Device not approved"
 """
 # Submission route for new todos.
-@todo.route('/todo/submitted', methods=['POST', 'GET'])
+@todo.route("/todo/submitted", methods=["POST", "GET"])
 @login_required()
 def new_todo():
-    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username().encode('utf-8'))
-    name = request.form.get('taskname') #Not esaping this because reasons.
-    name = name.replace(',', 'COMMA')
-    currentlist = escape(request.form.get('list'))
+    todoFilePath = "userdata/{}/todo/list.csv".format(get_username().encode("utf-8"))
+    name = request.form.get("taskname")  # Not esaping this because reasons.
+    name = name.replace(",", "COMMA")
+    currentlist = escape(request.form.get("list"))
     add_todo(todoFilePath, name, currentlist)
-    #send_email('todo+19z1n4ovd3rf@mail.ticktick.com', name, 'Submitted from jforseth.tech',PERSONAL_EMAIL, PERSONAL_PASSWORD)
+    # send_email('todo+19z1n4ovd3rf@mail.ticktick.com', name, 'Submitted from jforseth.tech',PERSONAL_EMAIL, PERSONAL_PASSWORD)
 
-    return redirect('/todo')
+    return redirect("/todo")
+
 
 # Deletion route
-@todo.route('/todo/delete', methods=['POST', 'GET'])
+@todo.route("/todo/delete", methods=["POST", "GET"])
 @login_required()
 def todo_deleted():
-    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username().encode('utf-8'))
+    todoFilePath = "userdata/{}/todo/list.csv".format(get_username().encode("utf-8"))
     try:
-        task_id = int(escape(request.form.get('taskid')))
+        task_id = int(escape(request.form.get("taskid")))
     except ValueError:
-        flash("Please enter a number", category='warning')
-        return redirect('/todo')
+        flash("Please enter a number", category="warning")
+        return redirect("/todo")
     delete_todo(todoFilePath, task_id)
-    return redirect('/todo')
+    return redirect("/todo")
+
 
 # Ordering route
-@todo.route('/todo/reorder', methods=['POST', 'GET'])
+@todo.route("/todo/reorder", methods=["POST", "GET"])
 @login_required()
 def todo_reordered():
-    todoFilePath = 'userdata/{}/todo/list.csv'.format(get_username().encode('utf-8'))
+    todoFilePath = "userdata/{}/todo/list.csv".format(get_username().encode("utf-8"))
     try:
         item_to_reorder = int(escape(request.form.get("taskid")))
         position_to_move = int(escape(request.form.get("taskloc")))
     except ValueError:
         flash("Please enter a number", category="warning")
     reorder_todo(todoFilePath, item_to_reorder, position_to_move)
-    return redirect('/todo')
+    return redirect("/todo")

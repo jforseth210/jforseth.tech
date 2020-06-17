@@ -7,54 +7,57 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from account_management import get_account, update_pw, create_account, delete_account
 
-welcome = Blueprint('welcome', __name__)
+welcome = Blueprint("welcome", __name__)
 
 
-@welcome.route('/')
+@welcome.route("/")
 def welcome_page():
     if platform.node() == "backup-server-vm":
-        flash("The main jforseth.tech server is currently experiencing issues. Some functionality may not be available.")
+        flash(
+            "The main jforseth.tech server is currently experiencing issues. Some functionality may not be available."
+        )
     return render_template("welcome/welcome.html")
 
 
-@welcome.route('/FlaskApp')
+@welcome.route("/FlaskApp")
 def flaskapp_welcome():
-    return redirect('/')
+    return redirect("/")
 
 
-@welcome.route('/about')
+@welcome.route("/about")
 def about():
-    return render_template('welcome/about.html')
+    return render_template("welcome/about.html")
 
 
-@welcome.route('/instructions')
+@welcome.route("/instructions")
 def instructions():
-    return render_template('welcome/instructions.html')
+    return render_template("welcome/instructions.html")
 
 
-@welcome.route('/sign/edit')
+@welcome.route("/sign/edit")
 def sign_edit():
     with open("text/sign_text.txt") as file:
         text = file.read()
     return render_template("welcome/sign_edit.html", text=text)
 
 
-@welcome.route('/sign')
+@welcome.route("/sign")
 def sign():
     return render_template("welcome/sign.html")
 
 
-@welcome.route('/sign/stream')
+@welcome.route("/sign/stream")
 def sign_stream():
     def eventStream():
-        old_current_number = ''
+        old_current_number = ""
         while True:
             time.sleep(0.1)
-            with open("text/sign_text.txt", 'r') as file:
+            with open("text/sign_text.txt", "r") as file:
                 current_number = file.readline()
             if old_current_number != current_number:
                 old_current_number = current_number
                 yield "data: {}\n\n".format(current_number)
+
     return Response(eventStream(), mimetype="text/event-stream")
 
 
@@ -64,6 +67,8 @@ def sign_update():
     with open("text/sign_text.txt", "w") as file:
         file.write(text)
     return ""
+
+
 # Random redirects
 @welcome.route("/italypics")
 def italypics():

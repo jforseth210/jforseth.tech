@@ -4,27 +4,28 @@ import sys
 
 from flask import *
 import sqlite3
+
 pp = pprint.PrettyPrinter(indent=4)
 
-messenger = Blueprint('messenger', __name__)  # Main page
+messenger = Blueprint("messenger", __name__)  # Main page
 
 
 def add_message(result):
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     with conn:
-        cur.execute("INSERT INTO messages VALUES(:result)", {'result': result})
+        cur.execute("INSERT INTO messages VALUES(:result)", {"result": result})
 
 
 def read_messages():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     cur.execute("SELECT * FROM messages")
     return cur.fetchall()
 
 
 def clear_messages():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     with conn:
         cur.execute("DELETE FROM messages")
@@ -34,23 +35,24 @@ def clear_messages():
         cur.execute("VACUUM")
 
 
-@messenger.route('/messenger')
+@messenger.route("/messenger")
 def messenger_main_page():
     messages = read_messages()
-    messages = [''.join(i) for i in messages]
+    messages = ["".join(i) for i in messages]
     return render_template("messenger/messenger.html", result=messages)
 
+
 # When the user sends a message, it goes here.
-@messenger.route('/messenger/result', methods=['POST', 'GET'])
+@messenger.route("/messenger/result", methods=["POST", "GET"])
 def new_message():
-    if request.method == 'POST':
-        message = escape(request.form.get('message'))
+    if request.method == "POST":
+        message = escape(request.form.get("message"))
         add_message(message)
 
-    return redirect('/messenger')
+    return redirect("/messenger")
 
 
-@messenger.route('/message/stream')
+@messenger.route("/message/stream")
 def message_stream():
     def eventStream():
         previous_messages = read_messages()
@@ -60,14 +62,14 @@ def message_stream():
 
             if previous_messages != messages:
                 previous_messages = messages
-                formatted_messages = [''.join(i) for i in messages]
+                formatted_messages = ["".join(i) for i in messages]
 
                 yield "data: {}\n\n".format(formatted_messages[-1])
 
     return Response(eventStream(), mimetype="text/event-stream")
 
 
-@messenger.route('/messenger/clear', methods=['POST', 'GET'])
+@messenger.route("/messenger/clear", methods=["POST", "GET"])
 def clear_all_messages():
     clear_messages()
-    return redirect('/messenger')
+    return redirect("/messenger")

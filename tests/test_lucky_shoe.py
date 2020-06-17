@@ -13,15 +13,16 @@ class LuckyShoeTestCase(unittest.TestCase):
 
     def test_lucky_shoe_page(self):
         tester = app.test_client(self)
-        response = tester.get('/luckyshoe')
+        response = tester.get("/luckyshoe")
         self.assertEqual(200, response.status_code)
-        self.assertIn(b'Lucky Shoe Welding', response.data)
+        self.assertIn(b"Lucky Shoe Welding", response.data)
 
     def test_lucky_shoe_order(self):
-        data = dict(testing='True',
-                    testing_well='False', code_working='True', code_good='False')
+        data = dict(
+            testing="True", testing_well="False", code_working="True", code_good="False"
+        )
         tester = app.test_client(self)
-        response = tester.post('/luckyshoe/order', data=data)
+        response = tester.post("/luckyshoe/order", data=data)
         self.assertIs(200, response.status_code)
         for key, value in data.items():
             self.assertIn(key, str(response.data))

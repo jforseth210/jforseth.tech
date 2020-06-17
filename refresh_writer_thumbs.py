@@ -1,10 +1,11 @@
 import os
 import imgkit
+
 options = {
-    'height': '600',
+    "height": "600",
     # 'width':'500',
-    'crop-w': '1024',
-    'encoding': 'utf-8'
+    "crop-w": "1024",
+    "encoding": "utf-8",
 }
 
 
@@ -18,21 +19,26 @@ def refresh_thumbs(user):
         WRITER_PATH = "userdata/{}/writer/documents".format(user)
         THUMB_PATH = "userdata/{}/writer/thumbnails".format(user)
         # Windows needs executable path to be specified.
-        if os.name == 'nt':
+        if os.name == "nt":
             config = imgkit.config(
-                wkhtmltoimage=b"C:/Program Files/wkhtmltopdf/bin/wkhtmltoimage.exe")
+                wkhtmltoimage=b"C:/Program Files/wkhtmltopdf/bin/wkhtmltoimage.exe"
+            )
         else:
             config = imgkit.config()
         # xvfb is needed by Linux
-        if os.name == 'posix':
+        if os.name == "posix":
             options.update(xvfb="")
 
         files = os.listdir(WRITER_PATH)
         for i in files:
-            #Don't create a thumbnail for the backup folder.
+            # Don't create a thumbnail for the backup folder.
             if i != "oopsie":
-                imgkit.from_file(WRITER_PATH+"/"+i, THUMB_PATH +
-                                 "/"+i+"_thumb.png", options=options, config=config)
+                imgkit.from_file(
+                    WRITER_PATH + "/" + i,
+                    THUMB_PATH + "/" + i + "_thumb.png",
+                    options=options,
+                    config=config,
+                )
     else:
         # List every user and recursively refresh thumbnails.
         users = os.listdir("userdata/")
