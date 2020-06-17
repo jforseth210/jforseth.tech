@@ -1,25 +1,53 @@
 import unittest
+from shutil import move, copyfile
+import os
 from bs4 import BeautifulSoup
 from webtool import app
-from SensitiveData import PROJECT_PASSWORD
-#TODO: Edge cases: Unicode characters, XSS, SQL Injection
+from SensitiveData import PROJECT_PASSWORD, TESTING_GROUP_SIGNUP_CODE
+# TODO: Edge cases: Unicode characters, XSS, SQL Injection
 #TODO: Setup and teardown
 #TODO: Signup
-#TODO: Email changes
-#TODO: Password changes
-#TODO: Prayer additions and unsubcriptions (maybe in test_prayer).
-#TODO: Account deletion
-def login(tester):
+# TODO: Email changes
+# TODO: Password changes
+# TODO: Prayer additions and unsubcriptions (maybe in test_prayer).
+# TODO: Account deletion
+
+
+def login(tester, username='testing',
+          password=PROJECT_PASSWORD):
     response = tester.get('/login/')
     soup = BeautifulSoup(response.data, 'html.parser')
     token = soup.find(id='csrf_token')['value']
-    response = tester.post('/login', data=dict(csrf_token=token, username='testing', password=PROJECT_PASSWORD, next='/'), follow_redirects=True)
+    response = tester.post('/login', data=dict(csrf_token=token,
+                                               username=username, password=password, next='/'), follow_redirects=True)
     return response
+
+
+def signup(tester, emailInput='justin@jforseth.tech',
+           username='testing', password=PROJECT_PASSWORD,
+           confirm_password=PROJECT_PASSWORD, prayer_user='on',
+           parish=TESTING_GROUP_SIGNUP_CODE):
+
+    response = tester.post('/signup', data=dict(emailInput=emailInput, usernameInput=username, passwordInput=password,
+                                                confirmPasswordInput=confirm_password, prayerInput=prayer_user, parishInput=parish))
+    return response
+
+
+def delete_account(tester, confirm_password=PROJECT_PASSWORD):
+    response = tester.post(
+        '/accountdel', data=dict(confirm_password=confirm_password))
+    return response
+
 
 class AccountsTestCase(unittest.TestCase):
     def setUp(self):
-        app.testing = True
-        self.app = app.test_client()
+        app.config['TESTING'] = True
+        copyfile('database.db', 'database.db.orig')
+
+    def tearDown(self):
+        os.remove('database.db')
+        move('database.db.orig', 'database.db')
+
     def test_login_page(self):
         tester = app.test_client(self)
         response = tester.get('/login/', content_type='html/text')
@@ -37,7 +65,8 @@ class AccountsTestCase(unittest.TestCase):
     def test_correct_login_no_csrf(self):
         with app.test_client() as tester:
             response = tester.get('/login/')
-            response = tester.post('/login', data=dict(username='testing', password=PROJECT_PASSWORD, next='/'), follow_redirects=True)
+            response = tester.post('/login', data=dict(username='testing',
+                                                       password=PROJECT_PASSWORD, next='/'), follow_redirects=True)
             self.assertIn(b"token is missing", response.data)
             self.assertEqual(response.status_code, 200)
 
@@ -46,7 +75,8 @@ class AccountsTestCase(unittest.TestCase):
             response = tester.get('/login/')
             soup = BeautifulSoup(response.data, 'html.parser')
             token = soup.find(id='csrf_token')['value']
-            response = tester.post('/login', data=dict(csrf_token=token, username='thisuserdoesnotexist', password=PROJECT_PASSWORD, next='/'), follow_redirects=True)
+            response = tester.post('/login', data=dict(csrf_token=token, username='thisuserdoesnotexist',
+                                                       password=PROJECT_PASSWORD, next='/'), follow_redirects=True)
             self.assertIn(b"Account not found", response.data)
             self.assertEqual(response.status_code, 401)
 
@@ -55,7 +85,8 @@ class AccountsTestCase(unittest.TestCase):
             response = tester.get('/login/')
             soup = BeautifulSoup(response.data, 'html.parser')
             token = soup.find(id='csrf_token')['value']
-            response = tester.post('/login', data=dict(csrf_token=token, username='testing', password='this is the wrong password', next='/'), follow_redirects=True)
+            response = tester.post('/login', data=dict(csrf_token=token, username='testing',
+                                                       password='this is the wrong password', next='/'), follow_redirects=True)
             self.assertIn(b"Incorrect password", response.data)
             self.assertEqual(response.status_code, 401)
 
@@ -65,6 +96,13 @@ class AccountsTestCase(unittest.TestCase):
                               content_type='html/text', follow_redirects=False)
         self.assertEqual(response.status_code, 403)
         self.assertTrue(b"Oops" in response.data)
+
+    def test_signup(self):
+        with app.test_client() as tester:
+            response = signup(tester)
+            self.assertEqual(200, response.status_code)
+            print(response.data)
+
 
 if __name__ == '__main__':
     unittest.main()
