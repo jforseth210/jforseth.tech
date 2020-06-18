@@ -1,17 +1,19 @@
 import os
+from shutil import rmtree
 import subprocess
 import random
 import json
 import shlex
 import sqlite3
 import secrets
-from flask import render_template, flash, escape, Markup
+from flask import render_template, flash, escape, Markup, current_app
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from SensitiveData import PROJECT_EMAIL, PROJECT_PASSWORD
 from simple_mail import send_email
 
 # If on windows, don't try to run the shell scripts.
+# If running a test, don't run them either. 
 # HACK: When subprocess is called,
 #       it goes to this class
 #       not the subprocess module.
@@ -185,11 +187,12 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     # Create a new linux user.
     password = password.encode("utf-8")
     username = username.encode("utf-8")
-    subprocess.call(
-        shlex.split(
-            "sudo /var/www/html/new_linux_user.sh {} {}".format(username, password)
+    if not current_app.config['TESTING']:
+        subprocess.call(  
+            shlex.split(
+                "sudo /var/www/html/new_linux_user.sh {} {}".format(username, password)
+            )
         )
-    )
     token = generate_token(username, "new_account")
     # Create a verification email.
     with open("text/account_verification_email_template.html") as file:
@@ -240,9 +243,11 @@ def delete_account(username):
             DELETE FROM accounts WHERE username=:username""",
             {"username": username,},
         )
-    subprocess.call(
-        shlex.split("sudo /var/www/html/delete_user.sh {}".format(username))
-    )
+    rmtree('userdata/{}/')
+    if not current_app.config['TESTING']:
+        subprocess.call(
+            shlex.split("sudo /var/www/html/delete_user.sh {}".format(username))
+        )
 
 
 # Retrieve all date on a given user. Returns a dict with columns as keys.
@@ -263,7 +268,7 @@ def get_account(username):
 
     cur.execute(
         """SELECT * FROM accounts WHERE username=:username""",
-        {"username": username.decode("utf-8")},
+        {"username": username},
     )
 
     account_data = cur.fetchone()
@@ -361,14 +366,14 @@ def update_pw(current_username, new_plain_password):
                 "current_username": current_username.decode("utf-8"),
             },
         )
-    # Update UNIX user.
-    subprocess.call(
-        shlex.split(
-            "sudo /var/www/html/change_pw.sh {} {}".format(
-                current_username, new_plain_password
+    if not current_app.config['TESTING']:
+        # Update UNIX user.
+        subprocess.call(
+            shlex.split(
+                "sudo /var/www/html/change_pw.sh {} {}".format(
+                    current_username, new_plain_password)
             )
         )
-    )
 
 
 def change_email(username, email, email_type):
