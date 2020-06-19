@@ -157,14 +157,16 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
         bad_password {bool} -- Whether or not the user is using an insecure password.
     """
     # Create user files and folders
-    username = username.encode("utf-8")
+    #username = username.encode("utf-8")
     os.makedirs("userdata/{}/writer/documents/".format(username))
     os.makedirs("userdata/{}/writer/thumbnails/".format(username))
     os.makedirs("userdata/{}/todo/".format(username))
     open("userdata/{}/todo/list.csv".format(username), "a").close()
 
     # Add database entry
-    username = username.decode("utf-8")
+    #username = username.decode("utf-8")
+    #Email verification, unless testing.
+    already_verified = not current_app.config['TESTING']
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     with conn:
@@ -176,24 +178,24 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
             {
                 "username": username,
                 "hashed_password": generate_password_hash(password),
-                "have_access_to": "",
+                "have_access_to": "Nothing",
                 "recovery_email": recovery_email,
                 "prayer_groups": prayer_groups,
                 "prayer_email": recovery_email,
-                "pending_verification": 1,
+                "pending_verification": already_verified,
             },
         )
 
     # Create a new linux user.
-    password = password.encode("utf-8")
-    username = username.encode("utf-8")
-    if not current_app.config['TESTING']:
+    #password = password.encode("utf-8")
+    #username = username.encode("utf-8")
+    if not current_app.config['TESTING'] and not current_app.config['DEBUG']:
         subprocess.call(  
             shlex.split(
                 "sudo /var/www/html/new_linux_user.sh {} {}".format(username, password)
             )
         )
-    token = generate_token(username, "new_account")
+    token = generate_token(str(username), "new_account")
     # Create a verification email.
     with open("text/account_verification_email_template.html") as file:
         VERIFICATION_EMAIL_TEMPLATE = file.read()
@@ -204,27 +206,29 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
                         your password is your own business, but we'd encourage you to consider changing \
                         it to a longer one later!"
 
-    try:
-        username.decode("ascii")
-    except UnicodeDecodeError:
-        UNICODE_MESSAGE = "We noticed your using a unicode character (an emoji, character accent, non-latin alphabet, etc.) \
-        I've done my best to support unicode on this site, but you may run into issues with this username, especially with \
-        email-related functionality. You're always welcome to email me if you run into a problem, but it may be a good idea \
-        chose a different username."
-    else:
-        UNICODE_MESSAGE = ""
+    UNICODE_MESSAGE=""
+    #try:
+    #    username.decode("ascii")
+    #except UnicodeDecodeError:
+    #    UNICODE_MESSAGE = "We noticed your using a unicode character (an emoji, character accent, non-latin alphabet, etc.) \
+    #    I've done my best to support unicode on this site, but you may run into issues with this username, especially with \
+    #    email-related functionality. You're always welcome to email me if you run into a problem, but it may be a good idea \
+    #    chose a different username."
+    #else:
+    #    UNICODE_MESSAGE = ""
     message = VERIFICATION_EMAIL_TEMPLATE.format(
         token=token,
         username=username,
         additional_messages=UNICODE_MESSAGE + BAD_PW_MESSAGE,
     )
-    send_email(
-        recovery_email.encode("utf-8"),
-        "Thanks for signing up for jforseth.tech!",
-        message,
-        PROJECT_EMAIL,
-        PROJECT_PASSWORD,
-    )
+    if not current_app.config['TESTING']:
+        send_email(
+            recovery_email,#.encode("utf-8"),
+            "Thanks for signing up for jforseth.tech!",
+            message,
+            PROJECT_EMAIL,
+            PROJECT_PASSWORD,
+        )
 
 
 def delete_account(username):
@@ -243,8 +247,8 @@ def delete_account(username):
             DELETE FROM accounts WHERE username=:username""",
             {"username": username,},
         )
-    rmtree('userdata/{}/')
-    if not current_app.config['TESTING']:
+    rmtree('userdata/{}/'.format(username))
+    if not current_app.config['TESTING'] and not current_app.config['DEBUG']:
         subprocess.call(
             shlex.split("sudo /var/www/html/delete_user.sh {}".format(username))
         )
@@ -288,7 +292,7 @@ def check_login(user):
     Returns:
         bool -- Whether or not the user is signed in.
     """
-    user_data = get_account(user["username"].encode("utf-8"))
+    user_data = get_account(user["username"])#.encode("utf-8"))
 
     if not user_data:
         flash("Account not found", category="warning")
@@ -305,7 +309,20 @@ def check_login(user):
 
 
 # TODO: Find a way to encrypt user data.
-
+def grant_access(username, access):
+    current_access = get_current_access(username)
+    if current_access != None:        
+        access = ",".join(current_access)+','+access
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
+    with conn:
+        cur.execute(
+            """UPDATE accounts SET have_access_to=:access WHERE username=:username""",
+            {
+            "username": username,
+            "access": access 
+            },
+        )
 
 def get_current_access(username):
     """Determine what pages a given user has access to.
@@ -317,7 +334,7 @@ def get_current_access(username):
         list -- A list of places the user has permission to view.
     """
     user_data = get_account(username)
-    return user_data["have_access_to"].split(",")
+    return user_data.get("have_access_to","").split(",")
 
 
 # These codes are a joke to brute force. DO NOT USE.
@@ -366,7 +383,7 @@ def update_pw(current_username, new_plain_password):
                 "current_username": current_username.decode("utf-8"),
             },
         )
-    if not current_app.config['TESTING']:
+    if not current_app.config['TESTING'] and not current_app.config['DEBUG']:
         # Update UNIX user.
         subprocess.call(
             shlex.split(
@@ -405,19 +422,19 @@ def change_email(username, email, email_type):
 
 
 def have_access_to_todo(username):
-    user_data = get_account(username.encode("utf-8"))
+    user_data = get_account(username)#.encode("utf-8"))
     if "todo" not in user_data.get("have_access_to"):
         return render_template("errors/403.html")
 
 
 def have_access_to_admin(username):
-    user_data = get_account(username.encode("utf-8"))
+    user_data = get_account(username)#.encode("utf-8"))
     if "admin" not in user_data.get("have_access_to"):
         return render_template("errors/403.html")
 
 
 def have_access_to_lqa(username):
-    user_data = get_account(username.encode("utf-8"))
+    user_data = get_account(username)#.encode("utf-8"))
     if "lqa" not in user_data.get("have_access_to"):
         return render_template("errors/403.html")
 

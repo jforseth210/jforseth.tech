@@ -29,10 +29,10 @@ def signup():
         password = escape(request.form.get("passwordInput"))
         confirmPassword = escape(request.form.get("confirmPasswordInput"))
         prayerBool = escape(request.form.get("prayerInput"))
-        username = username.decode("utf-8")
-        print(username)
+        #username = username.decode("utf-8")
+        #print(username)
         # The user doesn't want to recieve any prayer requests.
-        print(prayerBool)
+        #print(prayerBool)
         if not prayerBool:
             prayer_groups = "None"
         else:
@@ -96,12 +96,12 @@ def validate_account():
 @accounts.route("/account/<account>")
 def account(account):
     if is_logged_in():
-        if account.encode("utf-8") == get_username().encode("utf-8"):
+        if account.encode("utf-8") == get_username():#.encode("utf-8"):
             if platform.node() == "backup-server-vm":
                 flash(
                     "The main jforseth.tech server is experiencing issues. Account changes have been suspended."
                 )
-            account = get_account(get_username().encode("utf-8"))
+            account = get_account(get_username())#.encode("utf-8"))
             groups = account["prayer_groups"].split("|")
             return render_template("accounts/account.html", groups=groups)
     return render_template("errors/403.html"), 403
@@ -114,7 +114,7 @@ def change_password():
     new_password = escape(request.form.get("new_password"))
     confirm_new_password = escape(request.form.get("confirm_new_password"))
 
-    current_username = get_username().encode("utf-8")
+    current_username = get_username()#.encode("utf-8")
     current_account = get_account(current_username)
 
     if platform.node() == "backup-server-vm":
@@ -139,7 +139,7 @@ def verify_changed_email():
     email = escape(request.form.get("email"))
     email_type = escape(request.form.get("email_type"))
 
-    username = get_username().encode("utf-8")
+    username = get_username()#.encode("utf-8")
     token = generate_token(email + username, "email_change")
 
     with open("text/change_email_template.html") as file:
@@ -228,7 +228,7 @@ def reset_password(token):
             flash("Incorrect username.")
             return redirect("/forgot_pw/reset/{}".format(token))
         else:
-            update_pw(username.encode("utf-8"), new_password.encode("utf-8"))
+            update_pw(username, new_password)
             remove_token(token, "password_reset")
             flash("Password reset sucessfully.", category="success")
             return redirect("/login")
@@ -237,7 +237,7 @@ def reset_password(token):
 @accounts.route("/accountdel", methods=["POST"])
 def account_del():
     password = escape(request.form.get("confirm_password"))
-    user = get_username().encode("utf-8")
+    user = get_username()#.encode("utf-8")
     current_account = get_account(user)
     if check_password_hash(current_account.get("hashed_password"), password):
         delete_account(user)

@@ -101,13 +101,13 @@ def read_prayer_request_template(email, name, prayer_request, parish):
         PRAYER_REQUEST_TEMPLATE = file.read()
 
     subject = "{} has sent a prayer request to {}"
-    subject = subject.format(name.encode("utf-8"), parish.encode("utf-8"))
+    subject = subject.format(name, parish)
 
     message = PRAYER_REQUEST_TEMPLATE.format(
         email=email,
-        name=name.encode("utf-8"),
+        name=name,
         group=parish,
-        request=prayer_request.encode("utf-8"),
+        request=prayer_request,
     )
 
     return (message, subject)
