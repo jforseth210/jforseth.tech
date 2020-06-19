@@ -1,8 +1,9 @@
 import unittest
-from shutil import move, copyfile
+from shutil import move, copyfile,rmtree, copytree
 import os
 from bs4 import BeautifulSoup
 from webtool import app
+from account_management import delete_account
 from SensitiveData import PROJECT_PASSWORD, TESTING_GROUP_SIGNUP_CODE
 
 # TODO: Edge cases: Unicode characters, XSS, SQL Injection
@@ -46,23 +47,48 @@ def signup(
             prayerInput=prayer_user,
             parishInput=parish,
         ),
+        follow_redirects = True
+    )
+    if b"Account exists already" in response.data:
+        delete_account('testing')
+        response = tester.post(
+        "/signup",
+        data=dict(
+            emailInput=emailInput,
+            usernameInput=username,
+            passwordInput=password,
+            confirmPasswordInput=confirm_password,
+            prayerInput=prayer_user,
+            parishInput=parish,
+        ),
+        follow_redirects = True
     )
     return response
 
 
-def delete_account(tester, confirm_password=PROJECT_PASSWORD):
-    response = tester.post("/accountdel", data=dict(confirm_password=confirm_password))
-    return response
+#def delete_account(tester, confirm_password=PROJECT_PASSWORD):
+#    response = tester.post("/accountdel", data=dict(confirm_password=confirm_password))
+#    return response
 
 
 class AccountsTestCase(unittest.TestCase):
     def setUp(self):
         app.config["TESTING"] = True
+    @classmethod
+    def setUpClass(cls):
         copyfile("database.db", "database.db.orig")
-
+        copytree('userdata/','tests/userdata/')
+        signup(app.test_client())
+    
     def tearDown(self):
+        pass
+
+    @classmethod
+    def tearDownClass(cls):
         os.remove("database.db")
         move("database.db.orig", "database.db")
+        rmtree('userdata/')
+        move('tests/userdata/', 'userdata/')
 
     def test_login_page(self):
         tester = app.test_client(self)
@@ -137,8 +163,6 @@ class AccountsTestCase(unittest.TestCase):
         with app.test_client() as tester:
             response = signup(tester)
             self.assertEqual(200, response.status_code)
-            print(response.data)
-
 
 if __name__ == "__main__":
     unittest.main()
