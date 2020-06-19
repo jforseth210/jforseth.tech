@@ -7,11 +7,18 @@ from webtool import app
 class FileSharingTestCase(unittest.TestCase):
     def setUp(self):
         app.config["TESTING"] = True
+    
+    @classmethod
+    def setUpClass(cls):
+        app.config["TESTING"] = True
         original_files = os.listdir("uploads")
         with open("tests/file_sharing_original_files.txt", "w") as file:
             file.writelines(original_files)
 
     def tearDown(self):
+        pass
+    @classmethod
+    def tearDownClass(cls):
         with open("tests/file_sharing_original_files.txt", "r") as file:
             original_files = file.readlines()
         for file in os.listdir("uploads"):

@@ -10,13 +10,19 @@ class BarrelRacingTestCase(unittest.TestCase):
     # Make a copy of the original file to restore from after the tests are finished.
     def setUp(self):
         app.config["TESTING"] = True
+
+    @classmethod
+    def setUpClass(cls):
+        app.config["TESTING"] = True
         copyfile(
             "text/barrel_racing_current_number.txt",
             "text/barrel_racing_current_number.txt.orig",
         )
-
     # Replace the modified file with the original.
     def tearDown(self):
+        pass 
+    @classmethod
+    def tearDownClass(cls):
         os.remove("text/barrel_racing_current_number.txt")
         move(
             "text/barrel_racing_current_number.txt.orig",

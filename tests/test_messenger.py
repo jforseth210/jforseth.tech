@@ -8,9 +8,17 @@ from webtool import app
 class MessengerTestCase(unittest.TestCase):
     def setUp(self):
         app.config["TESTING"] = True
+
+    @classmethod
+    def setUpClass(cls):
+        app.config["TESTING"] = True
         copyfile("database.db", "database.db.orig")
 
     def tearDown(self):
+        pass
+    
+    @classmethod    
+    def tearDownClass(cls):
         os.remove("database.db")
         move("database.db.orig", "database.db")
 
