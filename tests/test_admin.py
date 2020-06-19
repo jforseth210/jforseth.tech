@@ -13,8 +13,6 @@ class AdminTestCase(unittest.TestCase):
         # It has been disabled and should return 404.
         tester = app.test_client(self)
         response = tester.get("/DBbrowser", content_type="html/text")
-        print("Hi")
-        print(response.data)
         self.assertTrue(404 == response.status_code)
         response = tester.get("/error", content_type="html/text")
         self.assertTrue(404 == response.status_code)

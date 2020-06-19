@@ -30,7 +30,6 @@ def clear_messages():
     with conn:
         cur.execute("DELETE FROM messages")
         if sys.version_info[0] == 3:
-            print("python3")
             cur.execute("END TRANSACTION")
         cur.execute("VACUUM")
 
