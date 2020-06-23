@@ -77,7 +77,11 @@ class AccountsTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         copyfile("database.db", "database.db.orig")
-        copytree('userdata/','tests/userdata/')
+        try:
+            copytree('userdata/', 'tests/userdata/')
+        except FileExistsError:
+            rmtree('tests/userdata/', 'userdata/')
+            copytree('userdata/', 'tests/userdata/')
         signup(app.test_client())
     
     def tearDown(self):

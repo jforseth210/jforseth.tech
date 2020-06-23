@@ -27,7 +27,11 @@ class VideoTestCase(unittest.TestCase):
             "text/videos.txt.orig",
         )
         copyfile("database.db", "database.db.orig")
-        copytree('userdata/','tests/userdata/')
+        try:
+            copytree('userdata/', 'tests/userdata/')
+        except FileExistsError:
+            rmtree('tests/userdata/')
+            copytree('userdata/', 'tests/userdata/')
         signup(app.test_client())
         grant_access('testing', 'admin')
     def tearDown(self):

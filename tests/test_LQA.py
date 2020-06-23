@@ -14,7 +14,11 @@ class LQATestCase(unittest.TestCase):
     def setUpClass(cls):
         app.config["TESTING"] = True
         copyfile("database.db", "database.db.orig")
-        copytree('userdata/','tests/userdata/')
+        try:
+            copytree('userdata/', 'tests/userdata/')
+        except FileExistsError:
+            rmtree('tests/userdata/')
+            copytree('userdata/', 'tests/userdata/')
         signup(app.test_client())
         grant_access('testing', 'lqa')
 
