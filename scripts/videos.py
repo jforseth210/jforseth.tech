@@ -16,7 +16,8 @@ def get_videos(videotitle=None, videoid=None):
     videos = [i.split("|") for i in videos]
     if videotitle:
         for i in videos:
-            print(i[0], videotitle)
+            pass
+            #print(i[0], videotitle)
         return [i for i in videos if i[0] == videotitle][0]
     if videoid:
         return [i for i in videos if i[0] == videoid][0]
