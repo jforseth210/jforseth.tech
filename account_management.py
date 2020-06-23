@@ -248,12 +248,15 @@ def delete_account(username):
             {"username": username,},
         )
     rmtree('userdata/{}/'.format(username))
-    if not current_app.config['TESTING'] and not current_app.config['DEBUG']:
-        subprocess.call(
-            shlex.split("sudo /var/www/html/delete_user.sh {}".format(username))
-        )
-
-
+    try:
+        if not current_app.config['TESTING'] and not current_app.config['DEBUG']:
+            subprocess.call(
+                shlex.split("sudo /var/www/html/delete_user.sh {}".format(username))
+            )
+    except RuntimeError:
+        # If this function gets called without an active request, it'll throw a runtime error. 
+        # If that's the case, I certainly don't want this script to run. 
+        pass
 # Retrieve all date on a given user. Returns a dict with columns as keys.
 
 
