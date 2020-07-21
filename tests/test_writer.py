@@ -1,9 +1,7 @@
 import unittest
-import os
-from shutil import copytree, rmtree, move
 from webtool import app
 from test_accounts import signup, login
-
+from snapshot import backuptree, restoretree
 class WriterTestCase(unittest.TestCase):
     def setUp(self):
         app.config["TESTING"] = True
@@ -11,11 +9,7 @@ class WriterTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
-        try:
-            copytree('userdata/', 'tests/userdata/')
-        except FileExistsError:
-            rmtree('tests/userdata/')
-            copytree('userdata/', 'tests/userdata/')
+        backuptree('userdata/')
         signup(app.test_client())
 
     def tearDown(self):
@@ -23,14 +17,12 @@ class WriterTestCase(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        rmtree('userdata/')
-        move('tests/userdata/', 'userdata/')
-
+        restoretree('userdata/')
     def test_writer_home_logged_in(self):
         with app.test_client() as tester:
             login(tester)
             response = tester.get('/writer')
-            documents = os.listdir('userdata/')
+            documents = os.listdir('userdata/testing/writer/documents/')
             for document in documents:
                 self.assertIn(document, str(response.data))
 
