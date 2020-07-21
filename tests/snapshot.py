@@ -1,5 +1,5 @@
-from shutil import copyfile, move, copytree, rmtree, remove
-import os
+from shutil import copyfile, move, copytree, rmtree
+from os import remove
 
 def backup(filename):
     try:
@@ -13,7 +13,7 @@ def backup(filename):
 
 def restore(filename):
     try:
-        os.remove(filename)
+        remove(filename)
     except FileNotFoundError:
         print("The modified file appears to have been deleted. Recreating the old one.")
     try:
