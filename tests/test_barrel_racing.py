@@ -1,8 +1,7 @@
-import os
 import unittest
 from bs4 import BeautifulSoup
 from webtool import app
-from shutil import copyfile, move
+from snapshot import backup, restore
 
 
 class BarrelRacingTestCase(unittest.TestCase):
@@ -14,20 +13,13 @@ class BarrelRacingTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
-        copyfile(
-            "text/barrel_racing_current_number.txt",
-            "text/barrel_racing_current_number.txt.orig",
-        )
+        backup("text/barrel_racing_current_number.txt")
     # Replace the modified file with the original.
     def tearDown(self):
         pass 
     @classmethod
     def tearDownClass(cls):
-        os.remove("text/barrel_racing_current_number.txt")
-        move(
-            "text/barrel_racing_current_number.txt.orig",
-            "text/barrel_racing_current_number.txt",
-        )
+        restore("text/barrel_racing_current_number.txt")
 
     def test_counter_displayed(self):
         tester = app.test_client(self)

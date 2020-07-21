@@ -1,5 +1,5 @@
 import unittest
-from shutil import move, copyfile,rmtree, copytree
+from snapshot import backup, backuptree, restore, restoretree
 import os
 from bs4 import BeautifulSoup
 from webtool import app
@@ -76,12 +76,8 @@ class AccountsTestCase(unittest.TestCase):
         app.config["TESTING"] = True
     @classmethod
     def setUpClass(cls):
-        copyfile("database.db", "database.db.orig")
-        try:
-            copytree('userdata/', 'tests/userdata/')
-        except FileExistsError:
-            rmtree('tests/userdata/', 'userdata/')
-            copytree('userdata/', 'tests/userdata/')
+        backup("database.db")
+        backuptree('userdata/')
         signup(app.test_client())
     
     def tearDown(self):
@@ -89,11 +85,9 @@ class AccountsTestCase(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        os.remove("database.db")
-        move("database.db.orig", "database.db")
-        rmtree('userdata/')
-        move('tests/userdata/', 'userdata/')
-
+        restore("database.db")
+        restoretree('userdata/')
+        
     def test_login_page(self):
         tester = app.test_client(self)
         response = tester.get("/login/", content_type="html/text")

@@ -2,8 +2,7 @@ import unittest
 from webtool import app
 from test_accounts import login, signup
 from account_management import grant_access, get_current_access, get_account
-from shutil import move, copyfile,rmtree, copytree, move
-import os
+from snapshot import backup, backuptree, restoretree, restore
 
 
 class LQATestCase(unittest.TestCase):
@@ -13,12 +12,8 @@ class LQATestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
-        copyfile("database.db", "database.db.orig")
-        try:
-            copytree('userdata/', 'tests/userdata/')
-        except FileExistsError:
-            rmtree('tests/userdata/')
-            copytree('userdata/', 'tests/userdata/')
+        backup("database.db")
+        backuptree('userdata/')
         signup(app.test_client())
         grant_access('testing', 'lqa')
 
@@ -27,11 +22,9 @@ class LQATestCase(unittest.TestCase):
 
     @classmethod    
     def tearDownClass(cls):
-        os.remove("database.db")
-        move("database.db.orig", "database.db")
-        rmtree('userdata/')
-        move('tests/userdata/', 'userdata/')
-
+        restore('database.db')
+        restoretree('userdata/')
+        
     def test_lqa_no_login(self):
         tester = app.test_client(self)
         response = tester.get("/lqa", follow_redirects=True)

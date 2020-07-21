@@ -3,7 +3,7 @@ import os
 import time 
 import random
 import html
-from shutil import move, copyfile,rmtree, copytree, move
+from snapshot import backup, backuptree, restore, restoretree
 from bs4 import BeautifulSoup
 from test_accounts import login, signup
 from account_management import grant_access, get_current_access, get_account
@@ -22,32 +22,18 @@ class VideoTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
-        copyfile(
-            "text/videos.txt",
-            "text/videos.txt.orig",
-        )
-        copyfile("database.db", "database.db.orig")
-        try:
-            copytree('userdata/', 'tests/userdata/')
-        except FileExistsError:
-            rmtree('tests/userdata/')
-            copytree('userdata/', 'tests/userdata/')
+        backup('text/videos.txt')
+        backup("database.db")
+        backuptree("userdata/")
         signup(app.test_client())
         grant_access('testing', 'admin')
     def tearDown(self):
         pass
     @classmethod
     def tearDownClass(cls):
-        os.remove("text/videos.txt")
-        move(
-            "text/videos.txt.orig",
-            "text/videos.txt",
-        )
-        os.remove("database.db")
-        move("database.db.orig", "database.db")
-        rmtree('userdata/')
-        move('tests/userdata/', 'userdata/')
-
+        restore('videos.txt')
+        restore("database.db")
+        restore("userdata/")
     def test_videos_logged_out(self):
         tester = app.test_client()
         response = tester.get('/videos')

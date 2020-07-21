@@ -1,8 +1,7 @@
 import unittest
-from shutil import copyfile, move
-import os
-import time
 from webtool import app
+from snapshot import backup, restore  
+import time
 
 
 class MessengerTestCase(unittest.TestCase):
@@ -12,15 +11,14 @@ class MessengerTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
-        copyfile("database.db", "database.db.orig")
+        backup("database.db")
 
     def tearDown(self):
         pass
     
     @classmethod    
     def tearDownClass(cls):
-        os.remove("database.db")
-        move("database.db.orig", "database.db")
+        restore('database.db')
 
     def test_messenger_page(self):
         tester = app.test_client(self)
