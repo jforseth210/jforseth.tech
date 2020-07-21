@@ -2,7 +2,7 @@ import unittest
 from bs4 import BeautifulSoup
 from webtool import app
 from snapshot import backup, restore
-
+import os
 
 class BarrelRacingTestCase(unittest.TestCase):
 

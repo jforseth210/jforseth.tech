@@ -2,6 +2,7 @@ import unittest
 from webtool import app
 from test_accounts import signup, login
 from snapshot import backuptree, restoretree
+import os
 class WriterTestCase(unittest.TestCase):
     def setUp(self):
         app.config["TESTING"] = True
