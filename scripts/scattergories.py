@@ -43,5 +43,5 @@ def scattergories_roll():
     file = open(r"text/scattergoriescurrentletter.txt", "w")
     file.write(letter)
     file.close()
-    return "Done!"
+    return "Done"
     # Running all of the above
