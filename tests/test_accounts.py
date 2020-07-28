@@ -47,26 +47,26 @@ def signup(
             prayerInput=prayer_user,
             parishInput=parish,
         ),
-        follow_redirects = True
+        follow_redirects=True,
     )
     if b"Account exists already" in response.data:
-        delete_account('testing')
+        delete_account("testing")
         response = tester.post(
-        "/signup",
-        data=dict(
-            emailInput=emailInput,
-            usernameInput=username,
-            passwordInput=password,
-            confirmPasswordInput=confirm_password,
-            prayerInput=prayer_user,
-            parishInput=parish,
-        ),
-        follow_redirects = True
-    )
+            "/signup",
+            data=dict(
+                emailInput=emailInput,
+                usernameInput=username,
+                passwordInput=password,
+                confirmPasswordInput=confirm_password,
+                prayerInput=prayer_user,
+                parishInput=parish,
+            ),
+            follow_redirects=True,
+        )
     return response
 
 
-#def delete_account(tester, confirm_password=PROJECT_PASSWORD):
+# def delete_account(tester, confirm_password=PROJECT_PASSWORD):
 #    response = tester.post("/accountdel", data=dict(confirm_password=confirm_password))
 #    return response
 
@@ -74,20 +74,21 @@ def signup(
 class AccountsTestCase(unittest.TestCase):
     def setUp(self):
         app.config["TESTING"] = True
+
     @classmethod
     def setUpClass(cls):
         backup("database.db")
-        backuptree('userdata/')
+        backuptree("userdata/")
         signup(app.test_client())
-    
+
     def tearDown(self):
         pass
 
     @classmethod
     def tearDownClass(cls):
         restore("database.db")
-        restoretree('userdata/')
-        
+        restoretree("userdata/")
+
     def test_login_page(self):
         tester = app.test_client(self)
         response = tester.get("/login/", content_type="html/text")
@@ -161,6 +162,7 @@ class AccountsTestCase(unittest.TestCase):
         with app.test_client() as tester:
             response = signup(tester)
             self.assertEqual(200, response.status_code)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -7,7 +7,7 @@ from webtool import app
 class FileSharingTestCase(unittest.TestCase):
     def setUp(self):
         app.config["TESTING"] = True
-    
+
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
@@ -17,6 +17,7 @@ class FileSharingTestCase(unittest.TestCase):
 
     def tearDown(self):
         pass
+
     @classmethod
     def tearDownClass(cls):
         with open("tests/file_sharing_original_files.txt", "r") as file:

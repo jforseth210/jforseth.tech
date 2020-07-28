@@ -4,6 +4,7 @@ from webtool import app
 from snapshot import backup, restore
 import os
 
+
 class BarrelRacingTestCase(unittest.TestCase):
 
     # Make a copy of the original file to restore from after the tests are finished.
@@ -14,9 +15,11 @@ class BarrelRacingTestCase(unittest.TestCase):
     def setUpClass(cls):
         app.config["TESTING"] = True
         backup("text/barrel_racing_current_number.txt")
+
     # Replace the modified file with the original.
     def tearDown(self):
-        pass 
+        pass
+
     @classmethod
     def tearDownClass(cls):
         restore("text/barrel_racing_current_number.txt")

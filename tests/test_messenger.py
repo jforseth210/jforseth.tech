@@ -1,6 +1,6 @@
 import unittest
 from webtool import app
-from snapshot import backup, restore  
+from snapshot import backup, restore
 import time
 
 
@@ -15,10 +15,10 @@ class MessengerTestCase(unittest.TestCase):
 
     def tearDown(self):
         pass
-    
-    @classmethod    
+
+    @classmethod
     def tearDownClass(cls):
-        restore('database.db')
+        restore("database.db")
 
     def test_messenger_page(self):
         tester = app.test_client(self)

@@ -21,7 +21,7 @@ def writer_home():
         flash(
             "The main jforseth.tech server is currently experiencing issues. Your changes may not be saved when the main server comes back online."
         )
-    username = get_username()#.encode("utf-8")
+    username = get_username()  # .encode("utf-8")
     path = "userdata/{}/writer/documents/".format(username)
     print(path)
     # if not os.path.isdir(path):
@@ -40,7 +40,7 @@ def writer_home():
 
 @writer.route("/writer/thumb/<name>")
 def writer_thumb(name):
-    #name = name.encode("utf-8")
+    # name = name.encode("utf-8")
     try:
         return send_file(
             "userdata/{}/writer/thumbnails/{}.html_thumb.png".format(
@@ -48,7 +48,7 @@ def writer_thumb(name):
             )
         )
     except:
-        refresh_thumbs(get_username())#.encode("utf-8"))
+        refresh_thumbs(get_username())  # .encode("utf-8"))
         return send_file(
             "userdata/{}/writer/thumbnails/{}.html_thumb.png".format(
                 get_username(), name.lower()
@@ -106,23 +106,21 @@ def document_api(name):
 
 def save(filename, data):
     filename = filename.lower()
-    username = get_username()#.encode("utf-8")
+    username = get_username()  # .encode("utf-8")
     path = "userdata/{}/writer/documents/".format(username)
     # if not os.path.isdir(path):
     #    os.makedirs(path)
 
     print(data)
     print(path + "{}.html".format(filename))
-    with io.open(
-        path + "{}.html".format(filename), "w", encoding="utf-8"
-    ) as file:
+    with io.open(path + "{}.html".format(filename), "w", encoding="utf-8") as file:
         file.write(data)
     return redirect("/writer/{}".format(filename))
 
 
 def get_document(filename):
     filename = filename.lower()
-    #filename = filename.encode("utf-8")
+    # filename = filename.encode("utf-8")
     username = get_username()
     try:
         with io.open(

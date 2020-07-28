@@ -8,23 +8,23 @@ from snapshot import backup, backuptree, restoretree, restore
 class LQATestCase(unittest.TestCase):
     def setUp(self):
         app.config["TESTING"] = True
-    
+
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
         backup("database.db")
-        backuptree('userdata/')
+        backuptree("userdata/")
         signup(app.test_client())
-        grant_access('testing', 'lqa')
+        grant_access("testing", "lqa")
 
     def tearDown(self):
         pass
 
-    @classmethod    
+    @classmethod
     def tearDownClass(cls):
-        restore('database.db')
-        restoretree('userdata/')
-        
+        restore("database.db")
+        restoretree("userdata/")
+
     def test_lqa_no_login(self):
         tester = app.test_client(self)
         response = tester.get("/lqa", follow_redirects=True)

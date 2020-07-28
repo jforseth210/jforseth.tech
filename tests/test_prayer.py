@@ -24,18 +24,13 @@ class PrayerTestCase(unittest.TestCase):
         tester = app.test_client(self)
         response = tester.post(
             "/prayer/prayerrequest",
-            data=dict(
-                name=name, 
-                parish=parish,
-                prequest=prequest
-            ),
+            data=dict(name=name, parish=parish, prequest=prequest),
         )
         responsedict = json.loads(response.data.decode("utf-8"))
-        self.assertEqual(type(responsedict['emails']), type([]))
-        self.assertIn(parish,responsedict['subject_template'])
-        self.assertIn(name,responsedict['subject_template'])
-        self.assertIn(prequest,html.unescape(responsedict['message_template']))
-
+        self.assertEqual(type(responsedict["emails"]), type([]))
+        self.assertIn(parish, responsedict["subject_template"])
+        self.assertIn(name, responsedict["subject_template"])
+        self.assertIn(prequest, html.unescape(responsedict["message_template"]))
 
 
 if __name__ == "__main__":

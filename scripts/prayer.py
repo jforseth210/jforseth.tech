@@ -104,10 +104,7 @@ def read_prayer_request_template(email, name, prayer_request, parish):
     subject = subject.format(name, parish)
 
     message = PRAYER_REQUEST_TEMPLATE.format(
-        email=email,
-        name=name,
-        group=parish,
-        request=prayer_request,
+        email=email, name=name, group=parish, request=prayer_request,
     )
 
     return (message, subject)
