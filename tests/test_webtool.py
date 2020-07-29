@@ -9,11 +9,13 @@ class WebtoolTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_server_working(self):
-        tester = app.test_client()
-        response = tester.get("/")
-        self.assertIs(200, response.status_code)
-        self.assertIn(b"Welcome", response.data)
+    # Redundant. See test_welcome.py
+
+    # def test_server_working(self):
+    #    tester = app.test_client()
+    #    response = tester.get("/")
+    #    self.assertIs(200, response.status_code)
+    #    self.assertIn(b"Welcome", response.data)
 
     def test_404_working(self):
         tester = app.test_client()
