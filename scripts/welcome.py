@@ -75,7 +75,7 @@ def sign_update():
 def italypics():
     return redirect("https://photos.app.goo.gl/ouxubTRRHkEVnpbr5")
 
-
+# Old project? Try switching to a "music jeopardy" branch?
 @welcome.route("/jeopardy")
 def jeopardy():
     return redirect("http://192.168.1.3:5000/jeopardy/buzzer")
