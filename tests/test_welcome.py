@@ -75,6 +75,15 @@ class WelcomeTestCase(unittest.TestCase):
             current_text = file.read()
         self.assertEqual(current_text, random_string)
 
+    def test_italypics_redirect(self):
+        tester = app.test_client()
+        response = tester.get("/italypics")
+        self.assertEqual(302, response.status_code)
+
+    def test_jeopardy_redirect(self):
+        tester = app.test_client()
+        response = tester.get("/jeopardy")
+        self.assertEqual(302, response.status_code)
 
 if __name__ == "__main__":
     unittest.main()
