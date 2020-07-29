@@ -26,7 +26,8 @@ def flaskapp_welcome():
 
 @welcome.route("/about")
 def about():
-    return render_template("welcome/about.html")
+    return redirect("/")
+    # return render_template("welcome/about.html")
 
 
 @welcome.route("/instructions")
