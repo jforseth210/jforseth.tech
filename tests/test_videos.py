@@ -18,6 +18,12 @@ def choose_random_video():
     return video
 
 
+def choose_middle_video():
+    with open("text/videos.txt") as file:
+        videos = file.readlines()
+    video = videos[round(len(videos) / 2)]
+    return video
+
 class VideoTestCase(unittest.TestCase):
     def setUp(self):
         app.config["TESTING"] = True
@@ -115,8 +121,8 @@ class VideoTestCase(unittest.TestCase):
         with open("text/videos.txt") as file:
             old_video_order = file.readlines()
 
-        video = choose_random_video()
-        video = "|".join(video).strip("\n")
+        video = choose_middle_video()
+        video = "".join(video).strip("\n")
         with app.test_client() as tester:
             login(tester)
             response = tester.post(
@@ -134,8 +140,8 @@ class VideoTestCase(unittest.TestCase):
         with open("text/videos.txt") as file:
             old_video_order = file.readlines()
 
-        video = choose_random_video()
-        video = "|".join(video).strip("\n")
+        video = choose_middle_video()
+        video = "".join(video).strip("\n")
         with app.test_client() as tester:
             login(tester)
             response = tester.post(
