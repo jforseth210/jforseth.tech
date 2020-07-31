@@ -37,7 +37,7 @@ def get_lists(todoFilePath):
 
 def add_todo(todoFilePath, name, currentlist):
     with open(todoFilePath, "a") as file:
-        file.write("{},{}\n".format(name.encode("utf-8"), currentlist.encode("utf-8")))
+        file.write("{},{}\n".format(name, currentlist))
 
 
 def delete_todo(todoFilePath, taskid):
@@ -80,12 +80,12 @@ def todo_page():
     #    os.makedirs('userdata/{}/todo/'.format(get_username().encode('utf-8')))
     #    with open("userdata/{}/todo/list.csv".format(get_username().encode('utf-8')), 'w'):
     #        pass
-    todoFilePath = "userdata/{}/todo/list.csv".format(get_username().encode("utf-8"))
+    todoFilePath = "userdata/{}/todo/list.csv".format(get_username())
     todos = get_todos(todoFilePath)
     todos.reverse()
     lists = get_lists(todoFilePath)
-    todos = [(todo[0].decode("utf-8"), todo[1].decode("utf-8")) for todo in todos]
-    lists = [list.decode("utf-8") for list in lists]
+    todos = [(todo[0], todo[1]) for todo in todos]
+    lists = [list for list in lists]
     return render_template("todo/todo.html", result=todos, lists=lists)
 
 
@@ -124,7 +124,7 @@ def delete_todo_api():
 @todo.route("/todo/submitted", methods=["POST", "GET"])
 @login_required()
 def new_todo():
-    todoFilePath = "userdata/{}/todo/list.csv".format(get_username().encode("utf-8"))
+    todoFilePath = "userdata/{}/todo/list.csv".format(get_username())
     name = request.form.get("taskname")  # Not esaping this because reasons.
     name = name.replace(",", "COMMA")
     currentlist = escape(request.form.get("list"))
@@ -138,7 +138,7 @@ def new_todo():
 @todo.route("/todo/delete", methods=["POST", "GET"])
 @login_required()
 def todo_deleted():
-    todoFilePath = "userdata/{}/todo/list.csv".format(get_username().encode("utf-8"))
+    todoFilePath = "userdata/{}/todo/list.csv".format(get_username())
     try:
         task_id = int(escape(request.form.get("taskid")))
     except ValueError:
@@ -152,7 +152,7 @@ def todo_deleted():
 @todo.route("/todo/reorder", methods=["POST", "GET"])
 @login_required()
 def todo_reordered():
-    todoFilePath = "userdata/{}/todo/list.csv".format(get_username().encode("utf-8"))
+    todoFilePath = "userdata/{}/todo/list.csv".format(get_username())
     try:
         item_to_reorder = int(escape(request.form.get("taskid")))
         position_to_move = int(escape(request.form.get("taskloc")))
