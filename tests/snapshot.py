@@ -18,9 +18,7 @@ def restore(filename):
     try:
         move(filename + ".orig", filename)
     except FileNotFoundError:
-        print("I'm afraid I have bad news. The backup has gone missing.")
-        print("Now, don't go blaming this on me. I know exactly where I left it")
-        print("And it's not there anymore. Good luck.")
+        print('The file: {} has gone missing.'.format(filename))
         raise FileNotFoundError
 
 
