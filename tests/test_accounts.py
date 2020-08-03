@@ -163,6 +163,13 @@ class AccountsTestCase(unittest.TestCase):
             response = signup(tester)
             self.assertEqual(200, response.status_code)
 
+    def test_account_deletion(self):
+        with app.test_client() as tester:
+            signup(tester)
+            login(tester)
+            response = tester.post('/accountdel', data=dict(confirm_password=PROJECT_PASSWORD,follow_redirects=True))
+            self.assertEqual(200, response.status_code)
+            self.assertIn(b'Logout Successful', response.data)
 
 if __name__ == "__main__":
     unittest.main()
