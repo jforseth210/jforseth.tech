@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel='stylesheet' href='/static/videos/videos.css' type='text/css' />
+<script src="/static/videos/videos.js"></script>
+{% endblock %}
+{% block title %}Videos{% endblock %}
+{% block heading %}
+Videos
+{% endblock %}
+{% block content %}
+<br/>
+<br/>
+<!-- Place <div> tag where you want the feed to appear -->
+    <div id="curator-feed-default-feed-layout"><a href="https://curator.io" target="_blank" class="crt-logo crt-tag">Powered by Curator.io</a></div>
+    <!-- The Javascript can be moved to the end of the html page before the </body> tag -->
+    <script type="text/javascript">
+    /* curator-feed-default-feed-layout */
+    (function(){
+    var i, e, d = document, s = "script";i = d.createElement("script");i.async = 1;
+    i.src = "https://cdn.curator.io/published/c6ff8f44-aaa0-496e-ba0e-31c85f431840.js";
+    e = d.getElementsByTagName(s)[0];e.parentNode.insertBefore(i, e);
+    })();
+    </script>
+    {% endblock %}

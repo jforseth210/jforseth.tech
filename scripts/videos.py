@@ -44,7 +44,9 @@ def video_page():
 
     return render_template("videos/videos.html", video_master_list=video_master_list)
 
-
+@videos.route('/videostwo')
+def videos_two():
+    return render_template('videos/videos2.html')
 @videos.route("/videos/newupload", methods=["POST"])
 @login_required(must=have_access_to_admin)
 def new_video_upload():
