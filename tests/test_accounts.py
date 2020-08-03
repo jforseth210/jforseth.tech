@@ -12,8 +12,22 @@ from SensitiveData import PROJECT_PASSWORD, TESTING_GROUP_SIGNUP_CODE
 # TODO: Email changes
 # TODO: Password changes
 # TODO: Prayer additions and unsubcriptions (maybe in test_prayer).
-# TODO: Account deletion
 
+USERNAMES=[
+    'testing',
+    'testing with spaces',
+    '\'\"',
+    '<script>alert("Hi")!</script>',
+    '👨‍💻'
+]
+PASSSWORDS=[
+    'a',
+    'password',
+    'spaces spaces',
+    '\'\"',
+    '<script>alert("Hi")!</script>',
+    '👨‍💻👨‍💻👨‍💻👨‍💻'
+]
 
 def login(tester, username="testing", password=PROJECT_PASSWORD):
     response = tester.get("/login/")
@@ -77,9 +91,9 @@ class AccountsTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        app.config["TESTING"] = True
         backup("database.db")
         backuptree("userdata/")
-        signup(app.test_client())
 
     def tearDown(self):
         pass
@@ -99,6 +113,7 @@ class AccountsTestCase(unittest.TestCase):
 
     def test_correct_login(self):
         with app.test_client() as tester:
+            signup(tester)
             response = login(tester)
             self.assertIn(b"Login Successful", response.data)
             self.assertEqual(response.status_code, 200)
@@ -134,6 +149,7 @@ class AccountsTestCase(unittest.TestCase):
 
     def test_incorrect_password(self):
         with app.test_client() as tester:
+            signup(tester)
             response = tester.get("/login/")
             soup = BeautifulSoup(response.data, "html.parser")
             token = soup.find(id="csrf_token")["value"]
@@ -168,8 +184,8 @@ class AccountsTestCase(unittest.TestCase):
             signup(tester)
             login(tester)
             response = tester.post('/accountdel', data=dict(confirm_password=PROJECT_PASSWORD,follow_redirects=True))
-            self.assertEqual(200, response.status_code)
-            self.assertIn(b'Logout Successful', response.data)
+            self.assertEqual(302, response.status_code)
+            self.assertIn(b'<p>You should be redirected automatically to target URL: <a href="/logout">/logout</a>', response.data)
 
 if __name__ == "__main__":
     unittest.main()
