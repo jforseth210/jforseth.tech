@@ -1,0 +1,11 @@
+# TODO: Multiple accounts:
+# TODO:     -XSS
+# TODO:     -Unicode
+# TODO:     -Quotations
+# TODO:     -SQL Injection
+# TODO:     -Spaces
+# TODO: Change recovery email.
+# TODO: Change prayer email.
+# TODO: Unsubscribe one
+# TODO: Unsubscribe all
+# TODO: Password resets

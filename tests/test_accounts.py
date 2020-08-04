@@ -7,11 +7,7 @@ from webtool import app
 from account_management import delete_account
 from SensitiveData import PROJECT_PASSWORD, TESTING_GROUP_SIGNUP_CODE
 
-# TODO: Edge cases: Unicode characters, XSS, SQL Injection
-# TODO: Email changes
-# TODO: Password changes
-# TODO: Email unsubcriptions (maybe in test_prayer).
-# TODO: Password resets
+
 
 USERNAMES = [
     "testing",
@@ -212,24 +208,6 @@ class AccountsTestCase(unittest.TestCase):
         with app.test_client() as tester:
             login(tester, password=new_password)
 
-    def test_password_change_correctly(self):
-        with app.test_client() as tester:
-            signup(tester)
-            login(tester)
-            new_password = secrets.token_urlsafe(10)
-            response = tester.post(
-                "/changepw",
-                data=dict(
-                    old_password=PROJECT_PASSWORD,
-                    new_password=new_password,
-                    confirm_new_password=new_password,
-                ),
-                follow_redirects=True,
-            )
-            self.assertIn(b"Success!", response.data)
-        with app.test_client() as tester:
-            response = login(tester, password=new_password)
-            self.assertIn(b'Login Successful', response.data)
 
     def test_password_change_incorrect_old_pw(self):
         with app.test_client() as tester:
