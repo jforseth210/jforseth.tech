@@ -2,32 +2,33 @@ import unittest
 from snapshot import backup, backuptree, restore, restoretree
 import os
 from bs4 import BeautifulSoup
+import secrets
 from webtool import app
 from account_management import delete_account
 from SensitiveData import PROJECT_PASSWORD, TESTING_GROUP_SIGNUP_CODE
 
 # TODO: Edge cases: Unicode characters, XSS, SQL Injection
-# TODO: Setup and teardown
-# TODO: Signup
 # TODO: Email changes
 # TODO: Password changes
-# TODO: Prayer additions and unsubcriptions (maybe in test_prayer).
+# TODO: Email unsubcriptions (maybe in test_prayer).
+# TODO: Password resets
 
-USERNAMES=[
-    'testing',
-    'testing with spaces',
-    '\'\"',
+USERNAMES = [
+    "testing",
+    "testing with spaces",
+    "'\"",
     '<script>alert("Hi")!</script>',
-    '👨‍💻'
+    "👨‍💻",
 ]
-PASSSWORDS=[
-    'a',
-    'password',
-    'spaces spaces',
-    '\'\"',
+PASSSWORDS = [
+    "a",
+    "password",
+    "spaces spaces",
+    "'\"",
     '<script>alert("Hi")!</script>',
-    '👨‍💻👨‍💻👨‍💻👨‍💻'
+    "👨‍💻👨‍💻👨‍💻👨‍💻",
 ]
+
 
 def login(tester, username="testing", password=PROJECT_PASSWORD):
     response = tester.get("/login/")
@@ -183,9 +184,88 @@ class AccountsTestCase(unittest.TestCase):
         with app.test_client() as tester:
             signup(tester)
             login(tester)
-            response = tester.post('/accountdel', data=dict(confirm_password=PROJECT_PASSWORD,follow_redirects=True))
+            response = tester.post(
+                "/accountdel",
+                data=dict(confirm_password=PROJECT_PASSWORD, follow_redirects=True),
+            )
             self.assertEqual(302, response.status_code)
-            self.assertIn(b'<p>You should be redirected automatically to target URL: <a href="/logout">/logout</a>', response.data)
+            self.assertIn(
+                b'<p>You should be redirected automatically to target URL: <a href="/logout">/logout</a>',
+                response.data,
+            )
 
+    def test_password_change_correctly(self):
+        with app.test_client() as tester:
+            signup(tester)
+            login(tester)
+            new_password = secrets.token_urlsafe(10)
+            response = tester.post(
+                "/changepw",
+                data=dict(
+                    old_password=PROJECT_PASSWORD,
+                    new_password=new_password,
+                    confirm_new_password=new_password,
+                ),
+                follow_redirects=True,
+            )
+            self.assertIn(b"Success!", response.data)
+        with app.test_client() as tester:
+            login(tester, password=new_password)
+
+    def test_password_change_correctly(self):
+        with app.test_client() as tester:
+            signup(tester)
+            login(tester)
+            new_password = secrets.token_urlsafe(10)
+            response = tester.post(
+                "/changepw",
+                data=dict(
+                    old_password=PROJECT_PASSWORD,
+                    new_password=new_password,
+                    confirm_new_password=new_password,
+                ),
+                follow_redirects=True,
+            )
+            self.assertIn(b"Success!", response.data)
+        with app.test_client() as tester:
+            response = login(tester, password=new_password)
+            self.assertIn(b'Login Successful', response.data)
+
+    def test_password_change_incorrect_old_pw(self):
+        with app.test_client() as tester:
+            signup(tester)
+            login(tester)
+            new_password = secrets.token_urlsafe(10)
+            response = tester.post(
+                "/changepw",
+                data=dict(
+                    old_password='THIS IS THE INCORRECT OLD PASSWORD!',
+                    new_password=new_password,
+                    confirm_new_password=new_password,
+                ),
+                follow_redirects=True,
+            )
+            self.assertIn(b"Old password incorrect.", response.data)
+        with app.test_client() as tester:
+            response = login(tester, password=new_password)
+            self.assertIn(b'Incorrect password.', response.data)
+    def test_password_change_missmatched_pws(self):
+        with app.test_client() as tester:
+            signup(tester)
+            login(tester)
+            new_password = secrets.token_urlsafe(10)
+            response = tester.post(
+                "/changepw",
+                data=dict(
+                    old_password=PROJECT_PASSWORD,
+                    new_password=new_password,
+                    confirm_new_password='THIS IS A DIFFERENT NEW PASSWORD!',
+                ),
+                follow_redirects=True,
+            )
+            self.assertIn(b"New passwords do not match!", response.data)
+        with app.test_client() as tester:
+            response = login(tester, password=new_password)
+            self.assertIn(b'Incorrect password.', response.data)
 if __name__ == "__main__":
     unittest.main()
