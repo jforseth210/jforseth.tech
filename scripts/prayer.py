@@ -245,7 +245,7 @@ def unsubscribe_page():
 @login_required()
 @prayer.route("/prayer/unsubscribe_logged_in")
 def unsubscribe_logged_in():
-    username = get_username().encode("utf-8")
+    username = get_username()
     group = escape(request.args.get("group"))
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
@@ -272,7 +272,7 @@ def unsubscribe_logged_in():
 @prayer.route("/prayer/addgroup", methods=["POST"])
 def add_group():
     group = escape(request.form.get("group"))
-    username = get_username().encode("utf-8")
+    username = get_username()
     group = PARISH_DICTIONARY.get(group)
     if group == None:
         return redirect("/account/" + username)
@@ -281,7 +281,7 @@ def add_group():
     with conn:
         cur.execute(
             """SELECT prayer_groups FROM accounts WHERE username = ? """,
-            ([username.decode("utf-8")]),
+            ([username]),
         )
     prayer_groups = cur.fetchone()[0]
     if prayer_groups == "None":
@@ -296,7 +296,7 @@ def add_group():
     with conn:
         cur.execute(
             """UPDATE accounts SET prayer_groups = ? WHERE username= ?""",
-            ([prayer_groups, username.decode("utf-8")]),
+            ([prayer_groups, username]),
         )
     return redirect("/account/" + username)
 
