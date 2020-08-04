@@ -96,7 +96,7 @@ def validate_account():
 @accounts.route("/account/<account>")
 def account(account):
     if is_logged_in():
-        if account.encode("utf-8") == get_username():  # .encode("utf-8"):
+        if account == get_username():  # .encode("utf-8"):
             if platform.node() == "backup-server-vm":
                 flash(
                     "The main jforseth.tech server is experiencing issues. Account changes have been suspended."
