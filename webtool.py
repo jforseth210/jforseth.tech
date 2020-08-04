@@ -2,27 +2,29 @@
 import subprocess
 import platform
 
-from flask import *
+from flask import app, Flask, render_template
 from flask_debugtoolbar import DebugToolbarExtension
-from flask_simplelogin import SimpleLogin
+from flask_simplelogin import SimpleLogin, is_logged_in, get_username
+
+from SensitiveData import SECRET_KEY
 
 from account_management import check_login
-from scripts.welcome import *
-from scripts.accounts import *
-from scripts.writer import *
-from scripts.videos import *
-from scripts.messenger import *
-from scripts.prayer import *
-from scripts.lucky_shoe import *
-from scripts.todo import *
-from scripts.scattergories import *
-from scripts.quickdraw_game import *
-from scripts.bull_judging import *
-from scripts.http_forwarding import *
-from scripts.admin import *
-from scripts.barrel_racing import *
-from scripts.file_sharing import *
-from scripts.LQA import *
+from scripts.welcome import welcome
+from scripts.accounts import accounts, get_current_access
+from scripts.writer import writer
+from scripts.videos import videos
+from scripts.messenger import messenger
+from scripts.prayer import prayer
+from scripts.lucky_shoe import lucky_shoe
+from scripts.todo import todo
+from scripts.scattergories import scattergories
+from scripts.quickdraw_game import quickdraw_game
+from scripts.bull_judging import bull_judging
+from scripts.http_forwarding import http_forwarding
+from scripts.admin import admin
+from scripts.barrel_racing import barrel_racing
+from scripts.file_sharing import file_sharing
+from scripts.LQA import LQA
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = SECRET_KEY
@@ -112,7 +114,6 @@ app.register_blueprint(writer)
 # | |__| |_| | (__|   <| |_| |  ___) | | | | (_) |  __/
 # |_____\__,_|\___|_|\_\\__, | |____/|_| |_|\___/ \___|
 #                       |___/
-# HACK
 app.register_blueprint(lucky_shoe)
 
 
