@@ -382,7 +382,7 @@ def update_pw(current_username, new_plain_password):
             WHERE username=:current_username""",
             {
                 "new_hashed_password": new_hashed_password,
-                "current_username": current_username.decode("utf-8"),
+                "current_username": current_username,
             },
         )
     if not current_app.config["TESTING"] and not current_app.config["DEBUG"]:
