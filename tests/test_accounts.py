@@ -1,10 +1,11 @@
 import unittest
 from snapshot import backup, backuptree, restore, restoretree
 import os
+import json
 from bs4 import BeautifulSoup
 import secrets
 from webtool import app
-from account_management import delete_account
+from account_management import delete_account, remove_token
 from SensitiveData import PROJECT_PASSWORD, TESTING_GROUP_SIGNUP_CODE
 
 
@@ -244,6 +245,27 @@ class AccountsTestCase(unittest.TestCase):
             self.assertIn(b"New passwords do not match!", response.data)
         with app.test_client() as tester:
             response = login(tester, password=new_password)
-            self.assertIn(b'Incorrect password.', response.data)
+            self.assertTrue(b"Incorrect password." in response.data)
+
+    def test_change_recovery_email(self):
+        with app.test_client() as tester:
+            signup(tester)
+            login(tester)
+            response = tester.post(
+                "/change_email",
+                data=dict(email="testing@jforseth.tech", email_type="Recovery email"),
+            )
+            username, email, email_type, token = json.loads(response.data)
+            response = tester.get(
+                "/change_email/verified",
+                data=dict(
+                    username=username, email=email, email_type=email_type, token=token
+                ),
+                follow_redirects=True,
+            )
+            self.assertTrue(b"Success!" in response.data)
+            self.assertEqual(200, response.status_code)
+
+
 if __name__ == "__main__":
     unittest.main()
