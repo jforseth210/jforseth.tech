@@ -166,7 +166,7 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     # Add database entry
     # username = username.decode("utf-8")
     # Email verification, unless testing.
-    already_verified = not current_app.config["TESTING"]
+    already_verified = current_app.config["TESTING"]
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
     with conn:
@@ -182,19 +182,20 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
                 "recovery_email": recovery_email,
                 "prayer_groups": prayer_groups,
                 "prayer_email": recovery_email,
-                "pending_verification": already_verified,
+                "pending_verification": not already_verified,
             },
         )
+    if already_verified:
+        return
 
     # Create a new linux user.
     # password = password.encode("utf-8")
     # username = username.encode("utf-8")
-    if not current_app.config["TESTING"] and not current_app.config["DEBUG"]:
-        subprocess.call(
-            shlex.split(
-                "sudo /var/www/html/new_linux_user.sh {} {}".format(username, password)
-            )
+    subprocess.call(
+        shlex.split(
+            "sudo /var/www/html/new_linux_user.sh {} {}".format(username, password)
         )
+    )
     token = generate_token(str(username), "new_account")
     # Create a verification email.
     with open("text/account_verification_email_template.html") as file:
@@ -221,14 +222,13 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
         username=username,
         additional_messages=UNICODE_MESSAGE + BAD_PW_MESSAGE,
     )
-    if not current_app.config["TESTING"]:
-        send_email(
-            recovery_email,  # .encode("utf-8"),
-            "Thanks for signing up for jforseth.tech!",
-            message,
-            PROJECT_EMAIL,
-            PROJECT_PASSWORD,
-        )
+    send_email(
+        recovery_email,  # .encode("utf-8"),
+        "Thanks for signing up for jforseth.tech!",
+        message,
+        PROJECT_EMAIL,
+        PROJECT_PASSWORD,
+    )
 
 
 def delete_account(username):
