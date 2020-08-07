@@ -17,7 +17,7 @@ class QuickdrawTestCase(unittest.TestCase):
         tester = app.test_client()
         response = tester.get("/quickdraw/bigscreen")
         self.assertIs(200, response.status_code)
-        self.assertIn(b"When I say go, shoot!", response.data)
+        self.assertTrue(b"When I say go, shoot!" in response.data)
 
     def test_quickdraw_big_screen_begin(self):
         tester = app.test_client()
@@ -31,7 +31,7 @@ class QuickdrawTestCase(unittest.TestCase):
             login(tester)
             response = tester.get("/quickdraw")
         self.assertEqual(200, response.status_code)
-        self.assertIn(b"SHOOT!", response.data)
+        self.assertTrue(b"SHOOT!" in response.data)
 
     def test_quickdraw_shot(self):
         tester = app.test_client()

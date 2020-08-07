@@ -28,7 +28,7 @@ class WriterTestCase(unittest.TestCase):
             response = tester.get("/writer")
             documents = os.listdir("userdata/testing/writer/documents/")
             for document in documents:
-                self.assertIn(document, str(response.data))
+                self.assertTrue(document, str(response.data))
 
 
 if __name__ == "__main__":

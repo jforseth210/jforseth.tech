@@ -30,9 +30,9 @@ class PrayerTestCase(unittest.TestCase):
         )
         responsedict = json.loads(response.data.decode("utf-8"))
         self.assertEqual(type(responsedict["emails"]), type([]))
-        self.assertIn(parish, responsedict["subject_template"])
-        self.assertIn(name, responsedict["subject_template"])
-        self.assertIn(prequest, html.unescape(responsedict["message_template"]))
+        self.assertTrue(parish, responsedict["subject_template"])
+        self.assertTrue(name, responsedict["subject_template"])
+        self.assertTrue(prequest, html.unescape(responsedict["message_template"]))
 
     def test_prayer_subscription(self):
         with app.test_client() as tester:

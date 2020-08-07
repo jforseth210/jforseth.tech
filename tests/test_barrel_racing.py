@@ -27,10 +27,10 @@ class BarrelRacingTestCase(unittest.TestCase):
     def test_counter_displayed(self):
         tester = app.test_client(self)
         response = tester.get("/barrelracing/counter", content_type="html/text")
-        self.assertIn(b"Horse #", response.data)
+        self.assertTrue(b"Horse #" in response.data)
         with open("text/barrel_racing_current_number.txt", "r") as file:
             original_value = file.read()
-        self.assertIn(original_value, str(response.data))
+        self.assertTrue(original_value, str(response.data))
 
     def test_increment(self):
         with app.test_client() as tester:
@@ -42,7 +42,7 @@ class BarrelRacingTestCase(unittest.TestCase):
                 data=dict(current_number=plus_value),
                 follow_redirects=True,
             )
-            self.assertIn(bytes(plus_value, "ascii"), response.data)
+            self.assertTrue(bytes(plus_value, "ascii") in response.data)
             self.assertIs(200, response.status_code)
 
     def test_decrement(self):
@@ -55,7 +55,7 @@ class BarrelRacingTestCase(unittest.TestCase):
                 data=dict(current_number=minus_value),
                 follow_redirects=True,
             )
-            self.assertIn(bytes(minus_value, "ascii"), response.data)
+            self.assertTrue(bytes(minus_value, "ascii") in response.data)
             self.assertIs(200, response.status_code)
 
     def test_current_number_file_exists(self):

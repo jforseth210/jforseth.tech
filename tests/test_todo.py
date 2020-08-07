@@ -47,7 +47,7 @@ class TodoTestCase(unittest.TestCase):
             login(tester)
             response = tester.get("/todo")
         self.assertEqual(200, response.status_code)
-        self.assertIn(b"testing's Todo List", response.data)
+        self.assertTrue(b"testing's Todo List" in response.data)
 
     def test_todo_submission(self):
         with app.test_client() as tester:
@@ -57,7 +57,7 @@ class TodoTestCase(unittest.TestCase):
             self.assertEqual(302, response.status_code)
             response = tester.get("/todo")
             self.assertEqual(200, response.status_code)
-            self.assertIn(taskname, str(response.data))
+            self.assertTrue(taskname, str(response.data))
 
     def test_todo_deletion(self):
         with app.test_client() as tester:

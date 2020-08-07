@@ -54,14 +54,14 @@ class VideoTestCase(unittest.TestCase):
             videos = file.readlines()
         videos = [video.split("|")[0] for video in videos]
         for video in videos:
-            self.assertIn(video, str(response.data))
+            self.assertTrue(video, str(response.data))
 
     def test_individual_video(self):
         tester = app.test_client()
         video = choose_random_video()[0]
         response = tester.get("/videos/video/{}".format(video))
         self.assertIs(200, response.status_code)
-        self.assertIn(video, str(response.data))
+        self.assertTrue(video, str(response.data))
 
     def test_videos_as_admin(self):
         with app.test_client() as tester:
@@ -72,8 +72,8 @@ class VideoTestCase(unittest.TestCase):
                 videos = file.readlines()
             videos = [video.split("|")[0] for video in videos]
             for video in videos:
-                self.assertIn(video, str(response.data))
-            self.assertIn(b"YouTube Link", response.data)
+                self.assertTrue(video, str(response.data))
+            self.assertTrue(b"YouTube Link" in response.data)
 
     def test_upload_video(self):
         with app.test_client() as tester:
@@ -86,7 +86,7 @@ class VideoTestCase(unittest.TestCase):
                 follow_redirects=True,
             )
             self.assertIs(200, response.status_code)
-            self.assertIn(b"Great Video", response.data)
+            self.assertTrue(b"Great Video" in response.data)
 
     def test_delete_video(self):
         with app.test_client() as tester:
@@ -104,7 +104,7 @@ class VideoTestCase(unittest.TestCase):
         response = tester.post(
             "/videos/deletion", data=dict(youtube_id=video), follow_redirects=True
         )
-        self.assertIn("You need to sign in to use this feature.", str(response.data))
+        self.assertTrue("You need to sign in to use this feature.", str(response.data))
         with tester:
             login(tester)
             response = tester.post(
@@ -112,7 +112,7 @@ class VideoTestCase(unittest.TestCase):
                 data=dict(youtube_id="Too short"),
                 follow_redirects=True,
             )
-        self.assertIn(
+        self.assertTrue(
             "This doesn't look like a YouTube link. Try again.",
             html.unescape(str(response.data)),
         )

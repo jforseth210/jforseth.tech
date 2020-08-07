@@ -15,13 +15,13 @@ class WebtoolTestCase(unittest.TestCase):
     #    tester = app.test_client()
     #    response = tester.get("/")
     #    self.assertIs(200, response.status_code)
-    #    self.assertIn(b"Welcome", response.data)
+    #    self.assertTrue(b"Welcome" in response.data)
 
     def test_404_working(self):
         tester = app.test_client()
         response = tester.get("/thispagedoesnotexist")
         self.assertEqual(404, response.status_code)
-        self.assertIn(b"Oops", response.data)
+        self.assertTrue(b"Oops" in response.data)
 
 
 if __name__ == "__main__":

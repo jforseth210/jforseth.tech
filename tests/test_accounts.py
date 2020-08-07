@@ -9,7 +9,6 @@ from account_management import delete_account, remove_token
 from SensitiveData import PROJECT_PASSWORD, TESTING_GROUP_SIGNUP_CODE
 
 
-
 USERNAMES = [
     "testing",
     "testing with spaces",
@@ -113,7 +112,7 @@ class AccountsTestCase(unittest.TestCase):
         with app.test_client() as tester:
             signup(tester)
             response = login(tester)
-            self.assertIn(b"Login Successful", response.data)
+            self.assertTrue(b"Login Successful" in response.data)
             self.assertEqual(response.status_code, 200)
 
     def test_correct_login_no_csrf(self):
@@ -124,7 +123,7 @@ class AccountsTestCase(unittest.TestCase):
                 data=dict(username="testing", password=PROJECT_PASSWORD, next="/"),
                 follow_redirects=True,
             )
-            self.assertIn(b"token is missing", response.data)
+            self.assertTrue(b"token is missing" in response.data)
             self.assertEqual(response.status_code, 200)
 
     def test_incorrect_username(self):
@@ -142,7 +141,7 @@ class AccountsTestCase(unittest.TestCase):
                 ),
                 follow_redirects=True,
             )
-            self.assertIn(b"Account not found", response.data)
+            self.assertTrue(b"Account not found" in response.data)
             self.assertEqual(response.status_code, 401)
 
     def test_incorrect_password(self):
@@ -161,7 +160,7 @@ class AccountsTestCase(unittest.TestCase):
                 ),
                 follow_redirects=True,
             )
-            self.assertIn(b"Incorrect password", response.data)
+            self.assertTrue(b"Incorrect password" in response.data)
             self.assertEqual(response.status_code, 401)
 
     def test_account_no_login(self):
@@ -186,7 +185,7 @@ class AccountsTestCase(unittest.TestCase):
                 data=dict(confirm_password=PROJECT_PASSWORD, follow_redirects=True),
             )
             self.assertEqual(302, response.status_code)
-            self.assertIn(
+            self.assertTrue(
                 b'<p>You should be redirected automatically to target URL: <a href="/logout">/logout</a>',
                 response.data,
             )
@@ -205,10 +204,9 @@ class AccountsTestCase(unittest.TestCase):
                 ),
                 follow_redirects=True,
             )
-            self.assertIn(b"Success!", response.data)
+            self.assertTrue(b"Success!" in response.data)
         with app.test_client() as tester:
             login(tester, password=new_password)
-
 
     def test_password_change_incorrect_old_pw(self):
         with app.test_client() as tester:
@@ -218,16 +216,17 @@ class AccountsTestCase(unittest.TestCase):
             response = tester.post(
                 "/changepw",
                 data=dict(
-                    old_password='THIS IS THE INCORRECT OLD PASSWORD!',
+                    old_password="THIS IS THE INCORRECT OLD PASSWORD!",
                     new_password=new_password,
                     confirm_new_password=new_password,
                 ),
                 follow_redirects=True,
             )
-            self.assertIn(b"Old password incorrect.", response.data)
+            self.assertTrue(b"Old password incorrect." in response.data)
         with app.test_client() as tester:
             response = login(tester, password=new_password)
-            self.assertIn(b'Incorrect password.', response.data)
+            self.assertTrue(b"Incorrect password." in response.data)
+
     def test_password_change_missmatched_pws(self):
         with app.test_client() as tester:
             signup(tester)
@@ -238,11 +237,11 @@ class AccountsTestCase(unittest.TestCase):
                 data=dict(
                     old_password=PROJECT_PASSWORD,
                     new_password=new_password,
-                    confirm_new_password='THIS IS A DIFFERENT NEW PASSWORD!',
+                    confirm_new_password="THIS IS A DIFFERENT NEW PASSWORD!",
                 ),
                 follow_redirects=True,
             )
-            self.assertIn(b"New passwords do not match!", response.data)
+            self.assertTrue(b"New passwords do not match!" in response.data)
         with app.test_client() as tester:
             response = login(tester, password=new_password)
             self.assertTrue(b"Incorrect password." in response.data)

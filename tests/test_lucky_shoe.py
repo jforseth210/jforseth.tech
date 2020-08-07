@@ -15,7 +15,7 @@ class LuckyShoeTestCase(unittest.TestCase):
         tester = app.test_client(self)
         response = tester.get("/luckyshoe")
         self.assertEqual(200, response.status_code)
-        self.assertIn(b"Lucky Shoe Welding", response.data)
+        self.assertTrue(b"Lucky Shoe Welding" in response.data)
 
     def test_lucky_shoe_order(self):
         data = dict(
@@ -25,8 +25,8 @@ class LuckyShoeTestCase(unittest.TestCase):
         response = tester.post("/luckyshoe/order", data=data)
         self.assertIs(200, response.status_code)
         for key, value in data.items():
-            self.assertIn(key, str(response.data))
-            self.assertIn(value, str(response.data))
+            self.assertTrue(key, str(response.data))
+            self.assertTrue(value, str(response.data))
 
     def test_twilio_working(self):
         account_sid = TWILIO_SID

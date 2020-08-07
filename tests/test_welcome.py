@@ -25,7 +25,7 @@ class WelcomeTestCase(unittest.TestCase):
         tester = app.test_client()
         response = tester.get("/")
         self.assertEqual(200, response.status_code)
-        self.assertIn(b"Welcome to jforseth.tech", response.data)
+        self.assertTrue(b"Welcome to jforseth.tech" in response.data)
 
     # This is probably unnecessary
     def test_flaskapp_redirect(self):
@@ -42,7 +42,7 @@ class WelcomeTestCase(unittest.TestCase):
         tester = app.test_client()
         response = tester.get("/instructions")
         self.assertEqual(200, response.status_code)
-        self.assertIn(
+        self.assertTrue(
             b"This is the place to find more detailed instructions for all of the various pages on my site. ",
             response.data,
         )
@@ -51,13 +51,13 @@ class WelcomeTestCase(unittest.TestCase):
         tester = app.test_client()
         response = tester.get("/sign/edit")
         self.assertEqual(200, response.status_code)
-        self.assertIn(b"signUpdated()", response.data)
+        self.assertTrue(b"signUpdated()" in response.data)
 
     def test_sign_page(self):
         tester = app.test_client()
         response = tester.get("/sign")
         self.assertEqual(200, response.status_code)
-        self.assertIn(b"signtext", response.data)
+        self.assertTrue(b"signtext" in response.data)
 
     def test_editing_sign(self):
         tester = app.test_client()

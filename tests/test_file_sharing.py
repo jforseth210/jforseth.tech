@@ -31,7 +31,7 @@ class FileSharingTestCase(unittest.TestCase):
         tester = app.test_client(self)
         response = tester.get("/filesharing", content_type="html/text")
         self.assertIs(200, response.status_code)
-        self.assertIn(b"Upload", response.data)
+        self.assertTrue(b"Upload" in response.data)
 
     def test_file_sharing_upload(self):
         with app.test_client(self) as tester:
@@ -47,10 +47,10 @@ class FileSharingTestCase(unittest.TestCase):
                 follow_redirects=True,
             )
             self.assertIs(200, response.status_code)
-            self.assertEqual(testfile.content, response.data)
+            self.assertEqual(testfile.content in response.data)
             response = tester.get("/filesharing")
             self.assertIs(200, response.status_code)
-            self.assertIn(testfile.name, str(response.data))
+            self.assertTrue(testfile.name, str(response.data))
 
 
 if __name__ == "__main__":
