@@ -257,8 +257,8 @@ class AccountsTestCase(unittest.TestCase):
             username, email, email_type, token = json.loads(response.data)
             response = tester.get(
                 "/change_email/verified",
-                data=dict(
-                    username=username, email=email, email_type=email_type, token=token
+                query_string=dict(
+                    username=username, email=email, type=email_type, token=token
                 ),
                 follow_redirects=True,
             )
