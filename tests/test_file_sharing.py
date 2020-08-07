@@ -47,7 +47,7 @@ class FileSharingTestCase(unittest.TestCase):
                 follow_redirects=True,
             )
             self.assertIs(200, response.status_code)
-            self.assertEqual(testfile.content in response.data)
+            self.assertEqual(testfile.content, response.data)
             response = tester.get("/filesharing")
             self.assertIs(200, response.status_code)
             self.assertTrue(testfile.name, str(response.data))

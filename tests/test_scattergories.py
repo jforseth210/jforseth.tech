@@ -39,7 +39,7 @@ class ScattergoriesTestCase(unittest.TestCase):
 
         response = tester.get("/scattergories/newlist")
         self.assertEqual(200, response.status_code)
-        self.assertEqual(b"Done" in response.data)
+        self.assertEqual(b"Done", response.data)
 
         response = tester.get("/scattergories")
         soup = BeautifulSoup(response.data, "html.parser")
@@ -55,7 +55,7 @@ class ScattergoriesTestCase(unittest.TestCase):
 
         response = tester.get("/scattergories/roll")
         self.assertEqual(200, response.status_code)
-        self.assertEqual(b"Done" in response.data)
+        self.assertEqual(b"Done", response.data)
 
         response = tester.get("/scattergories")
         soup = BeautifulSoup(response.data, "html.parser")
