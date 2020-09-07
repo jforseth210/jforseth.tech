@@ -73,3 +73,7 @@ def italypics():
 @welcome.route("/jeopardy")
 def jeopardy():
     return redirect("http://192.168.1.3:5000/jeopardy/buzzer")
+
+@welcome.route("/startpage")
+def startpage():
+    return redirect("/static/startpages/Evening-Startpage/index.html")
