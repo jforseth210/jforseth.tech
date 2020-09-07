@@ -6,10 +6,54 @@
   <link href="/static/lucky_shoe/lucky_shoe.css" rel="stylesheet">
   <title>Lucky Shoe Welding</title>
   <meta name='viewport' content='width=device-width initial-scale=1.0' />
-  <!--Clicky Web Analytics-->
-  <script>var clicky_site_ids = clicky_site_ids || []; clicky_site_ids.push(101163615);</script>
-  <script async src="//static.getclicky.com/js"></script>
-  <!--End Clicky Web Analytics-->
+  <!-- Start Open Web Analytics Tracker -->
+  <script type="text/javascript">
+    //<![CDATA[
+    var owa_baseUrl = 'https://jforseth.tech/owa/';
+    var owa_cmds = owa_cmds || [];
+    owa_cmds.push(['setSiteId', '9dda5c45ea8970274f147c714698a09a']);
+    owa_cmds.push(['trackPageView']);
+    owa_cmds.push(['trackClicks']);
+    owa_cmds.push(['trackDomStream']);
+    
+    (function() {
+        var _owa = document.createElement('script'); _owa.type = 'text/javascript'; _owa.async = true;
+        owa_baseUrl = ('https:' == document.location.protocol ? window.owa_baseSecUrl || owa_baseUrl.replace(/http:/, 'https:') : owa_baseUrl );
+        _owa.src = owa_baseUrl + 'modules/base/js/owa.tracker-combined-min.js';
+        var _owa_s = document.getElementsByTagName('script')[0]; _owa_s.parentNode.insertBefore(_owa, _owa_s);
+    }());
+    //]]>
+  </script>
+  <!-- End Open Web Analytics Code -->
+  <!-- Matomo -->
+
+<script type="text/javascript">
+
+  var _paq = window._paq || [];
+
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+
+  _paq.push(['trackPageView']);
+
+  _paq.push(['enableLinkTracking']);
+
+  (function() {
+
+    var u="//jforseth.tech/matomo/";
+
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+
+    _paq.push(['setSiteId', '1']);
+
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+
+  })();
+
+</script>
+
+<!-- End Matomo Code -->  
 </head>
 
 <body>
@@ -24,7 +68,7 @@
   {% endfor %}
   {% endif %}
   {% endwith %}
-  <img class=coverimage src=/static/lucky_shoe/Logo.png />
+  <img class=coverimage src=/static/lucky_shoe/Logo.png alt="Lucky Shoe Welding logo. Two joined horseshoes, forming an oval, with the words: 'Lucky Shoe Welding Nolan Forseth' inside."/>
   <ul>
     <li><a href="/">JForseth.tech</a></li>
     <li class=right><a href="mailto:luckyshoe@jforseth.tech">Contact</a></li>
@@ -35,7 +79,7 @@
       pieces are built by Nolan Forseth and decorated by Karen Forseth. Take a look at our work: </p>
     <div class=row>
       <div class="half left">
-        <img class=right src=/static/lucky_shoe/LargeTree.JPG />
+        <img class=right src=/static/lucky_shoe/LargeTree.JPG alt="Large horseshoe Christmas tree."/>
         <h1>Large Tree</h1>
         <h3>$55*</h3>
         <p>These trees are four rows high and made using 14 triple-ot horseshoes. They are available with or without
@@ -44,7 +88,7 @@
         <button class=orderButton id=LargeTree>Order</button>
       </div>
       <div class="half right">
-        <img class=right src=/static/lucky_shoe/LargeCross.JPG />
+        <img class=right src=/static/lucky_shoe/LargeCross.JPG alt="Large horseshoe cross"/>
         <h1>Large Cross</h1>
         <h3>$40*</h3>
         <p>This cross is made using ten triple-ot horseshoes. It's about 25" tall and 17" wide.</p>
@@ -53,7 +97,7 @@
     </div>
     <div class="row">
       <div class="half left">
-        <img class=right src=/static/lucky_shoe/SmallTree.JPG />
+        <img class=right src=/static/lucky_shoe/SmallTree.JPG alt="Small Christmas tree."/>
         <h1>Small Tree</h1>
         <h3>$40*</h3>
         <p>These trees are three rows high, made with triple-ot or pony horseshoes. They are available with or without
@@ -63,7 +107,7 @@
         <button class=orderButton id=SmallTree>Order</button>
       </div>
       <div class="half right">
-        <img class=right src=/static/lucky_shoe/SmallCross.JPG />
+        <img class=right src=/static/lucky_shoe/SmallCross.JPG alt="Small cross."/>
         <h1>Small Cross</h1>
         <h3>$25*</h3>
         <p>This cross is made with six horseshoes. It's available in triple-ot or pony shoes. With triple-ots it's about
@@ -73,7 +117,7 @@
     </div>
     <div class="row">
       <div class="half left">
-        <img class=right src="/static/lucky_shoe/20191010_123010.jpg" />
+        <img class=right src="/static/lucky_shoe/20191010_123010.jpg" alt="Three-shoe tall horseshoe snowman."/>
         <h1>Snowman</h1>
         <h3>$15*</h3>
         <p>These three-tall snowmen are made using four triple-ot horseshoes. Each comes with a handmade scarf and hat.
@@ -81,7 +125,7 @@
         <button class=orderButton id=Snowman>Order</button>
       </div>
       <div class="half right">
-        <img class=right src="/static/lucky_shoe/20191024_153719.jpg" />
+        <img class=right src="/static/lucky_shoe/20191024_153719.jpg" alt="Horseshoe turkey"/>
         <h1>Turkey</h1>
         <h3>$30*</h3>
         <p>Made using seven and a half triple-ot horseshoes and hand-painted. It's approximately 9" tall, 12" wide, and
@@ -91,14 +135,14 @@
     </div>
     <div class="row">
       <div class="half left">
-        <img class=right src="/static/lucky_shoe/20191010_123046.jpg" />
+        <img class=right src="/static/lucky_shoe/20191010_123046.jpg" alt="Horseshoe star"/>
         <h1>Star</h1>
         <h3>$20*</h3>
         <p>Star made from five horseshoes. About 10" by 10"</p>
         <button class=orderButton id=Star>Order</button>
       </div>
       <!--				<div class="half right">
-        <img class=right src=/static/lucky_shoe/20191024_153719.JPG />
+        <img class=right src=/static/lucky_shoe/20191024_153719.JPG alt="Horseshoe turkey"/>
         <h1>Turkey</h1>
         <h3>{{PRICE}}*</h3>
         <p>Made using eight horseshoes and hand-painted.</p>
