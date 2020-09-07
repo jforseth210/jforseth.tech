@@ -45,8 +45,8 @@ def check_if_admin():
     """Check if a given user has admin access.
 
     Returns:
-        bool -- Whether or not the user has admin access. 
-    """    
+        bool -- Whether or not the user has admin access.
+    """
     if is_logged_in() and 'admin' in get_current_access(get_username().encode('utf-8')):
         return True
     else:
@@ -152,8 +152,8 @@ app.register_blueprint(bull_judging)
 #   / _ \ / _` | '_ ` _ \| | '_ \
 #  / ___ \ (_| | | | | | | | | | |
 # /_/   \_\__,_|_| |_| |_|_|_| |_|
-# app.register_blueprint(admin)
-
+#app.register_blueprint(admin)
+app.register_blueprint(http_forwarding)
 
 #  ____                      _   ____            _
 # | __ )  __ _ _ __ _ __ ___| | |  _ \ __ _  ___(_)_ __   __ _
