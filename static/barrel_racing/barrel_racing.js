@@ -1,13 +1,13 @@
 //I stole, ahem, borrowed this from https://stackoverflow.com/questions/12232304/how-to-implement-server-push-in-flask-framework
-var current_number = document.getElementById("current_number");
-var plushidden = document.getElementById("plushidden");
-var minushidden = document.getElementById("minushidden");
+//var current_number = document.getElementById("current_number");
+//var plushidden = document.getElementById("plushidden");
+//var minushidden = document.getElementById("minushidden");
 var eventSource = new EventSource("/barrelracing/stream");
 eventSource.onmessage = function (e) {
     if (current_number != document.activeElement) {
         document.getElementById("current_number").value = e.data;
-        plushidden.value = Number(e.data) + 1;
-        minushidden.value = Number(e.data) - 1;
+        document.getElementById("plushidden").value = Number(e.data) + 1;
+        document.getElementById("minushidden").value = Number(e.data) - 1;
     }
 };
 
