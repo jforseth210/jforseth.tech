@@ -2,16 +2,16 @@
 var current_number = document.getElementById("current_number");
 var plushidden = document.getElementById("plushidden");
 var minushidden = document.getElementById("minushidden");
-var eventSource = new EventSource("/barrelracing/stream")
+var eventSource = new EventSource("/barrelracing/stream");
 eventSource.onmessage = function (e) {
     if (current_number != document.activeElement) {
-        current_number.value = e.data;
+        document.getElementById("current_number").value = e.data;
         plushidden.value = Number(e.data) + 1;
         minushidden.value = Number(e.data) - 1;
     }
 };
 
-//This is probably the alert code. 
+//This is probably the alert code.
 //IDK
 //W3Schools
 
