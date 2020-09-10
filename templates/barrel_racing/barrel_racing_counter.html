@@ -98,6 +98,11 @@
     <h1>At the current rate, you'll be up in:</h1>
     <p class="big_input" id="time_estimate"></p>
     <h1>minutes</h1>
+    <p>Enter the current rate in seconds(including time between runs):</p>
+    <form id=currentrateform action="/barrelracing/current_rate_update" method="POST">
+        <input class="big_input" name=current_rate id=current_rate value={{current_rate}} />
+        <input type=submit class="invisible" />
+    </form>
 </body>
 
 </html>

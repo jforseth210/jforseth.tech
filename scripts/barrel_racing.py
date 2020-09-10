@@ -24,7 +24,9 @@ def barrel_racing_counter():
         return render_template("barrel_racing/barrel_racing_counter.html", current_number="ERROR")
     with open("text/barrel_racing_best_time.txt", 'r') as file:
         current_best = file.readline()
-    return render_template("barrel_racing/barrel_racing_counter.html", current_number=current_number,best_time=current_best)
+    with open("text/barrel_racing_horse_rate.txt", 'r') as file:
+        current_rate = file.readline()
+    return render_template("barrel_racing/barrel_racing_counter.html", current_number=current_number,best_time=current_best,current_rate=current_rate)
 
 
 @barrel_racing.route('/barrelracing/counter/currentnumber')
@@ -50,6 +52,13 @@ def barrel_racing_best_time_update():
     best_time = escape(request.form.get("best_time"))
     with open("text/barrel_racing_best_time.txt", 'w') as file:
         file.write(best_time)
+    return redirect("/barrelracing/counter")
+
+@barrel_racing.route('/barrelracing/current_rate_update', methods=['POST'])
+def barrel_racing_current_rate_update():
+    current_rate = escape(request.form.get("current_rate"))
+    with open("text/barrel_racing_horse_rate.txt", 'w') as file:
+        file.write(current_rate)
     return redirect("/barrelracing/counter")
 
 @barrel_racing.route('/barrelracing/counter/stream')
@@ -78,4 +87,18 @@ def barrelracing_best_time_stream():
             if old_best != current_best:
                 old_best = current_best
                 yield "data: {}\n\n".format(current_best)
+    return Response(eventStream(), mimetype="text/event-stream")
+
+@barrel_racing.route('/barrelracing/horse_rate/stream')
+def barrelracing_horse_rate_stream():
+    def eventStream():
+        with open("text/barrel_racing_horse_rate.txt", 'r') as file:
+            old_rate = file.readline()
+        while True:
+            time.sleep(1)
+            with open("text/barrel_racing_horse_rate.txt", 'r') as file:
+                current_rate = file.readline()
+            if old_rate != current_rate:
+                old_rate = current_rate
+                yield "data: {}\n\n".format(current_rate)
     return Response(eventStream(), mimetype="text/event-stream")

@@ -17,15 +17,18 @@ bestTimeEventSource.onmessage = function (e) {
 };
 var horseRateEventSource = new EventSource("/barrelracing/horse_rate/stream");
 horseRateEventSource.onmessage = function (e) {
-    seconds_per_horse = e.data
+    seconds_per_horse = e.data;
+    calculate_time();
+    document.getElementById("current_rate").value = seconds_per_horse;
 };
 var seconds_per_horse = 20;
 function calculate_time(){
     var rider_number = document.getElementById("rider_number").value;
     var current_number = document.getElementById("current_number").value;
     var difference = rider_number - current_number;
-    var estimated_time = seconds_per_horse * difference;
-    document.getElementById("time_estimate").innerHTML = estimated_time/60
+    var estimated_seconds = seconds_per_horse * difference;
+    var estimated_minutes = estimated_seconds/60;
+    document.getElementById("time_estimate").innerHTML = Math.round(estimated_minutes); 
 }
 //This is probably the alert code.
 //IDK
