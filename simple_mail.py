@@ -20,7 +20,7 @@ def send_email(email_recipient, email_subject, email_message, sender, password):
 
     # Create the message
     msg = MIMEMultipart()
-    msg['From'] = sender
+    msg['From'] = sender+"@jforseth.tech"
     msg['To'] = email_recipient
     msg['Subject'] = email_subject
 
