@@ -2,15 +2,20 @@
 //var current_number = document.getElementById("current_number");
 //var plushidden = document.getElementById("plushidden");
 //var minushidden = document.getElementById("minushidden");
-var eventSource = new EventSource("/barrelracing/stream");
+var eventSource = new EventSource("/barrelracing/counter/stream");
 eventSource.onmessage = function (e) {
-    if (current_number != document.activeElement) {
+    if (document.getElementById("current_number") != document.activeElement) {
         document.getElementById("current_number").value = e.data;
         document.getElementById("plushidden").value = Number(e.data) + 5;
         document.getElementById("minushidden").value = Number(e.data) - 5;
     }
 };
-
+var eventSource = new EventSource("/barrelracing/best_time/stream");
+eventSource.onmessage = function (e) {
+    if (document.getElementById("best_time") != document.activeElement) {
+        document.getElementById("best_time").value = e.data;
+    }
+};
 //This is probably the alert code.
 //IDK
 //W3Schools

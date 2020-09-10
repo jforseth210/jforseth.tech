@@ -1,7 +1,7 @@
 html{
     background-color: #fff;
 }
-#current_number {
+.big_input {
     border: 0px;
     font-size: 100px;
     color: black;

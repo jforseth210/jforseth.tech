@@ -71,7 +71,7 @@
     <p>{{error}}</p>
     <h1>Rake of #<h1>
     <form id=currentnumberform action="/barrelracing/current_number_update" method="POST">
-        <input name=current_number id=current_number value={{current_number}} />
+        <input class="big_input"name=current_number id=current_number value={{current_number}} />
         <input type=submit class="invisible" />
     </form>
     <h1>is currently going.</h1>
@@ -88,6 +88,11 @@
             <input type=submit id=minus class=button value=->
         </form>
     </div>
+    <h1>Best time is currently:</h1>
+    <form id=besttimeform action="/barrelracing/best_time_update" method="POST">
+        <input class="big_input" name=best_time id=best_time value={{best_time}} />
+        <input type=submit class="invisible" />
+    </form>
 </body>
 
 </html>
