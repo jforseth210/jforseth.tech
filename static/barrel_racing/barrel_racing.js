@@ -6,8 +6,8 @@ var eventSource = new EventSource("/barrelracing/stream");
 eventSource.onmessage = function (e) {
     if (current_number != document.activeElement) {
         document.getElementById("current_number").value = e.data;
-        document.getElementById("plushidden").value = Number(e.data) + 1;
-        document.getElementById("minushidden").value = Number(e.data) - 1;
+        document.getElementById("plushidden").value = Number(e.data) + 5;
+        document.getElementById("minushidden").value = Number(e.data) - 5;
     }
 };
 

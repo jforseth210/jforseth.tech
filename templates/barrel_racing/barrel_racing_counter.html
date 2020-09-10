@@ -69,22 +69,22 @@
     {% endif %}
     {% endwith %}
     <p>{{error}}</p>
-    <h1>Horse #</h1>
+    <h1>Rake of #<h1>
     <form id=currentnumberform action="/barrelracing/current_number_update" method="POST">
         <input name=current_number id=current_number value={{current_number}} />
         <input type=submit class="invisible" />
     </form>
-    <h1>is currently running</h1>
+    <h1>is currently going.</h1>
     <div id=formparent>
 
         <form id=plusform action="/barrelracing/current_number_update" method="POST">
             <input type=number name=current_number id=plushidden class=invisible
-                value={%if current_number != "ERROR"%}{{ current_number + 1 }}{%endif%} />
+                value={%if current_number != "ERROR"%}{{ current_number + 5 }}{%endif%} />
             <input type=submit id=plus class=button value=+>
         </form>
         <form id=minusform action="/barrelracing/current_number_update" method="POST">
             <input type=number name=current_number id=minushidden class=invisible
-                value={%if current_number != "ERROR"%}{{ current_number - 1 }}{%endif%} />
+                value={%if current_number != "ERROR"%}{{ current_number - 5 }}{%endif%} />
             <input type=submit id=minus class=button value=->
         </form>
     </div>
