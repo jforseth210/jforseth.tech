@@ -1,5 +1,5 @@
 AP\ Create\ Task/
-
+*.kdev4
 .goutputsream-*
 geckodriver.exe
 static/*.mp4
@@ -9,6 +9,8 @@ uploads/
 text/writerdocs
 text/lqa
 text/barrel_racing_current_number.txt
+text/barrel_racing_best_time.txt
+text/barrel_racing_horse_rate.txt
 text/currentcatergorylist.txt
 text/locked.txt
 text/scattergoriescurrentletter.txt
@@ -23,6 +25,7 @@ text/active_tokens.json
 text/password_reset_email_template.html
 prod-database.db
 static/writer/thumbs
+static/startpages
 text/writer_file_order.txt
 text/sign_text.txt
 userdata

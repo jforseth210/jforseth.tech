@@ -29,10 +29,17 @@ def signup():
         password = escape(request.form.get("passwordInput"))
         confirmPassword = escape(request.form.get("confirmPasswordInput"))
         prayerBool = escape(request.form.get("prayerInput"))
-        # username = username.decode("utf-8")
-        # print(username)
+        captcha = escape(request.form.get("captchaInput"))
+        username=username.decode('utf-8')
+        print(username)
         # The user doesn't want to recieve any prayer requests.
-        # print(prayerBool)
+        print(prayerBool)
+        captcha = captcha.replace("\"","")
+        captcha = captcha.replace(" ","")
+        captcha = captcha.lower()
+        if captcha != "notabot":
+            return "Your signup triggered our spam detection system. Please try again."
+
         if not prayerBool:
             prayer_groups = "None"
         else:

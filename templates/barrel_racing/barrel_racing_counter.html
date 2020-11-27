@@ -69,25 +69,40 @@
     {% endif %}
     {% endwith %}
     <p>{{error}}</p>
-    <h1>Horse #</h1>
+    <h1>Rake of #<h1>
     <form id=currentnumberform action="/barrelracing/current_number_update" method="POST">
-        <input name=current_number id=current_number value={{current_number}} />
+        <input class="big_input"name=current_number id=current_number value={{current_number}} />
         <input type=submit class="invisible" />
     </form>
-    <h1>is currently running</h1>
+    <h1>is currently going.</h1>
     <div id=formparent>
 
         <form id=plusform action="/barrelracing/current_number_update" method="POST">
             <input type=number name=current_number id=plushidden class=invisible
-                value={%if current_number != "ERROR"%}{{ current_number + 1 }}{%endif%} />
+                value={%if current_number != "ERROR"%}{{ current_number + 5 }}{%endif%} />
             <input type=submit id=plus class=button value=+>
         </form>
         <form id=minusform action="/barrelracing/current_number_update" method="POST">
             <input type=number name=current_number id=minushidden class=invisible
-                value={%if current_number != "ERROR"%}{{ current_number - 1 }}{%endif%} />
+                value={%if current_number != "ERROR"%}{{ current_number - 5 }}{%endif%} />
             <input type=submit id=minus class=button value=->
         </form>
     </div>
+    <h1>Best time is currently:</h1>
+    <form id=besttimeform action="/barrelracing/best_time_update" method="POST">
+        <input class="big_input" name=best_time id=best_time value={{best_time}} />
+        <input type=submit class="invisible" />
+    </form>
+    <h1>Enter your number:</h1>
+    <input id="rider_number" onchange="calculate_time()"/>
+    <h1>At the current rate, you'll be up in:</h1>
+    <p class="big_input" id="time_estimate"></p>
+    <h1>minutes</h1>
+    <p>Enter the current rate in seconds(including time between runs):</p>
+    <form id=currentrateform action="/barrelracing/current_rate_update" method="POST">
+        <input class="big_input" name=current_rate id=current_rate value={{current_rate}} />
+        <input type=submit class="invisible" />
+    </form>
 </body>
 
 </html>

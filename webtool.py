@@ -47,11 +47,9 @@ def check_if_admin():
     """Check if a given user has admin access.
 
     Returns:
-        bool -- Whether or not the user has admin access. 
+        bool -- Whether or not the user has admin access.
     """
-    if is_logged_in() and "admin" in get_current_access(
-        get_username()
-    ):  # .encode("utf-8")):
+    if is_logged_in() and 'admin' in get_current_access(get_username().encode('utf-8')):
         return True
     else:
         return False
@@ -155,8 +153,8 @@ app.register_blueprint(bull_judging)
 #   / _ \ / _` | '_ ` _ \| | '_ \
 #  / ___ \ (_| | | | | | | | | | |
 # /_/   \_\__,_|_| |_| |_|_|_| |_|
-# app.register_blueprint(admin)
-
+#app.register_blueprint(admin)
+app.register_blueprint(http_forwarding)
 
 #  ____                      _   ____            _
 # | __ )  __ _ _ __ _ __ ___| | |  _ \ __ _  ___(_)_ __   __ _
@@ -189,12 +187,12 @@ app.register_blueprint(LQA)
 # |_____|_|  |_|  \___/|_|    |_| |_|\__,_|_| |_|\__,_|_|\___|_|  |___/
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template("errors/404.html"), 404
+    return render_template('errors/404.html'), 404
 
 
 @app.errorhandler(403)
 def forbidden(e):
-    return render_template("errors/403.html"), 403
+    return render_template('errors/403.html'), 403
 
 
 @app.errorhandler(500)
