@@ -60,24 +60,15 @@ def barrel_racing_current_rate_update():
         file.write(current_rate)
     return redirect("/barrelracing/counter")
 
-<<<<<<< HEAD
-@barrel_racing.route("/barrelracing/stream")
-def barrelracing_stream():
-=======
 @barrel_racing.route('/barrelracing/counter/stream')
 def barrelracing_counter_stream():
->>>>>>> master
     def eventStream():
         with open("text/barrel_racing_current_number.txt", "r") as file:
             old_current_number = file.readline()
         while True:
-<<<<<<< HEAD
-            time.sleep(10)
-            with open("text/barrel_racing_current_number.txt", "r") as file:
-=======
             time.sleep(1)
             with open("text/barrel_racing_current_number.txt", 'r') as file:
->>>>>>> master
+
                 current_number = file.readline()
             if old_current_number != current_number:
                 old_current_number = current_number
