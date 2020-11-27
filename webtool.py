@@ -49,7 +49,7 @@ def check_if_admin():
     Returns:
         bool -- Whether or not the user has admin access.
     """
-    if is_logged_in() and 'admin' in get_current_access(get_username().encode('utf-8')):
+    if is_logged_in() and 'admin' in get_current_access(get_username()):
         return True
     else:
         return False

@@ -27,7 +27,7 @@ class BarrelRacingTestCase(unittest.TestCase):
     def test_counter_displayed(self):
         tester = app.test_client(self)
         response = tester.get("/barrelracing/counter", content_type="html/text")
-        self.assertTrue(b"Horse #" in response.data)
+        self.assertTrue(b"is currently" in response.data)
         with open("text/barrel_racing_current_number.txt", "r") as file:
             original_value = file.read()
         self.assertTrue(original_value, str(response.data))

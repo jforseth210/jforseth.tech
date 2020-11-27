@@ -30,7 +30,7 @@ def signup():
         confirmPassword = escape(request.form.get("confirmPasswordInput"))
         prayerBool = escape(request.form.get("prayerInput"))
         captcha = escape(request.form.get("captchaInput"))
-        username=username.decode('utf-8')
+
         print(username)
         # The user doesn't want to recieve any prayer requests.
         print(prayerBool)
