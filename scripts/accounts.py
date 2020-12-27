@@ -153,7 +153,7 @@ def verify_changed_email():
         with open("text/change_email_template.html") as file:
             message = file.read()
         message = message.format(
-            username=username, email=email, email_type=email_type, token=token
+            username=username, email=email, email_type=email_type.lower(), token=token
         )
         send_email(
             email,
@@ -165,7 +165,7 @@ def verify_changed_email():
         flash("We've sent a verification link to that email address.", category="success")
         return redirect("/account/" + username)
     else:
-        return json.dumps([username, email, email_type.lower(), token])
+        return json.dumps([username, email, email_type, token])
 
 # Actually change the email.
 # Validation link from the email.
