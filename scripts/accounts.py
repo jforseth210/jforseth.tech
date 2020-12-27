@@ -165,7 +165,7 @@ def verify_changed_email():
         flash("We've sent a verification link to that email address.", category="success")
         return redirect("/account/" + username)
     else:
-        return json.dumps([username.decode("utf-8"), email.decode("utf-8"), email_type, token])
+        return json.dumps([username.decode("utf-8"), email.decode("utf-8"), email_type.lower(), token])
 
 # Actually change the email.
 # Validation link from the email.
