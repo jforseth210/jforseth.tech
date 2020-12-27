@@ -19,7 +19,7 @@ def welcome_page():
         )
     return render_template("welcome/welcome.html")
 
-"""
+
 @welcome.route("/FlaskApp")
 def flaskapp_welcome():
     return redirect("/")
@@ -91,4 +91,3 @@ def jeopardy():
 @welcome.route("/startpage")
 def startpage():
     return redirect("/static/startpages/Evening-Startpage/index.html")
-"""
