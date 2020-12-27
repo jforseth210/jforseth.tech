@@ -30,8 +30,9 @@ def ifttt():
     command = command.replace(" ","")
     command = command.lower()
     commands = {
-        "prepareforbattle": ["firefox &","konsole &","nohup spotify &"]
-        "lightsout":["lightsout"]
+        "prepareforbattle": ["firefox &","konsole &","nohup spotify &"],
+        "lightsout":["xset dpms force off","ssh justin@192.168.1.5 xset dpms force off -display :0"],
+        "lightson":["xset dpms force on","ssh justin@192.168.1.5 xset dpms force on -display :0"]
     }
     actual_commands = commands.get(command, "echo Invalid Command:{}".format(command))
 
