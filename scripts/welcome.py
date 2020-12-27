@@ -1,6 +1,8 @@
 import time
 import platform
 
+
+import os
 from flask import *
 from flask_simplelogin import get_username
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -9,8 +11,7 @@ from account_management import get_account, update_pw, create_account, delete_ac
 
 welcome = Blueprint("welcome", __name__)
 
-
-@welcome.route("/")
+welcome.route("/")
 def welcome_page():
     if platform.node() == "backup-server-vm":
         flash(
@@ -18,17 +19,24 @@ def welcome_page():
         )
     return render_template("welcome/welcome.html")
 
-
+"""
 @welcome.route("/FlaskApp")
 def flaskapp_welcome():
     return redirect("/")
 
+@welcome.route("/ifttt")
+def ifttt():
+    command = request.args.get("command")
+    command = command.replace(" ","")
+    command = command.lower()
+    commands = {
+        "prepareforbattle": ["firefox &","konsole &","nohup spotify &"]
+    }
+    actual_commands = commands.get(command, "echo Invalid Command:{}".format(command))
 
-@welcome.route("/about")
-def about():
-    return redirect("/")
-    # return render_template("welcome/about.html")
-
+    os.system('ssh justin@192.168.1.3 "export DISPLAY=:0;' + " ;".join(actual_commands) + '"')
+    print('ssh justin@192.168.1.3 "export DISPLAY=:0;' + "; ".join(actual_commands) + '"')
+    return ""
 
 @welcome.route("/instructions")
 def instructions():
@@ -83,3 +91,4 @@ def jeopardy():
 @welcome.route("/startpage")
 def startpage():
     return redirect("/static/startpages/Evening-Startpage/index.html")
+"""
