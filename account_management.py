@@ -58,7 +58,7 @@ def generate_token(username, tokentype):
     with open("text/active_tokens.json") as file:
         reset_dictionary = file.read()
     reset_dictionary = json.loads(reset_dictionary)
-    reset_dictionary[tokentype][token] = username
+    reset_dictionary[tokentype][token] = username.decode('utf-8')
     # Prettify the json output.
     reset_dictionary = json.dumps(
         reset_dictionary, sort_keys=True, indent=4, separators=(",", ": ")

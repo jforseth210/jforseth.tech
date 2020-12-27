@@ -143,10 +143,10 @@ def change_password():
 # Email change form. Basically just sends an email.
 @accounts.route("/change_email", methods=["POST"])
 def verify_changed_email():
-    email = escape(request.form.get("email"))
+    email = escape(request.form.get("email")).encode("utf-8")
     email_type = escape(request.form.get("email_type"))
 
-    username = get_username()  # .encode("utf-8")
+    username = get_username().encode("utf-8")
     token = generate_token(email + username, "email_change")
 
     if not current_app.config["TESTING"]:
@@ -165,7 +165,7 @@ def verify_changed_email():
         flash("We've sent a verification link to that email address.", category="success")
         return redirect("/account/" + username)
     else:
-        return json.dumps([username, email, email_type, token])
+        return json.dumps([username.decode("utf-8"), email.decode("utf-8"), email_type, token])
 
 # Actually change the email.
 # Validation link from the email.

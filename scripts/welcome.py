@@ -23,6 +23,10 @@ def welcome_page():
 @welcome.route("/FlaskApp")
 def flaskapp_welcome():
     return redirect("/")
+    
+@welcome.route("/about")
+def about_redirect():
+    return redirect("/")
 
 @welcome.route("/ifttt")
 def ifttt():
