@@ -11,7 +11,7 @@ from account_management import get_account, update_pw, create_account, delete_ac
 
 welcome = Blueprint("welcome", __name__)
 
-welcome.route("/")
+@welcome.route("/")
 def welcome_page():
     if platform.node() == "backup-server-vm":
         flash(
@@ -31,6 +31,7 @@ def ifttt():
     command = command.lower()
     commands = {
         "prepareforbattle": ["firefox &","konsole &","nohup spotify &"]
+        "lightsout":["lightsout"]
     }
     actual_commands = commands.get(command, "echo Invalid Command:{}".format(command))
 
