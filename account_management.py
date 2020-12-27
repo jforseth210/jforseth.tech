@@ -58,7 +58,7 @@ def generate_token(username, tokentype):
     with open("text/active_tokens.json") as file:
         reset_dictionary = file.read()
     reset_dictionary = json.loads(reset_dictionary)
-    reset_dictionary[tokentype][token] = username.decode('utf-8')
+    reset_dictionary[tokentype][token] = username
     # Prettify the json output.
     reset_dictionary = json.dumps(
         reset_dictionary, sort_keys=True, indent=4, separators=(",", ": ")
@@ -223,7 +223,7 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
         additional_messages=UNICODE_MESSAGE + BAD_PW_MESSAGE,
     )
     send_email(
-        recovery_email,  # .encode("utf-8"),
+        recovery_email,
         "Thanks for signing up for jforseth.tech!",
         message,
         PROJECT_EMAIL,
