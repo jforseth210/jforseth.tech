@@ -147,7 +147,7 @@
                     <a class="nav-link" href="/videos">Videos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" onclick="document.getElementById('id01').style.display='block'">Chat</a>
+                    <a class="nav-link" type="button" data-toggle="modal" data-target="#chatModal">Chat</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/luckyshoe">Horseshoe Art</a>
@@ -222,14 +222,19 @@
     <br />
     {% block content %}
     {% endblock %}
-    <div id="id01" class="w3-modal">
-        <!-- Modal content -->
-        <div class="w3-modal-content w3-theme-bg">
-            <span onclick="document.getElementById('id01').style.display='none'"
-                class="w3-button w3-display-topright w3-theme-bg">&times;</span>
-            <iframe frameborder='no' src='/messenger' scrolling='yes' height='110%' width='100%'></iframe>
-        </div>
+
+    <div id="chatModal" class="fade modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div style="height:85vh" class="modal-content w3-theme-bg">
+      <div class="modal-body">
+        <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <iframe frameborder='no' src='/messenger' scrolling='yes' height='95%' width='100%'></iframe>
+      </div>
     </div>
+  </div>
+</div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
