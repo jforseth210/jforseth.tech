@@ -44,3 +44,10 @@
 .wid100 {
 	width: 100%;
 }
+
+.zoom{
+	transition: transform 1.0s;
+  }
+  .zoom:hover{
+	transform: scale(1.05);
+  }
