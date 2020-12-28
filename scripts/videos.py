@@ -37,12 +37,12 @@ def video_page():
     # As long as the number is a multiple of 3,
     # or greater than the total number of videos
     # it works.
-    VIDEOS_PER_ROW = 3
-    video_master_list = []
-    for i in range(0, len(videos), VIDEOS_PER_ROW):
-        video_master_list.append(videos[i : i + VIDEOS_PER_ROW])
+    # VIDEOS_PER_ROW = 3
+    # video_master_list = []
+    # for i in range(0, len(videos), VIDEOS_PER_ROW):
+    #    video_master_list.append(videos[i : i + VIDEOS_PER_ROW])
 
-    return render_template("videos/videos.html", video_master_list=video_master_list)
+    return render_template("videos/videos.html", video_master_list=videos)
 
 
 @videos.route("/videos/newupload", methods=["POST"])
