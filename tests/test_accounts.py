@@ -85,20 +85,20 @@ def signup(
 class AccountsTestCase(unittest.TestCase):
     def setUp(self):
         app.config["TESTING"] = True
+        backup("database.db")
+        backuptree("userdata/")
 
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
-        backup("database.db")
-        backuptree("userdata/")
 
     def tearDown(self):
-        pass
+        restore("database.db")
+        restoretree("userdata/")
 
     @classmethod
     def tearDownClass(cls):
-        restore("database.db")
-        restoretree("userdata/")
+        pass
 
     def test_login_page(self):
         tester = app.test_client(self)
