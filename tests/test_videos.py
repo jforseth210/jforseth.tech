@@ -42,9 +42,9 @@ class VideoTestCase(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        restore("videos.txt")
+        restore("text/videos.txt")
         restore("database.db")
-        restore("userdata/")
+        restoretree("userdata/")
 
     def test_videos_logged_out(self):
         tester = app.test_client()
