@@ -5,7 +5,7 @@
 {% endblock %}
 {% block title %}{{video[0]}}{% endblock %}
 {% block heading %}
-<a href="/videos">{{video[0]}}</a>
+<a class="text-light" href="/videos">{{video[0]}}</a>
 {% endblock %}
 {% block content %}
 <br />
@@ -24,11 +24,11 @@
         <div class="col-md-4">
             <p>More videos</p>
             {% for i in videos %}
-            <div class='col-10 mx-auto card zoom d-flex w3-theme-element m-1 p-3 my-4'>
+            <div class='col-sm-10 mx-auto card zoom d-flex w3-theme-element m-1 p-3 my-4'>
                 <a href="/videos/video/{{i[0]}}">
                     <img src=https://img.youtube.com/vi/{{i[1]}}/0.jpg class="video_thumbnail wid100"
                         alt="Youtube thumbnail."><br />
-                    <h3 class=main_video_title>{{i[0]}}</h3><br />
+                    <h3 class="main_video_title text-light">{{i[0]}}</h3><br />
                 </a>
             </div>
             {% if check_if_admin() %}
