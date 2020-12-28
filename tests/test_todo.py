@@ -81,7 +81,11 @@ class TodoTestCase(unittest.TestCase):
             taskid = 0
             login(tester)
             add_todo(tester, taskname)
+            #Add some made up tasks
             add_todo(tester, "This is another todo.")
+            add_todo(tester, "As is this.")
+            add_todo(tester, "As is this.")
+            add_todo(tester, "As is this.")
             add_todo(tester, "As is this.")
             with open("userdata/testing/todo/list.csv") as file:
                 tasks = file.readlines()
