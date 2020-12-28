@@ -8,195 +8,186 @@
 Jforseth.tech
 {% endblock %}
 {% block content %}
-<h2>Welcome to jforseth.tech</h2>
-<p style="display:inline">Hello! My name is Justin Forseth and this is my little corner of the internet: A website I've created for testing, and experimenting
-    and trying new things. The whole thing is powered by a Raspberry Pi, which works <s>really</s> pretty well.</p><p>I'm not always great at maintaining this page, but if you have any questions, I'd love to hear from you.</p>
-<h3>My projects so far:</h3>
-<div class="w3-row w3-cell-row">
-    <div class="w3-third w3-cell">
-
-        <div class="w3-card w3-theme-element w3-margin w3-padding">
-            <a href='/prayer'>
-                <h3>Prayer Requests:</h3>
+<div class="container-fluid">
+    <h2>Welcome to jforseth.tech</h2>
+    <p style="display:inline">Hello! My name is Justin Forseth and this is my little corner of the internet: A website
+        I've created for testing, and experimenting
+        and trying new things. The whole thing is powered by a Raspberry Pi, which works <s>really</s> pretty well.</p>
+    <p>I'm not always great at maintaining this page, but if you have any questions, I'd love to hear from you.</p>
+    <h3>My projects so far:</h3>
+    <div class="row">
+        <div class="col-md-4 d-flex">
+            <div class="card zoom w3-theme-element m-1 p-3 my-4">
+                <a href='/prayer'>
+                    <h3>Prayer Requests:</h3>
+                    <br />
+                    <img class='thumbnail' src='/static/welcome/PrayerRequests.png'
+                        alt="Prayer request page screenshot." />
+                </a>
                 <br />
-                <img class='thumbnail' src='/static/welcome/PrayerRequests.png' alt="Prayer request page screenshot." />
-            </a>
-            <br /><a href="/instructions#prayerrequests">Instructions</a>
-            <br />
-            <p>A simple tool I created to allow members of my church to exchange prayer requests.</p>
+                <p>A simple tool I created to allow members of my church to exchange prayer requests.</p>
+            </div>
         </div>
-    </div>
-    <div class="w3-third w3-cell">
+        <div class="col-md-4 d-flex">
 
-        <div class="w3-card w3-theme-element w3-margin w3-padding">
-            <a href='/matomo'>
-                <h3>Matomo:</h3>
+            <div class="card zoom w3-theme-element m-1 p-3 my-4 d-flex">
+                <a href='/matomo'>
+                    <h3>Matomo:</h3>
+                    <br />
+                    <img class='thumbnail' src='/static/welcome/matomo.png' alt="Matomo page screenshot." />
+                </a>
                 <br />
-                <img class='thumbnail' src='/static/welcome/matomo.png' alt="Matomo page screenshot." />
-            </a>
-            <br /><a href="/instructions#matomo">Instructions</a>
-            <br />
-            <p>I didn't create this, but it's running on my server. Matomo analytics allows me to see visit history.</p>
-            <br />
-        </div>
-    </div>
-    <div class="w3-third w3-cell">
-
-        <div class="w3-card w3-theme-element w3-margin w3-padding">
-            <a href='https://pleroma.jforseth.tech'>
-                <h3>Pleroma:</h3>
+                <p>I didn't create this, but it's running on my server. Matomo analytics allows me to see visit
+                    history.</p>
                 <br />
-                <img class='thumbnail' src='/static/welcome/pleroma.png' alt="Pleroma page screenshot." />
-            </a>
-            <br /><a href="/instructions#pleroma">Instructions</a>
-            <br />
-            <p>Pleroma is a self-hosted alternative to the major social media sites. It's federated, meaning it interacts with other pleroma servers, around the world.</p>
-            <br />
+            </div>
         </div>
-    </div>
-    <div class="w3-third w3-cell">
+        <div class="col-md-4 d-flex">
 
-        <div class="w3-card w3-theme-element w3-margin w3-padding">
-            <a href='https://nextcloud.jforseth.tech'>
-                <h3>Nextcloud:</h3>
+            <div class="card zoom w3-theme-element m-1 p-3 my-4 d-flex">
+                <a href='https://pleroma.jforseth.tech'>
+                    <h3>Pleroma:</h3>
+                    <br />
+                    <img class='thumbnail' src='/static/welcome/pleroma.png' alt="Pleroma page screenshot." />
+                </a>
                 <br />
-                <img class='thumbnail' src='/static/welcome/Nextcloud.png' alt="Nextcloud page screenshot." />
-            </a>
-            <br /><a href="/instructions#nextcloud">Instructions</a>
-            <br />
-            <p>Nextcloud is a cloud storage site, like G-Suite, except it's self hosted. Didn't make it myself
-                (obviously), but it comes in pretty handy.</p>
-            <br />
-        </div>
-    </div>
-    <div class="w3-third w3-cell">
-
-        <div class="w3-card w3-theme-element w3-margin w3-padding"><a href='/videos'>
-                <h3>Videos:</h3>
+                <p>Pleroma is a self-hosted alternative to the major social media sites. It's federated, meaning it
+                    interacts with other pleroma servers, around the world.</p>
                 <br />
-                <img class='thumbnail w3-center' src='/static/welcome/video.PNG' alt="Video page screenshot." />
-            </a>
-            <br /><a href="/instructions#videos">Instructions</a>
-            <br />
-            <p>In my free time I make videos about farming, ranching, events I go to, and whatever else I feel
-                like. You can find them here.</p>
+            </div>
         </div>
-    </div>
+        <div class="col-md-4 d-flex">
 
-    <div class="w3-third w3-cell">
-
-        <div class="w3-card w3-theme-element w3-margin w3-padding"><a
-                onclick="document.getElementById('id01').style.display='block'">
-                <h3>Messenger:</h3>
+            <div class="card zoom w3-theme-element m-1 p-3 my-4 d-flex">
+                <a href='https://nextcloud.jforseth.tech'>
+                    <h3>Nextcloud:</h3>
+                    <br />
+                    <img class='thumbnail' src='/static/welcome/Nextcloud.png' alt="Nextcloud page screenshot." />
+                </a>
                 <br />
-                <img class='thumbnail w3-center' src='/static/welcome/Messenger.png' alt="Messenger page screenshot.">
-            </a>
-            <br /><a href="/instructions#chat">Instructions</a>
-            <br />
-            <p>A simple little popup widget I made as a challenge.</p>
-        </div>
-    </div>
-    <div class="w3-third w3-cell">
-
-        <div class="w3-card w3-theme-element w3-margin w3-padding">
-            <a href='/todo'>
-                <h3>Todo list:</h3>
+                <p>Nextcloud is a cloud storage site, like G-Suite, except it's self hosted. Didn't make it myself
+                    (obviously), but it comes in pretty handy.</p>
                 <br />
-                <img class='thumbnail w3-center' src='/static/welcome/Todo.PNG' alt="Todo page screenshot.">
-            </a>
-            <br /><a href="/instructions#todo">Instructions</a>
-            <br />
-            <p>A simple todo list I created for personal use. Not available to general public.</p>
+            </div>
         </div>
-    </div>
+        <div class="col-md-4 d-flex">
 
-    <div class="w3-third w3-cell">
-
-        <div class="w3-card w3-theme-element w3-margin w3-padding">
-            <a href='/luckyshoe'>
-                <h3>Horseshoe Art:</h3>
-                <img class='thumbnail w3-center' src='/static/welcome/HorseshoeArt.png'
-                    alt="Horseshoe art homepage screenshot.">
-            </a>
-            <br /><a href="/instructions#horseshoeart">Instructions</a>
-            <br />
-            <p>My brother is a welder who makes horseshoe art, which you can look at and order from here.</p>
+            <div class="card zoom w3-theme-element m-1 p-3 my-4 d-flex"><a href='/videos'>
+                    <h3>Videos:</h3>
+                    <br />
+                    <img class='thumbnail w3-center' src='/static/welcome/video.PNG' alt="Video page screenshot." />
+                </a>
+                <br />
+                <p>In my free time I make videos about farming, ranching, events I go to, and whatever else I feel
+                    like. You can find them here.</p>
+            </div>
         </div>
-    </div>
+        <div class="col-md-4 d-flex">
 
-    <div class="w3-third w3-cell">
-
-        <div class="w3-card w3-theme-element w3-margin w3-padding">
-            <a href='/mail'>
-                <h3>Mail:</h3>
-                <br /><img class='thumbnail w3-center' src='/static/welcome/mail.png' alt="Email inbox screenshot.">
-            </a>
-            <br /><a href="/instructions#mail">Instructions</a>
-            <br />
-            <p>Created so I didn't have to deal with Gmail to send prayer requests. Allows me to create custom
-                email addresses for use on the site. Uses Postfix, Dovecot, and Rainloop.</p>
+            <div class="card zoom w3-theme-element m-1 p-3 my-4 d-flex"><a
+                    onclick="document.getElementById('id01').style.display='block'">
+                    <h3>Messenger:</h3>
+                    <br />
+                    <img class='thumbnail w3-center' src='/static/welcome/Messenger.png'
+                        alt="Messenger page screenshot.">
+                </a>
+                <br />
+                <p>A simple little popup widget I made as a challenge.</p>
+            </div>
         </div>
-    </div>
+        <div class="col-md-4 d-flex">
 
-    <div class="w3-third w3-cell">
-
-        <div class="w3-card w3-theme-element w3-margin w3-padding">
-            <a href='/filesharing'>
-                <h3>File Sharing:</h3>
-                <img class='thumbnail w3-center' src='/static/welcome/filesharing.PNG'
-                    alt="File sharing page screenshot.">
-            </a>
-            <br /><a href="/instructions#filesharing">Instructions</a>
-            <br />
-            <p>A simple file sharing service I created. Upload a file to the server download it on another device.
-                All
-                uploads
-                are
-                public and are wiped at midnight.</p>
+            <div class="card zoom w3-theme-element m-1 p-3 my-4 d-flex">
+                <a href='/todo'>
+                    <h3>Todo list:</h3>
+                    <br />
+                    <img class='thumbnail w3-center' src='/static/welcome/Todo.PNG' alt="Todo page screenshot.">
+                </a>
+                <br />
+                <p>A simple todo list I created for personal use. Not available to general public.</p>
+            </div>
         </div>
-    </div>
+        <div class="col-md-4 d-flex">
 
-</div>
-<div class="w3-row w3-cell-row">
-    <div class="w3-third w3-cell">
-
-        <div class="w3-card w3-theme-element w3-margin w3-padding">
-            <a href='/barrelracing/counter'>
-                <h3>Barrel Racing Current Rider:</h3>
-                <img class='thumbnail w3-center' src='/static/welcome/barrelracingcounter.png'
-                    alt="Counter widget screenshot.">
-            </a>
-            <br /><a href="/instructions#barrelracingcounter">Instructions</a>
-            <br />
-            <p>A widget I made for a friend to help her keep track of which rider is currently up for barrel racing.
-            </p>
+            <div class="card zoom w3-theme-element m-1 p-3 my-4 d-flex">
+                <a href='/luckyshoe'>
+                    <h3>Horseshoe Art:</h3>
+                    <img class='thumbnail w3-center' src='/static/welcome/HorseshoeArt.png'
+                        alt="Horseshoe art homepage screenshot.">
+                </a>
+                <br />
+                <p>My brother is a welder who makes horseshoe art, which you can look at and order from here.</p>
+            </div>
         </div>
-    </div>
+        <div class="col-md-4 d-flex">
 
-    <div class="w3-third w3-cell">
-
-        <div class="w3-card w3-theme-element w3-margin w3-padding">
-            <a href='/login'>
-                <h3>Accounts:</h3>
-                <br /><img class='thumbnail w3-center' src='/static/welcome/account.png' alt="Account page screenshot.">
-            </a>
-            <br /><a href="/instructions#login">Instructions</a>
-            <br />
-            <p>Mostly used to prevent the general public from using personal/admin tools, not needed for
-                prayer requests or anything else.</p>
+            <div class="card zoom w3-theme-element m-1 p-3 my-4 d-flex">
+                <a href='/mail'>
+                    <h3>Mail:</h3>
+                    <br /><img class='thumbnail w3-center' src='/static/welcome/mail.png' alt="Email inbox screenshot.">
+                </a>
+                <br />
+                <p>Created so I didn't have to deal with Gmail to send prayer requests. Allows me to create custom
+                    email addresses for use on the site. Uses Postfix, Dovecot, and Rainloop.</p>
+            </div>
         </div>
-    </div>
-    <div class="w3-third w3-cell">
-        <div class="w3-card w3-theme-element w3-margin w3-padding">
-            <a href='/writer'>
-                <h3>Writer:</h3>
-                <br /><img class=' thumbnail w3-center' src='/static/welcome/writer.png' alt="Writer UI screenshot.">
-            </a>
-            <br /><a href="/instructions#writer">Instructions</a class=w3-padding>
-            <br />
-            <p>A simple text editor. Built on Summernote, it's kinda like Google Docs, but with less features. On
-                the
-                plus side, it doesn't sell your data to advertisers.</p class=w3-padding>
+        <div class="col-md-4 d-flex">
+
+            <div class="card zoom w3-theme-element m-1 p-3 my-4 d-flex">
+                <a href='/filesharing'>
+                    <h3>File Sharing:</h3>
+                    <img class='thumbnail w3-center' src='/static/welcome/filesharing.PNG'
+                        alt="File sharing page screenshot.">
+                </a>
+                <br />
+                <p>A simple file sharing service I created. Upload a file to the server download it on another
+                    device.
+                    All
+                    uploads
+                    are
+                    public and are wiped at midnight.</p>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex">
+
+            <div class="card zoom w3-theme-element m-1 p-3 my-4 d-flex">
+                <a href='/barrelracing/counter'>
+                    <h3>Barrel Racing Current Rider:</h3>
+                    <img class='thumbnail w3-center' src='/static/welcome/barrelracingcounter.png'
+                        alt="Counter widget screenshot.">
+                </a>
+                <br />
+                <p>A widget I made for a friend to help her keep track of which rider is currently up for barrel
+                    racing.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex">
+
+            <div class="card zoom w3-theme-element m-1 p-3 my-4 d-flex">
+                <a href='/login'>
+                    <h3>Accounts:</h3>
+                    <br /><img class='thumbnail w3-center' src='/static/welcome/account.png'
+                        alt="Account page screenshot.">
+                </a>
+                <br />
+                <p>Mostly used to prevent the general public from using personal/admin tools, not needed for
+                    prayer requests or anything else.</p>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex">
+            <div class="card zoom w3-theme-element m-1 p-3 my-4 d-flex">
+                <a href='/writer'>
+                    <h3>Writer:</h3>
+                    <br /><img class=' thumbnail w3-center' src='/static/welcome/writer.png'
+                        alt="Writer UI screenshot.">
+                </a>
+                <br />
+                <p>A simple text editor. Built on Summernote, it's kinda like Google Docs, but with less features.
+                    On
+                    the
+                    plus side, it doesn't sell your data to advertisers.</p class=w3-padding>
+            </div>
         </div>
     </div>
 </div>
