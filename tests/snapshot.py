@@ -26,7 +26,7 @@ def backuptree(foldername):
     try:
         copytree(foldername, "tests/" + foldername)
     except FileExistsError:
-        print("Folder has already been backed up. Overwriting existing backup.")
+        print("Folder: {} has already been backed up. Overwriting existing backup.".format(foldername))
         rmtree("tests/" + foldername)
         copytree(foldername, "tests/" + foldername)
 
