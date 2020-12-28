@@ -51,7 +51,7 @@ class ScattergoriesTestCase(unittest.TestCase):
         tester = app.test_client()
         response = tester.get("/scattergories")
         soup = BeautifulSoup(response.data, "html.parser")
-        original_letter = soup.find_all("h1", "heading")
+        original_letter = soup.find_all("h1")
 
         response = tester.get("/scattergories/roll")
         self.assertEqual(200, response.status_code)
@@ -59,7 +59,7 @@ class ScattergoriesTestCase(unittest.TestCase):
 
         response = tester.get("/scattergories")
         soup = BeautifulSoup(response.data, "html.parser")
-        new_letter = soup.find_all("h1", "heading")
+        new_letter = soup.find_all("h1")
 
         self.assertNotEqual(original_letter, new_letter)
 
