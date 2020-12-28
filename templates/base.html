@@ -101,7 +101,7 @@
         <h1 class="my-3 d-inline-block">{% block heading%}{% endblock %}</h1>
         <div class="d-inline-block my-3 float-right dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-bs-toggle="dropdown" aria-expanded="false">
+                data-toggle="dropdown" aria-expanded="false">
                 {% if is_logged_in()%}
                 Hello, {{ get_username() }}
                 {% else %}
@@ -224,25 +224,22 @@
     {% endblock %}
 
     <div id="chatModal" class="fade modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div style="height:85vh" class="modal-content w3-theme-bg">
-      <div class="modal-body">
-        <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <iframe frameborder='no' src='/messenger' scrolling='yes' height='95%' width='100%'></iframe>
-      </div>
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div style="height:85vh" class="modal-content w3-theme-bg">
+                <div class="modal-body">
+                    <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <iframe frameborder='no' src='/messenger' scrolling='yes' height='95%' width='100%'></iframe>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="/static/base.js"></script>
     <script src="https://use.fontawesome.com/1d70eca085.js"></script>
 </body>
