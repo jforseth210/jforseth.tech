@@ -100,7 +100,7 @@
     <div class=container-fluid>
         <h1 class="my-3 d-inline-block">{% block heading%}{% endblock %}</h1>
         <div class="d-inline-block my-3 float-right dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+            <button class="btn w3-theme-element text-light dropdown-toggle" type="button" id="dropdownMenuButton"
                 data-toggle="dropdown" aria-expanded="false">
                 {% if is_logged_in()%}
                 Hello, {{ get_username() }}
