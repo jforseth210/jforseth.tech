@@ -1,2 +1,2 @@
-document.getElementById("username").className='w3-theme-element w3-theme-txt w3-input w3-animate-input'
-document.getElementById("password").className='w3-theme-element w3-theme-txt w3-input w3-animate-input'
+document.getElementById("username").className='w3-theme-element w3-theme-txt form-control'
+document.getElementById("password").className='w3-theme-element w3-theme-txt form-control'
