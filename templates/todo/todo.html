@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}{{ get_username() }}'s Todo List{% endblock %}
+{% block title %}{{ get_username().title() }}'s Todo List{% endblock %}
 {% block head %}
 <!--<link rel='stylesheet' href='/static/todo/todo.css' type='text/css' />-->
 <script src="/static/todo/todo.js"></script>
@@ -17,59 +17,58 @@
 </script>
 {% endblock %}
 {% block heading %}
-{{ get_username() }}'s Todo List
+{{ get_username().title() }}'s Todo List
 {% endblock %}
 {% block content %}
 <br />
 <br />
-<div class=w3-display-container id='answered'>
+<div class="container-fluid" id='answered'>
+    <div class="row">
+        <div class="col-md-8" id="tasks">
+            <select class="btn text-light mx-auto text-center w3-theme-dark-element" onchange="chooselist()"
+                id=listdropdown class="inputs dropdown">
+                <option selected>All</option>
+                {% for i in lists %}
+                <option>{{ i }}</option>
+                {%endfor%}
+            </select>
+            <form id='form1' action="todo/submitted" method="POST">
+                <input style="display:inline" class="w-25 form-control w3-theme-bg w3-theme-txt w3-input" type='name' name='taskname' id='name'
+                    placeholder='Task' required autofocus />
+                    <input class="text-light mx-auto btn w3-round-large w3-button w3-theme-dark-element" type='submit'
+                        value='Add' />
+                <input id=newTaskCurrentList type=text name='list' hidden />
+            </form>
+            <br />
+            <ol class='answers' id='answers'>
 
-    <div class="w3-display-topmiddle w3-center">
-        <select class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" onchange="chooselist()"
-            id=listdropdown class="inputs dropdown">
-            <option selected>All</option>
-            {% for i in lists %}
-            <option>{{ i }}</option>
-            {%endfor%}
-        </select>
-        <form id='form1' action="todo/submitted" method="POST">
-            <input class="w3-theme-bg w3-theme-txt w3-input" type='name' name='taskname' id='name' placeholder='Task'
-                required autofocus />
-            <input id=newTaskCurrentList type=text name='list' hidden />
-            <input class="w3-round-large w3-button w3-theme-dark-element" type='submit' value='Add' />
-        </form>
-    </div>
-
-    <br />
-    <div id="tasks">
-        <ol class='answers' id='answers'>
-            <!--{% for value in result %}
-        <div class=task>
-            <li onclick="deleteTask({{loop.index}});">
-                {{ value }}
-            </li>
+            </ol>
         </div>
-        {% endfor %}-->
-        </ol>
+
+        <div class="col-md-4 mx-auto">
+            <div class=w3-quarter>
+                <form class=deleteform id=deleteform action="todo/delete" method='POST'>
+                    <p>Task to delete:</p>
+                    <input style="display:inline" class="w-25 w3-theme-bg w3-theme-txt form-control" type='number' id='deletetaskid'
+                        name='taskid' />
+                    <input class="btn w3-theme-txt w3-theme-dark-element" type='submit' value='Delete' />
+                </form>
+                <br /><br /><br />
+                <form action="todo/reorder" method="POST">
+                    <p>Task to move:</p>
+                    <br />
+                    <input class="w-25 w3-theme-bg w3-theme-txt form-control" type='number' name='taskid'
+                        id='taskid' />
+                    <br />
+                    <br />
+                    <p>Position to move task:</p>
+                    <input class="w-25 w3-theme-bg w3-theme-txt form-control" type='number' name='taskloc'
+                        id='taskid' />
+                    <br /><br />
+                    <input class="btn w3-theme-txt w3-theme-dark-element" type='submit' value='Move' />
+                </form>
+            </div>
+        </div>
     </div>
-    <div class=w3-quarter>
-        <form class=deleteform id=deleteform action="todo/delete" method='POST'>
-            <p>Task to delete:</p>
-            <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type='number' id='deletetaskid' name='taskid' />
-            <input class="w3-round-large w3-button w3-theme-dark-element" type='submit' value='Delete' />
-        </form>
-        <br /><br /><br />
-        <form action="todo/reorder" method="POST">
-            <p>Task to move:</p>
-            <br />
-            <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type='number' name='taskid' id='taskid' />
-            <br />
-            <br />
-            <p>Position to move task:</p>
-            <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type='number' name='taskloc' id='taskid' />
-            <br />
-            <input class="w3-round-large w3-button w3-theme-dark-element" type='submit' value='Move' />
-        </form>
-    </div c>
 </div>
 {% endblock %}
