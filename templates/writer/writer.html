@@ -8,18 +8,24 @@ Writer
 {% endblock %}
 {% block content %}
 <br />
-{% for i in docs %}
-<div class="w3-third hi75">
-    <div class='w3-card w3-padding w3-margin w3-theme-element'>
-        <a href='/writer/{{i.decode('utf-8')}}'>
-            <h3>{{i.decode('utf-8')}}</h3><br /><img class='w3-image wid100' src="writer/thumb/{{i.decode('utf-8')}}" />
-        </a>
-        <br /><br />
+<div class="container-fluid">
+    <div class="row">
+        {% for i in docs %}
+        <div class="d-flex col-md-4">
+            <div class="d-flex card zoom m-2 p-4 w3-theme-element">
+                <a href='/writer/{{i}}'>
+                    <h3 style="word-wrap: break-word;" class="d-flex w3-theme-txt">{{i}}</h3>
+                    <br />
+                    <img class='d-flex align-self-end w3-image wid100' src="writer/thumb/{{i}}" />
+                </a>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 </div>
-{% endfor %}
 <div class=newbutton>
-    <i class='newdoc_popup_trigger fa fa-plus-circle' style="font-size:64px"onclick="document.getElementById('id02').style.display='block'"></i>
+    <i class='newdoc_popup_trigger fa fa-plus-circle' style="font-size:64px"
+        onclick="document.getElementById('id02').style.display='block'"></i>
 </div>
 <div id="id02" class="w3-modal">
     <!-- Modal content -->
