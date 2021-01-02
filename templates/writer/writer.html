@@ -24,17 +24,26 @@ Writer
     </div>
 </div>
 <div class=newbutton>
-    <i class='newdoc_popup_trigger fa fa-plus-circle' style="font-size:64px"
-        onclick="document.getElementById('id02').style.display='block'"></i>
+    <i class='newdoc_popup_trigger fa fa-plus-circle' style="font-size:64px" data-toggle="modal"
+        data-target="#writerCreateModal"></i>
 </div>
-<div id="id02" class="w3-modal">
+<div id="writerCreateModal" class="fade modal" role="dialog">
     <!-- Modal content -->
-    <div class="w3-modal-content w3-theme-bg">
-        <span onclick="document.getElementById('id02').style.display='none'"
-            class="w3-button w3-display-topright w3-theme-bg">&times;</span>
-        <input id="newdocinput" class="w3-theme-element w3-theme-txt w3-input w3-animate-input">
-        <button id="newbutton" class=w3-button onclick=create()>Create</button>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content w3-theme-bg">
+            <div class="modal-header">
+                <h4>Create a new document:</h4>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input placeholder="Untitled Document" id="newdocinput" class="d-inline w-75 w3-theme-txt form-control">
+                <button id="newbutton" class="btn w3-theme-element w3-theme-txt" onclick=create()>Create</button>
+            </div>
+        </div>
     </div>
 </div>
+
 <script src="/static/writer/writer.js"></script>
 {% endblock %}
