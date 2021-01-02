@@ -7,71 +7,75 @@
 {% endblock %}
 {% block content %}
 {%if is_logged_in()%}
-<div class=w3-third>
-	<p>This page is still kinda under construction. Here's you can do:</p>
-	<h3>Manage Prayer Groups</h3>
-	<table class='w3-table w3-bordered'>
-		{% for group in groups %}
-		<tr>
-			<td>{{group}}</td>
-			<td><a href='/prayer/unsubscribe_logged_in?group={{group}}'
-					class="w3-round-large w3-button w3-theme-dark-element w3-bar-item">Unsubscribe</a></td>
-		</tr>
-		{%endfor%}
-		<tr>
-			<form action='/prayer/addgroup' method="POST">
-				<td>
-					<input class="w3-theme-bg w3-theme-txt " name="group" style="border:none"
-						placeholder='GROUP CODE' />
-				</td>
-				<td>
-					<input type="submit" class="w3-round-large w3-button w3-theme-dark-element w3-bar-item"
-						value="Subscribe" />
-				</td>
-			</form>
-		</tr>
-	</table>
-	<h3>Change Password</h3>
-	<form action="/changepw" method="POST">
-		<p>Old Password:</p><input class="w3-theme-bg w3-theme-txt w3-input w3-animate-input wid50" type="password"
-			name="old_password" />
-		<br />
-		<p>New Password:</p><input class="w3-theme-bg w3-theme-txt w3-input w3-animate-input wid50" type="password"
-			name="new_password" />
-		<br />
-		<p>Confirm New Password:</p><input class="w3-theme-bg w3-theme-txt w3-input w3-animate-input wid50"
-			type="password" name="confirm_new_password" />
-		<br />
-		<input class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" id=submit type="submit" name="submit"
-			value="Change Password">
-	</form>
-	<h3>Change Email</h3>
-	<form action='/change_email' method="POST">
-		<label>New Email:</label><input class="w3-theme-bg w3-theme-txt w3-input w3-animate-input wid50" type="email"
-			name="email" />
-		<label>I'm changing my: </label>
-		<br />
-		<select class='w3-theme-bg w3-theme-txt w3-round w3-input' name='email_type'>
-			<option>Recovery email</option>
-			<option>Prayer email</option>
-		</select>
-		<input class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" id=submit type="submit" name="submit"
-			value="Change Email">
-	</form>
-	<h3>Delete Account</h3>
-	<p>Warning: This action is irreversible. Click this button will result in ALL OF YOUR DATA, including username,
-		password, writer documents, todos and emails being deleted. They will be printed by a dot matrix printer and
-		shredded. The shredded paper will be flown over the Bermuda Triangle and dropped. Any paper floating on the
-		surface will then be launched into space, and dropped into a black hole. To make sure your data is completely
-		destroyed we'll send Matthew McConaughey in after it to make sure its been destroyed in all 5 dimensions. If at
-		any point, you decide you want you data back, contact your local intellegence agency, cause I don't have it!
-	<form action="/accountdel" method='post'>
-		<p>Password:</p><input class="w3-theme-bg w3-theme-txt w3-input w3-animate-input wid50" type="password"
-			name="confirm_password" />
-		<input class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" type=submit
-			value="Delete my Account" />
-	</form>
-	</form>
+<div class="container-fluid">
+	<div class=col-md-6>
+		<p>This page is still kinda under construction. Here's you can do:</p>
+		<h2 class="my-3">Manage Prayer Groups</h2 class="my-3">
+		<table class='table w3-theme-txt'>
+			{% for group in groups %}
+			<tr>
+				<td>{{group}}</td>
+				<td><a href='/prayer/unsubscribe_logged_in?group={{group}}'
+						class="w3-theme-txt w3-theme-dark-element btn">Unsubscribe</a></td>
+			</tr>
+			{%endfor%}
+			<tr>
+				<form action='/prayer/addgroup' method="POST">
+					<td>
+						<input class="form-control" name="group" style="border:none"
+							placeholder='GROUP CODE' />
+					</td>
+					<td>
+						<input type="submit" class="w3-theme-txt w3-theme-dark-element btn"
+							value="Subscribe" />
+					</td>
+				</form>
+			</tr>
+		</table>
+		<h2 class="my-3">Change Password</h2 class="my-3">
+		<form action="/changepw" method="POST">
+			<p>Old Password:</p><input class="form-control" type="password"
+				name="old_password" />
+			<br />
+			<p>New Password:</p><input class="form-control" type="password"
+				name="new_password" />
+			<br />
+			<p>Confirm New Password:</p><input class="form-control"
+				type="password" name="confirm_new_password" />
+			<br />
+			<input class="w3-theme-txt w3-theme-dark-element btn" id=submit type="submit"
+				name="submit" value="Change Password">
+		</form>
+		<h2 class="my-3">Change Email</h2 class="my-3">
+		<form action='/change_email' method="POST">
+			<label>New Email:</label><input class="form-control"
+				type="email" name="email" />
+			<label>I'm changing my: </label>
+			<br />
+			<select class='form-control' name='email_type'>
+				<option>Recovery email</option>
+				<option>Prayer email</option>
+			</select>
+			<input class="w3-theme-txt w3-theme-dark-element btn" id=submit type="submit"
+				name="submit" value="Change Email">
+		</form>
+		<h2 class="my-3" class="my-3">Delete Account</h2 class="my-3">
+		<p>Warning: This action is irreversible. Click this button will result in ALL OF YOUR DATA, including username,
+			password, writer documents, todos and emails being deleted. They will be printed by a dot matrix printer and
+			shredded. The shredded paper will be flown over the Bermuda Triangle and dropped. Any paper floating on the
+			surface will then be launched into space, and dropped into a black hole. To make sure your data is
+			completely
+			destroyed we'll send Matthew McConaughey in after it to make sure its been destroyed in all 5 dimensions. If
+			at
+			any point, you decide you want you data back, contact your local intellegence agency, cause I don't have it!
+		<form action="/accountdel" method='post'>
+			<p>Password:</p><input class="form-control" type="password"
+				name="confirm_password" />
+			<input class="my-3 w3-theme-txt w3-theme-dark-element btn" type=submit
+				value="Delete my Account" />
+		</form>
+		</form>
+	</div>
 </div>
 {% else %}
 <p>Please <a href="/login">sign in</a> first.</p>
