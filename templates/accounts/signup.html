@@ -7,61 +7,55 @@ Welcome to jforseth.tech
 <link rel="stylesheet" href="static/login.css" />
 {% endblock %}
 {% block content %}
-<div class=w3-row>
-  <div class='w3-col m6 l6'>
-    <br />
-    <p>A couple considerations before you sign up.</p>
-    <ol>
-      <li>I am a high school student. This site may stop working, go offline, lose, or leak data at any time. DO
-        NOT
-        put anything important on here. </li>
-      <li>At time of writing, encryption hasn't been fully implemented. Your data can be read by anyone with
-        access to my computer.</li>
-    </ol>
-    <p>Note: If you do not recieve an email, it may be in your spam folder. If you use gmail, you can create a filter
-      for emails from "*@jforseth.tech" and prevent them from being marked as spam. Contact me for more info.</p>
-    <p>In summary, if you're creating this account for anything even remotely important, don't.</p>
-  </div>
-  <div class='w3-col m6 l6'>
-    <br />
-    <form id='signupForm' action="/signup"
-      class='w3-container w3-margin w3-padding w3-card-4 w3-center w3-round w3-theme-element' method="post">
-      <h3 class=w3-center>Sign Up:</h3>
-      <!--<div class="form-group">-->
-      <div class='w3-row'>
-        <div class='w3-col l6 w3-padding'>
-          <p style='text-align:left' id=emailLabel>Recovery Email:</p><input type="email" name=emailInput
-            id="emailInput" class="w3-theme-element w3-theme-txt w3-input w3-animate-input" /><br>
-          <p id=usernameLabel>Username:</p><input name=usernameInput id="usernameInput"
-            class="w3-theme-element w3-theme-txt w3-input w3-animate-input" /><br>
-        </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class='col-md-7'>
+      <br />
+      <h5>I am a high school student. This site may stop working, go offline, delete or leak data at any time. DO NOT
+        use it for anything even remotely important. I don't and I created the thing.</h5>
+      <p>Note: If you do not recieve an email, it may be in your spam folder.</p>
+    </div>
+    <div class='col-md-5'>
+      <br />
+      <form id='signupForm' action="/signup" class='m-2 p-2 card mx-auto text-center w3-theme-element' method="post">
+        <div class="conatiner">
+          <h3>Sign Up:</h3>
+          <!--<div class="form-group">-->
+          <div class='row'>
+            <div class='col-md-6'>
+              <p style='text-align:left' id=emailLabel>Recovery Email:</p><input type="email" name=emailInput
+                id="emailInput" class="w3-theme-element w3-theme-txt form-control" /><br>
+              <p id=usernameLabel>Username:</p><input name=usernameInput id="usernameInput"
+                class="w3-theme-element w3-theme-txt form-control" /><br>
+            </div>
 
-        <div class='w3-col l6 w3-padding'>
-          <p id=passwordLabel>Password:</p><input type=password name=passwordInput id="passwordInput"
-            class="w3-theme-element w3-theme-txt w3-input w3-animate-input" /><br>
-          <p style='text-align:left' id=confirmPasswordLabel>Confirm Password:</p><input type=password
-            name=confirmPasswordInput id="confirmPasswordInput"
-            class="w3-theme-element w3-theme-txt w3-input w3-animate-input" /><br>
+            <div class='col-md-6'>
+              <p id=passwordLabel>Password:</p><input type=password name=passwordInput id="passwordInput"
+                class="w3-theme-element w3-theme-txt form-control" /><br>
+              <p style='text-align:left' id=confirmPasswordLabel>Confirm Password:</p><input type=password
+                name=confirmPasswordInput id="confirmPasswordInput"
+                class="w3-theme-element w3-theme-txt form-control" /><br>
 
+            </div>
+            <div class="my-4 mx-auto col-md-11">
+              <p>Please type (or copy/paste) the following phrase into the box below:<br /> "I solemnly swear that I'm
+                not a robot"</p>
+              <input name=captchaInput id="captchaInput"
+                class="w3-theme-element w3-theme-txt form-control" />
+            </div>
+            <div class="my-4 mx-auto col-md-11">
+            <input type=checkbox name=prayerInput id="prayerInput" class="w3-check" /><label class="ml-2"
+              id=prayerLabel>I want to
+              recieve prayer requests.</label><br>
+            <p style='text-align:left' id=parishLabel>Group Code:</p><input name=parishInput id="parishInput"
+              class="w3-theme-element w3-theme-txt form-control" placeholder="Leave blank if you don't know" /><br>
+            <button onclick='submit()' class="btn w-50 text-light w3-theme-dark-element">Create Account</button>
+            </div>
+          </div>
         </div>
-        <div class="w3-col 16 w3-padding">
-            <p>To combat spam, please type the following phrase below (if you use a screen reader, or have a visual impairment, please contact support to manually authenticate):<br/> "notabot"</p>
-          <input name=captchaInput id="captchaInput"
-                class="w3-theme-element w3-theme-txt w3-input w3-animate-input" /><br>
-        </div>
-      </div>
-      <input type=checkbox name=prayerInput id="prayerInput" class="w3-check" /><label id=prayerLabel>I want to
-        recieve prayer requests.</label><br>
-      <p style='text-align:left' id=parishLabel>Group Code:</p><input name=parishInput id="parishInput"
-        class="w3-theme-element w3-theme-txt w3-input w3-animate-input"
-        placeholder="Leave blank if you don't know" /><br>
-      <button onclick='submit()' class="w3-button w3-theme-dark-element w3-round-large">Create Account</button>
-    </form>
-    <!--</div>-->
-    </form>
-    <div class=w3-quarter>
-      <p> </p>
+      </form>
     </div>
   </div>
-  <script src="static/signup.js"></script>
-  {% endblock %}
+</div>
+<script src="static/signup.js"></script>
+{% endblock %}
