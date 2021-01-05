@@ -21,19 +21,20 @@ Login
     <div class="form-group mx-auto text-center col-lg-6 col-md-8 col-sm-10 card p-3 w3-theme-element">
       <form action="{{ url_for('simplelogin.login') }}" method="post">
         <h3>Sign In:</h3>
-        <p class=w3-center>Please use a unique username and password. Security isn't my strong suit.</p>
-
-        {{ form.csrf_token }}
-        <p id=usernameLabel>Username:</p>
-        <div>{{ form.username }}</div>
-        <br />
-        <p id=passwordLabel>Password:</p>
-        <div> {{ form.password }}</div>
-        {% if next %}<input type="hidden" name="next" value="{{next}}">{% endif %}
-        <br />
-        <a href="/forgot_pw">Forgot Password?</a>
-        <br /><br/>
-        <input class="btn w-50 text-light w3-theme-dark-element" type="submit" value="Login">
+        <p>Please use a unique username and password. Security isn't my strong suit.</p>
+        <div class="form-group">
+          {{ form.csrf_token }}
+          <p id=usernameLabel>Username:</p>
+          <div>{{ form.username }}</div>
+          <br />
+          <p id=passwordLabel>Password:</p>
+          <div> {{ form.password }}</div>
+          {% if next %}<input type="hidden" name="next" value="{{next}}">{% endif %}
+          <br />
+          <a href="/forgot_pw">Forgot Password?</a>
+          <br /><br />
+          <input class="btn w-50 text-light w3-theme-dark-element" type="submit" value="Login">
+        </div>
       </form>
     </div>
   </div>
