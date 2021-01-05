@@ -95,31 +95,30 @@
     {% endwith %}
     {% block headingimage %}{% endblock %}
     <div class=container-fluid>
-        <h1 class="my-3 d-inline-block">{% block heading%}{% endblock %}</h1>
-        <div class="d-inline-block my-3 float-right dropdown">
-            <button class="btn w3-theme-element text-light dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown" aria-expanded="false">
-                {% if is_logged_in()%}
-                Hello, {{ get_username() }}
-                {% else %}
-                Account
-                {% endif %}
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {% if is_logged_in()%}
-                <li><a class="dropdown-item" href="/account/{{ get_username() }}">Account</a></li>
-                <li><a class="dropdown-item" href="/logout">Log Out</a></li>
+        <div class="row">
+            <h1 class="col-sm-9 col-md-10 my-3 d-inline-block">{% block heading%}{% endblock %}</h1>
+            <div class="col-sm-3 col-md-2 d-inline-block my-3 float-right dropdown">
+                <button class="btn w-100 w3-theme-element text-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-expanded="false">
+                    {% if is_logged_in()%}
+                    Hello, {{ get_username() }}
+                    {% else %}
+                    Account
+                    {% endif %}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% if is_logged_in()%}
+                    <li><a class="dropdown-item" href="/account/{{ get_username() }}">Account</a></li>
+                    <li><a class="dropdown-item" href="/logout">Log Out</a></li>
 
-                {% else %}
+                    {% else %}
 
-                <li><a class="dropdown-item" href="/login">Log In</a></li>
-                <li><a class="dropdown-item" href="/signup">Create Account</a></li>
+                    <li><a class="dropdown-item" href="/login">Log In</a></li>
+                    <li><a class="dropdown-item" href="/signup">Create Account</a></li>
 
-                {% endif %}
-            </ul>
-
-
-
+                    {% endif %}
+                </ul>
+            </div>
         </div>
     </div>
     <!--Don't forget to update menu.html!-->
@@ -234,9 +233,15 @@
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
     <script src="/static/base.js"></script>
     <script src="https://use.fontawesome.com/1d70eca085.js"></script>
 </body>
