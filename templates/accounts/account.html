@@ -11,12 +11,12 @@
 	<div class=col-md-6>
 		<p>This page is still kinda under construction. Here's you can do:</p>
 		<h2 class="my-3">Manage Prayer Groups</h2 class="my-3">
-		<table class='table w3-theme-txt'>
+		<table class='table theme-txt'>
 			{% for group in groups %}
 			<tr>
 				<td>{{group}}</td>
 				<td><a href='/prayer/unsubscribe_logged_in?group={{group}}'
-						class="w3-theme-txt w3-theme-dark-element btn">Unsubscribe</a></td>
+						class="theme-txt theme-dark-element btn">Unsubscribe</a></td>
 			</tr>
 			{%endfor%}
 			<tr>
@@ -26,7 +26,7 @@
 							placeholder='GROUP CODE' />
 					</td>
 					<td>
-						<input type="submit" class="w3-theme-txt w3-theme-dark-element btn"
+						<input type="submit" class="theme-txt theme-dark-element btn"
 							value="Subscribe" />
 					</td>
 				</form>
@@ -43,7 +43,7 @@
 			<p>Confirm New Password:</p><input class="form-control"
 				type="password" name="confirm_new_password" />
 			<br />
-			<input class="w3-theme-txt w3-theme-dark-element btn" id=submit type="submit"
+			<input class="theme-txt theme-dark-element btn" id=submit type="submit"
 				name="submit" value="Change Password">
 		</form>
 		<h2 class="my-3">Change Email</h2 class="my-3">
@@ -56,7 +56,7 @@
 				<option>Recovery email</option>
 				<option>Prayer email</option>
 			</select>
-			<input class="w3-theme-txt w3-theme-dark-element btn" id=submit type="submit"
+			<input class="theme-txt theme-dark-element btn" id=submit type="submit"
 				name="submit" value="Change Email">
 		</form>
 		<h2 class="my-3" class="my-3">Delete Account</h2 class="my-3">
@@ -71,7 +71,7 @@
 		<form action="/accountdel" method='post'>
 			<p>Password:</p><input class="form-control" type="password"
 				name="confirm_password" />
-			<input class="my-3 w3-theme-txt w3-theme-dark-element btn" type=submit
+			<input class="my-3 theme-txt theme-dark-element btn" type=submit
 				value="Delete my Account" />
 		</form>
 		</form>

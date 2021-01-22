@@ -11,11 +11,11 @@ Prayer Requests
 <div class="container-fluid">
     <div class=row>
         <div class=col-5>
-            <form id='form1' class="card p-4 w3-theme-element" action="/prayer/prayerrequest" method="POST">
+            <form id='form1' class="card p-4 theme-element" action="/prayer/prayerrequest" method="POST">
                 <h2><i class='fas fa-paper-plane' style='font-size:18px'></i> Request Prayer:</h2>
-                <input class='form-control w3-half w3-theme-element w3-theme-txt' type='name' name='name'
+                <input class='form-control theme-element theme-txt' type='name' name='name'
                     placeholder='Nickname' required />
-                <select class=' form-control w3-half w3-theme-element w3-theme-txt' form='form1' name='parish'
+                <select class=' form-control theme-element theme-txt' form='form1' name='parish'
                     required>
                     <option disabled selected>Select</option>
                     {% for option in options %}
@@ -31,32 +31,22 @@ Prayer Requests
             <option>LL Small Group 3</option>-->
                 </select>
                 <br />
-                <textarea id='prequest' class='form-control w3-theme-element w3-theme-txt w3-round w3-input'
+                <textarea id='prequest' class='form-control theme-element theme-txt'
                     form='form1' name='prequest' placeholder="Type your prayer request here" required></textarea>
                 <br />
                 <br />
-                <input class='btn w3-theme-txt w3-theme-dark-element' type="submit" value="Submit" />
+                <input class='btn theme-txt theme-dark-element' type="submit" value="Submit" />
             </form>
             <br /><br />
-            <!--<form class="w3-container w3-theme-element w3-card-4 w3-padding" id='form2' action="prayer/newemail"
-            method="POST">
-            <h2><i class='fas fa-inbox' style='font-size:18px'></i> Recieve Prayer Requests:</h2>
-            <input class='w3-half w3-theme-element w3-theme-txt w3-input' id='email' autocomplete='off' type="email"
-                name="email" placeholder='someone@example.com' required />
-            <input class='w3-half w3-theme-element w3-theme-txt w3-input' name='parish' placeholder='PARISH'>
-            <br />
-            <br />
-            <input class='w3-theme-dark-element w3-button w3-round' type="submit" value="Submit" />
-        </form>-->
-            <div class="card p-4 w3-theme-element">
+            <div class="card p-4 theme-element">
                 <h2><i class='fas fa-inbox' style='font-size:18px'></i> Recieve Prayer Requests:</h2>
                 <p>To recieve prayer requests, <a href="/signup">create a jforseth.tech account </a> and check the "I
                     want
                     to recieve prayer requests" box.</p>
             </div>
         </div>
-        <div class='col-7 w3-padding-64 w3-center w3-cell'>
-            <div class='col-md-10 p-4 mx-auto w3-right w3-cell-middle' id="quote"></div>
+        <div class='col-7'>
+            <div class='col-md-10 p-4 mx-auto' id="quote"></div>
         </div>
     </div>
 </div>

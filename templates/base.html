@@ -72,8 +72,8 @@
     <!--End Google fonts-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {% block head %}{% endblock %}
-    <link rel='stylesheet' href='/static/w3theme.css' type='text/css' />
-    <link rel='stylesheet' href='/static/w3index.css' type='text/css' />
+    <link rel='stylesheet' href='/static/theme.css' type='text/css' />
+    <link rel='stylesheet' href='/static/index.css' type='text/css' />
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 
 
@@ -81,7 +81,7 @@
 
 </head>
 
-<body class="w3-theme-bg w3-theme-txt">
+<body class="theme-bg theme-txt">
     <!--Alerts from https://www.w3schools.com/howto/howto_js_alert.asp-->
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
@@ -98,7 +98,7 @@
         <div class="row">
             <h1 class="col-sm-9 col-md-10 my-3 d-inline-block">{% block heading%}{% endblock %}</h1>
             <div class="col-sm-3 col-md-2 d-inline-block my-3 float-right dropdown">
-                <button class="btn w-100 w3-theme-element text-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                <button class="btn w-100 theme-element text-light dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-expanded="false">
                     {% if is_logged_in()%}
                     Hello, {{ get_username() }}
@@ -123,13 +123,13 @@
     </div>
     <!--Don't forget to update menu.html!-->
 
-    <nav class='navbar navbar-dark navbar-expand-lg w3-theme-element'>
+    <nav class='navbar navbar-dark navbar-expand-lg theme-element'>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+            <ul class="navbar-nav mr-auto text-center text-nowrap">
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
@@ -196,7 +196,7 @@
 
     <div id="chatModal" class="fade modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div style="height:85vh" class="modal-content w3-theme-bg">
+            <div style="height:85vh" class="modal-content theme-bg">
                 <div class="modal-body">
                     <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

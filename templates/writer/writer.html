@@ -12,9 +12,9 @@ Writer
     <div class="row">
         {% for i in docs %}
         <div class="d-flex col-md-4">
-            <div class="d-flex card zoom m-2 p-4 w3-theme-element">
+            <div class="d-flex card zoom m-2 p-4 theme-element">
                 <a href='/writer/{{i}}'>
-                    <h3 style="word-wrap: break-word;" class="d-flex w3-theme-txt">{{i}}</h3>
+                    <h3 style="word-wrap: break-word;" class="d-flex theme-txt">{{i}}</h3>
                     <br />
                     <img class='d-flex align-self-end wid100' src="writer/thumb/{{i}}" />
                 </a>
@@ -30,7 +30,7 @@ Writer
 <div id="writerCreateModal" class="fade modal" role="dialog">
     <!-- Modal content -->
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content w3-theme-bg">
+        <div class="modal-content theme-bg">
             <div class="modal-header">
                 <h4>Create a new document:</h4>
                 <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
@@ -38,8 +38,8 @@ Writer
                 </button>
             </div>
             <div class="modal-body">
-                <input placeholder="Untitled Document" id="newdocinput" class="d-inline w-75 w3-theme-txt form-control">
-                <button id="newbutton" class="btn w3-theme-element w3-theme-txt" onclick=create()>Create</button>
+                <input placeholder="Untitled Document" id="newdocinput" class="d-inline w-75 theme-txt form-control">
+                <button id="newbutton" class="btn theme-element theme-txt" onclick=create()>Create</button>
             </div>
         </div>
     </div>

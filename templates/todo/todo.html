@@ -25,7 +25,7 @@
 <div class="container-fluid" id='answered'>
     <div class="row">
         <div class="col-md-8" id="tasks">
-            <select class="btn text-light mx-auto text-center w3-theme-dark-element" onchange="chooselist()"
+            <select class="btn text-light mx-auto text-center theme-dark-element" onchange="chooselist()"
                 id=listdropdown class="inputs dropdown">
                 <option selected>All</option>
                 {% for i in lists %}
@@ -33,10 +33,9 @@
                 {%endfor%}
             </select>
             <form id='form1' action="todo/submitted" method="POST">
-                <input style="display:inline" class="w-25 form-control w3-theme-bg w3-theme-txt" type='name' name='taskname' id='name'
-                    placeholder='Task' required autofocus />
-                    <input class="text-light mx-auto btn w3-round-large w3-button w3-theme-dark-element" type='submit'
-                        value='Add' />
+                <input style="display:inline" class="w-25 form-control theme-bg theme-txt" type='name' name='taskname'
+                    id='name' placeholder='Task' required autofocus />
+                <input class="text-light mx-auto btn theme-dark-element" type='submit' value='Add' />
                 <input id=newTaskCurrentList type=text name='list' hidden />
             </form>
             <br />
@@ -46,28 +45,26 @@
         </div>
 
         <div class="col-md-4 mx-auto">
-            <div class=w3-quarter>
-                <form class=deleteform id=deleteform action="todo/delete" method='POST'>
-                    <p>Task to delete:</p>
-                    <input style="display:inline" class="w-25 w3-theme-bg w3-theme-txt form-control" type='number' id='deletetaskid'
-                        name='taskid' />
-                    <input class="btn w3-theme-txt w3-theme-dark-element" type='submit' value='Delete' />
-                </form>
-                <br /><br /><br />
-                <form action="todo/reorder" method="POST">
-                    <p>Task to move:</p>
-                    <br />
-                    <input class="w-25 w3-theme-bg w3-theme-txt form-control" type='number' name='taskid'
-                        id='taskid' />
-                    <br />
-                    <br />
-                    <p>Position to move task:</p>
-                    <input class="w-25 w3-theme-bg w3-theme-txt form-control" type='number' name='taskloc'
-                        id='taskid' />
-                    <br /><br />
-                    <input class="btn w3-theme-txt w3-theme-dark-element" type='submit' value='Move' />
-                </form>
-            </div>
+
+            <form class=deleteform id=deleteform action="todo/delete" method='POST'>
+                <p>Task to delete:</p>
+                <input style="display:inline" class="w-25 theme-bg theme-txt form-control" type='number'
+                    id='deletetaskid' name='taskid' />
+                <input class="btn theme-txt theme-dark-element" type='submit' value='Delete' />
+            </form>
+            <br /><br /><br />
+            <form action="todo/reorder" method="POST">
+                <p>Task to move:</p>
+                <br />
+                <input class="w-25 theme-bg theme-txt form-control" type='number' name='taskid' id='taskid' />
+                <br />
+                <br />
+                <p>Position to move task:</p>
+                <input class="w-25 theme-bg theme-txt form-control" type='number' name='taskloc' id='taskid' />
+                <br /><br />
+                <input class="btn theme-txt theme-dark-element" type='submit' value='Move' />
+            </form>
+
         </div>
     </div>
 </div>

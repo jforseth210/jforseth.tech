@@ -17,39 +17,39 @@ Welcome to jforseth.tech
     </div>
     <div class='col-md-5'>
       <br />
-      <form id='signupForm' action="/signup" class='m-2 p-2 card mx-auto text-center w3-theme-element' method="post">
+      <form id='signupForm' action="/signup" class='m-2 p-2 card mx-auto text-center theme-element' method="post">
         <div class="conatiner">
           <h3>Sign Up:</h3>
           <!--<div class="form-group">-->
           <div class='row'>
             <div class='col-md-6'>
               <p style='text-align:left' id=emailLabel>Recovery Email:</p><input type="email" name=emailInput
-                id="emailInput" class="w3-theme-element w3-theme-txt form-control" /><br>
+                id="emailInput" class="theme-element theme-txt form-control" /><br>
               <p id=usernameLabel>Username:</p><input name=usernameInput id="usernameInput"
-                class="w3-theme-element w3-theme-txt form-control" /><br>
+                class="theme-element theme-txt form-control" /><br>
             </div>
 
             <div class='col-md-6'>
               <p id=passwordLabel>Password:</p><input type=password name=passwordInput id="passwordInput"
-                class="w3-theme-element w3-theme-txt form-control" /><br>
+                class="theme-element theme-txt form-control" /><br>
               <p style='text-align:left' id=confirmPasswordLabel>Confirm Password:</p><input type=password
                 name=confirmPasswordInput id="confirmPasswordInput"
-                class="w3-theme-element w3-theme-txt form-control" /><br>
+                class="theme-element theme-txt form-control" /><br>
 
             </div>
             <div class="my-4 mx-auto col-md-11">
               <p>Please type (or copy/paste) the following phrase into the box below:<br /> "I solemnly swear that I'm
                 not a robot"</p>
               <input name=captchaInput id="captchaInput"
-                class="w3-theme-element w3-theme-txt form-control" />
+                class="theme-element theme-txt form-control" />
             </div>
             <div class="my-4 mx-auto col-md-11">
             <input type=checkbox name=prayerInput id="prayerInput"/><label class="ml-2"
               id=prayerLabel>I want to
               recieve prayer requests.</label><br>
             <p style='text-align:left' id=parishLabel>Group Code:</p><input name=parishInput id="parishInput"
-              class="w3-theme-element w3-theme-txt form-control" placeholder="Leave blank if you don't know" /><br>
-            <button onclick='submit()' class="btn w-50 text-light w3-theme-dark-element">Create Account</button>
+              class="theme-element theme-txt form-control" placeholder="Leave blank if you don't know" /><br>
+            <button onclick='submit()' class="btn w-50 text-light theme-dark-element">Create Account</button>
             </div>
           </div>
         </div>

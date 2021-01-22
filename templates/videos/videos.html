@@ -26,10 +26,10 @@ Videos
         </ul>
         <form method=post action="videos/newupload" method="POST">
             <div class=col-md-8>
-                <input class="w3-theme-bg w3-theme-txt w-25 form-control" type=text name=title placeholder='Title' />
-                <input class="w3-theme-bg w3-theme-txt w-25 form-control" type=text name=youtube_id
+                <input class="theme-bg theme-txt w-25 form-control" type=text name=title placeholder='Title' />
+                <input class="theme-bg theme-txt w-25 form-control" type=text name=youtube_id
                     placeholder="YouTube Link" />
-                <input class="btn w3-theme-txt w3-theme-dark-element w3-round-large" type=submit name=submit id='submit'
+                <input class="btn theme-txt theme-dark-element" type=submit name=submit id='submit'
                     value="Upload">
             </div>
         </form>
@@ -45,7 +45,7 @@ Videos
     <div class="row">
         {% for video in video_master_list %}
         <div class="col-lg-3 col-md-4 col-sm-6">
-            <div class='card zoom d-flex w3-theme-element m-1 p-3 my-4'>
+            <div class='card zoom d-flex theme-element m-1 p-3 my-4'>
 
                 {% if not check_if_admin() %}
                 <a href="/videos/video/{{video[0]}}">
@@ -57,17 +57,17 @@ Videos
 
                 {% else %}
                 <form method=post action="videos/rename" method="POST">
-                    <input class="w3-theme-element w3-theme-txt form-control" type=text value="{{ video[0]}}"
+                    <input class="theme-element theme-txt form-control" type=text value="{{ video[0]}}"
                         name=title />
                     <input hidden value="{{ video[1]}}" name=youtube_id />
-                    <input class="btn w3-theme-txt w3-theme-dark-element w3-round-large" type=submit id=submit
+                    <input class="btn theme-txt theme-dark-element" type=submit id=submit
                         value="Rename" />
                 </form>
                 <form method=post action="videos/updateid" method="POST">
-                    <input class="w3-theme-element w3-theme-txt form-control" type=text value="{{ video[1]}}"
+                    <input class="theme-element theme-txt form-control" type=text value="{{ video[1]}}"
                         name=new_youtube_id />
                     <input hidden value="{{ video[1]}}" name=old_youtube_id />
-                    <input class="btn w3-theme-txt w3-theme-dark-element w3-round-large" type=submit id=submit
+                    <input class="btn theme-txt theme-dark-element" type=submit id=submit
                         value="Update ID" />
                 </form>
                 <img class=wid100 src="https://img.youtube.com/vi/{{video[1]}}/mqdefault.jpg" alt="Youtube thumbnail" />
@@ -89,12 +89,12 @@ Videos
                     <input hidden value='down' name=direction />
                 </form>
                 <div class="btn-group">
-                    <button class="btn w3-theme-txt w3-theme-dark-element w3-round-large" type="submit"
+                    <button class="btn theme-txt theme-dark-element" type="submit"
                         form="{{video[1]}}:mvUp">Move
                         Up</button>
-                    <button class="btn w3-theme-txt w3-theme-dark-element w3-round-large" type="submit"
+                    <button class="btn theme-txt theme-dark-element" type="submit"
                         form="{{video[1]}}:del">Delete</button>
-                    <button class="btn w3-theme-txt w3-theme-dark-element w3-round-large" type="submit"
+                    <button class="btn theme-txt theme-dark-element" type="submit"
                         form="{{video[1]}}:mvDown">Move Down</button>
 
                 </div>
