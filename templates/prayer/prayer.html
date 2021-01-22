@@ -13,9 +13,9 @@ Prayer Requests
         <div class=col-5>
             <form id='form1' class="card p-4 w3-theme-element" action="/prayer/prayerrequest" method="POST">
                 <h2><i class='fas fa-paper-plane' style='font-size:18px'></i> Request Prayer:</h2>
-                <input class='form-control w3-half w3-theme-element w3-theme-txt w3-input' type='name' name='name'
+                <input class='form-control w3-half w3-theme-element w3-theme-txt' type='name' name='name'
                     placeholder='Nickname' required />
-                <select class=' form-control w3-half w3-theme-element w3-theme-txt w3-input' form='form1' name='parish'
+                <select class=' form-control w3-half w3-theme-element w3-theme-txt' form='form1' name='parish'
                     required>
                     <option disabled selected>Select</option>
                     {% for option in options %}
