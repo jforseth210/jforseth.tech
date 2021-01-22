@@ -13,7 +13,7 @@ Videos
 </div>
 <div class="container-fluid">
     {% if check_if_admin() %}
-    <div class="row">
+    <div class="container-fluid">
         <p>Welcome to the jforseth.tech video admin console. If you don't know how you got here, DO NOT TOUCH ANYTHING!
             <a href="/logout">Click here</a> to reset.</p>
         <p>If you know how you got here:</p>
@@ -25,11 +25,11 @@ Videos
             <li>To move the video use the 'Move Up' and 'Move Down' buttons.</li>
         </ul>
         <form method=post action="videos/newupload" method="POST">
-            <div class=w3-twothird>
-                <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type=text name=title placeholder='Title' />
-                <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type=text name=youtube_id
+            <div class=col-md-8>
+                <input class="w3-theme-bg w3-theme-txt w-25 form-control" type=text name=title placeholder='Title' />
+                <input class="w3-theme-bg w3-theme-txt w-25 form-control" type=text name=youtube_id
                     placeholder="YouTube Link" />
-                <input class="w3-button w3-theme-dark-element w3-round-large" type=submit name=submit id='submit'
+                <input class="btn w3-theme-txt w3-theme-dark-element w3-round-large" type=submit name=submit id='submit'
                     value="Upload">
             </div>
         </form>
@@ -57,17 +57,17 @@ Videos
 
                 {% else %}
                 <form method=post action="videos/rename" method="POST">
-                    <input class="w3-theme-element w3-theme-txt w3-input w3-twothird" type=text value="{{ video[0]}}"
+                    <input class="w3-theme-element w3-theme-txt form-control" type=text value="{{ video[0]}}"
                         name=title />
                     <input hidden value="{{ video[1]}}" name=youtube_id />
-                    <input class="w3-button w3-theme-dark-element w3-round-large" type=submit id=submit
+                    <input class="btn w3-theme-txt w3-theme-dark-element w3-round-large" type=submit id=submit
                         value="Rename" />
                 </form>
                 <form method=post action="videos/updateid" method="POST">
-                    <input class="w3-theme-element w3-theme-txt w3-input w3-twothird" type=text value="{{ video[1]}}"
+                    <input class="w3-theme-element w3-theme-txt form-control" type=text value="{{ video[1]}}"
                         name=new_youtube_id />
                     <input hidden value="{{ video[1]}}" name=old_youtube_id />
-                    <input class="w3-button w3-theme-dark-element w3-round-large" type=submit id=submit
+                    <input class="btn w3-theme-txt w3-theme-dark-element w3-round-large" type=submit id=submit
                         value="Update ID" />
                 </form>
                 <img class=wid100 src="https://img.youtube.com/vi/{{video[1]}}/mqdefault.jpg" alt="Youtube thumbnail" />
@@ -88,13 +88,13 @@ Videos
                     <input hidden value='{{ video[0] }}|{{ video[1]}}' name='element' />
                     <input hidden value='down' name=direction />
                 </form>
-                <div class="w3-bar">
-                    <button class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" type="submit"
+                <div class="btn-group">
+                    <button class="btn w3-theme-txt w3-theme-dark-element w3-round-large" type="submit"
                         form="{{video[1]}}:mvUp">Move
                         Up</button>
-                    <button class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" type="submit"
+                    <button class="btn w3-theme-txt w3-theme-dark-element w3-round-large" type="submit"
                         form="{{video[1]}}:del">Delete</button>
-                    <button class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" type="submit"
+                    <button class="btn w3-theme-txt w3-theme-dark-element w3-round-large" type="submit"
                         form="{{video[1]}}:mvDown">Move Down</button>
 
                 </div>
