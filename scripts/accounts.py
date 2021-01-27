@@ -205,13 +205,14 @@ def forgot_pw():
         with open("text/password_reset_email_template.html") as file:
             message = file.read()
         message = message.format(token=token)
-        send_email(
-            email,
-            "jforseth.tech password reset",
-            message,
-            PROJECT_EMAIL,
-            PROJECT_PASSWORD,
-        )
+        if get_account(username)["recovery_email"] == email:
+            send_email(
+                email,
+                "jforseth.tech password reset",
+                message,
+                PROJECT_EMAIL,
+                PROJECT_PASSWORD,
+            )
         flash(
             "If that email/username combination exists, an email with reset instructions will be sent.",
             category="success",
