@@ -42,9 +42,9 @@ class VideoTestCase(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        restore("videos.txt")
+        restore("text/videos.txt")
         restore("database.db")
-        restore("userdata/")
+        restoretree("userdata/")
 
     def test_videos_logged_out(self):
         tester = app.test_client()
@@ -73,7 +73,7 @@ class VideoTestCase(unittest.TestCase):
             videos = [video.split("|")[0] for video in videos]
             for video in videos:
                 self.assertTrue(video, str(response.data))
-            print(BeautifulSoup(response.data,'html.parser').prettify())
+            #print(BeautifulSoup(response.data,'html.parser').prettify())
             self.assertTrue(b"YouTube Link" in response.data)
 
     def test_upload_video(self):

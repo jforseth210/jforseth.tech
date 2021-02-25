@@ -31,7 +31,7 @@ def clear_messages():
         cur.execute("DELETE FROM messages")
         if sys.version_info[0] == 3:
             cur.execute("END TRANSACTION")
-        cur.execute("VACUUM")
+        #cur.execute("VACUUM")
 
 
 @messenger.route("/messenger")

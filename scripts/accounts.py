@@ -37,8 +37,10 @@ def signup():
         captcha = captcha.replace("\"","")
         captcha = captcha.replace(" ","")
         captcha = captcha.lower()
-        if captcha != "notabot":
-            return "Your signup triggered our spam detection system. Please try again."
+        print(captcha)
+        if captcha != "isolemnlyswearthati&#39;mnotarobot":
+            flash("Your signup triggered our spam detection system. Please try again.", category="alert")
+            return redirect("/signup")
 
         if not prayerBool:
             prayer_groups = "None"

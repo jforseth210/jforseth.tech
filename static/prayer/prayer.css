@@ -46,9 +46,9 @@ textarea {
 }
 
 /*The submit buttons*/
-#submit {
+/*#submit {
 	border-radius: 20px;
 	border: 1px solid var(--main-txt-color);
 	background: var(--main-element-color);
 	color: var(--main-txt-color);
-}
+}*/

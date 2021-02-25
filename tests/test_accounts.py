@@ -88,10 +88,17 @@ class AccountsTestCase(unittest.TestCase):
         backup("database.db")
         backuptree("userdata/")
 
+    @classmethod
+    def setUpClass(cls):
+        app.config["TESTING"] = True
 
     def tearDown(self):
         restore("database.db")
         restoretree("userdata/")
+
+    @classmethod
+    def tearDownClass(cls):
+        pass
 
 
     def test_login_page(self):

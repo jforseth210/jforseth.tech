@@ -6,24 +6,25 @@
 File Sharing
 {% endblock %}
 {% block content %}
-<p>I wanted a simple way to share files, so I added this to my site.</p>
-<p>Disclaimer: I make no guarantee of privacy, security, or functionality for this tool. If you upload a file, you grant
-  me the rights to store, use, or delete it in any way I see fit with no warning or prior notice whatsoever.</p>
-<p>On a more cheerful note, if you want support for a filetype that isn't available, email me at: <a
-    href="mailto:support@jforseth.tech">support@jforseth.tech</a></p>
-<p>Also, there's probably a size limit. I'm not sure what it is though.</p>
-<form method=post enctype=multipart/form-data> <label id=FileUploadLabel for=FileUpload1
-    class="w3-theme-bg w3-theme-txt w3-input w3-third">Upload a
-    file</label>
-  <input class="w3-hide-small w3-hide-medium w3-hide-large" id=FileUpload1 onchange=getUploadTitle() type=file
-    name=file>
-  <input class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" type=submit id='submit' value=Upload>
-</form>
-<p>Uploaded files (Available until midnight tonight): </p>
-<ul>
-  {% for file in files %}
-  <li><a href="/filesharing/{{file}}">{{file}}</a></li>
-  {% endfor %}
-</ul>
-<script src=static/file_sharing/file_sharing.js></script>
+<div class="container-fluid">
+    <form method=post enctype=multipart/form-data>
+        <div class="custom-file">
+            <label id=FileUploadLabel for=FileUpload1
+                class="m-2 custom-file-label theme-bg theme-txt form-control w-50">Upload a
+                file</label>
+            <input class="custom-file-input theme-txt" id=FileUpload1 onchange=getUploadTitle() type=file name=file>
+        </div>
+        <input class="btn m-2 my-3 theme-element theme-txt" type=submit id='submit' value=Upload>
+    </form>
+    <p>You probably shouldn't use this. All files uploaded are publicly visible. There's probably some sort of size
+        limit. I can make no guarantee of privacy, security, speed, or even basic functionality. Use at your own risk.
+    </p>
+    <h5>Uploaded files (Available until midnight tonight): </h5>
+    <ul>
+        {% for file in files %}
+        <li><a href="/filesharing/{{file}}">{{file}}</a></li>
+        {% endfor %}
+    </ul>
+    <script src=static/file_sharing/file_sharing.js></script>
+</div>
 {% endblock %}

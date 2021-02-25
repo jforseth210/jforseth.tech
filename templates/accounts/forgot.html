@@ -8,19 +8,21 @@ Forgot Password
 {% endblock %}
 {% block content %}
 <br /><br />
-<p>Did you get locked out of your account? Don't worry, we'll have you back up and running in no time!</p>
-<div class=w3-row>
-  <div class=w3-quarter>
-    <p> </p>
-  </div>
-  <form action="/forgot_pw" class='w3-container w3-half w3-card-4 w3-center w3-round w3-theme-element' method="post">
-    <h3 class=w3-center>Forgot Password:</h3>
-    <div class=form-group>
-      <p style='text-align:left' id=emailLabel>Recovery Email:</p><input type="email" name=emailInput id="emailInput"
-        class="w3-theme-element w3-theme-txt w3-input w3-animate-input" /><br>
-      <p id=usernameLabel>Username:</p><input name=usernameInput id="usernameInput"
-        class="w3-theme-element w3-theme-txt w3-input w3-animate-input" /><br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="form-group mx-auto text-center col-lg-7 col-md-8 col-sm-10 card p-3 theme-element">
+      <form action="/forgot_pw" method="post">
+        <h3>Forgot Password:</h3>
+        <p>Did you get locked out of your account? Don't worry, we'll have you back up and running in no time!</p>
+        <div class=form-group>
+          <p style='text-align:left' id=emailLabel>Recovery Email:</p>
+          <input type="email" name=emailInput id="emailInput" class="theme-element theme-txt form-control" /><br>
+          <p id=usernameLabel>Username:</p>
+          <input name=usernameInput id="usernameInput" class="theme-element theme-txt form-control" /><br>
+        </div>
+        <input class="btn w-50 text-light theme-dark-element" type="submit" value="Reset Password">
+      </form>
     </div>
-    <input class="w3-button w3-theme-dark-element w3-round-large" type="submit" value="Reset Password">
-  </form>
-  {% endblock %}
+  </div>
+</div>
+{% endblock %}

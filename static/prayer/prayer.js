@@ -9,9 +9,9 @@ function main() {
     getQuote();
 }
 function getQuote() {
-    document.getElementById("reloadbtn").classList.toggle("w3-spin")
+    document.getElementById("reloadbtn").classList.toggle("fa-spin")
     setTimeout(() => {
-        document.getElementById("reloadbtn").classList.toggle("w3-spin")
+        document.getElementById("reloadbtn").classList.toggle("fa-spin")
     }, 1000);
     var quotes = [
         {

@@ -8,102 +8,107 @@
 Videos
 {% endblock %}
 {% block content %}
-<br />
-<script src="https://apis.google.com/js/platform.js"></script>
-
-<div class="g-ytsubscribe" data-channelid="UCJm15XU1Uity6plzSyyDDvQ" data-layout="default" data-count="default"></div>
-{% if check_if_admin() %}
-<p>Welcome to the jforseth.tech video admin console. If you don't know how you got here, DO NOT TOUCH ANYTHING! <a
-        href="/logout">Click here</a> to reset.</p>
-<p>If you know how you got here:</p>
-<ul>
-    <li>To add a video, enter the title and YouTube link and click 'Upload'.</li>
-    <li>To rename a video, type the new title and click 'Rename'.</li>
-    <li>To replace the youtube video, just paste in the new url and click 'Update ID'</li>
-    <li>To delete the video, click 'Delete'</li>
-    <li>To move the video use the 'Move Up' and 'Move Down' buttons.</li>
-</ul>
-<form method=post action="videos/newupload" method="POST">
-    <div class=w3-twothird>
-        <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type=text name=title placeholder='Title' />
-        <input class="w3-theme-bg w3-theme-txt w3-input w3-quarter" type=text name=youtube_id
-            placeholder="YouTube Link" />
-        <input class="w3-button w3-theme-dark-element w3-round-large" type=submit name=submit id='submit'
-            value="Upload">
-    </div>
-</form>
-<br /><br />
-{% else %}
-<p>These are all of my video editing projects. To watch, you can either click on the thumbnail for a preview, or the
-    title to be redirected to YouTube. I would serve them myself, instead of using YouTube, but my computer and my
-    internet connection just aren't up to that. Enjoy!</p>
-{% endif %}
-{% for row in video_master_list %}
-<div class="w3-row w3-cell-row">
-    {% for video in row %}
-    <div class="w3-third">
-        <div class='w3-card w3-theme-element w3-center w3-margin w3-padding'>
-
-            {% if not check_if_admin() %}
-            <a href="/videos/video/{{video[0]}}">
-                <h3>{{ video[0]}}</h3>
-                <img src="https://img.youtube.com/vi/{{video[1]}}/mqdefault.jpg" style="width: 100%;" alt="Youtube thumbnail"/>
-            </a>
-
-
-            {% else %}
-            <form method=post action="videos/rename" method="POST">
-                <input class="w3-theme-element w3-theme-txt w3-input w3-twothird" type=text value="{{ video[0]}}"
-                    name=title />
-                <input hidden value="{{ video[1]}}" name=youtube_id />
-                <input class="w3-button w3-theme-dark-element w3-round-large" type=submit id=submit value="Rename" />
-            </form>
-            <form method=post action="videos/updateid" method="POST">
-                <input class="w3-theme-element w3-theme-txt w3-input w3-twothird" type=text value="{{ video[1]}}"
-                    name=new_youtube_id />
-                <input hidden value="{{ video[1]}}" name=old_youtube_id />
-                <input class="w3-button w3-theme-dark-element w3-round-large" type=submit id=submit value="Update ID" />
-            </form>
-            <img class=wid100 src="https://img.youtube.com/vi/{{video[1]}}/mqdefault.jpg" alt="Youtube thumbnail"/>
-            {% endif %}
-
-
-            {% if check_if_admin() %}
-            <br />
-            <br />
-            <form id="{{video[1]}}:mvUp" method=post action="videos/move" method="POST">
-                <input hidden value='{{ video[0] }}|{{ video[1]}}' name='element' />
-                <input hidden value='up' name=direction />
-            </form>
-            <form id="{{video[1]}}:del" method=post action="videos/deletion" method="POST">
-                <input hidden value="{{ video[1]}}" name=youtube_id />
-            </form>
-            <form id="{{video[1]}}:mvDown" method=post action="videos/move" method="POST">
-                <input hidden value='{{ video[0] }}|{{ video[1]}}' name='element' />
-                <input hidden value='down' name=direction />
-            </form>
-            <div class="w3-bar">
-                <button class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" type="submit"
-                    form="{{video[1]}}:mvUp">Move
-                    Up</button>
-                <button class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" type="submit"
-                    form="{{video[1]}}:del">Delete</button>
-                <button class="w3-round-large w3-button w3-theme-dark-element w3-bar-item" type="submit"
-                    form="{{video[1]}}:mvDown">Move Down</button>
-
+<script src="https://apfis.google.com/js/platform.js"></script>
+<div class="g-ytsubscribe" data-channelid="UCJm15XU1Uity6plzSyyDDvQ" data-layout="default" data-count="default">
+</div>
+<div class="container-fluid">
+    {% if check_if_admin() %}
+    <div class="container-fluid">
+        <p>Welcome to the jforseth.tech video admin console. If you don't know how you got here, DO NOT TOUCH ANYTHING!
+            <a href="/logout">Click here</a> to reset.</p>
+        <p>If you know how you got here:</p>
+        <ul>
+            <li>To add a video, enter the title and YouTube link and click 'Upload'.</li>
+            <li>To rename a video, type the new title and click 'Rename'.</li>
+            <li>To replace the youtube video, just paste in the new url and click 'Update ID'</li>
+            <li>To delete the video, click 'Delete'</li>
+            <li>To move the video use the 'Move Up' and 'Move Down' buttons.</li>
+        </ul>
+        <form method=post action="videos/newupload" method="POST">
+            <div class=col-md-8>
+                <input class="theme-bg theme-txt w-25 form-control" type=text name=title placeholder='Title' />
+                <input class="theme-bg theme-txt w-25 form-control" type=text name=youtube_id
+                    placeholder="YouTube Link" />
+                <input class="btn theme-txt theme-dark-element" type=submit name=submit id='submit'
+                    value="Upload">
             </div>
-            {% endif %}
+        </form>
+    </div>
+    {% else %}
+        <p>These are all of my video editing projects. To watch, you can either click on the thumbnail for a preview, or
+            the
+            title to be redirected to YouTube. I would serve them myself, instead of using YouTube, but my computer and
+            my
+            internet connection just aren't up to that. Enjoy!</p>
+
+    {% endif %}
+    <div class="row">
+        {% for video in video_master_list %}
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class='card zoom d-flex theme-element m-1 p-3 my-4'>
+
+                {% if not check_if_admin() %}
+                <a href="/videos/video/{{video[0]}}">
+                    <h3 class="text-light">{{ video[0]}}</h3>
+                    <img src="https://img.youtube.com/vi/{{video[1]}}/mqdefault.jpg" style="width: 100%;"
+                        alt="Youtube thumbnail" />
+                </a>
 
 
-            <!--<div class="player-parent">
+                {% else %}
+                <form method=post action="videos/rename" method="POST">
+                    <input class="theme-element theme-txt form-control" type=text value="{{ video[0]}}"
+                        name=title />
+                    <input hidden value="{{ video[1]}}" name=youtube_id />
+                    <input class="btn theme-txt theme-dark-element" type=submit id=submit
+                        value="Rename" />
+                </form>
+                <form method=post action="videos/updateid" method="POST">
+                    <input class="theme-element theme-txt form-control" type=text value="{{ video[1]}}"
+                        name=new_youtube_id />
+                    <input hidden value="{{ video[1]}}" name=old_youtube_id />
+                    <input class="btn theme-txt theme-dark-element" type=submit id=submit
+                        value="Update ID" />
+                </form>
+                <img class=wid100 src="https://img.youtube.com/vi/{{video[1]}}/mqdefault.jpg" alt="Youtube thumbnail" />
+                {% endif %}
+
+
+                {% if check_if_admin() %}
+                <br />
+                <br />
+                <form id="{{video[1]}}:mvUp" method=post action="videos/move" method="POST">
+                    <input hidden value='{{ video[0] }}|{{ video[1]}}' name='element' />
+                    <input hidden value='up' name=direction />
+                </form>
+                <form id="{{video[1]}}:del" method=post action="videos/deletion" method="POST">
+                    <input hidden value="{{ video[1]}}" name=youtube_id />
+                </form>
+                <form id="{{video[1]}}:mvDown" method=post action="videos/move" method="POST">
+                    <input hidden value='{{ video[0] }}|{{ video[1]}}' name='element' />
+                    <input hidden value='down' name=direction />
+                </form>
+                <div class="btn-group">
+                    <button class="btn theme-txt theme-dark-element" type="submit"
+                        form="{{video[1]}}:mvUp">Move
+                        Up</button>
+                    <button class="btn theme-txt theme-dark-element" type="submit"
+                        form="{{video[1]}}:del">Delete</button>
+                    <button class="btn theme-txt theme-dark-element" type="submit"
+                        form="{{video[1]}}:mvDown">Move Down</button>
+
+                </div>
+                {% endif %}
+
+
+                <!--<div class="player-parent">
             <div class="youtube-player" data-id="{{video[1]}}"></div>
         </div>-->
+            </div>
         </div>
+        {% endfor %}
     </div>
-    {%endfor%}
 </div>
-</div>
-{% endfor %}
 <footer>
     <br /><small>Oh, and, in case it wasn't glaringly obvious, none of the music in these videos is my original
         work. Most of them have credit in the description. If it doesn't email me and I'll try to track the song
