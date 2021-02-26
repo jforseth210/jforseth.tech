@@ -1,16 +1,22 @@
-{% extends 'base.html' %}
-{% block title %}Prayer Requests{% endblock %}
-{% block head %}
+{% extends 'base.html' %} {% block title %}Prayer Requests{% endblock %} {%
+block head %}
 <script src="/static/prayer/prayer.js"></script>
-<link rel='stylesheet' href='/static/prayer/prayer.css' type='text/css' />
-{% endblock%}
-{% block heading %}
-Prayer Requests
-{% endblock %}
-{% block content %}
-<div class="container-fluid">
-    <div class=row>
-        <div class=col-5>
+<link rel="stylesheet" href="/static/prayer/prayer.css" type="text/css" />
+{% endblock%} {% block heading %} Prayer Requests {% endblock %} {% block
+content %}
+<div class="container">
+  <div class="row">
+    <p>
+      Thank you for visiting jforseth.tech/prayer. While it hasn't always seen a
+      lot of use, this project has been a great learning experience and it's
+      changed a lot, both in appearance and in the code that actually makes the
+      whole thing work. Unfortunately, this page is being used to send more
+      spam-emails than actual prayer requests, and I've decided to pull the plug. 
+      If you have any questions, comments, concerns, or prayer requests, you are 
+      welcome to contact me using the link in the top right. 
+      <br />-Justin
+    </p>
+    <!--<div class=col-5>
             <form id='form1' class="card p-4 theme-element" action="/prayer/prayerrequest" method="POST">
                 <h2><i class='fas fa-paper-plane' style='font-size:18px'></i> Request Prayer:</h2>
                 <input class='form-control theme-element theme-txt' type='name' name='name'
@@ -21,7 +27,7 @@ Prayer Requests
                     {% for option in options %}
                     <option>{{ option }}</option>
                     {% endfor %}
-                    <!--REMEMBER TO UPDATE BOTH FORMS AND THE DICT!
+            --><!--REMEMBER TO UPDATE BOTH FORMS AND THE DICT!
                     <option>Public</option>
                     <option>Saint John RE</option>
                     <option>Saint John Parish</option>
@@ -29,7 +35,7 @@ Prayer Requests
             <option>Saint Joseph Parish</option>
             <option>Testing</option>
             <option>LL Small Group 3</option>-->
-                </select>
+    <!--</select>
                 <br />
                 <textarea id='prequest' class='form-control theme-element theme-txt'
                     form='form1' name='prequest' placeholder="Type your prayer request here" required></textarea>
@@ -53,5 +59,7 @@ Prayer Requests
 <br />
 <div class="container-fluid">
     <div class="ml-auto float-right" onclick="getQuote()"><i id='reloadbtn' class='fas fa-sync' style='font-size:18px'></i></div>
+</div>-->
+    {% endblock %}
+  </div>
 </div>
-{% endblock %}

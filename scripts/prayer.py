@@ -166,15 +166,15 @@ def prayer_request():
         }
         # print(jsonify(datadict))
         return jsonify(datadict)
-    for email in emails:
+    # for email in emails:
         # HACK: This token generation is a bit hacky because I don't know the username. But, if I don't check on the other side, it doesn't matter anyway.
-        send_email(
-            email,
-            subject_template,
-            message_template.format(email=email),
-            PROJECT_EMAIL,
-            PROJECT_PASSWORD,
-        )
+        # send_email(
+        #    email,
+        #    subject_template,
+        #    message_template.format(email=email),
+        #    PROJECT_EMAIL,
+        #    PROJECT_PASSWORD,
+        #)
     flash("Prayer request sent!", category="success")
     return redirect("/prayer")
 
@@ -189,9 +189,9 @@ def confirm_unsubscription():
     message = message.format(email=email, group=group, token=token)
     if group == "ALL":
         group = "all prayer requests."
-    send_email(
-        email, "Unsubscribe from " + group, message, PROJECT_EMAIL, PROJECT_PASSWORD
-    )
+    #send_email(
+    #    email, "Unsubscribe from " + group, message, PROJECT_EMAIL, PROJECT_PASSWORD
+    #)
     flash(
         "Sorry to see you go! Check your email for an unsubscription link.",
         category="success",
