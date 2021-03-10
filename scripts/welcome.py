@@ -23,7 +23,7 @@ def welcome_page():
 @welcome.route("/FlaskApp")
 def flaskapp_welcome():
     return redirect("/")
-    
+
 @welcome.route("/about")
 def about_redirect():
     return redirect("/")
@@ -31,17 +31,21 @@ def about_redirect():
 @welcome.route("/ifttt")
 def ifttt():
     command = request.args.get("command")
+    print(command)
     command = command.replace(" ","")
     command = command.lower()
+    print(command)
     commands = {
-        "prepareforbattle": ["firefox &","konsole &","nohup spotify &"],
-        "lightsout":["xset dpms force off","ssh justin@192.168.1.5 xset dpms force off -display :0"],
-        "lightson":["xset dpms force on","ssh justin@192.168.1.5 xset dpms force on -display :0"]
+            "prepareforbattle": ["ssh justin@192.168.1.3 export DISPLAY=:0; firefox &","ssh justin@192.168.1.3 export DISPLAY=:0; konsole &","ssh 192.168.1.3 export DISPLAY=:0 nohup spotify &"],
+            "lightsout":['ssh justin@192.168.1.5 "xset dpms force off -display :0"','ssh justin@192.168.1.3 "xset dpms force off -display :0"'],
+            "lightson":['ssh justin@192.168.1.5 "xset dpms force on -display :0"','ssh justin@192.168.1.3 "xset dpms force on -display :0"']
     }
     actual_commands = commands.get(command, "echo Invalid Command:{}".format(command))
-
-    os.system('ssh justin@192.168.1.3 "export DISPLAY=:0;' + " ;".join(actual_commands) + '"')
-    print('ssh justin@192.168.1.3 "export DISPLAY=:0;' + "; ".join(actual_commands) + '"')
+    print(actual_commands)
+    for command in actual_commands:
+        print("Running:" + command)
+        os.system(command)
+        print("Ran" + command)
     return ""
 
 @welcome.route("/instructions")
