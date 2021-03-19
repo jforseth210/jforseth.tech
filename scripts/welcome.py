@@ -37,15 +37,13 @@ def ifttt():
     print(command)
     commands = {
             "prepareforbattle": ["ssh justin@192.168.1.3 export DISPLAY=:0; firefox &","ssh justin@192.168.1.3 export DISPLAY=:0; konsole &","ssh 192.168.1.3 export DISPLAY=:0 nohup spotify &"],
-            "lightsout":['ssh justin@192.168.1.5 "xset dpms force off -display :0"','ssh justin@192.168.1.3 "xset dpms force off -display :0"'],
+            "lightsout":['ssh justin@192.168.1.5 "xset dpms force off -display :0"','ssh justin@192.168.1.3 "xset dpms force off -display :0" & wget 192.168.1.3:5005/?identifier=WDZPQ8P7qXSjRU"'],
             "lightson":['ssh justin@192.168.1.5 "xset dpms force on -display :0"','ssh justin@192.168.1.3 "xset dpms force on -display :0"']
     }
     actual_commands = commands.get(command, "echo Invalid Command:{}".format(command))
     print(actual_commands)
     for command in actual_commands:
-        print("Running:" + command)
         os.system(command)
-        print("Ran" + command)
     return ""
 
 @welcome.route("/instructions")
