@@ -104,15 +104,14 @@ def validate_account():
 @login_required()
 @accounts.route("/account/<account>")
 def account(account):
-    if is_logged_in():
-        if account == get_username():  # .encode("utf-8"):
-            if platform.node() == "backup-server-vm":
-                flash(
-                    "The main jforseth.tech server is experiencing issues. Account changes have been suspended."
-                )
-            account = get_account(get_username())  # .encode("utf-8"))
-            groups = account["prayer_groups"].split("|")
-            return render_template("accounts/account.html", groups=groups)
+    if is_logged_in() and account == get_username():  # .encode("utf-8"):
+        if platform.node() == "backup-server-vm":
+            flash(
+                "The main jforseth.tech server is experiencing issues. Account changes have been suspended."
+            )
+        account = get_account(get_username())  # .encode("utf-8"))
+        groups = account["prayer_groups"].split("|")
+        return render_template("accounts/account.html", groups=groups)
     return render_template("errors/403.html"), 403
 
 
@@ -151,23 +150,23 @@ def verify_changed_email():
     username = get_username() #.encode("utf-8")
     token = generate_token(email + username, "email_change")
 
-    if not current_app.config["TESTING"]:
-        with open("text/change_email_template.html") as file:
-            message = file.read()
-        message = message.format(
-            username=username, email=email, email_type=email_type.lower(), token=token
-        )
-        send_email(
-            email,
-            "Change your " + email_type.lower(),
-            message,
-            PROJECT_EMAIL,
-            PROJECT_PASSWORD,
-        )
-        flash("We've sent a verification link to that email address.", category="success")
-        return redirect("/account/" + username)
-    else:
+    if current_app.config["TESTING"]:
         return json.dumps([username, email, email_type, token])
+
+    with open("text/change_email_template.html") as file:
+        message = file.read()
+    message = message.format(
+        username=username, email=email, email_type=email_type.lower(), token=token
+    )
+    send_email(
+        email,
+        "Change your " + email_type.lower(),
+        message,
+        PROJECT_EMAIL,
+        PROJECT_PASSWORD,
+    )
+    flash("We've sent a verification link to that email address.", category="success")
+    return redirect("/account/" + username)
 
 # Actually change the email.
 # Validation link from the email.
@@ -188,38 +187,36 @@ def change_email_page():
         change_email(username, email, email_type)
         remove_token(token, "email_change")
         flash("Success!", category="success")
-        return redirect("/account/" + username)
-
     else:
         flash("That link didn't work, try again.")
-        return redirect("/account/" + username)
+
+    return redirect("/account/" + username)
 
 
 @accounts.route("/forgot_pw", methods=["GET", "POST"])
 def forgot_pw():
     if request.method == "GET":
         return render_template("accounts/forgot.html")
-    else:
-        email = escape(request.form.get("emailInput"))
-        username = escape(request.form.get("usernameInput"))
+    email = escape(request.form.get("emailInput"))
+    username = escape(request.form.get("usernameInput"))
 
-        token = generate_token(username, "password_reset")
-        with open("text/password_reset_email_template.html") as file:
-            message = file.read()
-        message = message.format(token=token)
-        if get_account(username)["recovery_email"] == email:
-            send_email(
-                email,
-                "jforseth.tech password reset",
-                message,
-                PROJECT_EMAIL,
-                PROJECT_PASSWORD,
-            )
-        flash(
-            "If that email/username combination exists, an email with reset instructions will be sent.",
-            category="success",
+    token = generate_token(username, "password_reset")
+    with open("text/password_reset_email_template.html") as file:
+        message = file.read()
+    message = message.format(token=token)
+    if get_account(username)["recovery_email"] == email:
+        send_email(
+            email,
+            "jforseth.tech password reset",
+            message,
+            PROJECT_EMAIL,
+            PROJECT_PASSWORD,
         )
-        return redirect("/")
+    flash(
+        "If that email/username combination exists, an email with reset instructions will be sent.",
+        category="success",
+    )
+    return redirect("/")
 
 
 @accounts.route("/forgot_pw/reset/<token>", methods=["GET", "POST"])
@@ -227,16 +224,15 @@ def reset_password(token):
     if request.method == "GET":
         if check_token(token, "password_reset"):
             return render_template("accounts/reset.html")
-        else:
-            flash("Your reset link is invalid. Try again.")
-            return redirect("/forgot_pw/reset/{}".format(token))
+        flash("Your reset link is invalid. Try again.")
+        return redirect("/forgot_pw/reset/{}".format(token))
     else:
         username = escape(request.form.get("usernameInput"))
         new_password = escape(request.form.get("passwordInput"))
         if not check_token(token, "password_reset"):
             flash("Your reset link is invalid. Try again.")
             return redirect("/forgot_pw/reset/{}".format(token))
-        elif not get_user_from_token(token, "password_reset") == username:
+        elif get_user_from_token(token, "password_reset") != username:
             flash("Incorrect username.")
             return redirect("/forgot_pw/reset/{}".format(token))
         else:

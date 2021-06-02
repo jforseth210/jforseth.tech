@@ -2,9 +2,9 @@ import platform
 import random
 import pprint  # Useful for debug.
 import json
+import sqlite3
 
 from flask import *
-import sqlite3
 from flask_simplelogin import login_required, get_username
 
 from simple_mail import send_email
@@ -42,8 +42,7 @@ def get_verification_code():
     with open("text/validcodes.txt", "r") as file:
         VALID_CODES = file.readline()
     random_number = random.randint(0, len(VALID_CODES) - 5)
-    code = VALID_CODES[random_number : random_number + 5]
-    return code
+    return VALID_CODES[random_number : random_number + 5]
 
 
 def get_verification_email_template():
@@ -59,10 +58,7 @@ def check_verification_code(code):
     print("Code:" + code)
     print("Valid Code:" + valid_codes)
 
-    if code in valid_codes:
-        code_validity = True
-    else:
-        code_validity = False
+    code_validity = code in valid_codes
     print("Code Validity:" + str(code_validity))
 
     new_code = str(random.randint(10000, 99999))
@@ -274,7 +270,7 @@ def add_group():
     group = escape(request.form.get("group"))
     username = get_username()
     group = PARISH_DICTIONARY.get(group)
-    if group == None:
+    if group is None:
         return redirect("/account/" + username)
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
