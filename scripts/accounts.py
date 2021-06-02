@@ -12,92 +12,92 @@ from scripts.prayer import PARISH_DICTIONARY
 accounts = Blueprint("accounts", __name__)
 
 # The initial signup page.
-@accounts.route("/signup", methods=["POST", "GET"])
-def signup():
-    # The page.
-    if request.method == "GET":
-        # Don't allow signups on the backup server.
-        if platform.node() == "backup-server-vm":
-            flash(
-                "The main jforseth.tech server is experiencing issues. As a result account creation has been temporarily suspended. Please try again later."
-            )
-        return render_template("accounts/signup.html")
-    # The form
-    else:
-        email = escape(request.form.get("emailInput"))
-        username = escape(request.form.get("usernameInput"))
-        password = escape(request.form.get("passwordInput"))
-        confirmPassword = escape(request.form.get("confirmPasswordInput"))
-        prayerBool = escape(request.form.get("prayerInput"))
-        captcha = escape(request.form.get("captchaInput"))
+# @accounts.route("/signup", methods=["POST", "GET"])
+# def signup():
+    # # The page.
+    # if request.method == "GET":
+    #     # Don't allow signups on the backup server.
+    #     if platform.node() == "backup-server-vm":
+    #         flash(
+    #             "The main jforseth.tech server is experiencing issues. As a result account creation has been temporarily suspended. Please try again later."
+    #         )
+    #     return render_template("accounts/signup.html")
+    # # The form
+    # else:
+    #     email = escape(request.form.get("emailInput"))
+    #     username = escape(request.form.get("usernameInput"))
+    #     password = escape(request.form.get("passwordInput"))
+    #     confirmPassword = escape(request.form.get("confirmPasswordInput"))
+    #     prayerBool = escape(request.form.get("prayerInput"))
+    #     captcha = escape(request.form.get("captchaInput"))
 
-        print(username)
-        # The user doesn't want to recieve any prayer requests.
-        print(prayerBool)
-        captcha = captcha.replace("\"","")
-        captcha = captcha.replace(" ","")
-        captcha = captcha.lower()
-        print(captcha)
-        if captcha != "isolemnlyswearthati&#39;mnotarobot":
-            flash("Your signup triggered our spam detection system. Please try again.", category="alert")
-            return redirect("/signup")
+    #     print(username)
+    #     # The user doesn't want to recieve any prayer requests.
+    #     print(prayerBool)
+    #     captcha = captcha.replace("\"","")
+    #     captcha = captcha.replace(" ","")
+    #     captcha = captcha.lower()
+    #     print(captcha)
+    #     if captcha != "isolemnlyswearthati&#39;mnotarobot":
+    #         flash("Your signup triggered our spam detection system. Please try again.", category="alert")
+    #         return redirect("/signup")
 
-        if not prayerBool:
-            prayer_groups = "None"
-        else:
-            # User wants prayer requests, but doesn't supply a code.
-            # This doesn't need to be escaped, since it'll be checked against a dictionary anyway.
-            prayer_groups = "Public"
-            if PARISH_DICTIONARY.get(request.form.get("parishInput")):
-                prayer_groups = (
-                    prayer_groups
-                    + "|"
-                    + PARISH_DICTIONARY.get(request.form.get("parishInput"))
-                )
+    #     if not prayerBool:
+    #         prayer_groups = "None"
+    #     else:
+    #         # User wants prayer requests, but doesn't supply a code.
+    #         # This doesn't need to be escaped, since it'll be checked against a dictionary anyway.
+    #         prayer_groups = "Public"
+    #         if PARISH_DICTIONARY.get(request.form.get("parishInput")):
+    #             prayer_groups = (
+    #                 prayer_groups
+    #                 + "|"
+    #                 + PARISH_DICTIONARY.get(request.form.get("parishInput"))
+    #             )
 
-            # RE members should also be signed up for their parishes.
-            if "RE" in prayer_groups:
-                prayer_groups = (
-                    prayer_groups + "|" + prayer_groups.replace("RE", "Parish")
-                )
+    #         # RE members should also be signed up for their parishes.
+    #         if "RE" in prayer_groups:
+    #             prayer_groups = (
+    #                 prayer_groups + "|" + prayer_groups.replace("RE", "Parish")
+    #             )
 
-        if get_account(username) != {}:
-            flash("Account exists already.")
+    #     if get_account(username) != {}:
+    #         flash("Account exists already.")
 
-        elif password != confirmPassword:
-            flash("Passwords do not match!")
+    #     elif password != confirmPassword:
+    #         flash("Passwords do not match!")
 
-        # If this is the backup server, do nothing.
-        elif platform.node() == "backup-server-vm":
-            pass
-        # Sign the user up, but warn them to change their password in the verification email.
-        elif len(password) <= 8:
-            flash("We've sent a verification email.", category="warning")
-            create_account(username, password, email, prayer_groups, bad_password=True)
-        # Sign the user up.
-        else:
-            flash("We've sent a verification email.", category="success")
-            create_account(username, password, email, prayer_groups, bad_password=False)
-        return redirect("/")
+    #     # If this is the backup server, do nothing.
+    #     elif platform.node() == "backup-server-vm":
+    #         pass
+    #     # Sign the user up, but warn them to change their password in the verification email.
+    #     elif len(password) <= 8:
+    #         flash("We've sent a verification email.", category="warning")
+    #         create_account(username, password, email, prayer_groups, bad_password=True)
+    #     # Sign the user up.
+    #     else:
+    #         flash("We've sent a verification email.", category="success")
+    #         create_account(username, password, email, prayer_groups, bad_password=False)
+    #     return redirect("/")
 
 
 # The link in the validation email.
-@accounts.route("/validate")
-def validate_account():
-    username = escape(request.args.get("username"))
-    token = escape(request.args.get("token"))
-    # Check that the token is valid, and has been issued to this user.
-    if (
-        check_token(token, "new_account")
-        and get_user_from_token(token, "new_account") == username
-    ):
-        # Validate the account and deactivate the token.
-        set_account_validity(username, True)
-        remove_token(token, "new_account")
-    else:
-        flash("Something went wrong. Try signing in, or email support@jforseth.tech")
+# @accounts.route("/validate")
+# def validate_account():
+#     username = escape(request.args.get("username"))
+#     token = escape(request.args.get("token"))
+#     # Check that the token is valid, and has been issued to this user.
+#     if (
+#         check_token(token, "new_account")
+#         and get_user_from_token(token, "new_account") == username
+#     ):
+#         # Validate the account and deactivate the token.
+#         set_account_validity(username, True)
+#         remove_token(token, "new_account")
+#     else:
+#         flash("Something went wrong. Try signing in, or email support@jforseth.tech")
 
-    return redirect("/login")
+#     return redirect("/login")
 
 
 # The account page.
