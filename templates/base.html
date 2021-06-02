@@ -94,10 +94,9 @@
     {% endif %}
     {% endwith %}
     {% block headingimage %}{% endblock %}
-    <div class=container-fluid>
+<!--    <div class=container-fluid>
         <div class="row">
-            <h1 class="col-sm-9 col-md-10 my-3 d-inline-block">{% block heading%}{% endblock %}</h1>
-            <div class="col-sm-3 col-md-2 d-inline-block my-3 float-right dropdown">
+            <<div class="col-sm-3 col-md-2 d-inline-block my-3 float-right dropdown">
                 <button class="btn w-100 theme-element text-light dropdown-toggle" type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-expanded="false">
                     {% if is_logged_in()%}
@@ -120,29 +119,41 @@
                 </ul>
             </div>
         </div>
-    </div>
-    <!--Don't forget to update menu.html!-->
+    </div>-->
 
-    <nav class='navbar navbar-dark navbar-expand-lg theme-element'>
+    <nav class='navbar navbar-dark navbar-expand-lg theme-element'> 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a href="/" class="navbar-brand">
+                <img src="/static/favicon-3.png" width="30" height="30"/>
+                jforseth(tech)
+            </a>
             <ul class="navbar-nav mr-auto text-center text-nowrap">
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
                 <!--<li class="nav-item">
                     <a class="nav-link" href="/instructions
-                </li>-->
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/prayer">Prayer Requests</a>
-                </li>
+                </li>-->
                 <li class="nav-item">
                     <a class="nav-link" href="/videos">Videos</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="nextcloud.jforseth.tech">Nextcloud</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="pleroma.jforseth.tech">Pleroma</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://fairfieldffa.org">FairfieldFFA</a>
+                </li>
+                <!--<li class="nav-item">
                     <a class="nav-link" type="button" data-toggle="modal" data-target="#chatModal">Chat</a>
                 </li>
                 <li class="nav-item">
@@ -156,7 +167,7 @@
                 </li>
                 <li class="nav-item">
                     <a class='nav-link' href="/writer">Writer</a>
-                </li>
+                </li>-->
                 {% if check_if_admin() %}
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
@@ -169,9 +180,9 @@
                     </div>
                 </li>
                 {% endif %}
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a class="nav-link" href='/filesharing'>File Sharing</a>
-                </li>
+                </li>-->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -194,7 +205,7 @@
     {% block content %}
     {% endblock %}
 
-    <div id="chatModal" class="fade modal" tabindex="-1" role="dialog">
+    <!--<div id="chatModal" class="fade modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div style="height:85vh" class="modal-content theme-bg">
                 <div class="modal-body">
@@ -205,7 +216,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div-->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
