@@ -5,7 +5,7 @@
     <base href='../'>
     <title>{% block title %}{% endblock %} </title>
     <!-- Start Open Web Analytics Tracker -->
-    <script type="/var/www/jforseth.tech/text/javascript">
+    <script type="text/javascript">
         //<![CDATA[
         var owa_baseUrl = 'https://jforseth.tech/owa/';
         var owa_cmds = owa_cmds || [];
@@ -15,7 +15,7 @@
         owa_cmds.push(['trackDomStream']);
 
         (function () {
-            var _owa = document.createElement('script'); _owa.type = '/var/www/jforseth.tech/text/javascript'; _owa.async = true;
+            var _owa = document.createElement('script'); _owa.type = 'text/javascript'; _owa.async = true;
             owa_baseUrl = ('https:' == document.location.protocol ? window.owa_baseSecUrl || owa_baseUrl.replace(/http:/, 'https:') : owa_baseUrl);
             _owa.src = owa_baseUrl + 'modules/base/js/owa.tracker-combined-min.js';
             var _owa_s = document.getElementsByTagName('script')[0]; _owa_s.parentNode.insertBefore(_owa, _owa_s);
@@ -25,7 +25,7 @@
     <!-- End Open Web Analytics Code -->
     <!-- Matomo -->
 
-    <script type="/var/www/jforseth.tech/text/javascript">
+    <script type="text/javascript">
 
         var _paq = window._paq || [];
 
@@ -37,7 +37,7 @@
 
         (function () {
 
-            var u = "//jforseth.tech/matomo/";
+            var u = "jforseth.tech/matomo/";
 
             _paq.push(['setTrackerUrl', u + 'matomo.php']);
 
@@ -45,7 +45,7 @@
 
             var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
 
-            g.type = '/var/www/jforseth.tech/text/javascript'; g.async = true; g.defer = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+            g.type = 'text/javascript'; g.async = true; g.defer = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
 
         })();
 
@@ -53,8 +53,8 @@
 
     <!-- End Matomo Code -->
 
-    <link rel='stylesheet' href='/static/theme.css' type='/var/www/jforseth.tech/text/css' />
-    <link rel='stylesheet' href='/static/index.css' type='/var/www/jforseth.tech/text/css' />
+    <link rel='stylesheet' href='/static/theme.css' type='text/css' />
+    <link rel='stylesheet' href='/static/index.css' type='text/css' />
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -65,7 +65,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
-    <!--<link rel='stylesheet' href='/static/index.css' type='/var/www/jforseth.tech/text/css' />-->
+    <!--<link rel='stylesheet' href='/static/index.css' type='text/css' />-->
     <link rel="icon" href="static/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon" />
 
