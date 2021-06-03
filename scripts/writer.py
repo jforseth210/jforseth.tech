@@ -88,8 +88,7 @@ def api_save(name):
 @writer.route("/writer/document/<name>")
 @login_required()
 def document_noapi(name):
-    document = get_document(name)
-    return document
+    return get_document(name)
 
 
 """@writer.route("/writer/api/document/<name>")

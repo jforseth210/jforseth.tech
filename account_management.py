@@ -18,7 +18,6 @@ from simple_mail import send_email
 #       it goes to this class
 #       not the subprocess module.
 if os.name == "nt":
-
     class subprocess:
         def call(self, *args, **kwargs):
             return True
@@ -281,7 +280,7 @@ def get_account(username):
 
     account_data = cur.fetchone()
 
-    if account_data == None:
+    if account_data is None:
         return {}
     return dict(zip(account_data.keys(), account_data))
 
@@ -315,7 +314,7 @@ def check_login(user):
 # TODO: Find a way to encrypt user data.
 def grant_access(username, access):
     current_access = get_current_access(username)
-    if current_access != None:
+    if current_access is not None:
         access = ",".join(current_access) + "," + access
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()

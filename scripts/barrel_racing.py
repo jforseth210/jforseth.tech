@@ -14,7 +14,7 @@ def barrel_racing_app_lab():
 def barrel_racing_counter():
     with open("text/barrel_racing_current_number.txt", "r") as file:
         current_number = file.readline()
-        
+            
     try:
         current_number = int(current_number)
     except ValueError:

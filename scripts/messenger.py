@@ -1,9 +1,9 @@
 import time
 import pprint  # Useful for debug.
 import sys
+import sqlite3
 
 from flask import *
-import sqlite3
 
 pp = pprint.PrettyPrinter(indent=4)
 

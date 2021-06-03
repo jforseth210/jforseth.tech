@@ -15,16 +15,14 @@ def quickdraw():
 @quickdraw_game.route("/quickdraw/shot")
 def quickdraw_shot():
     user = escape(request.args.get("user"))
-    file = open("text/locked.txt")
-    result = file.readlines()
-    file.close()
-    if result[0] != "True\n":
-        file = open("text/locked.txt", "w")
-        file.writelines("True\n" + user)
-        file.close()
-        return "You were fastest!"
-    else:
+    with open("text/locked.txt") as file:
+        result = file.readlines()
+    if result[0] == "True\n":
         return "You were shot by: {}".format(result[1])
+
+    with open("text/locked.txt", "w") as file:
+        file.writelines("True\n" + user)
+    return "You were fastest!"
 
 
 @quickdraw_game.route("/quickdraw/bigscreen")
@@ -35,16 +33,14 @@ def big_screen():
 @quickdraw_game.route("/quickdraw/bigscreen/begin")
 def big_screen_begin():
     if random.randint(1, 30) == 1:
-        file = open("text/locked.txt", "w")
-        file.write("False")
-        file.close()
+        with open("text/locked.txt", "w") as file:
+            file.write("False")
         return render_template(
             "quickdraw/bigscreen_begin.html", time="1000", result="GO!"
         )
     else:
-        file = open("text/locked.txt", "w")
-        file.write("True\nShooting too soon")
-        file.close()
+        with open("text/locked.txt", "w") as file:
+            file.write("True\nShooting too soon")
         return render_template(
             "quickdraw/bigscreen_begin.html", time="1", result="Not yet"
         )

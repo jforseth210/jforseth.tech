@@ -27,9 +27,7 @@ def scattergories_new_list():
     with open(r"text/allcatergorylist.txt") as file:
         CATERGORY_LIST = file.readlines()
     CATERGORY_LIST = [i.replace("\n", "").title() for i in CATERGORY_LIST]
-    new_list = []
-    for i in range(12):
-        new_list.append(random.choice(CATERGORY_LIST))
+    new_list = [random.choice(CATERGORY_LIST) for i in range(12)]
     with open(r"text/currentcatergorylist.txt", "w") as file:
 
         file.writelines(["%s\n" % item for item in new_list])
@@ -40,8 +38,7 @@ def scattergories_new_list():
 def scattergories_roll():
     LETTERS = string.ascii_uppercase
     letter = random.choice(LETTERS)
-    file = open(r"text/scattergoriescurrentletter.txt", "w")
-    file.write(letter)
-    file.close()
+    with open(r"text/scattergoriescurrentletter.txt", "w") as file:
+        file.write(letter)
     return "Done"
     # Running all of the above

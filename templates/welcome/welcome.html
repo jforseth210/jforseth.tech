@@ -1,197 +1,303 @@
-{% extends 'base.html' %}
-{% block title %}Welcome{% endblock %}
-{% block head %}
-<link rel='stylesheet' href='/static/welcome/welcome.css' type='text/css' />
-<script src='/static/welcome/welcome.js' type="text/javascript"></script>
-{% endblock%}
-{% block heading %}
-Jforseth.tech
-{% endblock %}
-{% block content %}
-<div class="container-fluid">
-    <h2>Welcome to jforseth.tech</h2>
-    <p style="display:inline">Hello! My name is Justin Forseth and this is my little corner of the internet: A website
-        I've created for testing, and experimenting
-        and trying new things. The whole thing is powered by a Raspberry Pi, which works <s>really</s> pretty well.</p>
-    <p>I'm not always great at maintaining this page, but if you have any questions, I'd love to hear from you.</p>
-    <h3>My projects so far:</h3>
+{% extends 'base.html' %} {% block title %}Welcome{% endblock %} {% block head %}
+<link rel="stylesheet" href="/static/welcome/welcome.css" type="text/css" />
+<script src="/static/welcome/welcome.js" type="text/javascript"></script>
+{% endblock%} {% block heading %} Jforseth.tech {% endblock %} {% block content %}
+<div class="container-fluid my-3">
     <div class="row">
-        <div class="col-md-4 d-flex">
-            <div class="card zoom theme-element m-1 p-3 my-4">
-                <a class="text-light" href='/prayer'>
-                    <h3>Prayer Requests:</h3>
-                    <br />
-                    <img class='thumbnail' src='/static/welcome/PrayerRequests.png'
-                        alt="Prayer request page screenshot." />
-                </a>
-                <br />
-                <p>A simple tool I created to allow members of my church to exchange prayer requests.</p>
-            </div>
+        <div class="col-sm-2">
+            <img src="static/justin.JPG" class="img-thumbnail" />
         </div>
-        <div class="col-md-4 d-flex">
-
-            <div class="card zoom theme-element m-1 p-3 my-4 d-flex">
-                <a class="text-light" href='/matomo'>
-                    <h3>Matomo:</h3>
-                    <br />
-                    <img class='thumbnail' src='/static/welcome/matomo.png' alt="Matomo page screenshot." />
-                </a>
+        <div class="col-sm-10">
+            <h1>About Me</h1>
+            <p>
+                Hello! My name is Justin Forseth and I am a soon-to-be college student from rural Montana. I enjoy
+                making videos
+                and websites like this one! This is my personal website. I coded it myself, and it's here so I can
+                learn, experiment, and try new things. If you're interested in the tech details, it's running on a
+                Raspberry Pi, running Ubuntu Server 20.04. The backend is running Python with the Flask framework on
+                Apache. On the front, I'm using Bootstrap. What little JS I use is mostly vanilla although I do use
+                JQuery in places.
                 <br />
-                <p>I didn't create this, but it's running on my server. Matomo analytics allows me to see visit
-                    history.</p>
-                <br />
-            </div>
-        </div>
-        <div class="col-md-4 d-flex">
-
-            <div class="card zoom theme-element m-1 p-3 my-4 d-flex">
-              <a class="text-light" href='https://pleroma.jforseth.tech'>
-                    <h3>Pleroma:</h3>
-                    <br />
-                    <img class='thumbnail' src='/static/welcome/pleroma.png' alt="Pleroma page screenshot." />
-                </a>
-                <br />
-                <p>Pleroma is a self-hosted alternative to the major social media sites. It's federated, meaning it
-                    interacts with other pleroma servers, around the world.</p>
-                <br />
-            </div>
-        </div>
-        <div class="col-md-4 d-flex">
-
-            <div class="card zoom theme-element m-1 p-3 my-4 d-flex">
-              <a class="text-light" href='https://nextcloud.jforseth.tech'>
-                    <h3>Nextcloud:</h3>
-                    <br />
-                    <img class='thumbnail' src='/static/welcome/Nextcloud.png' alt="Nextcloud page screenshot." />
-                </a>
-                <br />
-                <p>Nextcloud is a cloud storage site, like G-Suite, except it's self hosted. Didn't make it myself
-                    (obviously), but it comes in pretty handy.</p>
-                <br />
-            </div>
-        </div>
-        <div class="col-md-4 d-flex">
-
-            <div class="card zoom theme-element m-1 p-3 my-4 d-flex"><a class="text-light" href='/videos'>
-                    <h3>Videos:</h3>
-                    <br />
-                    <img class='thumbnail' src='/static/welcome/video.PNG' alt="Video page screenshot." />
-                </a>
-                <br />
-                <p>In my free time I make videos about farming, ranching, events I go to, and whatever else I feel
-                    like. You can find them here.</p>
-            </div>
-        </div>
-        <div class="col-md-4 d-flex">
-
-            <div class="card zoom theme-element m-1 p-3 my-4 d-flex"><a
-                    onclick="document.getElementById('id01').style.display='block'">
-                    <h3>Messenger:</h3>
-                    <br />
-                    <img class='thumbnail' src='/static/welcome/Messenger.png'
-                        alt="Messenger page screenshot.">
-                </a>
-                <br />
-                <p>A simple little popup widget I made as a challenge.</p>
-            </div>
-        </div>
-        <div class="col-md-4 d-flex">
-
-            <div class="card zoom theme-element m-1 p-3 my-4 d-flex">
-                <a class="text-light" href='/todo'>
-                    <h3>Todo list:</h3>
-                    <br />
-                    <img class='thumbnail' src='/static/welcome/Todo.PNG' alt="Todo page screenshot.">
-                </a>
-                <br />
-                <p>A simple todo list I created for personal use. Not available to general public.</p>
-            </div>
-        </div>
-        <div class="col-md-4 d-flex">
-
-            <div class="card zoom theme-element m-1 p-3 my-4 d-flex">
-                <a class="text-light" href='/luckyshoe'>
-                    <h3>Horseshoe Art:</h3>
-                    <img class='thumbnail' src='/static/welcome/HorseshoeArt.png'
-                        alt="Horseshoe art homepage screenshot.">
-                </a>
-                <br />
-                <p>My brother is a welder who makes horseshoe art, which you can look at and order from here.</p>
-            </div>
-        </div>
-        <div class="col-md-4 d-flex">
-
-            <div class="card zoom theme-element m-1 p-3 my-4 d-flex">
-                <a class="text-light" href='/mail'>
-                    <h3>Mail:</h3>
-                    <br /><img class='thumbnail' src='/static/welcome/mail.png' alt="Email inbox screenshot.">
-                </a>
-                <br />
-                <p>Created so I didn't have to deal with Gmail to send prayer requests. Allows me to create custom
-                    email addresses for use on the site. Uses Postfix, Dovecot, and Rainloop.</p>
-            </div>
-        </div>
-        <div class="col-md-4 d-flex">
-
-            <div class="card zoom theme-element m-1 p-3 my-4 d-flex">
-                <a class="text-light" href='/filesharing'>
-                    <h3>File Sharing:</h3>
-                    <img class='thumbnail' src='/static/welcome/filesharing.PNG'
-                        alt="File sharing page screenshot.">
-                </a>
-                <br />
-                <p>A simple file sharing service I created. Upload a file to the server download it on another
-                    device.
-                    All
-                    uploads
-                    are
-                    public and are wiped at midnight.</p>
-            </div>
-        </div>
-        <div class="col-md-4 d-flex">
-
-            <div class="card zoom theme-element m-1 p-3 my-4 d-flex">
-                <a class="text-light" href='/barrelracing/counter'>
-                    <h3>Barrel Racing Current Rider:</h3>
-                    <img class='thumbnail' src='/static/welcome/barrelracingcounter.png'
-                        alt="Counter widget screenshot.">
-                </a>
-                <br />
-                <p>A widget I made for a friend to help her keep track of which rider is currently up for barrel
-                    racing.
-                </p>
-            </div>
-        </div>
-        <div class="col-md-4 d-flex">
-
-            <div class="card zoom theme-element m-1 p-3 my-4 d-flex">
-                <a class="text-light" href='/login'>
-                    <h3>Accounts:</h3>
-                    <br /><img class='thumbnail' src='/static/welcome/account.png'
-                        alt="Account page screenshot.">
-                </a>
-                <br />
-                <p>Mostly used to prevent the general public from using personal/admin tools, not needed for
-                    prayer requests or anything else.</p>
-            </div>
-        </div>
-        <div class="col-md-4 d-flex">
-            <div class="card zoom theme-element m-1 p-3 my-4 d-flex">
-                <a class="text-light" href='/writer'>
-                    <h3>Writer:</h3>
-                    <br /><img class=' thumbnail' src='/static/welcome/writer.png'
-                        alt="Writer UI screenshot.">
-                </a>
-                <br />
-                <p>A simple text editor. Built on Summernote, it's kinda like Google Docs, but with less features.
-                    On
-                    the
-                    plus side, it doesn't sell your data to advertisers.</p>
-            </div>
+                <br /> I also make videos, for my family farm, church, school, 4-H, FFA, and whatever else I feel like.
+                You can find my projects at my YouTube channel, or here at <a class="theme-txt"
+                    href="/videos">jforseth.tech/videos</a>. To make those, I mostly use a DJI Mavic Pro and a GoPro
+                HERO9, which I edit using Cyberlink Powerdirector.
+            </p>
         </div>
     </div>
 </div>
+<div class="container-fluid">
+    <h2>My Projects</h2>
+    <h4>Self-Hosted</h4>
+    <small><i>Projects I run on my servers, but that I didn't code myself.</i></small>
+    <div class="row">
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/pleroma.png' alt="Pleroma page screenshot." />
+                <div class="card-body">
+                    <a class="text-light" href='https://pleroma.jforseth.tech'>
+                        <h3>Pleroma</h3>
+                    </a>
+                    <p>
+                        Pleroma is a self-hosted alternative to the major social media sites. It's federated, meaning it
+                        interacts with other pleroma servers, around the world.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://pleroma.jforseth.tech" class="btn theme-dark-element theme-txt w-100">Visit</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/Nextcloud.png' alt="Nextcloud page screenshot." />
+                <div class="card-body">
+                    <a class="text-light" href='https://nextcloud.jforseth.tech'>
+                        <h3>Nextcloud</h3>
+                    </a>
+                    <p>
+                        Nextcloud is an online office suite. It offers file sharing, a calendar, todo list, mail client,
+                        chat app, and more. Since it's built on open standards, it syncronizes with all sorts of other
+                        programs.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://nextcloud.jforseth.tech" class="btn theme-dark-element theme-txt w-100">Visit</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex">
+
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/mail.png' alt="Email inbox screenshot.">
+                <div class="card-body">
+
+                    <a class="text-light" href='/mail'>
+                        <h3>Mail</h3>
+                    </a>
+                    <p>Created so I didn't have to deal with Gmail to send prayer requests. Allows me to create custom
+                        email
+                        addresses for use on the site. Uses Postfix, Dovecot, and Squirrelmail.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://mail.jforseth.tech" class="btn theme-dark-element theme-txt w-100">Visit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4>Coded Myself</h4>
+    <small><i>I made these!</i></small>
+    <div class="row">
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/video.PNG' alt="Video page screenshot." />
+                <div class="card-body">
+                    <a class="text-light" href='https://jforseth.tech/videos'>
+                        <h3>Videos</h3>
+                    </a>
+                    <p>In my free time I make videos about farming, ranching, events I go to, and whatever else I feel
+                        like.
+                        You can find them here.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://jforseth.tech/videos" class="btn theme-dark-element theme-txt w-100">Visit</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/writer.png' alt="Video page screenshot." />
+                <div class="card-body">
+                    <a class="text-light" href='/writer'>
+                        <h3>Writer</h3>
+                    </a>
+                    <p>A simple text editor. Built on Summernote, it's kinda like Google Docs, but with less features.
+                        On
+                        the plus side, it doesn't sell your data to advertisers.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="/writer" class="btn theme-dark-element theme-txt w-100">Visit</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/fairfieldffa.png' alt="Fairfield FFA page screenshot." />
+                <div class="card-body">
+                    <a class="text-light" href='https://fairfieldffa.org'>
+                        <h3>Fairfield FFA</h3>
+                    </a>
+                    <p>A website I coded myself for my FFA chapter. It features a modern single-page design based on
+                        Bootstrap and an administrator page to update all aspects of the site.</p>
+
+                </div>
+                <div class="card-footer">
+                    <a href="/writer" class="btn theme-dark-element theme-txt w-100">Visit</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/cattledb.png' alt="CattleDB page screenshot." />
+                <div class="card-body">
+                    <a class="text-light" href='https://github.com/jforseth210/CattleDatabase'>
+                        <h3>Cattle DB</h3>
+                    </a>
+                    <p>This is my latest project. It's a program designed for keeping track of records for a beef herd.
+                        Created because I needed something easier to use than <a href="https://theaet.com">the AET</a>
+                        for my own herd, Cattle DB is designed to be simple and easy to use while being feature rich.
+                        It's designed to be run on the user's own computer and accessed through a web interface.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="https://github.com/jforseth210/CattleDatabase"
+                        class="btn theme-dark-element theme-txt w-100">Visit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4>The Graveyard</h4>
+    <small><i>Projects that no longer work, or have been abandoned.</i></small>
+    <div class="row">
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/pihole.png' alt="Pi Hole admin page screenshot." />
+                <div class="card-body">
+                    <a class="text-light" href='http://192.168.1.29:801/admin/'>
+                        <h3>Pi-hole</h3>
+                    </a>
+                    <p>
+                        This is a self-hostend network-wide ad and tracking blocker. Basically, when a device sends a
+                        network request, this acts as a filter, letting normal traffic through while blocking ads and
+                        trackers. It died after the SD card went out on my Raspberry PI, and I haven't bothered to set
+                        it back up again.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/matomo.png' alt="Matomo page screenshot." />
+                <div class="card-body">
+                    <a class="text-light" href='https://jforseth.tech/matomo'>
+                        <h3>Matomo</h3>
+                    </a>
+                    <p>
+                        Matomo is a self-hosted, privacy respecting alternative to Google Analytics. It helps me keep
+                        track of how many people visit my site. It suffered the same fate as the Pi-hole
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/Messenger.png' alt="Messenger popup screenshot." />
+                <div class="card-body">
+                    <h3 class="text-light">Messenger</h3>
+
+                    <p>A simple little popup widget. No notifications, users, etc. Honestly, more like an anonymous
+                        comment box. Technically still works, just doesn't serve much purpose.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/todograve.png' alt="Todo page screenshot." />
+                <div class="card-body">
+                    <h3 class="text-light">Todo</h3>
+
+                    <p>A simple todo list I created for personal use. It's rather poorly designed, both in terms of UI,
+                        and backend. I abandoned it after realizing that Nextcloud had much better todo functionality.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/HorseshoeArt.png' alt="Horseshoe art page screenshot." />
+                <div class="card-body">
+                    <h3 class="text-light">Horseshoe Art</h3>
+
+                    <p>My brother is a welder who makes horseshoe art, which you could look at and order from here. The
+                        order form has broken completely.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/filesharing.PNG' alt="File sharing page screenshot." />
+                <div class="card-body">
+                    <h3 class="text-light">File Sharing</h3>
+
+                    <p>A simple file sharing service I created. Upload a file to the server download it on another
+                        device.
+                        All
+                        uploads are public and are wiped at midnight. Disabled after I couldn't figure out how to raise
+                        the
+                        file
+                        size limit and realized that allowing people to upload arbitrary files to my server may be a
+                        slight
+                        security concern.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/barrelracingcounter.png'
+                    alt="Barrel racing current rider widget screenshot." />
+                <div class="card-body">
+                    <h3 class="text-light">Barrel Racing Current Rider</h3>
+
+                    <p>A widget I made for a friend to help her keep track of which rider is currently up for barrel
+                        racing.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/PrayerRequests.png'
+                    alt="Prayer requests page screenshot." />
+                <div class="card-body">
+                    <h3 class="text-light">Prayer Requests</h3>
+
+                    <p>This one is too bad. One of my earliest projects was a digital prayer chain. It allowed people to
+                        anonymously send a prayer request to a list of emails and improved a lot over the course of this
+                        site's
+                        development.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex">
+            <div class="card zoom theme-element m-1 my-4 d-flex">
+                <img class='card-img-top' src='/static/welcome/account.png'
+                    alt="Account page screenshot." />
+                <div class="card-body">
+                    <h3 class="text-light">Accounts</h3>
+
+                    <p>Mostly used to prevent the general public from using personal/admin tools, it allowed for public
+                        sign ups for a time before being disabled.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+
 <footer>
     <small>More experiments and tools coming soon!</small>
-</footer>
-{% endblock %}
+</footer> {% endblock %}
+</div>

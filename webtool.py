@@ -49,10 +49,7 @@ def check_if_admin():
     Returns:
         bool -- Whether or not the user has admin access.
     """
-    if is_logged_in() and 'admin' in get_current_access(get_username()):
-        return True
-    else:
-        return False
+    return bool(is_logged_in() and 'admin' in get_current_access(get_username()))
 
 
 app.jinja_env.globals.update(check_if_admin=check_if_admin)
@@ -86,7 +83,7 @@ app.register_blueprint(videos)
 # | |  | |  __/\__ \__ \  __/ | | | (_| |  __/ |
 # |_|  |_|\___||___/___/\___|_| |_|\__, |\___|_|
 #                                  |___/
-app.register_blueprint(messenger)
+#app.register_blueprint(messenger)
 
 
 #  ____
@@ -112,7 +109,7 @@ app.register_blueprint(writer)
 # | |__| |_| | (__|   <| |_| |  ___) | | | | (_) |  __/
 # |_____\__,_|\___|_|\_\\__, | |____/|_| |_|\___/ \___|
 #                       |___/
-app.register_blueprint(lucky_shoe)
+#app.register_blueprint(lucky_shoe)
 
 
 #  _____         _
@@ -120,7 +117,7 @@ app.register_blueprint(lucky_shoe)
 #   | |/ _ \ / _` |/ _ \
 #   | | (_) | (_| | (_) |
 #   |_|\___/ \__,_|\___/
-app.register_blueprint(todo)
+#app.register_blueprint(todo)
 
 
 # ____            _   _                            _
@@ -128,7 +125,7 @@ app.register_blueprint(todo)
 # \___ \ / __/ _` | __| __/ _ \ '__/ _` |/ _ \| '__| |/ _ \/ __|
 # ___) | (_| (_| | |_| ||  __/ | | (_| | (_) | |  | |  __/\__ \
 # |____/ \___\__,_|\__|\__\___|_|  \__, |\___/|_|  |_|\___||___/
-app.register_blueprint(scattergories)
+#app.register_blueprint(scattergories)
 
 
 #   ___        _      _       _
@@ -136,7 +133,7 @@ app.register_blueprint(scattergories)
 # | | | | | | | |/ __| |/ / _` | '__/ _` \ \ /\ / /
 # | |_| | |_| | | (__|   < (_| | | | (_| |\ V  V /
 #  \__\_\\__,_|_|\___|_|\_\__,_|_|  \__,_| \_/\_/
-app.register_blueprint(quickdraw_game)
+#app.register_blueprint(quickdraw_game)
 
 
 #  ____        _ _       _           _       _
@@ -145,7 +142,7 @@ app.register_blueprint(quickdraw_game)
 # | |_) | |_| | | | | |_| | |_| | (_| | (_| | | | | | (_| |
 # |____/ \__,_|_|_|  \___/ \__,_|\__,_|\__, |_|_| |_|\__, |
 #                                       |___/         |___/
-app.register_blueprint(bull_judging)
+#app.register_blueprint(bull_judging)
 
 
 #     _       _           _
@@ -154,14 +151,14 @@ app.register_blueprint(bull_judging)
 #  / ___ \ (_| | | | | | | | | | |
 # /_/   \_\__,_|_| |_| |_|_|_| |_|
 #app.register_blueprint(admin)
-app.register_blueprint(http_forwarding)
+#app.register_blueprint(http_forwarding)
 
 #  ____                      _   ____            _
 # | __ )  __ _ _ __ _ __ ___| | |  _ \ __ _  ___(_)_ __   __ _
 # |  _ \ / _` | '__| '__/ _ \ | | |_) / _` |/ __| | '_ \ / _` |
 # | |_) | (_| | |  | | |  __/ | |  _ < (_| | (__| | | | | (_| |
 # |____/ \__,_|_|  |_|  \___|_| |_| \_\__,_|\___|_|_| |_|\__, |
-app.register_blueprint(barrel_racing)
+#app.register_blueprint(barrel_racing)
 
 
 #  _____ _ _        ____  _                _
@@ -169,7 +166,7 @@ app.register_blueprint(barrel_racing)
 # | |_  | | |/ _ \ \___ \| '_ \ / _` | '__| | '_ \ / _` |
 # |  _| | | |  __/  ___) | | | | (_| | |  | | | | | (_| |
 # |_|   |_|_|\___| |____/|_| |_|\__,_|_|  |_|_| |_|\__, |
-app.register_blueprint(file_sharing)
+#app.register_blueprint(file_sharing)
 
 
 # _     ___      _
@@ -177,7 +174,7 @@ app.register_blueprint(file_sharing)
 # | |  | | | |  / _ \
 # | |__| |_| | / ___ \
 # |_____\__\_\/_/   \_\
-app.register_blueprint(LQA)
+#app.register_blueprint(LQA)
 
 
 #  _____                       _   _                 _ _

@@ -19,20 +19,18 @@ def lucky_shoe_form_templates():
 @lucky_shoe.route("/luckyshoe/order", methods=["POST"])
 def lucky_shoe_order():
     rq = request.form.to_dict()
-    paramlist = []
-    for key, val in rq.items():
-        paramlist.append("{}: {}".format(key, val))
+    paramlist = ["{}: {}".format(key, val) for key, val in rq.items()]
     paramlist = "<br />".join(paramlist)
     if current_app.config["TESTING"]:
         print("Testing configuration detected, not sending anything")
         return paramlist
-    send_email(
-        "luckyshoe@jforseth.tech",
-        "New Horseshoe Order",
-        paramlist,
-        PROJECT_EMAIL,
-        PROJECT_PASSWORD,
-    )
+    #send_email(
+    #    "luckyshoe@jforseth.tech",
+    #    "New Horseshoe Order",
+    #    paramlist,
+    #    PROJECT_EMAIL,
+    #    PROJECT_PASSWORD,
+    #)
 
     # Your Account Sid and Auth Token from twilio.com/console
     # DANGER! This is insecure. See http://twil.io/secure
