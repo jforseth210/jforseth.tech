@@ -85,7 +85,7 @@ def signup(
 class AccountsTestCase(unittest.TestCase):
     def setUp(self):
         app.config["TESTING"] = True
-        backup("database.db")
+        backup("/var/www/jforseth.tech/database.db")
         backuptree("userdata/")
 
     @classmethod
@@ -93,7 +93,7 @@ class AccountsTestCase(unittest.TestCase):
         app.config["TESTING"] = True
 
     def tearDown(self):
-        restore("database.db")
+        restore("/var/www/jforseth.tech/database.db")
         restoretree("userdata/")
 
     @classmethod

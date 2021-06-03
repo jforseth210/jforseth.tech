@@ -11,21 +11,21 @@ messenger = Blueprint("messenger", __name__)  # Main page
 
 
 def add_message(result):
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     with conn:
         cur.execute("INSERT INTO messages VALUES(:result)", {"result": result})
 
 
 def read_messages():
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     cur.execute("SELECT * FROM messages")
     return cur.fetchall()
 
 
 def clear_messages():
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     with conn:
         cur.execute("DELETE FROM messages")

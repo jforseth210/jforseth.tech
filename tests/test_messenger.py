@@ -11,14 +11,14 @@ class MessengerTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
-        backup("database.db")
+        backup("/var/www/jforseth.tech/database.db")
 
     def tearDown(self):
         pass
 
     @classmethod
     def tearDownClass(cls):
-        restore("database.db")
+        restore("/var/www/jforseth.tech/database.db")
 
     def test_messenger_page(self):
         tester = app.test_client(self)

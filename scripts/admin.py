@@ -19,7 +19,7 @@ def get_all_from_table(table):
     Returns:
         list -- A list of cells (Probably nested?)
     """
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     cur.execute("SELECT * FROM {}".format(table))
     return cur.fetchall()

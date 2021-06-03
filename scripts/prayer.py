@@ -71,7 +71,7 @@ def check_verification_code(code):
 
 
 def add_to_mailing_list(address, parishes):
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     parishstring = "\n".join(parishes)
     if address != "testing@jforseth.tech" and not enter_tests_into_db:
@@ -107,7 +107,7 @@ def read_prayer_request_template(email, name, prayer_request, parish):
 
 
 def get_emails_from_parish(parish):
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
 
     with conn:
@@ -200,7 +200,7 @@ def unsubscribe_page():
     email = escape(request.args.get("email"))
     group = escape(request.args.get("group"))
     token = escape(request.args.get("token"))
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     if (
         check_token(token, "prayer_unsubscription")
@@ -243,7 +243,7 @@ def unsubscribe_page():
 def unsubscribe_logged_in():
     username = get_username()
     group = escape(request.args.get("group"))
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     with conn:
         cur.execute(
@@ -272,7 +272,7 @@ def add_group():
     group = PARISH_DICTIONARY.get(group)
     if group is None:
         return redirect("/account/" + username)
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     with conn:
         cur.execute(

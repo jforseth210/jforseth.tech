@@ -12,7 +12,7 @@ class LQATestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
-        backup("database.db")
+        backup("/var/www/jforseth.tech/database.db")
         backuptree("userdata/")
         signup(app.test_client())
         grant_access("testing", "lqa")
@@ -22,7 +22,7 @@ class LQATestCase(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        restore("database.db")
+        restore("/var/www/jforseth.tech/database.db")
         restoretree("userdata/")
 
     def test_lqa_no_login(self):

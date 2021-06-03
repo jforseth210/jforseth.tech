@@ -32,7 +32,7 @@ class VideoTestCase(unittest.TestCase):
     def setUpClass(cls):
         app.config["TESTING"] = True
         backup("text/videos.txt")
-        backup("database.db")
+        backup("/var/www/jforseth.tech/database.db")
         backuptree("userdata/")
         signup(app.test_client())
         grant_access("testing", "admin")
@@ -43,7 +43,7 @@ class VideoTestCase(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         restore("text/videos.txt")
-        restore("database.db")
+        restore("/var/www/jforseth.tech/database.db")
         restoretree("userdata/")
 
     def test_videos_logged_out(self):

@@ -30,7 +30,7 @@ def set_account_validity(username, validity):
         username {str} -- The username to modify
         validity {int} -- 1 for invalid, 0 for valid.
     """
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     with conn:
         cur.execute(
@@ -166,7 +166,7 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     # username = username.decode("utf-8")
     # Email verification, unless testing.
     already_verified = current_app.config["TESTING"]
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     with conn:
         cur.execute(
@@ -237,7 +237,7 @@ def delete_account(username):
         username {str} -- The username to remove.
     """
     # Delete database entry
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     # Delete UNIX user and user files.
     with conn:
@@ -270,7 +270,7 @@ def get_account(username):
     Returns:
         dict -- A dictionary with column names as keys, and account data as values.
     """
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     conn.row_factory = sqlite3.Row
     cur = conn.cursor()
 
@@ -316,7 +316,7 @@ def grant_access(username, access):
     current_access = get_current_access(username)
     if current_access is not None:
         access = ",".join(current_access) + "," + access
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     with conn:
         cur.execute(
@@ -371,7 +371,7 @@ def update_pw(current_username, new_plain_password):
     """
     # Update database.
     new_hashed_password = generate_password_hash(new_plain_password)
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     with conn:
         cur.execute(
@@ -403,7 +403,7 @@ def change_email(username, email, email_type):
         email {str} -- The new email address.
         email_type {str} -- Whether the email is a recover_email or a prayer_email.
     """
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("/var/www/jforseth.tech/database.db")
     cur = conn.cursor()
     with conn:
         cur.execute(
