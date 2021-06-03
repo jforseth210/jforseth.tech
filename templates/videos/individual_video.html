@@ -11,7 +11,7 @@
 <br />
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-10 mx-auto">
             <div class="youtube-player" data-id="{{video[1]}}"></div>
             <div class="container-fluid">
                 <h1>{{video[0]}}</h1>
@@ -21,53 +21,58 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             <p>More videos</p>
-            {% for i in videos %}
-            <div class='col-sm-10 mx-auto card zoom d-flex theme-element m-1 p-3 my-4'>
-                <a href="/videos/video/{{i[0]}}">
-                    <img src=https://img.youtube.com/vi/{{i[1]}}/0.jpg class="video_thumbnail wid100"
-                        alt="Youtube thumbnail."><br />
-                    <h3 class="main_video_title text-light">{{i[0]}}</h3><br />
-                </a>
+            <div class="container-fluid">
+                <div class="row">
+                    {% for i in videos %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 d-flex">
+                        <div class='card zoom theme-element m-1 my-4 p-2 d-flex'>
+                            <a href="/videos/video/{{i[0]}}">
+                                <img src=https://img.youtube.com/vi/{{i[1]}}/0.jpg class="card-img-top"
+                                    alt="Youtube thumbnail.">
+                                <h3 class="main_video_title text-light py-3">{{i[0]}}</h3>
+                            </a>
+                        </div>
+                    </div>
+                    {% if check_if_admin() %}
+                    <form method=post action="/videos/rename" method="POST">
+                        <input type=text value="{{ i[0]}}" name=title />
+                        <input hidden value="{{ i[1]}}" name=youtube_id />
+                        <input type=submit id=submit value="Rename" />
+                    </form>
+                    <form method=post action="/videos/updateid" method="POST">
+                        <input type=text value="{{ i[1]}}" name=new_youtube_id />
+                        <input hidden value="{{ i[1]}}" name=old_youtube_id />
+                        <input type=submit id=submit value="Update ID" />
+                    </form>
+                    <form method=post action="/videos/move" method="POST">
+                        <input hidden value='{{ i[0] }}|{{ i[1]}}' name='element' />
+                        <input hidden value='up' name=direction />
+                        <input type=submit id=submit value="Move Up" />
+                    </form>
+                    <form method=post action="/videos/deletion" method="POST">
+                        <input hidden value="{{ i[1]}}" name=youtube_id />
+                        <input type=submit id=submit value="Delete" />
+                    </form>
+                    <form method=post action="/videos/move" method="POST">
+                        <input hidden value='{{ i[0] }}|{{ i[1]}}' name='element' />
+                        <input hidden value='down' name=direction />
+                        <input type=submit id=submit value="Move Down" />
+                    </form>
+                    {% endif %}
+                    {%endfor%}
+                </div>
             </div>
-            {% if check_if_admin() %}
-            <form method=post action="/videos/rename" method="POST">
-                <input type=text value="{{ i[0]}}" name=title />
-                <input hidden value="{{ i[1]}}" name=youtube_id />
-                <input type=submit id=submit value="Rename" />
-            </form>
-            <form method=post action="/videos/updateid" method="POST">
-                <input type=text value="{{ i[1]}}" name=new_youtube_id />
-                <input hidden value="{{ i[1]}}" name=old_youtube_id />
-                <input type=submit id=submit value="Update ID" />
-            </form>
-            <form method=post action="/videos/move" method="POST">
-                <input hidden value='{{ i[0] }}|{{ i[1]}}' name='element' />
-                <input hidden value='up' name=direction />
-                <input type=submit id=submit value="Move Up" />
-            </form>
-            <form method=post action="/videos/deletion" method="POST">
-                <input hidden value="{{ i[1]}}" name=youtube_id />
-                <input type=submit id=submit value="Delete" />
-            </form>
-            <form method=post action="/videos/move" method="POST">
-                <input hidden value='{{ i[0] }}|{{ i[1]}}' name='element' />
-                <input hidden value='down' name=direction />
-                <input type=submit id=submit value="Move Down" />
-            </form>
-            {% endif %}
-            {%endfor%}
         </div>
     </div>
 </div>
 <footer>
-    <br /><small>Oh, and, in case it wasn't glaringly obvious, none of the music in these videos is my original
+    <br /><small>Oh, and, in case it wasn't obvious, none of the music in these videos is my original
         work. Most of them have credit in the description. If it doesn't email me and I'll try to track the song
         down.</small>
     <br /><small><a href='/login/?next=%2Fvideos'>Click here to enter admin mode</a></small>
-    <!--<br /><small>You are free to change or modify any of this work, with credit, for noncommercial use. If you do so, don't forget to also credit the music creator accordingly. 
-                <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a></small>
-            -->
 </footer>
 {%endblock%}
