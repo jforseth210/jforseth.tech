@@ -83,16 +83,6 @@
 
 <body class="theme-bg theme-txt">
     <!--Alerts from https://www.w3schools.com/howto/howto_js_alert.asp-->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class="alert {{category}}">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        {{message}}
-    </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
     {% block headingimage %}{% endblock %}
 <!--    <div class=container-fluid>
         <div class="row">
@@ -212,6 +202,16 @@
         </div>
     </nav>
     <br />
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert {{category}}">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
     {% block content %}
     {% endblock %}
 
