@@ -10,7 +10,7 @@ videos = Blueprint("videos", __name__)
 
 def get_videos(videotitle=None, videoid=None):
     # videotitle|videoid
-    with open("/var/www/jforseth.tech//var/www/jforseth.tech/text/videos.txt", "r") as file:
+    with open("/var/www/jforseth.tech/text/videos.txt", "r") as file:
         videos = file.readlines()
     videos = [i.replace("\n", "") for i in videos]
     videos = [i.split("|") for i in videos]
@@ -26,7 +26,7 @@ def get_videos(videotitle=None, videoid=None):
 
 def overwrite_videos(video_list):
     video_list = ["|".join(i) + "\n" for i in video_list]
-    with open("/var/www/jforseth.tech//var/www/jforseth.tech/text/videos.txt", "w") as file:
+    with open("/var/www/jforseth.tech/text/videos.txt", "w") as file:
         file.writelines(video_list)
 
 
