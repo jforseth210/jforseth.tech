@@ -21,7 +21,7 @@
 }
 
 .theme-dark-element {
-	background-color: var(--dark-element-color);
+	background-color: var(--dark-element-color) !important;
 }
 
 .theme-hover {
