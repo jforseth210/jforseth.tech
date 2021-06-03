@@ -12,14 +12,14 @@ class WelcomeTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
-        backup("text/sign_text.txt")
+        backup("/var/www/jforseth.tech/text/sign_text.txt")
 
     def tearDown(self):
         pass
 
     @classmethod
     def tearDownClass(cls):
-        restore("text/sign_text.txt")
+        restore("/var/www/jforseth.tech/text/sign_text.txt")
 
     def test_welcome_page(self):
         tester = app.test_client()
@@ -64,14 +64,14 @@ class WelcomeTestCase(unittest.TestCase):
 
         random_string = secrets.token_urlsafe(10)
 
-        with open("text/sign_text.txt", "r") as file:
+        with open("/var/www/jforseth.tech/text/sign_text.txt", "r") as file:
             original_text = file.read()
         self.assertNotEqual(original_text, random_string)
 
         response = tester.get("/sign/update", query_string=dict(text=random_string))
         self.assertEqual(200, response.status_code)
 
-        with open("text/sign_text.txt", "r") as file:
+        with open("/var/www/jforseth.tech/text/sign_text.txt", "r") as file:
             current_text = file.read()
         self.assertEqual(current_text, random_string)
 

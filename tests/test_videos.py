@@ -11,7 +11,7 @@ from webtool import app
 
 
 def choose_random_video():
-    with open("text/videos.txt") as file:
+    with open("/var/www/jforseth.tech/text/videos.txt") as file:
         videos = file.readlines()
     videos = [video.split("|") for video in videos]
     video = random.choice(videos)
@@ -19,7 +19,7 @@ def choose_random_video():
 
 
 def choose_middle_video():
-    with open("text/videos.txt") as file:
+    with open("/var/www/jforseth.tech/text/videos.txt") as file:
         videos = file.readlines()
     video = videos[round(len(videos) / 2)]
     return video
@@ -31,7 +31,7 @@ class VideoTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
-        backup("text/videos.txt")
+        backup("/var/www/jforseth.tech/text/videos.txt")
         backup("/var/www/jforseth.tech/database.db")
         backuptree("userdata/")
         signup(app.test_client())
@@ -42,7 +42,7 @@ class VideoTestCase(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        restore("text/videos.txt")
+        restore("/var/www/jforseth.tech/text/videos.txt")
         restore("/var/www/jforseth.tech/database.db")
         restoretree("userdata/")
 
@@ -50,7 +50,7 @@ class VideoTestCase(unittest.TestCase):
         tester = app.test_client()
         response = tester.get("/videos")
         self.assertIs(200, response.status_code)
-        with open("text/videos.txt") as file:
+        with open("/var/www/jforseth.tech/text/videos.txt") as file:
             videos = file.readlines()
         videos = [video.split("|")[0] for video in videos]
         for video in videos:
@@ -68,7 +68,7 @@ class VideoTestCase(unittest.TestCase):
             login(tester)
             response = tester.get("/videos")
             self.assertIs(200, response.status_code)
-            with open("text/videos.txt") as file:
+            with open("/var/www/jforseth.tech/text/videos.txt") as file:
                 videos = file.readlines()
             videos = [video.split("|")[0] for video in videos]
             for video in videos:
@@ -119,7 +119,7 @@ class VideoTestCase(unittest.TestCase):
         )
 
     def test_move_up(self):
-        with open("text/videos.txt") as file:
+        with open("/var/www/jforseth.tech/text/videos.txt") as file:
             old_video_order = file.readlines()
 
         video = choose_middle_video()
@@ -130,7 +130,7 @@ class VideoTestCase(unittest.TestCase):
                 "/videos/move", data=dict(element=video, direction="up")
             )
 
-            with open("text/videos.txt") as file:
+            with open("/var/www/jforseth.tech/text/videos.txt") as file:
                 current_video_order = file.readlines()
 
         old_index = old_video_order.index(video + "\n")
@@ -138,7 +138,7 @@ class VideoTestCase(unittest.TestCase):
         self.assertEqual(old_index - 1, current_index)
 
     def test_move_down(self):
-        with open("text/videos.txt") as file:
+        with open("/var/www/jforseth.tech/text/videos.txt") as file:
             old_video_order = file.readlines()
 
         video = choose_middle_video()
@@ -149,7 +149,7 @@ class VideoTestCase(unittest.TestCase):
                 "/videos/move", data=dict(element=video, direction="down")
             )
 
-            with open("text/videos.txt") as file:
+            with open("/var/www/jforseth.tech/text/videos.txt") as file:
                 current_video_order = file.readlines()
 
         old_index = old_video_order.index(video + "\n")

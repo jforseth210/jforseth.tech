@@ -129,7 +129,7 @@ def get_document(filename):
         ) as file:
             document = file.read()
     # except FileNotFoundError:
-    #    io.open("text/writerdocs/{}.html".format(name))
+    #    io.open("/var/www/jforseth.tech/text/writerdocs/{}.html".format(name))
     #    document=""
     except IOError:  # Python2
         io.open(
@@ -143,6 +143,6 @@ def get_document(filename):
     # files = [i for i in files if i.replace("\n", "") != filename+".html"]
     # files.insert(0, filename+".html\n")
     # files=[i.decode("utf-8") for i in files]
-    # with io.open('text/writer_file_order.txt', 'w') as file:
+    # with io.open('/var/www/jforseth.tech/text/writer_file_order.txt', 'w') as file:
     #    file.writelines(files)
     return Markup(document)

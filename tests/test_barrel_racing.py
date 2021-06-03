@@ -14,7 +14,7 @@ class BarrelRacingTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
-        backup("text/barrel_racing_current_number.txt")
+        backup("/var/www/jforseth.tech/text/barrel_racing_current_number.txt")
 
     # Replace the modified file with the original.
     def tearDown(self):
@@ -22,13 +22,13 @@ class BarrelRacingTestCase(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        restore("text/barrel_racing_current_number.txt")
+        restore("/var/www/jforseth.tech/text/barrel_racing_current_number.txt")
 
     def test_counter_displayed(self):
         tester = app.test_client(self)
         response = tester.get("/barrelracing/counter", content_type="html/text")
         self.assertTrue(b"is currently" in response.data)
-        with open("text/barrel_racing_current_number.txt", "r") as file:
+        with open("/var/www/jforseth.tech/text/barrel_racing_current_number.txt", "r") as file:
             original_value = file.read()
         self.assertTrue(original_value, str(response.data))
 
@@ -59,7 +59,7 @@ class BarrelRacingTestCase(unittest.TestCase):
             self.assertIs(200, response.status_code)
 
     def test_current_number_file_exists(self):
-        self.assertTrue(os.path.isfile("text/barrel_racing_current_number.txt"))
+        self.assertTrue(os.path.isfile("/var/www/jforseth.tech/text/barrel_racing_current_number.txt"))
 
 
 if __name__ == "__main__":

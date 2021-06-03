@@ -153,7 +153,7 @@ def verify_changed_email():
     if current_app.config["TESTING"]:
         return json.dumps([username, email, email_type, token])
 
-    with open("text/change_email_template.html") as file:
+    with open("/var/www/jforseth.tech/text/change_email_template.html") as file:
         message = file.read()
     message = message.format(
         username=username, email=email, email_type=email_type.lower(), token=token
@@ -201,7 +201,7 @@ def forgot_pw():
     username = escape(request.form.get("usernameInput"))
 
     token = generate_token(username, "password_reset")
-    with open("text/password_reset_email_template.html") as file:
+    with open("/var/www/jforseth.tech/text/password_reset_email_template.html") as file:
         message = file.read()
     message = message.format(token=token)
     if get_account(username)["recovery_email"] == email:

@@ -54,7 +54,7 @@ def generate_token(username, tokentype):
     # {
     #   tokentype:{token:user}
     # }
-    with open("text/active_tokens.json") as file:
+    with open("/var/www/jforseth.tech/text/active_tokens.json") as file:
         reset_dictionary = file.read()
     reset_dictionary = json.loads(reset_dictionary)
     reset_dictionary[tokentype][token] = username
@@ -62,7 +62,7 @@ def generate_token(username, tokentype):
     reset_dictionary = json.dumps(
         reset_dictionary, sort_keys=True, indent=4, separators=(",", ": ")
     )
-    with open("text/active_tokens.json", "w") as file:
+    with open("/var/www/jforseth.tech/text/active_tokens.json", "w") as file:
         file.write(reset_dictionary)
     return token
 
@@ -81,7 +81,7 @@ def check_token(token, tokentype):
     # {
     #   tokentype:{token:user}
     # }
-    with open("text/active_tokens.json") as file:
+    with open("/var/www/jforseth.tech/text/active_tokens.json") as file:
         valid_token_dictionary = file.read()
     valid_token_dictionary = json.loads(valid_token_dictionary)
     return token in valid_token_dictionary[tokentype]
@@ -98,7 +98,7 @@ def remove_token(token, tokentype):
     # {
     #   tokentype:{token:user}
     # }
-    with open("text/active_tokens.json") as file:
+    with open("/var/www/jforseth.tech/text/active_tokens.json") as file:
         valid_token_dictionary = file.read()
     valid_token_dictionary = json.loads(valid_token_dictionary)
     valid_token_dictionary[tokentype].pop(token)
@@ -106,7 +106,7 @@ def remove_token(token, tokentype):
     valid_token_dictionary = json.dumps(
         valid_token_dictionary, sort_keys=True, indent=4, separators=(",", ": ")
     )
-    with open("text/active_tokens.json", "w") as file:
+    with open("/var/www/jforseth.tech/text/active_tokens.json", "w") as file:
         file.write(valid_token_dictionary)
 
 
@@ -124,7 +124,7 @@ def get_user_from_token(token, tokentype):
     # {
     #   tokentype:{token:user}
     # }
-    with open("text/active_tokens.json") as file:
+    with open("/var/www/jforseth.tech/text/active_tokens.json") as file:
         valid_token_dictionary = file.read()
     valid_token_dictionary = json.loads(valid_token_dictionary)
     return valid_token_dictionary.get(tokentype).get(token, "")
@@ -138,7 +138,7 @@ def get_user_from_token(token, tokentype):
 #    Returns:
 #        str -- A five-digit string of integers.
 #    """
-#    with open('text/validcodes.txt', 'r') as file:
+#    with open('/var/www/jforseth.tech/text/validcodes.txt', 'r') as file:
 #        VALID_CODES = file.readline()
 #    random_number = random.randint(0, len(VALID_CODES)-5)
 #    code = VALID_CODES[random_number:random_number+5]
@@ -197,7 +197,7 @@ def create_account(username, password, recovery_email, prayer_groups, bad_passwo
     )
     token = generate_token(str(username), "new_account")
     # Create a verification email.
-    with open("text/account_verification_email_template.html") as file:
+    with open("/var/www/jforseth.tech/text/account_verification_email_template.html") as file:
         VERIFICATION_EMAIL_TEMPLATE = file.read()
     # Append this to the message if the user chooses a weak password:
     BAD_PW_MESSAGE = ""
@@ -348,7 +348,7 @@ def get_current_access(username):
 #    Returns:
 #        bool -- Whether or not the code is valid.
 #    """
-#    with open('text/validcodes.txt', 'r') as file:
+#    with open('/var/www/jforseth.tech/text/validcodes.txt', 'r') as file:
 #        valid_codes = file.readline()
 #
 #    if code in valid_codes:
@@ -357,7 +357,7 @@ def get_current_access(username):
 #        code_validity = False
 #    new_code = str(random.randint(10000, 99999))
 #    valid_codes = valid_codes.replace(code, new_code)
-#    with open('text/validcodes.txt', 'w') as file:
+#    with open('/var/www/jforseth.tech/text/validcodes.txt', 'w') as file:
 #        file.write(valid_codes)
 #    return code_validity
 

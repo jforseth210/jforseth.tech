@@ -7,11 +7,11 @@ from snapshot import backup, restore
 class QuickdrawTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(self):
-        backup("text/locked.txt")
+        backup("/var/www/jforseth.tech/text/locked.txt")
 
     @classmethod
     def tearDownClass(self):
-        restore("text/locked.txt")
+        restore("/var/www/jforseth.tech/text/locked.txt")
 
     def test_quickdraw_big_screen(self):
         tester = app.test_client()

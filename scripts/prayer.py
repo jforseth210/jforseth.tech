@@ -39,20 +39,20 @@ PARISH_DICTIONARY = {
 
 
 def get_verification_code():
-    with open("text/validcodes.txt", "r") as file:
+    with open("/var/www/jforseth.tech/text/validcodes.txt", "r") as file:
         VALID_CODES = file.readline()
     random_number = random.randint(0, len(VALID_CODES) - 5)
     return VALID_CODES[random_number : random_number + 5]
 
 
 def get_verification_email_template():
-    with open("text/verification_email_template.html") as file:
+    with open("/var/www/jforseth.tech/text/verification_email_template.html") as file:
         VERIFICATION_EMAIL_TEMPLATE = file.read()
     return VERIFICATION_EMAIL_TEMPLATE
 
 
 def check_verification_code(code):
-    with open("text/validcodes.txt", "r") as file:
+    with open("/var/www/jforseth.tech/text/validcodes.txt", "r") as file:
         valid_codes = file.readline()
 
     print("Code:" + code)
@@ -65,7 +65,7 @@ def check_verification_code(code):
     print("New Code:" + new_code)
     valid_codes = valid_codes.replace(code, new_code)
     print("New Valid Code List:" + valid_codes)
-    with open("text/validcodes.txt", "w") as file:
+    with open("/var/www/jforseth.tech/text/validcodes.txt", "w") as file:
         file.write(valid_codes)
     return code_validity
 
@@ -93,7 +93,7 @@ def add_to_mailing_list(address, parishes):
 
 
 def read_prayer_request_template(email, name, prayer_request, parish):
-    with open("text/prayer_request_email_template.html") as file:
+    with open("/var/www/jforseth.tech/text/prayer_request_email_template.html") as file:
         PRAYER_REQUEST_TEMPLATE = file.read()
 
     subject = "{} has sent a prayer request to {}"
@@ -180,7 +180,7 @@ def confirm_unsubscription():
     email = escape(request.args.get("email"))
     group = escape(request.args.get("group"))
     token = generate_token(email, "prayer_unsubscription")
-    with open("text/prayer_unsubscription_email_template.html") as file:
+    with open("/var/www/jforseth.tech/text/prayer_unsubscription_email_template.html") as file:
         message = file.read()
     message = message.format(email=email, group=group, token=token)
     if group == "ALL":

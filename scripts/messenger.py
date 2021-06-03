@@ -65,7 +65,7 @@ def message_stream():
 
                 yield "data: {}\n\n".format(formatted_messages[-1])
 
-    return Response(eventStream(), mimetype="text/event-stream")
+    return Response(eventStream(), mimetype="/var/www/jforseth.tech/text/event-stream")
 
 
 @messenger.route("/messenger/clear", methods=["POST", "GET"])

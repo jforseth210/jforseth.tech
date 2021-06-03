@@ -12,18 +12,18 @@ class ScattergoriesTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         app.config["TESTING"] = True
-        backup("text/currentcatergorylist.txt")
-        backup("text/allcatergorylist.txt")
-        backup("text/scattergoriescurrentletter.txt")
+        backup("/var/www/jforseth.tech/text/currentcatergorylist.txt")
+        backup("/var/www/jforseth.tech/text/allcatergorylist.txt")
+        backup("/var/www/jforseth.tech/text/scattergoriescurrentletter.txt")
 
     def tearDown(self):
         pass
 
     @classmethod
     def tearDownClass(cls):
-        restore("text/currentcatergorylist.txt")
-        restore("text/allcatergorylist.txt")
-        restore("text/scattergoriescurrentletter.txt")
+        restore("/var/www/jforseth.tech/text/currentcatergorylist.txt")
+        restore("/var/www/jforseth.tech/text/allcatergorylist.txt")
+        restore("/var/www/jforseth.tech/text/scattergoriescurrentletter.txt")
 
     def test_scattegories_main_page(self):
         tester = app.test_client()

@@ -36,7 +36,7 @@ def lqa_station(station):
 
 
 def load_lqa_temp(current_station):
-    with open("text/lqa/Station{}.html".format(current_station)) as file:
+    with open("/var/www/jforseth.tech/text/lqa/Station{}.html".format(current_station)) as file:
         station_text = Markup(file.read())
     return render_template(
         "LQA/lqa.html", station_text=station_text, choices=CHOICES[current_station]

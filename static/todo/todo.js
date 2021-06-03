@@ -23,7 +23,7 @@ function populatetasks(selectedlist = "All") {
             var task = document.createElement("li");
             //This abomination is from https://stackoverflow.com/questions/6763148/how-to-show-literal-html-script-in-a-web-page#6763171
             //It's (probably) safe because I'm running createTextNode() which is just text, never interpereted as html.
-            var unescaped = new DOMParser().parseFromString(todos[i][0], 'text/html').documentElement.textContent;
+            var unescaped = new DOMParser().parseFromString(todos[i][0], '/var/www/jforseth.tech/text/html').documentElement.textContent;
             console.log(unescaped)
             task.appendChild(document.createTextNode(unescaped));
             task.id = i;
